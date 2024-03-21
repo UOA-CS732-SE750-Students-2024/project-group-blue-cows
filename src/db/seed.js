@@ -1,15 +1,5 @@
-import { students } from "./schema.mjs";
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
-import dotenv from "dotenv";
-import * as schema from "./schema.mjs";
-
-dotenv.config();
-const sql = neon(process.env.DATABASE_URL);
-
-const db = drizzle(sql, {
-  schema,
-});
+import { students } from "./schema.js";
+import { db } from "./config.js";
 
 const main = async () => {
   try {

@@ -1,12 +1,5 @@
-import dotenv from "dotenv";
-import { drizzle } from "drizzle-orm/neon-http";
 import { migrate } from "drizzle-orm/neon-http/migrator";
-import { neon } from "@neondatabase/serverless";
-
-dotenv.config();
-const sql = neon(process.env.DATABASE_URL);
-
-const db = drizzle(sql);
+import { db } from "./config.js";
 
 const main = async () => {
   try {
