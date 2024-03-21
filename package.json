@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate:pg --schema ./src/db/schema.js --out=./src/db/migrations",
-    "db:migrate": "node ./src/db/migrate.js",
-    "db:seed": "node ./src/db/seed.js"
+    "db:migrate": "node ./src/db/migrate.mjs",
+    "db:seed": "node ./src/db/seed.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.0",
