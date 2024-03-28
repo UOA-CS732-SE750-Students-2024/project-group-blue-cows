@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:generate": "drizzle-kit generate:pg --schema ./src/db/schema.js --out=./src/db/migrations",
-    "db:migrate": "node ./src/db/migrate.mjs",
-    "db:seed": "node ./src/db/seed.mjs"
+    "db:generate": "drizzle-kit generate:pg --schema ./src/db/schema.ts --out=./src/db/migrations",
+    "db:migrate": "node -r esbuild-register ./src/db/migrate.ts",
+    "db": "drizzle-kit generate:pg --schema ./src/db/schema.ts --out=./src/db/migrations && node -r esbuild-register ./src/db/migrate.ts",
+    "db:seed": "node -r esbuild-register ./src/db/seed.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.0",

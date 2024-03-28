@@ -1,5 +1,5 @@
-import { students } from "./schema.mjs";
-import { db } from "./config.mjs";
+import { students } from "./schema";
+import { db } from "./config";
 
 const main = async () => {
   try {

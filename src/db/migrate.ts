@@ -1,5 +1,5 @@
 import { migrate } from "drizzle-orm/neon-http/migrator";
-import { db } from "./config.mjs";
+import { db } from "./config";
 
 const main = async () => {
   try {

@@ -29,8 +29,8 @@
     "src/db/seed.mjs",
     "src/db/migrate.mjs",
     "src/db/migrate.mjs",
-    "src/db/schema.mjs",
-    "src/db/schema.mjs"
+    "src/db/schema.ts",
+    "src/db/schema.ts"
   ],
   "exclude": ["node_modules"]
 }
