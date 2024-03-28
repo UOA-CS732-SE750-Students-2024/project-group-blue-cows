@@ -35,4 +35,10 @@ Additionally, there is a third script called seed.ts would automatically populat
 yarn db:seed
 ```
 
+In order to visualise the database, there are two ways that we can do it. Firstly, we can visualise the database on Neon which is the ideal way of doing it. However, to automate the process, there is a yarn script which you can run to visualise the database on your local machine using Drizzle Studio. Note that Drizzle Studio is currenty in Beta. To do this run the following yarn script.
+
+```bash
+yarn db:visualise
+```
+
 Finally, the config.ts is where the configuration file is for the neon database that allows us to export the database and perform queries against the database in drizzle syntax. To use the database and schema, visit the db.ts file inside of the src/app/lib which shows an example of how to query the database.
