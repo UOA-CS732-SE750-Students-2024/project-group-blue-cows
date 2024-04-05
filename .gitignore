@@ -16,6 +16,9 @@ out/
 # production
 /build
 
+#scripts
+/scripts/migrations
+
 # misc
 .DS_Store
 *.pem
