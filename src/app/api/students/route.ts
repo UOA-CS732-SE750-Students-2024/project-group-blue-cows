@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getStudents } from "@/app/lib/db";
+import { getStudents } from "@/gateway/db";
 
 export async function GET() {
   const students = await getStudents();

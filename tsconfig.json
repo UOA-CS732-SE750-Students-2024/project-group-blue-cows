@@ -26,11 +26,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/db/seed.mjs",
-    "src/db/migrate.mjs",
-    "src/db/migrate.mjs",
-    "src/db/schema.ts",
-    "src/db/schema.ts"
+    "scripts/db/seed.mjs",
+    "scripts/db/migrate.mjs",
+    "scripts/db/migrate.mjs",
+    "src/schemas/studentSchema.ts",
+    "src/schemas/studentSchema.ts"
   ],
   "exclude": ["node_modules"]
 }
