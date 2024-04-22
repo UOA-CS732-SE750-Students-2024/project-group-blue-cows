@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Nav from "@/components/layout/Nav";
 
 export const metadata: Metadata = {
   title: "Cowmunity",
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Nav />
         {children}
         <ToastContainer />
       </body>

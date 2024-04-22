@@ -37,7 +37,7 @@ export default function TestPage() {
   }, []);
 
   return (
-    <main>
+    <main className="h-screen grid justify-center content-center">
       <h1>Test</h1>
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>
       <Table className="w-100">
