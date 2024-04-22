@@ -1,4 +1,3 @@
-import "server-only";
 import { integer, pgTable, serial, text } from "drizzle-orm/pg-core";
 
 export default pgTable("students", {
