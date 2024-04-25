@@ -1,5 +1,4 @@
 "use client";
-import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { showToastDemo } from "@/util/toastUtils";
 import { getStudentsDemo } from "@/services/studentServices";
@@ -14,6 +13,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SignIn } from "@/components/ui/sign-in";
+import { SignOut } from "@/components/ui/sign-out";
+import { User } from "next-auth";
+import { getUser } from "@/services/authServices";
 
 // Use this page to test your components
 export default function TestPage() {
@@ -37,10 +39,23 @@ export default function TestPage() {
     getStudentsDemo().then(setStudents);
   }, []);
 
+  // Getting the auth state within a client component
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    getUser().then((session) => {
+      setUser(session?.user);
+    });
+  });
+
   return (
     <main className="h-screen grid justify-center content-center">
       <h1>Test</h1>
+      <p>{user ? "Signed in" : "Signed out"}</p>
+      <p>Name: {user?.name || "Undefined"}</p>
+      <p>Email: {user?.email || "Undefined"}</p>
       <SignIn></SignIn>
+      <SignOut></SignOut>
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>
       <Table className="w-100">
         <TableCaption>Students in the database.</TableCaption>
