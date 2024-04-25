@@ -31,7 +31,7 @@
     "scripts/db/migrate.mjs",
     "src/schemas/studentSchema.ts",
     "src/schemas/studentSchema.ts",
-    "src/pages/api/auth/[...nextauth].js"
+    "src/pages/api/auth/[...nextauth].ts"
   ],
   "exclude": ["node_modules"]
 }

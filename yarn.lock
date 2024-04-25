@@ -717,6 +717,11 @@
     protobufjs "^7.2.4"
     yargs "^17.7.2"
 
+"@hookform/resolvers@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.3.4.tgz#de9b668c2835eb06892290192de6e2a5c906229b"
+  integrity sha512-o5cgpGOuJYrd+iMKvkttOclgwRW86EsWJZZRC23prf0uU2i48Htq4PuT73AVb9ionFyZrwYEITuOFGF+BydEtQ==
+
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.14.tgz"
@@ -1034,9 +1039,17 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-slot" "1.0.2"
 
-"@radix-ui/react-slot@1.0.2", "@radix-ui/react-slot@^1.0.2":
+"@radix-ui/react-slot@1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.0.2.tgz"
+  integrity sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/react-compose-refs" "1.0.1"
+
+"@radix-ui/react-slot@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.0.2.tgz#a9ff4423eade67f501ffb32ec22064bc9d3099ab"
   integrity sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==
   dependencies:
     "@babel/runtime" "^7.13.10"
@@ -2580,7 +2593,7 @@ firebase@^10.11.0:
     "@firebase/storage-compat" "0.3.7"
     "@firebase/util" "1.9.5"
 
-firebaseui@^6.0.0, firebaseui@^6.1.0:
+firebaseui@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/firebaseui/-/firebaseui-6.1.0.tgz#a8feb91d2781342599cb8d2c79cc7553e6257612"
   integrity sha512-5WiVYVxPGMANuZKxg6KLyU1tyqIsbqf/59Zm4HrdFYwPtM5lxxB0THvgaIk4ix+hCgF0qmY89sKiktcifKzGIA==
@@ -3903,6 +3916,11 @@ react-firebaseui@^6.0.0:
   dependencies:
     firebaseui "^6.0.0"
 
+react-hook-form@^7.51.3:
+  version "7.51.3"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.51.3.tgz#7486dd2d52280b6b28048c099a98d2545931cab3"
+  integrity sha512-cvJ/wbHdhYx8aviSWh28w9ImjmVsb5Y05n1+FW786vEZQJV5STNM0pW6ujS+oiBecb0ARBxJFyAnXj9+GHXACQ==
+
 react-icons@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.1.0.tgz#9e7533cc256571a610c2a1ec8a7a143fb1222943"
@@ -4722,3 +4740,8 @@ zod@^3.20.2:
   version "3.22.4"
   resolved "https://registry.npmjs.org/zod/-/zod-3.22.4.tgz"
   integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==
+
+zod@^3.23.4:
+  version "3.23.4"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.4.tgz#c63805b2f39e10d4ab3d55eb3c8cdb472c79dfb1"
+  integrity sha512-/AtWOKbBgjzEYYQRNfoGKHObgfAZag6qUJX1VbHo2PRBgS+wfWagEY2mizjfyAPcGesrJOcx/wcl0L9WnVrHFw==

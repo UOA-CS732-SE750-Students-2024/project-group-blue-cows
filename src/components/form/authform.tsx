@@ -11,18 +11,18 @@ import React from "react";
 
 interface UserAuthProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const auth = getAuth();
-const uiConfig = {
-  signInFlow: "popup",
-  signInOptions: [GoogleAuthProvider.PROVIDER_ID],
-  callbacks: {
-    // signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-    //   // Handle sign-in success. For example, you can set the user's session and redirect to a different page.
-    //   console.log(authResult, redirectUrl);
-    //   return false; // This tells FirebaseUI not to redirect.
-    // },
-  },
-};
+// const auth = getAuth();
+// const uiConfig = {
+//   signInFlow: "popup",
+//   signInOptions: [GoogleAuthProvider.PROVIDER_ID],
+//   callbacks: {
+//     // signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+//     //   // Handle sign-in success. For example, you can set the user's session and redirect to a different page.
+//     //   console.log(authResult, redirectUrl);
+//     //   return false; // This tells FirebaseUI not to redirect.
+//     // },
+//   },
+// };
 
 export default function AuthForm({ className, ...props }: UserAuthProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -36,23 +36,23 @@ export default function AuthForm({ className, ...props }: UserAuthProps) {
     }, 3000);
   }
 
-  async function firebaseSignIn() {
-    setIsLoading(true);
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error(error);
-    }
-    setIsLoading(false);
-  }
+  // async function firebaseSignIn() {
+  //   setIsLoading(true);
+  //   const auth = getAuth();
+  //   const provider = new GoogleAuthProvider();
+  //   try {
+  //     await signInWithPopup(auth, provider);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  //   setIsLoading(false);
+  // }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
-          <div className="grid gap-1">
+          {/* <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
               Email
             </Label>
@@ -79,19 +79,22 @@ export default function AuthForm({ className, ...props }: UserAuthProps) {
               autoCorrect="off"
               disabled={isLoading}
             />
-          </div>
-          <Button disabled={isLoading}>
-            {isLoading && <IoReload className="mr-2 h-4 w-4 animate-spin" />}
-            Sign In with Email
+          </div> */}
+          <Button
+            disabled={isLoading}
+            className="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-50"
+          >
+            <img src="/google.svg" alt="Google Logo" className="w-4 h-4" />
+            Sign In with Google
           </Button>
-          <div className="relative flex justify-center text-xs uppercase">
+          {/* <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
               Or continue with
             </span>
           </div>
           <div className={cn("grid gap-6", className)} {...props}>
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
-          </div>
+          </div> */}
         </div>
       </form>
     </div>
