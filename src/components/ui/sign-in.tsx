@@ -1,10 +1,9 @@
-import { signInAction } from "@/services/authServices"
-
+import { signIn } from "next-auth/react"
 
 export function SignIn() {
   return (
     <form
-      action={() => {signInAction("google")}}
+      action={() => {signIn("google")}}
     >
       <button type="submit">Signin with Google</button>
     </form>
