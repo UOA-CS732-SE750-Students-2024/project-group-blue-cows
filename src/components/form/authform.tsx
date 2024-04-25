@@ -8,6 +8,7 @@ import { IoReload } from "react-icons/io5";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import React from "react";
+import { signIn } from "next-auth/react";
 
 interface UserAuthProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -27,30 +28,13 @@ interface UserAuthProps extends React.HTMLAttributes<HTMLDivElement> {}
 export default function AuthForm({ className, ...props }: UserAuthProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }
-
-  // async function firebaseSignIn() {
-  //   setIsLoading(true);
-  //   const auth = getAuth();
-  //   const provider = new GoogleAuthProvider();
-  //   try {
-  //     await signInWithPopup(auth, provider);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  //   setIsLoading(false);
-  // }
-
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
+      <form
+        action={() => {
+          signIn("google", { callbackUrl: "/" });
+        }}
+      >
         <div className="grid gap-2">
           {/* <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -81,20 +65,13 @@ export default function AuthForm({ className, ...props }: UserAuthProps) {
             />
           </div> */}
           <Button
+            type="submit"
             disabled={isLoading}
             className="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-50"
           >
             <img src="/google.svg" alt="Google Logo" className="w-4 h-4" />
             Sign In with Google
           </Button>
-          {/* <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
-          </div>
-          <div className={cn("grid gap-6", className)} {...props}>
-            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
-          </div> */}
         </div>
       </form>
     </div>
