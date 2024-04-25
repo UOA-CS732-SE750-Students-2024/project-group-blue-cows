@@ -1,17 +1,17 @@
-import AuthForm from "@/app/login/components/authform"
+import AuthForm from "@/app/(auth)/login/components/authform-google"
 import Link from "next/link"
 
 export default function LoginPage(){
     return(
     <div className="flex items-center justify-center min-h-screen scale-140">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] bg-gray-200 p-4 rounded-lg shadow-lg ">
             <div className="flex flex-col space-y-2 text-center">
                 <h1 className="text-2xl font-semibold tracking-tight">
-                    Create an account
+                    Sign In with Google
                 </h1>
-                <p className="text-sm text-muted-foreground">
+                {/* <p className="text-sm text-muted-foreground">
                 Enter your email below to create your account
-                </p>
+                </p> */}
             </div>
             <AuthForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
