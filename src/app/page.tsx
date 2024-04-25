@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { SignIn } from "@/components/ui/sign-in";
 
 // Use this page to test your components
 export default function TestPage() {
@@ -39,6 +40,7 @@ export default function TestPage() {
   return (
     <main className="h-screen grid justify-center content-center">
       <h1>Test</h1>
+      <SignIn></SignIn>
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>
       <Table className="w-100">
         <TableCaption>Students in the database.</TableCaption>
