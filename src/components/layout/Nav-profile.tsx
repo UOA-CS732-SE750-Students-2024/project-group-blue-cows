@@ -10,7 +10,9 @@ export default function NavProfile() {
       />
       <div>
         <p className="text-sm font-medium text-white">User Name</p>
-        <button className="text-white hover:text-blue-700">Edit Profile</button>
+        <button className="text-white hover:text-white-700">
+          Edit Profile
+        </button>
       </div>
     </div>
   );

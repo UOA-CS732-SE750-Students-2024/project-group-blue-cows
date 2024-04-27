@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Nav from "@/components/layout/Nav";
 import NavTop from "@/components/layout/Nav-top";
+import NavProfile from "@/components/layout/nav-profile";
 
 export const metadata: Metadata = {
   title: "Cowmunity",
