@@ -23,14 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex">
-        <div className="w-1/6 h-screen flex box-border">
-          <Nav />
-        </div>
-        <div className="w-5/6 ">
+      <body>
+        <div className="h-1/10 flex flex-direction-row">
           <NavTop />
-          {children}
-          <ToastContainer />
+        </div>
+        <div className="h-9/10 flex flex-direction-col">
+          <div className="w-1/6 h-screen flex box-border">
+            <Nav />
+          </div>
+          <div className="w-5/6 ">
+            {children}
+            <ToastContainer />
+          </div>
         </div>
       </body>
     </html>
