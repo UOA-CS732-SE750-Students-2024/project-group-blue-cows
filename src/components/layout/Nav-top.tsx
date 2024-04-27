@@ -18,73 +18,45 @@ import Link from "next/link";
 export default function Nav() {
   return (
     <aside className="inset-y-0 w-full flex flex-row border-r bg-blue-custom">
+      <img
+        src="/cowmunity-logo-title.svg"
+        alt="Cowmunity Logo"
+        className="scale-125 transition-all px-10"
+      />
       <TooltipProvider>
-        <nav className="flex flex-row w-full justify-between items-center gap-4 px-2 lg:py-10">
-          <span className="sr-only">Acme Inc</span>
-          <img
-            src="/cowmunity-logo-title.svg"
-            alt="Cowmunity Logo"
-            className="transition-all group-hover:scale-110"
-          />
+        <nav className="flex flex-row-reverse w-full items-center gap-4 px-2 lg:py-10">
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
               >
-                <Home className="h-5 w-5 pr-5" />
-                <span className="text-white">Dashboard</span>
+                <span className="text-white">Profile</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
+            <TooltipContent side="right">Profile</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
               >
-                <ShoppingCart className="h-5 w-5 justify-center" />
-                <span className="text-white justify-center">Orders</span>
+                <span className="text-white">Manage Clubs</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Orders</TooltipContent>
+            <TooltipContent side="right">Manage Clubs</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
               >
-                <Package className="h-5 w-5" />
-                <span className="text-white">Products</span>
+                <span className="text-white">Browse Clubs</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Products</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
-              >
-                <Users2 className="h-5 w-20" />
-                <span className="text-white">Customers</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Customers</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
-              >
-                <LineChart className="h-5 w-5" />
-                <span className="text-white">Analytics</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Analytics</TooltipContent>
+            <TooltipContent side="right">Browse Clubs</TooltipContent>
           </Tooltip>
         </nav>
       </TooltipProvider>

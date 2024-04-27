@@ -20,12 +20,6 @@ export default function Nav() {
     <aside className="inset-y-0 w-full flex flex-col border-r bg-blue-custom">
       <TooltipProvider>
         <nav className="flex flex-col w-full items-center gap-4 px-2 lg:py-10">
-          <span className="sr-only">Acme Inc</span>
-          <img
-            src="/cowmunity-logo-title.svg"
-            alt="Cowmunity Logo"
-            className="transition-all group-hover:scale-110"
-          />
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
