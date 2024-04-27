@@ -1,8 +1,9 @@
+"Use client";
 import React from "react";
 
 export default function NavProfile() {
   return (
-    <div className="flex items-center py-10">
+    <div className="flex items-center py-5">
       <img
         src="/Tristan-Midjourney.png"
         alt="User Profile"
