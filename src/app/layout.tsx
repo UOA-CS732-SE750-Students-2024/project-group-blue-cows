@@ -6,6 +6,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Nav from "@/components/layout/Nav";
+import NavTop from "@/components/layout/Nav-top";
 
 export const metadata: Metadata = {
   title: "Cowmunity",
@@ -22,10 +23,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <Nav />
-        {children}
-        <ToastContainer />
+      <body className="flex">
+        <div className="w-1/6 h-screen flex box-border">
+          <Nav />
+        </div>
+        <div className="w-5/6 ">
+          <NavTop />
+          {children}
+          <ToastContainer />
+        </div>
       </body>
     </html>
   );
