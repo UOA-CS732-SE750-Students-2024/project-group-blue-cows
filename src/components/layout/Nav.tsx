@@ -17,24 +17,23 @@ import Link from "next/link";
 
 export default function Nav() {
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+    <aside className="inset-y-0 w-full flex flex-col border-r bg-blue-custom">
       <TooltipProvider>
-        <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Link
-            href="#"
-            className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-          >
-            <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">Acme Inc</span>
-          </Link>
+        <nav className="flex flex-col w-full items-center gap-4 px-2 lg:py-10">
+          <span className="sr-only">Acme Inc</span>
+          <img
+            src="/cowmunity-logo-title.svg"
+            alt="Cowmunity Logo"
+            className="transition-all group-hover:scale-110"
+          />
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
               >
-                <Home className="h-5 w-5" />
-                <span className="sr-only">Dashboard</span>
+                <Home className="h-5 w-5 pr-5" />
+                <span className="text-white">Dashboard</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Dashboard</TooltipContent>
@@ -43,10 +42,10 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
               >
-                <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">Orders</span>
+                <ShoppingCart className="h-5 w-5 justify-center" />
+                <span className="text-white justify-center">Orders</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Orders</TooltipContent>
@@ -55,10 +54,10 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
               >
                 <Package className="h-5 w-5" />
-                <span className="sr-only">Products</span>
+                <span className="text-white">Products</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Products</TooltipContent>
@@ -67,10 +66,10 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
               >
-                <Users2 className="h-5 w-5" />
-                <span className="sr-only">Customers</span>
+                <Users2 className="h-5 w-20" />
+                <span className="text-white">Customers</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Customers</TooltipContent>
@@ -79,10 +78,10 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
               >
                 <LineChart className="h-5 w-5" />
-                <span className="sr-only">Analytics</span>
+                <span className="text-white">Analytics</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Analytics</TooltipContent>
@@ -93,10 +92,10 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
               >
                 <Settings className="h-5 w-5" />
-                <span className="sr-only">Settings</span>
+                <span className="text-white">Settings</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Settings</TooltipContent>
