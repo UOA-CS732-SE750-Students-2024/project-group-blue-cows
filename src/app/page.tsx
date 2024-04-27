@@ -40,13 +40,13 @@ export default function TestPage() {
   }, []);
 
   // Getting the auth state within a client component
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | undefined>(undefined); // if the session does not exist, user will be undefined
 
   useEffect(() => {
     getUser().then((session) => {
       setUser(session?.user);
     });
-  });
+  }, []); // empty dependency array, will only run on component mount
 
   return (
     <main className="h-screen grid justify-center content-center">

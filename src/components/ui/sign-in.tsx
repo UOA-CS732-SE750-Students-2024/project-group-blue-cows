@@ -6,7 +6,7 @@ export function SignIn() {
     <form
       action={() => {signIn("google")}}
     >
-      <button type="submit">Signin with Google</button>
+      <button type="submit">Sign In</button>
     </form>
   )
 } 
