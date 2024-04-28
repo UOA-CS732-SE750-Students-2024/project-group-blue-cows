@@ -10,6 +10,20 @@ import {
 import type { AdapterAccount } from "next-auth/adapters";
 import { randomUUID } from "crypto";
 
+// This is the user type, it is important to keep it in sync with the user schema in the authentication adapter
+// It is called AppUser to differentiate it from the User type define in Auth.js
+// The key different is that AppUser has a few more fields that are not required by Auth.js
+export interface AppUser {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: Date | null;
+  image: string | null;
+  upi: string | null;
+  student_id: string | null;
+  year_of_study: number | null;
+}
+
 // We can add more fields to user as required for additional functionality, it is only important we have everything required for MVP currently
 export const users = pgTable("user", {
   id: text("id")
@@ -47,7 +61,7 @@ export const accounts = pgTable(
     compoundKey: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
-  })
+  }),
 );
 
 export const sessions = pgTable(
@@ -66,7 +80,7 @@ export const sessions = pgTable(
     return {
       userIdIdx: index().on(table.userId),
     };
-  }
+  },
 );
 
 export const verificationTokens = pgTable(
@@ -78,5 +92,5 @@ export const verificationTokens = pgTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
+  }),
 );
