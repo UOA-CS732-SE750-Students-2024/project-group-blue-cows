@@ -14,7 +14,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
-import NavProfile from "@/components/layout/nav-profile";
+import NavProfile from "@/components/nav/Nav-profile";
+import NavBrowse from "../nav/Nav-browse";
 
 export default function Nav() {
   return (
@@ -24,15 +25,9 @@ export default function Nav() {
           <NavProfile />
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
-              >
-                <Home className="h-5 w-5 pr-5" />
-                <span className="text-white">Dashboard</span>
-              </Link>
+              <NavBrowse />
             </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
+            <TooltipContent side="right">Club Search</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
