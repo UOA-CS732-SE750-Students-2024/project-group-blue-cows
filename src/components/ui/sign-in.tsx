@@ -13,6 +13,7 @@ import {
 import { Button } from "./button";
 import { Label } from "./label";
 import { Input } from "./input";
+import { toast } from "react-toastify";
 
 export function SignIn() {
   return (
@@ -34,7 +35,18 @@ export function SignIn() {
           <Button
             type="submit"
             className="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-50 text-xl h-24 w-full"
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() => {
+              toast.info("Loading...", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              signIn("google");
+            }}
           >
             <img src="/google.svg" alt="Google Logo" className="w-8 h-8" />
             Sign In with Google
