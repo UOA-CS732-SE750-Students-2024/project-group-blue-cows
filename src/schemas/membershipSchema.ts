@@ -2,6 +2,14 @@ import { pgTable, text, serial, integer, boolean } from "drizzle-orm/pg-core";
 import clubSchema from "./clubSchema";
 import { users } from "./authSchema";
 
+export interface Membership {
+  id: number;
+  club: number;
+  user: string;
+  paid: boolean;
+  isAdmin: boolean;
+}
+
 // The fields will grow as we add additional features
 export default pgTable("memberships", {
   id: serial("id").primaryKey(),

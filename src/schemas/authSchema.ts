@@ -15,7 +15,7 @@ import { randomUUID } from "crypto";
 // The key different is that AppUser has a few more fields that are not required by Auth.js
 export interface AppUser {
   id: string;
-  name: string;
+  name: string | null;
   email: string;
   emailVerified: Date | null;
   image: string | null;
