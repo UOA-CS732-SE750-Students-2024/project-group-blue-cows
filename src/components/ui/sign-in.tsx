@@ -1,5 +1,3 @@
-import { useState } from "react";
-import AuthForm from "../form/authform";
 import { signIn } from "next-auth/react";
 import {
   Dialog,
@@ -11,8 +9,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./button";
-import { Label } from "./label";
-import { Input } from "./input";
 import { toast } from "react-toastify";
 
 export function SignIn() {
