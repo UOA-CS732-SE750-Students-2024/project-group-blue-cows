@@ -7,13 +7,13 @@ export default function NavBrowse() {
     <div>
       <h1 className="text-white">Browse Clubs</h1>
       {/* <span className="text-white justify-center capitalize">Browse Clubs</span> */}
-      <Button className="bg-blue-custom">
+      <Button className="bg-blue-custom px-0">
         <Image
           src="nav-search-icon.svg"
           width={20}
           height={20}
           alt="Search Icon"
-          className="icon mr-2"
+          className="icon mr-2 left-0"
         />
         <span className="text">Search For Clubs</span>
       </Button>

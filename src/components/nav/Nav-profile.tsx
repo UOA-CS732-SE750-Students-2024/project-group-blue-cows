@@ -7,11 +7,11 @@ export default function NavProfile() {
       <img
         src="/Tristan-Midjourney.png"
         alt="User Profile"
-        className="rounded-full w-10 h-10 mr-5"
+        className="rounded-full w-20 h-20 mr-5"
       />
       <div>
-        <p className="text-sm font-medium text-white">User Name</p>
-        <button className="text-white hover:text-white-700">
+        <p className="text-m font-medium text-white">User Name</p>
+        <button className="text-white hover:text-white-700 underline">
           Edit Profile
         </button>
       </div>
