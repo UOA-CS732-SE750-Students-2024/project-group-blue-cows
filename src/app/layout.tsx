@@ -25,10 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="h-1/10 flex flex-direction-row">
+        <div className="h-16 flex flex-direction-row">
           <NavTop />
         </div>
-        <div className="h-9/10 flex flex-direction-col">
+        <div className="h-84 flex flex-direction-col">
           <div className="w-1/6 h-screen flex box-border">
             <Nav />
           </div>

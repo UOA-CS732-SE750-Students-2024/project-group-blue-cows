@@ -14,13 +14,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
-import NavProfile from "@/components/layout/nav-profile";
+import NavProfile from "./nav-profile";
 
 export default function Nav() {
   return (
     <aside className="inset-y-0 w-full flex flex-col border-r bg-blue-custom">
       <TooltipProvider>
-        <nav className="flex flex-col w-full items-center gap-4 px-2 lg:py-10">
+        <nav className="flex flex-col w-full items-center gap-4 px-2 lg:py-5">
           <NavProfile />
           <Tooltip>
             <TooltipTrigger asChild>

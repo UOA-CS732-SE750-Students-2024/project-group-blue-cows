@@ -1,13 +1,4 @@
 import {
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  Settings,
-  ShoppingCart,
-  Users2,
-} from "lucide-react";
-import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -17,19 +8,19 @@ import Link from "next/link";
 
 export default function Nav() {
   return (
-    <aside className="inset-y-0 w-full flex flex-row border-r bg-blue-custom">
+    <aside className="flex flex-row inset-y-0 ml-auto items-center w-full bg-blue-custom">
       <img
         src="/cowmunity-logo-title.svg"
         alt="Cowmunity Logo"
-        className="scale-125 transition-all px-10"
+        className="object-scale-down pt-2 pl-8"
       />
       <TooltipProvider>
-        <nav className="flex flex-row-reverse w-full items-center gap-4 px-2 lg:py-10">
+        <nav className="flex flex-row-reverse w-full space-x-4 items-center gap-4 px-2 lg:py-10">
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-32 text-xl"
               >
                 <span className="text-white">Profile</span>
               </Link>
