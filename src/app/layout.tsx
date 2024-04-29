@@ -27,8 +27,8 @@ export default function RootLayout({
         <div className="h-16 flex flex-direction-row">
           <NavTop />
         </div>
-        <div className="h-84 flex flex-direction-col">
-          <div className="w-1/6 h-screen flex box-border">
+        <div className="flex h-[calc(100vh-4rem)] flex-direction-col">
+          <div className="w-1/6 h-full flex box-border">
             <Nav />
           </div>
           <div className="w-5/6 ">
