@@ -1,10 +1,10 @@
-import { numeric, pgTable, text, serial } from "drizzle-orm/pg-core";
+import { numeric, pgTable, text, serial} from "drizzle-orm/pg-core";
 
 export interface Club {
   id: number;
   name: string;
   description: string;
-  membership_fee: number;
+  membership_fee: string;
 }
 
 // The fields will grow as we add additional features
