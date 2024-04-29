@@ -1,3 +1,4 @@
+'use server'
 import "server-only";
 import { db } from "../config/db";
 import {eq} from 'drizzle-orm';
@@ -14,7 +15,7 @@ export type studentData = {
 }
 
 export async function getAllMembersForClub(clubId: number) {
-    return await db.select({
+    const results = await db.select({
         name: users.name, 
         email: users.email, 
         upi: users.upi, 
@@ -25,6 +26,7 @@ export async function getAllMembersForClub(clubId: number) {
     .leftJoin(users,eq(membershipSchema.user, users.id))
     .leftJoin(clubSchema, eq(membershipSchema.club, clubSchema.id))
     .where(eq(clubSchema.id,clubId)) as studentData[];
+    return results;
 }
 
 

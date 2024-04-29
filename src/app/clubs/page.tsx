@@ -1,7 +1,9 @@
-export default function ClubsPage() {
+import React from 'react'
+
+const page = () => {
   return (
-    <main>
-      <h1>Clubs</h1>
-    </main>
-  );
+    <div>page</div>
+  )
 }
+
+export default page
