@@ -15,7 +15,7 @@ export function SignIn() {
   return (
     <form
       action={() => {
-        signIn("google", { callbackUrl: "/" });
+        signIn("google");
       }}
     >
       <Dialog>
