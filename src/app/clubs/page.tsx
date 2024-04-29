@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 
 export default function ClubsPage() {
   return (
     <main className="h-full">
-      <div className="flex flex-col justify-center items-center gap-2 h-1/3 bg-[url('cow-banner.svg')] bg-cover">
-        <h2 className="text-center text-xl font-bold">Browse Clubs</h2>
+      <div className="flex flex-col justify-center items-center gap-4 h-1/3 bg-[url('cow-banner.svg')] bg-cover">
+        <h2 className="text-center text-2xl font-semibold">Browse Clubs</h2>
         <div role="doc-subtitle" className="text-center">
           Find a club that suits your interests and goals.
         </div>
@@ -23,6 +24,12 @@ export default function ClubsPage() {
             className="w-full rounded-lg pl-10"
           />
         </div>
+      </div>
+      <div className="w-full flex">
+        {/* <Form>
+          I don't know how to use shadcn forms... help! https://ui.shadcn.com/docs/components/form
+        </Form> */}
+        <div>{/* This bit should be okay */}</div>
       </div>
     </main>
   );
