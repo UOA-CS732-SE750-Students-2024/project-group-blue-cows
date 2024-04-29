@@ -19,5 +19,5 @@ export default pgTable("clubs", {
     scale: 2,
   }).notNull(), // storing a money amount of up to 99.99
   logo: varchar("logo").notNull(),
-  category: text("category").notNull().$type<"Academic and specialist" |"Sport" |"Special Interest" | "Religious and spiritual" | "Causes" |"Cultural">(),
+  category: text("category").notNull(),
 });
