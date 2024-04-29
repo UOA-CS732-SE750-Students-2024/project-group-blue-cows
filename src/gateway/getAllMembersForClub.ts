@@ -1,5 +1,3 @@
-'use server'
-import "server-only";
 import { db } from "../config/db";
 import {eq} from 'drizzle-orm';
 import { users } from "@/schemas/authSchema";

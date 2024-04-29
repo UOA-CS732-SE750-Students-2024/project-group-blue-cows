@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
+import { getAllMembers } from "@/services/clubServices";
 
   const handleData = async() => {
-    const values = await getAllMembersForClub(1);
+    const values = await getAllMembers(2);
     console.log(values)
   }
 
