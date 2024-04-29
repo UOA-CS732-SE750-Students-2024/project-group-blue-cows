@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function NavAdmin() {
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start py-2">
       <h1 className="text-white text-sm">CLUB ADMIN</h1>
     </div>
   );

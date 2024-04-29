@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function NavManage() {
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start py-2">
       <h1 className="text-white text-sm">MANAGE CLUBS</h1>
       <Button className="bg-blue-custom px-0 hover:bg-transparent">
         <Image

@@ -17,6 +17,7 @@ import Link from "next/link";
 import NavProfile from "@/components/nav/Nav-profile";
 import NavBrowse from "../nav/Nav-browse";
 import NavManage from "../nav/Nav-manage";
+import NavAdmin from "../nav/Nav-admin";
 
 export default function Nav() {
   return (
@@ -28,49 +29,19 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <NavBrowse />
             </TooltipTrigger>
-            <TooltipContent side="right">Club Search</TooltipContent>
+            <TooltipContent side="right">Club search</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <NavManage />
             </TooltipTrigger>
-            <TooltipContent side="right">Club Management</TooltipContent>
+            <TooltipContent side="right">Membership</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
-              >
-                <Package className="h-5 w-5" />
-                <span className="text-white">Products</span>
-              </Link>
+              <NavAdmin />
             </TooltipTrigger>
-            <TooltipContent side="right">Products</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
-              >
-                <Users2 className="h-5 w-20" />
-                <span className="text-white">Customers</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Customers</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
-              >
-                <LineChart className="h-5 w-5" />
-                <span className="text-white">Analytics</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Analytics</TooltipContent>
+            <TooltipContent side="right">Admin options</TooltipContent>
           </Tooltip>
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
