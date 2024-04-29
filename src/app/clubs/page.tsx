@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import { Form } from "@/components/ui/form";
+import { FilterForm } from "@/components/ui/filter-form";
 
 export default function ClubsPage() {
   return (
@@ -26,9 +26,7 @@ export default function ClubsPage() {
         </div>
       </div>
       <div className="w-full flex">
-        {/* <Form>
-          I don't know how to use shadcn forms... help! https://ui.shadcn.com/docs/components/form
-        </Form> */}
+        <FilterForm />
         <div>{/* This bit should be okay */}</div>
       </div>
     </main>
