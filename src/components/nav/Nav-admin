@@ -1,0 +1,11 @@
+import React from "react";
+import { Button } from "../ui/button";
+import Image from "next/image";
+
+export default function NavAdmin() {
+  return (
+    <div className="flex flex-col items-start">
+      <h1 className="text-white text-sm">CLUB ADMIN</h1>
+    </div>
+  );
+}
