@@ -5,8 +5,7 @@ import Image from "next/image";
 export default function NavBrowse() {
   return (
     <div>
-      <h1 className="text-white">Browse Clubs</h1>
-      {/* <span className="text-white justify-center capitalize">Browse Clubs</span> */}
+      <h1 className="text-white text-sm">BROWSE CLUBS</h1>
       <Button className="bg-blue-custom px-0">
         <Image
           src="nav-search-icon.svg"
