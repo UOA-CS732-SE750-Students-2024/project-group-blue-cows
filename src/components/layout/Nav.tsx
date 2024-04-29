@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import NavProfile from "@/components/nav/Nav-profile";
 import NavBrowse from "../nav/Nav-browse";
+import NavManage from "../nav/Nav-manage";
 
 export default function Nav() {
   return (
@@ -31,15 +32,9 @@ export default function Nav() {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-20"
-              >
-                <ShoppingCart className="h-5 w-5 justify-center" />
-                <span className="text-white justify-center">Orders</span>
-              </Link>
+              <NavManage />
             </TooltipTrigger>
-            <TooltipContent side="right">Orders</TooltipContent>
+            <TooltipContent side="right">Club Management</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>

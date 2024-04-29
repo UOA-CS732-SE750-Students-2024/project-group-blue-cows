@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function NavBrowse() {
   return (
-    <div>
+    <div className="flex flex-col items-start">
       <h1 className="text-white text-sm">BROWSE CLUBS</h1>
       <Button className="bg-blue-custom px-0">
         <Image
