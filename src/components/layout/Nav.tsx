@@ -22,7 +22,7 @@ export default function Nav() {
   return (
     <aside className="inset-y-0 w-full flex flex-col border-r bg-blue-custom">
       <TooltipProvider>
-        <nav className="flex flex-col w-full items-center gap-4 px-2 lg:py-5">
+        <nav className="flex flex-col w-full items-start gap-4 lg:px-12 lg:py-5">
           <NavProfile />
           <Tooltip>
             <TooltipTrigger asChild>
