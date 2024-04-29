@@ -24,14 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="h-16 flex flex-direction-row">
+        <div className="h-[calc(4rem)] flex flex-row sticky top-0">
           <NavTop />
         </div>
-        <div className="h-84 flex flex-direction-col">
-          <div className="w-1/6 h-screen flex box-border">
+        <div className="h-[calc(100vh-4rem)] flex flex-direction-col">
+          <div className="w-1/6 h-full flex box-border fixed">
             <Nav />
           </div>
-          <div className="w-5/6 ">
+          <div className="w-5/6 flex items-center justify-center">
             {children}
             <ToastContainer />
           </div>
