@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <html lang="en">
         <body>
           <div className="h-[calc(4rem)] flex flex-row sticky top-0">
             <NavTop />
@@ -39,7 +39,7 @@ export default function RootLayout({
             </div>
           </div>
         </body>
-      </AuthContextProvider>
-    </html>
+      </html>
+    </AuthContextProvider>
   );
 }
