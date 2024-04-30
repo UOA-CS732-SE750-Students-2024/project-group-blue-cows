@@ -32,9 +32,21 @@ const formSchema = z.object({
 export default function Page() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      membership_fee: "",
+      logo: "",
+    }
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+//  postClub(data); // 'postClub` is the function which handles the data from the form to send it to the backend
+
+  };
+
+  form.watch("category");
 
   return (
     <Form {...form}>
