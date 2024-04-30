@@ -20,6 +20,7 @@ import { AppUser, users } from "@/schemas/authSchema";
 import { postClub } from "@/services/clubServices";
 import { request } from "http";
 import { Club } from "@/schemas/clubSchema";
+import { UploadButton } from "@/util/uploadThingUtils";
 
 // Use this page to test your components
 export default function TestPage() {
@@ -53,6 +54,18 @@ export default function TestPage() {
       <p>Email: {currentUser?.email || "Undefined"}</p>
       <SignIn></SignIn>
       <SignOut></SignOut>
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>
       <Button
         onClick={() =>
