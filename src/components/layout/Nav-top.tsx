@@ -29,35 +29,35 @@ export default function Nav() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/profile"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-32 text-xl"
               >
                 <span className="text-white">Profile</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Profile</TooltipContent>
+            <TooltipContent side="bottom">Profile</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/clubs/admin"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
               >
                 <span className="text-white">Manage Clubs</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Manage Clubs</TooltipContent>
+            <TooltipContent side="bottom">Manage Clubs</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/clubs"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
               >
                 <span className="text-white">Browse Clubs</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Browse Clubs</TooltipContent>
+            <TooltipContent side="bottom">Browse Clubs</TooltipContent>
           </Tooltip>
         </nav>
       </TooltipProvider>
