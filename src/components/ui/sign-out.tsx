@@ -3,8 +3,11 @@ import { signOut } from "next-auth/react";
 
 export function SignOut() {
   return (
-    <form action={() => signOut()}>
-      <button type="submit">Sign Out</button>
-    </form>
+    <button
+      onClick={() => signOut()}
+      className="text-white hover:text-white-700 underline text-xs"
+    >
+      Sign Out
+    </button>
   );
 }

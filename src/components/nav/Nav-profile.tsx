@@ -4,6 +4,8 @@ import { authContext } from "../contexts/AuthContext";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { SignIn } from "../ui/sign-in";
+import { SignOut } from "../ui/sign-out";
+import { EditProfile } from "../ui/edit-profile";
 
 export default function NavProfile() {
   const { user, token, currentUser, login, logout } = useContext(authContext);
@@ -41,9 +43,10 @@ export default function NavProfile() {
         />
         <div>
           <p className="text-m font-medium text-white">User Name</p>
-          <button className="text-white hover:text-white-700 underline text-xs">
-            Edit Profile
-          </button>
+          <div className="flex items-center space-x-3">
+            <EditProfile />
+            <SignOut />
+          </div>
         </div>
       </div>
     );
