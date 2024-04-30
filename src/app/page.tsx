@@ -57,13 +57,16 @@ export default function TestPage() {
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
+          // File uploading demo with UploadThing
+          // res contains an array of files uploaded
+          // you can now store the url in the database
+          // see the docs for more information https://docs.uploadthing.com/
+          console.log("File uploaded: ", res[0].url);
           alert("Upload Completed");
         }}
         onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
+          // Display the error message to the user
+          alert(`ERROR! ${error.message}. You currently need to be authenticated to upload files.`);
         }}
       />
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>

@@ -4,5 +4,6 @@ import {
   generateUploadDropzone,
 } from "@uploadthing/react";
 
+// Components for UploadThing
 export const UploadButton = generateUploadButton<OurFileRouter>();
 export const UploadDropzone = generateUploadDropzone<OurFileRouter>();

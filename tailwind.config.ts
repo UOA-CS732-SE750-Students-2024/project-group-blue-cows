@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
 
+// Added withUt to style UploadThing components
 const config = withUt({
   darkMode: ["class"],
   content: [
