@@ -14,6 +14,7 @@ import {
   SelectItem,
   Select,
 } from "@/components/ui/select";
+import {Form, FormField} from "@/components/ui/form";
 
 import * as z from "zod";
 
@@ -84,16 +85,22 @@ export default function Page() {
         {errors.logo && <span>{errors.logo.message}</span>}
 
         <Select {...register("category")}>
-  <SelectTrigger aria-label="Select category">
-    {/* Display selected value here */}
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="Academic">Academic</SelectItem>
-    <SelectItem value="Sport">Sport</SelectItem>
-    <SelectItem value="Cultural">Cultural</SelectItem>
-    <SelectItem value="Other">Other</SelectItem>
-  </SelectContent>
-</Select>
+          <SelectTrigger aria-label="Select category">
+            {/* Display selected value here */}
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Academic and specialist">
+              Academic and specialist
+            </SelectItem>
+            <SelectItem value="Sport">Sport</SelectItem>
+            <SelectItem value="Special Interest">Special Interest</SelectItem>
+            <SelectItem value="Religious and spiritual">
+              Religious and spiritual
+            </SelectItem>
+            <SelectItem value="Causes">Causes</SelectItem>
+            <SelectItem value="Cultural">Cultural</SelectItem>
+          </SelectContent>
+        </Select>
         {errors.category && <span>{errors.category.message}</span>}
 
         <Button type="submit">Create Club</Button>
