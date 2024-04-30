@@ -20,7 +20,15 @@ import {
 } from "@/components/ui/select";
 
 const formSchema = z.object({
-  category: z.enum(["Academic and specialist", "Sport", "Special Interest", "Religious and spiritual", "Causes", "Cultural"]),
+  category: z.enum([
+    "All",
+    "Academic and specialist",
+    "Sport",
+    "Special Interest",
+    "Religious and spiritual",
+    "Causes",
+    "Cultural",
+  ]),
 });
 
 export function FilterForm() {
@@ -36,7 +44,10 @@ export function FilterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-3 ml-2 mt-5">
+      <form
+        onSubmit={form.handleSubmit(handleRegister)}
+        className="space-y-3 ml-2 mt-5"
+      >
         <FormField
           control={form.control}
           name="category"
@@ -47,14 +58,22 @@ export function FilterForm() {
                 <Select onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                      {/* Be aware this placeholder 'all' is different from the SelectItem 'all' */}
+                      <SelectValue placeholder="All" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Academic and specialist">Academic and specialist</SelectItem>
+                    <SelectItem value="All">All</SelectItem>
+                    <SelectItem value="Academic and specialist">
+                      Academic and specialist
+                    </SelectItem>
                     <SelectItem value="Sport">Sport</SelectItem>
-                    <SelectItem value="Special Interest">Special Interest</SelectItem>
-                    <SelectItem value="Religious and spiritual">Religious and spiritual</SelectItem>
+                    <SelectItem value="Special Interest">
+                      Special Interest
+                    </SelectItem>
+                    <SelectItem value="Religious and spiritual">
+                      Religious and spiritual
+                    </SelectItem>
                     <SelectItem value="Causes">Causes</SelectItem>
                     <SelectItem value="Cultural">Cultural</SelectItem>
                   </SelectContent>
@@ -64,9 +83,7 @@ export function FilterForm() {
             );
           }}
         />
-        <Button type="submit">
-          Filter
-        </Button>
+        <Button type="submit">Filter</Button>
       </form>
     </Form>
   );

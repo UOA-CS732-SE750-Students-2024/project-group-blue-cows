@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { FilterForm } from "@/components/ui/filter-form";
@@ -10,14 +11,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState } from "react";
+import { Club } from "@/schemas/clubSchema";
 
 export default function ClubsPage() {
-  const [clubs, setClubs] = useState();
+  const [clubs, setClubs] = useState<Club[]>([]);
+  const [searchString, setSearchString] = useState("");
+  const [filter, setFilter] = useState(null);
 
   return (
     <main className="h-full">
-      <ClubsSearch />
+      <ClubsSearch
+        searchString={searchString}
+        setSearchString={setSearchString}
+      />
       <div className="w-full flex">
         <FilterForm />
         <ClubsList />
@@ -26,7 +32,13 @@ export default function ClubsPage() {
   );
 }
 
-function ClubsSearch() {
+function ClubsSearch({
+  searchString,
+  setSearchString,
+}: {
+  searchString: string;
+  setSearchString: (arg0: string) => void;
+}) {
   return (
     <div className="flex flex-col justify-center items-center gap-4 h-1/3 bg-[url('cow-banner.svg')] bg-cover">
       <h2 className="text-center text-2xl font-semibold">Browse Clubs</h2>
@@ -45,6 +57,8 @@ function ClubsSearch() {
           type="search"
           placeholder="Search"
           className="w-full rounded-lg pl-10"
+          value={searchString}
+          onChange={(event) => setSearchString(event.target.value)}
         />
       </div>
     </div>

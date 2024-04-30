@@ -12,10 +12,3 @@ export async function getClubs(name:string, filter?: string) {
     }
     return await db.select().from(clubSchema).where(filterBuilder) as Club[]
 }
-
-export async function getClubsFiltered(name: string) {
-  return (await db
-    .select()
-    .from(clubSchema)
-    .where(sql`${clubSchema.name} LIKE ${name}%`)) as Club[];
-}
