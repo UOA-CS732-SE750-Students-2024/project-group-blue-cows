@@ -11,7 +11,7 @@ export default function ReturnButton() {
         className=" bg-blue-500 text-white"
         onClick={router.back}
       >
-        Return
+        {"< Return"}
       </Button>
     </div>
   );

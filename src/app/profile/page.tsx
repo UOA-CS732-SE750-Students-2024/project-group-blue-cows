@@ -17,7 +17,7 @@ export default async function ProfilePage() {
 
   return (
     <AuthContextProvider>
-      <main className="h-[calc(100vh-4rem)]  p-16">
+      <main className="h-[calc(100vh-4rem)] px-16 py-8">
         <div className="w-full">
           <ReturnButton />
         </div>
@@ -27,10 +27,6 @@ export default async function ProfilePage() {
         <div>
           <ProfileEditBody />
         </div>
-        <h1>Profile Page</h1>
-        <p>{session?.user ? "You are signed in" : "You are not signed in"}</p>
-        <p>Name: {session?.user?.name || "Undefined"}</p>
-        <p>Email: {session?.user?.email || "Undefined"}</p>
       </main>
     </AuthContextProvider>
   );
