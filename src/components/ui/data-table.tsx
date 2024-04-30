@@ -17,20 +17,14 @@ type TableProps<TData> = {
 export function DataTable<TData>({ table, columns }: TableProps<TData>) {
   return (
     <div>
-      <div className="rounded-md border">
-        <Table className="border border-gray-500 shadow-md">
-          <TableHeader className="border border-gray-500 shadow-md">
+      <div className="rounded-md">
+        <Table className=" shadow-md">
+          <TableHeader className=" shadow-md">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                className="border border-gray-500 shadow-md"
-                key={headerGroup.id}
-              >
+              <TableRow className=" shadow-md" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      className="border border-gray-500 shadow-md"
-                      key={header.id}
-                    >
+                    <TableHead className=" shadow-md" key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -43,7 +37,7 @@ export function DataTable<TData>({ table, columns }: TableProps<TData>) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="border border-gray-500 shadow-md">
+          <TableBody className="  shadow-md">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, index) => (
                 <TableRow
@@ -52,10 +46,7 @@ export function DataTable<TData>({ table, columns }: TableProps<TData>) {
                   className={index % 2 === 0 ? "bg-customLight" : ""}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      className="border border-gray-500 shadow-md"
-                      key={cell.id}
-                    >
+                    <TableCell className="shadow-md" key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
