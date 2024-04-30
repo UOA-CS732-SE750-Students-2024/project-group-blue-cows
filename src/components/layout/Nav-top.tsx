@@ -16,13 +16,15 @@ export default function Nav() {
         height={350}
         alt="Cowmunity Logo"
         className="object-scale-down pt-2 pl-8"
+        priority
       />
       <Image
         src="/cowmunity-spots.svg"
         width={500}
         height={400}
         alt="Cowmunity pattern for top navbar"
-        className="z-10 h-16 absolute hidden lg:block left-44 xl:left-64"
+        className="z-10 h-16 w-auto absolute hidden lg:block left-60 xl:left-72"
+        priority
       />
       <TooltipProvider>
         <nav className="flex flex-row-reverse w-full space-x-4 items-center gap-4 px-2 lg:py-10">
