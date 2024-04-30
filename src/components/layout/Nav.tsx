@@ -14,8 +14,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
-import NavProfile from "@/components/nav/Nav-profile";
-import NavBrowse from "../nav/Nav-browse";
+import NavProfile from "@/components/nav/NavProfile";
+import NavBrowse from "../nav/NavBrowse";
 
 export default function Nav() {
   return (
