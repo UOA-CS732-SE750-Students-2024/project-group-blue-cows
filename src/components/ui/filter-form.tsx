@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import {
   SelectValue,
   SelectTrigger,
@@ -58,10 +57,7 @@ export function FilterForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleRegister)}
-        className="space-y-3 ml-2 mt-5"
-      >
+      <form onSubmit={form.handleSubmit(handleRegister)}>
         <FormField
           control={form.control}
           name="category"
@@ -76,7 +72,7 @@ export function FilterForm({
                       <SelectValue placeholder="All" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="inline">
                     <SelectItem value="All">All</SelectItem>
                     <SelectItem value="Academic and specialist">
                       Academic and specialist
@@ -97,7 +93,6 @@ export function FilterForm({
             );
           }}
         />
-        <Button type="submit">Filter</Button>
       </form>
     </Form>
   );

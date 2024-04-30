@@ -23,26 +23,25 @@ export default function ClubsPage() {
 
   const updateClubsDebounced = useMemo(() => {
     return debounce((searchString) => {
-      console.log("f called")
       getAllClubs(searchString).then(setClubs);
-    }, 500)
+    }, 500);
   }, []);
 
   useEffect(() => {
     updateClubsDebounced(searchString);
   }, [updateClubsDebounced, searchString]);
 
-  console.log(clubs);
-
   return (
     <main className="h-full">
       <ClubsSearch
         searchString={searchString}
         setSearchString={setSearchString}
+        filter={filter}
+        setFilter={setFilter}
       />
       <div className="w-full flex">
-        <FilterForm filter={filter} setFilter={setFilter} />
-        <ClubsList />
+        {/*  */}
+        <ClubsList clubs={clubs} />
       </div>
     </main>
   );
@@ -51,9 +50,13 @@ export default function ClubsPage() {
 function ClubsSearch({
   searchString,
   setSearchString,
+  filter,
+  setFilter,
 }: {
   searchString: string;
   setSearchString: (arg0: string) => void;
+  filter: string | null;
+  setFilter: (arg0: string | null) => void;
 }) {
   return (
     <div className="flex flex-col justify-center items-center gap-4 h-1/3 bg-[url('cow-banner.svg')] bg-cover">
@@ -77,28 +80,37 @@ function ClubsSearch({
           onChange={(event) => setSearchString(event.target.value)}
         />
       </div>
+      {/* <FilterForm filter={filter} setFilter={setFilter} /> */}
     </div>
   );
 }
 
-function ClubsList() {
+function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <>
-      <Card>
-        <CardContent className="flex">
-          <Image
-            width={30}
-            height={30}
-            alt=""
-            src="/blue-cows.webp"
-            className="w-30 h-auto"
-          />
-          <div>
-            <h2>Title</h2>
-            <p>Text</p>
-          </div>
-        </CardContent>
-      </Card>
-    </>
+    <div className="max-w-full min-w-[50%] m-auto">
+      <h2 className="text-2xl font-semibold">Results</h2>
+      <div role="doc-subtitle" className="">
+        Displaying {clubs.length} results
+      </div>
+      {clubs.map(({ name, logo, description, category, id }) => (
+        <Card key={id} className="min-w-96">
+          <CardContent className="flex">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              width={30}
+              height={30}
+              alt=""
+              src={logo}
+              className="w-30 h-auto"
+            />
+            <div>
+              <div role="doc-subtitle">Type</div>
+              <h2>Title</h2>
+              <p>Text</p>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
   );
 }
