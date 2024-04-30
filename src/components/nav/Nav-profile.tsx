@@ -42,7 +42,9 @@ export default function NavProfile() {
           className="rounded-full mr-5"
         />
         <div>
-          <p className="text-m font-medium text-white">User Name</p>
+          <p className="text-m font-medium text-white">
+            {currentUser?.name || "Undefined"}
+          </p>
           <div className="flex items-center space-x-3">
             <EditProfile />
             <SignOut />

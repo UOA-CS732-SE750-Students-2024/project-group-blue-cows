@@ -32,7 +32,7 @@ export default function NavManage() {
           width={20}
           height={20}
           alt="Register club icon"
-          className="icon mr-2 ml-2 left-0"
+          className="icon mr-2 left-0"
         />
         <span className="text">Register a New Club</span>
       </Button>
