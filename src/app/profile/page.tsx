@@ -4,6 +4,8 @@ import ProfileHeader from "./components/ProfileHeader";
 import { Button } from "@/components/ui/button";
 import ProfileEditBody from "./components/ProfileEditBody";
 import { AuthContextProvider } from "@/components/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import ReturnButton from "@/components/nav/ReturnButton";
 
 export default async function ProfilePage() {
   // This is how you get the user's session within a server component
@@ -15,15 +17,13 @@ export default async function ProfilePage() {
 
   return (
     <AuthContextProvider>
-      <main className="h-[calc(100vh-4rem)]">
+      <main className="h-[calc(100vh-4rem)]  p-16">
         <div className="w-full">
-          <Button variant="default">Return</Button>
+          <ReturnButton />
         </div>
-
         <div className="mt-2">
           <ProfileHeader />
         </div>
-
         <div>
           <ProfileEditBody />
         </div>
