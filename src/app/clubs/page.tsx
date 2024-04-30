@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { FilterForm } from "@/components/ui/filter-form";
