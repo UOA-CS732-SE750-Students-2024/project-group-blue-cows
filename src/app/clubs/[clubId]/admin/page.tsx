@@ -20,11 +20,9 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
   
   return (
     <div className="flex h-screen">
-      <div>
         {loading ? <LoadingSpinner /> : <div className="flex justify-center items-center w-screen pl-40 pr-40 mt-10">
         <MembersTable columns={membersColumns} data={membersData} />
         </div>}
-      </div>
     </div>
   );
 }
