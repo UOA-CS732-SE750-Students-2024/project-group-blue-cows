@@ -38,20 +38,43 @@ export default function Page() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="max-w-md w-full">
-        <FormField control={form.control}
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="max-w-md w-full flex flex-col gap-4"
+      >
+        <FormField
+          control={form.control}
           name="name"
-          render={({field}) => {
-            return <FormItem>
-              <FormLabel>Club Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter club name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Club Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter club name" type="name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
           }}
         />
-        <Button type="submit" className="w-full">Create Club</Button>
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Club Description</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter club description" type="description" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <Button type="submit" className="w-full">
+          Create Club
+        </Button>
       </form>
     </Form>
   );
