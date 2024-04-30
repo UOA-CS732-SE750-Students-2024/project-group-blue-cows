@@ -2,7 +2,7 @@
 import "server-only";
 import { db } from "../config/db";
 import clubSchema, { Club } from "@/schemas/clubSchema";
-import {sql} from 'drizzle-orm';
+import { sql } from "drizzle-orm";
 
 export async function getClubs(name:string, category?: string) {
     let filterBuilder = sql<string>``;
