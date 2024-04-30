@@ -65,13 +65,45 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Club Description</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter club description" type="description" {...field} />
+                  <Input
+                    placeholder="Enter club description"
+                    type="description"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             );
           }}
         />
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Club Category</FormLabel>
+                <Select onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category for your new club" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Academic and specialist">Academic and specialist</SelectItem>
+                  <SelectItem value="Sport">Sport</SelectItem>
+                  <SelectItem value="Special Interest">Special Interest</SelectItem>
+                  <SelectItem value="Religious and spiritual">Religious and spiritual</SelectItem>
+                  <SelectItem value="Cultural">Cultural</SelectItem>
+                  <SelectItem value="Causes">Causes</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
         <Button type="submit" className="w-full">
           Create Club
         </Button>
