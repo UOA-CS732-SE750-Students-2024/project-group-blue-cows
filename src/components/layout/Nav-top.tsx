@@ -10,20 +10,27 @@ import Image from "next/image";
 export default function Nav() {
   return (
     <aside className="flex flex-row inset-y-0 ml-auto items-center w-full bg-blue-custom">
-      <Image
-        src="/cowmunity-logo-title.svg"
-        width={350}
-        height={350}
-        alt="Cowmunity Logo"
-        className="object-scale-down pt-2 pl-8"
-      />
-      <Image
-        src="/cowmunity-spots.svg"
-        width={500}
-        height={400}
-        alt="Cowmunity pattern for top navbar"
-        className="z-10 box-border"
-      />
+      <div>
+        <Link href="/">
+          <Image
+            src="/cowmunity-logo-title.svg"
+            width={400}
+            height={400}
+            alt="Cowmunity Logo"
+            className="object-scale-down pt-2 pl-8"
+          />
+        </Link>
+      </div>
+      <div className="ml-20">
+        <Image
+          src="/cowmunity-spots.svg"
+          width={500}
+          height={400}
+          alt="Cowmunity pattern for top navbar"
+          className="z-50"
+        />
+      </div>
+
       <TooltipProvider>
         <nav className="flex flex-row-reverse w-full space-x-4 items-center gap-4 px-2 lg:py-10">
           <Tooltip>
