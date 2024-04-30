@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useMemo, useState } from "react";
+import { debounce } from "lodash";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { FilterForm } from "@/components/ui/filter-form";
@@ -12,11 +14,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
+import { getAllClubs } from "@/services/clubServices";
 
 export default function ClubsPage() {
   const [clubs, setClubs] = useState<Club[]>([]);
   const [searchString, setSearchString] = useState("");
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState<string | null>(null);
+
+  const updateClubsDebounced = useMemo(() => {
+    return debounce((searchString) => {
+      console.log("f called")
+      getAllClubs(searchString).then(setClubs);
+    }, 500)
+  }, []);
+
+  useEffect(() => {
+    updateClubsDebounced(searchString);
+  }, [updateClubsDebounced, searchString]);
+
+  console.log(clubs);
 
   return (
     <main className="h-full">
@@ -25,7 +41,7 @@ export default function ClubsPage() {
         setSearchString={setSearchString}
       />
       <div className="w-full flex">
-        <FilterForm />
+        <FilterForm filter={filter} setFilter={setFilter} />
         <ClubsList />
       </div>
     </main>
@@ -70,7 +86,13 @@ function ClubsList() {
     <>
       <Card>
         <CardContent className="flex">
-          <Image width={30} height={30} alt="" src="/blue-cows.webp" />
+          <Image
+            width={30}
+            height={30}
+            alt=""
+            src="/blue-cows.webp"
+            className="w-30 h-auto"
+          />
           <div>
             <h2>Title</h2>
             <p>Text</p>

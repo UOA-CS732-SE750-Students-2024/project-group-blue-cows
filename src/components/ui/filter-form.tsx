@@ -1,6 +1,6 @@
 "use client";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
+import { ControllerRenderProps, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -31,7 +31,13 @@ const formSchema = z.object({
   ]),
 });
 
-export function FilterForm() {
+export function FilterForm({
+  filter,
+  setFilter,
+}: {
+  filter: string | null;
+  setFilter: (arg0: string | null) => void;
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -40,6 +46,14 @@ export function FilterForm() {
 
   const handleRegister = async (values: z.infer<typeof formSchema>) => {
     console.log({ values });
+  };
+
+  const handleChange = (
+    field: ControllerRenderProps<z.infer<typeof formSchema>>,
+    value: string,
+  ) => {
+    field.onChange(value);
+    setFilter(value !== "All" ? value : null);
   };
 
   return (
@@ -55,7 +69,7 @@ export function FilterForm() {
             return (
               <FormItem>
                 <FormLabel>Filter Clubs</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select onValueChange={(value) => handleChange(field, value)}>
                   <FormControl>
                     <SelectTrigger>
                       {/* Be aware this placeholder 'all' is different from the SelectItem 'all' */}
