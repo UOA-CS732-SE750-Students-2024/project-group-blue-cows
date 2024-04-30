@@ -96,20 +96,45 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Club Category</FormLabel>
                 <Select onValueChange={field.onChange}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category for your new club" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Academic and specialist">Academic and specialist</SelectItem>
-                  <SelectItem value="Sport">Sport</SelectItem>
-                  <SelectItem value="Special Interest">Special Interest</SelectItem>
-                  <SelectItem value="Religious and spiritual">Religious and spiritual</SelectItem>
-                  <SelectItem value="Cultural">Cultural</SelectItem>
-                  <SelectItem value="Causes">Causes</SelectItem>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a category for your new club" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Academic and specialist">
+                      Academic and specialist
+                    </SelectItem>
+                    <SelectItem value="Sport">Sport</SelectItem>
+                    <SelectItem value="Special Interest">
+                      Special Interest
+                    </SelectItem>
+                    <SelectItem value="Religious and spiritual">
+                      Religious and spiritual
+                    </SelectItem>
+                    <SelectItem value="Cultural">Cultural</SelectItem>
+                    <SelectItem value="Causes">Causes</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <FormField
+          control={form.control}
+          name="membership_fee"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Membership Fee</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter fee amount"
+                    type="membership_fee"
+                    {...field}
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             );
