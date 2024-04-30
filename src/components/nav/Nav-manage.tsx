@@ -1,8 +1,23 @@
-import React from "react";
+"use client";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { User } from "next-auth";
+import { getUser } from "@/services/authServices";
 
 export default function NavManage() {
+  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined); // if the session does not exist, user will be undefined
+
+  useEffect(() => {
+    getUser().then((session) => {
+      setCurrentUser(session?.user);
+    });
+  }, []); // empty dependency array, will only run on component mount
+
+  if (!currentUser) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col items-start py-2">
       <h1 className="text-white text-sm">MANAGE CLUBS</h1>

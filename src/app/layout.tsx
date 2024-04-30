@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Nav from "@/components/layout/Nav";
 import NavTop from "@/components/layout/Nav-top";
+import { AuthContextProvider } from "@/components/contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "Cowmunity",
@@ -23,20 +24,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <div className="h-[calc(4rem)] flex flex-row sticky top-0">
-          <NavTop />
-        </div>
-        <div className="h-[calc(100vh-4rem)] flex flex-direction-col">
-          <div className="w-1/6 h-full flex box-border fixed">
-            <Nav />
+      <AuthContextProvider>
+        <body>
+          <div className="h-[calc(4rem)] flex flex-row sticky top-0">
+            <NavTop />
           </div>
-          <div className="w-5/6 flex items-center justify-center">
-            {children}
-            <ToastContainer />
+          <div className="h-[calc(100vh-4rem)] flex flex-direction-col">
+            <div className="w-1/6 h-full flex box-border fixed">
+              <Nav />
+            </div>
+            <div className="w-5/6 flex items-center justify-center">
+              {children}
+              <ToastContainer />
+            </div>
           </div>
-        </div>
-      </body>
+        </body>
+      </AuthContextProvider>
     </html>
   );
 }
