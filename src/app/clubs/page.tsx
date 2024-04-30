@@ -7,11 +7,7 @@ import { Input } from "@/components/ui/input";
 import { FilterForm } from "@/components/ui/filter-form";
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  CardContent
 } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getAllClubs } from "@/services/clubServices";
@@ -87,14 +83,14 @@ function ClubsSearch({
 
 function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <div className="w-2/3 m-auto">
+    <div className="w-5/6 lg:w-2/3 m-auto">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-6">
+      <div className="mt-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
         {clubs.map(({ name, logo, description, category, id }) => (
-          <Card key={id} className="min-w-96 h-[19rem] shadow-sm shadow-slate-500">
+          <Card key={id} className="min-w-96 h-[19rem] shadow-sm shadow-slate-500 border-none">
             <CardContent className="px-8 py-5">
               <div className="flex gap-6">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

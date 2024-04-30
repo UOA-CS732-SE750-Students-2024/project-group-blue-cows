@@ -22,7 +22,7 @@ export default function Nav() {
         width={500}
         height={400}
         alt="Cowmunity pattern for top navbar"
-        className="z-10 box-border"
+        className="z-10 h-16 absolute hidden lg:block left-44 xl:left-64"
       />
       <TooltipProvider>
         <nav className="flex flex-row-reverse w-full space-x-4 items-center gap-4 px-2 lg:py-10">
