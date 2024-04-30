@@ -4,15 +4,10 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { User } from "next-auth";
 import { getUser } from "@/services/authServices";
+import { authContext } from "../contexts/AuthContext";
 
 export default function NavManage() {
-  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined); // if the session does not exist, user will be undefined
-
-  useEffect(() => {
-    getUser().then((session) => {
-      setCurrentUser(session?.user);
-    });
-  }, []); // empty dependency array, will only run on component mount
+  const { user, token, currentUser, login, logout } = useContext(authContext);
 
   if (!currentUser) {
     return null;
