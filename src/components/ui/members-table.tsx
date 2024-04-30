@@ -21,7 +21,7 @@ type MembersTableProps = {
     data: studentData[];
 }
 
-export function PatientsTable({ columns, data }: MembersTableProps) {
+export function MembersTable({ columns, data }: MembersTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []

@@ -2,7 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
 
-export const patientColumns: ColumnDef<studentData>[] = [
+export const membersColumns: ColumnDef<studentData>[] = [
   {
     accessorKey: "name",
     header: "Name",
