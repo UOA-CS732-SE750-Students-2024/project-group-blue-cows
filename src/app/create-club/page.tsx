@@ -19,7 +19,6 @@ import {Form, FormField, FormItem, FormLabel, FormMessage, FormControl} from "@/
 import * as z from "zod";
 
 const formSchema = z.object({
-  id: z.number(),
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   membership_fee: z
@@ -39,34 +38,20 @@ export default function Page() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="max-w-md w-full">
         <FormField control={form.control}
           name="name"
-          label="Club Name"
-          placeholder="Enter club name"
+          render={({field}) => {
+            return <FormItem>
+              <FormLabel>Club Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter club name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          }}
         />
-        <FormField control={form.control}
-          name="name"
-          label="Club Name"
-          placeholder="Enter club name"
-        />
-        <FormField control={form.control}
-          name="description"
-          label="Description"
-          placeholder="Enter club description"
-          as="textarea"
-        />
-        <FormField control={form.control}
-          name="membership_fee"
-          label="Membership Fee"
-          placeholder="Enter membership fee"
-          type="text"
-        />
-        <FormField control={form.control}
-          name="logo"
-          label="Logo"
-          placeholder="Upload club logo here"
-        />
+        <Button type="submit" className="w-full">Create Club</Button>
       </form>
     </Form>
   );
