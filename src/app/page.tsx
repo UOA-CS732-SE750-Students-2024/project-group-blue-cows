@@ -48,7 +48,6 @@ export default function TestPage() {
       <p>{currentUser ? "Signed in" : "Signed out"}</p>
       <p>Name: {currentUser?.name || "Undefined"}</p>
       <p>Email: {currentUser?.email || "Undefined"}</p>
-      <SignIn></SignIn>
       <SignOut></SignOut>
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>
       <Table className="w-100">

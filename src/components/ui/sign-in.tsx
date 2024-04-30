@@ -20,7 +20,9 @@ export function SignIn() {
     >
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Sign In</Button>
+          <Button variant="default" className=" bg-blue-500 text-white">
+            Sign In or Register
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

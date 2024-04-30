@@ -1,24 +1,22 @@
 "Use client";
-import { getUser } from "@/services/authServices";
-import { User } from "next-auth";
 import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../contexts/AuthContext";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { SignIn } from "../ui/sign-in";
 
 export default function NavProfile() {
-  // const [currentUser, setCurrentUser] = useState<User | undefined>(undefined); // if the session does not exist, user will be undefined
   const { user, token, currentUser, login, logout } = useContext(authContext);
 
   if (!currentUser) {
     return (
-      <div className="flex flex-col items-center py-5">
+      <div className="flex flex-col items-center py-2">
         <div>
           <Image
             src="/cowmunity-lock.svg"
             alt="Icon for user not logged-in"
-            width={80}
-            height={80}
+            width={50}
+            height={50}
           />
         </div>
         <div className="pt-2">
@@ -27,9 +25,7 @@ export default function NavProfile() {
           </p>
         </div>
         <div className="pt-2">
-          <Button variant="default" className=" bg-blue-500 text-white">
-            <span className="text">Sign in or Register</span>
-          </Button>
+          <SignIn />
         </div>
       </div>
     );
