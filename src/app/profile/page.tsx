@@ -6,6 +6,7 @@ import ProfileEditBody from "./components/ProfileEditBody";
 import { AuthContextProvider } from "@/components/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import ReturnButton from "@/components/nav/ReturnButton";
+import SubmitButton from "@/components/nav/SubmitButton";
 
 export default async function ProfilePage() {
   // This is how you get the user's session within a server component
@@ -26,6 +27,9 @@ export default async function ProfilePage() {
         </div>
         <div>
           <ProfileEditBody />
+        </div>
+        <div className="mt-4 text-right">
+          <SubmitButton />
         </div>
       </main>
     </AuthContextProvider>
