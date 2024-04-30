@@ -1,44 +1,43 @@
 "use client"; // to get react to know it's a client compponent
 
 import React, { useState } from "react";
+import { useForm } from 'react-hook-form';
 import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button"
-
 import {Textarea} from "@/components/ui/textarea" 
 
+
+
+
 export default function Page() {
-    const [clubName, setClubName] = useState("");
-    const [description, setDescription] = useState("");
-    const [membershipFee, setMembershipFee] = useState("0.00");
-    const [logo, setLogo] = useState(""); // This should be a URL or string identifier
-    const [category, setCategory] = useState("");
-  
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = data => console.log(data);
+
     return (
-      <div className="container">
-        <h1>Create Club</h1>
-        <form>
-          <Input
-            label="Club Name"
-            value={clubName}
-            onChange={(e) => setClubName(e.target.value)}
-            placeholder="Enter club name"
-            required
-          />
-          <div className="spacer"></div>
-          <Textarea
-            label="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Enter club description"
-            required
-          />
-          {/* Further input fields added here */}
-          <div className="spacer"></div>
-          <Button type="submit">Create Club</Button>
-        </form>
-      </div>
+        <div className="container">
+            <h1>Create Club</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                    label="Club Name"
+                    {...register("clubName", { required: true })}
+                    placeholder="Enter club name"
+                />
+                {errors.clubName && <span>This field is required</span>}
+                <div className="spacer"></div>
+                <Textarea
+                    label="Description"
+                    {...register("description", { required: "Description is required." })}
+                    placeholder="Enter club description"
+                />
+                {errors.description && <span>{errors.description.message}</span>}
+                <div className="spacer"></div>
+                <Button type="submit">Create Club</Button>
+            </form>
+        </div>
     );
-  }
+}
+
 
 export const config = { runtime: 'client' };
 
