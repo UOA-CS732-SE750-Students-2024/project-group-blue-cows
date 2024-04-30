@@ -92,34 +92,36 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results
       </div>
-      {clubs.map(({ name, logo, description, category, id }) => (
-        <Card key={id} className="min-w-96 mt-5 shadow-sm shadow-slate-500">
-          <CardContent className="px-6 py-4">
-            <div className="flex gap-6">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt={`${name} logo`}
-                src={logo}
-                className="w-24 h-24 rounded-2xl mt-6"
-              />
-              <div className="overflow-hidden">
-                <div
-                  role="doc-subtitle"
-                  className="text-md mb-3 line-clamp-1 text-ellipsis"
-                >
-                  {category}
+      <div className="mt-6 grid grid-cols-2 gap-6">
+        {clubs.map(({ name, logo, description, category, id }) => (
+          <Card key={id} className="min-w-96 h-[19rem] shadow-sm shadow-slate-500">
+            <CardContent className="px-8 py-5">
+              <div className="flex gap-6">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  alt={`${name} logo`}
+                  src={logo}
+                  className="w-24 h-24 rounded-2xl mt-6"
+                />
+                <div className="overflow-hidden">
+                  <div
+                    role="doc-subtitle"
+                    className="text-md mb-3 line-clamp-1 text-ellipsis"
+                  >
+                    {category}
+                  </div>
+                  <h3 className="text-3xl font-semibold text-wrap break-word line-clamp-2">
+                    {name}
+                  </h3>
                 </div>
-                <h3 className="text-3xl font-semibold text-wrap break-word line-clamp-2">
-                  {name}
-                </h3>
               </div>
-            </div>
-            <p className="mt-6 text-md text-wrap break-word line-clamp-4">
-              {description}
-            </p>
-          </CardContent>
-        </Card>
-      ))}
+              <p className="mt-6 text-md text-wrap break-word line-clamp-4">
+                {description}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
