@@ -31,7 +31,7 @@ export default function RootLayout({
           <div className="w-1/6 h-full flex box-border">
             <Nav />
           </div>
-          <div className="w-5/6 ">
+          <div className="w-5/6 overflow-auto">
             {children}
             <ToastContainer />
           </div>
