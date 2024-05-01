@@ -24,11 +24,12 @@ const formSchema = z.object({
   membership_fee: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
-  logo: z.object({
-    file: z
-      .instanceof(FileList)
-      .refine((file) => file?.length == 1, 'File is required.')
-  }),
+    logo: z.object({
+      file: z.any().refine((file) => {
+        // Ensure file is validated only in browser environment
+        return typeof FileList !== 'undefined' ? (file instanceof FileList && file?.length === 1) : true;
+      }, 'File is required.')
+    }),
   category: z.enum(["Academic and specialist", "Sport", "Special Interest", "Religious and spiritual", "Cultural", "Causes"]),
 });
 
@@ -41,7 +42,7 @@ export default function Page() {
       name: "",
       description: "",
       membership_fee: "",
-      logo: "",
+      // logo: "", // commented out because a string cannot be the default value of a file
     }
   });
 
@@ -52,6 +53,8 @@ export default function Page() {
   };
 
   form.watch("category");
+  const fileRef = form.register("file");
+
 
   return (
     <Form {...form}>
