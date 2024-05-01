@@ -3,10 +3,12 @@ import Link from "next/link";
 
 export function EditProfile() {
   return (
-    <Link href="/profile">
-      <button className="text-white hover:text-white-700 underline text-xs">
-        Edit Profile
-      </button>
-    </Link>
+    <div className="flex items-center">
+      <Link href="/profile">
+        <button className="text-white hover:text-white-700 underline text-xs  whitespace-nowrap">
+          Edit Profile
+        </button>
+      </Link>
+    </div>
   );
 }
