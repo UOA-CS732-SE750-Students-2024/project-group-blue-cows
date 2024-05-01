@@ -24,9 +24,14 @@ const formSchema = z.object({
   membership_fee: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
-  logo: z.string().min(1, "Logo is required"),
+  logo: z.object({
+    file: z
+      .instanceof(FileList)
+      .refine((file) => file?.length == 1, 'File is required.')
+  }),
   category: z.enum(["Academic and specialist", "Sport", "Special Interest", "Religious and spiritual", "Cultural", "Causes"]),
 });
+
 
 
 export default function Page() {
@@ -134,6 +139,22 @@ export default function Page() {
                     type="membership_fee"
                     {...field}
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
+        <FormField
+          control={form.control}
+          name="logo"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>File</FormLabel>
+                <FormControl>
+                  <Input type="file" placeholder="shadcn" {...fileRef} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
