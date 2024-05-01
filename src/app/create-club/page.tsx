@@ -129,10 +129,12 @@ export default function Page() {
             return (
               <FormItem>
                 <FormLabel>Club Category</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category for your new club" />
+                      {/* <SelectValue placeholder="Select a category for your new club" /> */}
+                      {field.value ? <SelectValue placeholder="Select a category for your new club" /> : "Select a category for your new club"}
+
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
