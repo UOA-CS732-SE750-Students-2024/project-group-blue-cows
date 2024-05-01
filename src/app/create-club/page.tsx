@@ -61,18 +61,22 @@ export default function Page() {
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
- postClub(values,{
-  id: "a6574eb8-7764-4198-b2b4-280cf0190669",
-  name: "Alex Hope",
-  email: "ahop089@aucklanduni.ac.nz",
-  emailVerified: new Date(),
-  image: "gdffghgd",
-  upi: "ahop",
-  year_of_study: 4,
-  student_id: "814",
-}); // 'postClub` is the function which handles the data from the form to send it to the backend
-
+    postClub(values, {
+      id: "a6574eb8-7764-4198-b2b4-280cf0190669",
+      name: "Alex Hope",
+      email: "ahop089@aucklanduni.ac.nz",
+      emailVerified: new Date(),
+      image: "gdffghgd",
+      upi: "ahop",
+      year_of_study: 4,
+      student_id: "814",
+    }).then(() => {
+      form.reset(); // Reset form fields after successful submission
+    }).catch((error) => {
+      console.error("Submission error:", error);
+    });
   };
+  
 
   form.watch("category");
   const fileRef = form.register("file");
