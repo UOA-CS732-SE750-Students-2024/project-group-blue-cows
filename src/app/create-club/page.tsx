@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { postClub } from "@/services/clubServices";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,18 +20,29 @@ import {Form, FormField, FormItem, FormLabel, FormMessage, FormControl} from "@/
 import * as z from "zod";
 
 const formSchema = z.object({
+  id: z.number(),
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   membership_fee: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
-    logo: z.object({
-      file: z.any().refine((file) => {
-        // Ensure file is validated only in browser environment
-        return typeof FileList !== 'undefined' ? (file instanceof FileList && file?.length === 1) : true;
-      }, 'File is required.')
-    }),
-  category: z.enum(["Academic and specialist", "Sport", "Special Interest", "Religious and spiritual", "Cultural", "Causes"]),
+    logo: z.string().min(1, "Logo is required"),
+  // logo: z.object({
+  //   file: z.any().refine((file) => {
+  //     // Ensure file is validated only in browser environment
+  //     return typeof FileList !== "undefined"
+  //       ? file instanceof FileList && file?.length === 1
+  //       : true;
+  //   }, "File is required."),
+  // }),
+  category: z.enum([
+    "Academic and specialist",
+    "Sport",
+    "Special Interest",
+    "Religious and spiritual",
+    "Cultural",
+    "Causes",
+  ]),
 });
 
 
@@ -39,16 +51,26 @@ export default function Page() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      id: 0,
       name: "",
       description: "",
       membership_fee: "",
-      // logo: "", // commented out because a string cannot be the default value of a file
+      logo: "",
     }
   });
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
-//  postClub(data); // 'postClub` is the function which handles the data from the form to send it to the backend
+ postClub(values,{
+  id: "a6574eb8-7764-4198-b2b4-280cf0190669",
+  name: "Alex Hope",
+  email: "ahop089@aucklanduni.ac.nz",
+  emailVerified: new Date(),
+  image: "gdffghgd",
+  upi: "ahop",
+  year_of_study: 4,
+  student_id: "814",
+}); // 'postClub` is the function which handles the data from the form to send it to the backend
 
   };
 
@@ -155,6 +177,28 @@ export default function Page() {
           render={({ field }) => {
             return (
               <FormItem>
+                <FormLabel>Dummy Input until File Upload Component</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Logo URL here"
+                    type="logo"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
+
+
+        {/* <FormField
+          control={form.control}
+          name="logo"
+          render={({ field }) => {
+            return (
+              <FormItem>
                 <FormLabel>File</FormLabel>
                 <FormControl>
                   <Input type="file" placeholder="shadcn" {...fileRef} />
@@ -163,7 +207,7 @@ export default function Page() {
               </FormItem>
             );
           }}
-        />
+        /> */}
 
         <Button type="submit" className="w-full">
           Create Club
