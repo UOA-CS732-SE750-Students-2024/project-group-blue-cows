@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postClub } from "@/services/clubServices";
+import { Card, CardContent, CardHeader, CardFooter, CardDescription, CardTitle } from "@/components/ui/card";
+
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -83,18 +85,29 @@ export default function ClubRegistrationForm() {
 
 
   return (
-    <Form {...form} className = "bg-black shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
         className="max-w-md w-full flex flex-col gap-4"
       >
+
+<Card >
+      <CardHeader>
+        <CardTitle>Create project</CardTitle>
+        <CardDescription>Deploy your new project in one-click.</CardDescription>
+      </CardHeader>
+      <CardFooter className="flex justify-between">
+        <Button variant="outline">Cancel</Button>
+        <Button>Deploy</Button>
+      </CardFooter>
+    </Card>
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Club Name</FormLabel>
+                <FormLabel className="font-bold">Club Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter club name" type="name" {...field} />
                 </FormControl>
@@ -109,7 +122,7 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Club Description</FormLabel>
+                <FormLabel className="font-bold">Club Description</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter club description"
@@ -128,7 +141,7 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Club Category</FormLabel>
+                <FormLabel className="font-bold">Club Category</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -163,7 +176,7 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Membership Fee</FormLabel>
+                <FormLabel className="font-bold">Membership Fee</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter fee amount"
