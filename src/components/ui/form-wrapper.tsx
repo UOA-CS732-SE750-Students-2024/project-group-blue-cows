@@ -18,7 +18,7 @@ interface FormWrapperProps {
 
 const FormWrapper = ({ label, title, children }: FormWrapperProps) => {
   return (
-    <Card className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/2 max-w-4xl mx-auto shadow-md">
+    <Card className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/2 max-w-4xl mx-auto shadow-md overflow-y-auto">
       <CardHeader>
         <FormHeader label={label} title={title} />
       </CardHeader>
