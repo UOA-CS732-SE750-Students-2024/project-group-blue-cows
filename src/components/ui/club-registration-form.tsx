@@ -99,9 +99,9 @@ export default function ClubRegistrationForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="max-w-md w-full flex flex-col gap-4"
+        className="w-full flex flex-col gap-4"
       >
-        <Card className="w-full">
+        <Card className="w-full bg-[#FFD166]">
           <CardHeader>
             <CardTitle>Registering a club</CardTitle>
           </CardHeader>
@@ -110,7 +110,9 @@ export default function ClubRegistrationForm() {
               To register a club on Cowlaboration, your club must already be
               approved and registered at the University of Auckland.
             </p>
-            <p>
+          </CardContent>
+          <CardFooter>
+          <p>
               If this is not the case, please first ensure that your club meets
               all the requirements listed{" "}
               <a
@@ -121,10 +123,6 @@ export default function ClubRegistrationForm() {
               </a>
               , apply to start your club, and await approval.
             </p>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button variant="outline">Cancel</Button>
-            <Button>Deploy</Button>
           </CardFooter>
         </Card>
         <FormField
@@ -251,8 +249,8 @@ export default function ClubRegistrationForm() {
           }}
         /> */}
 
-        <Button type="submit" className="w-full">
-          Create Club
+        <Button type="submit" className="w-full bg-[#087DF1] color-white uppercase">
+          Register Club on Cowmunity
         </Button>
       </form>
     </Form>

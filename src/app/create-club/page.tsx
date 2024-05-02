@@ -29,8 +29,8 @@ export default function Page() {
 
   return (
     <section className="w-full pt-20">
-      <div className="h-screen flex items-center justify-center">
-        <FormWrapper label="Create a Club" title="Maker Space">
+      <div className="h-screen flex items-center justify-center w-full">
+        <FormWrapper label="Registration Form" title="Register a Club">
           <ClubRegistrationForm />
         </FormWrapper>
       </div>
