@@ -93,9 +93,17 @@ export default function ClubRegistrationForm() {
 
 <Card >
       <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardTitle>Registering a club</CardTitle>
+        {/* <CardDescription>If this is not the case, please first ensure that your club meets all the requirements listed <a href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">here</a>, apply to start your club, and await approval.</CardDescription> */}
       </CardHeader>
+      <CardContent>
+        <p>
+        To register a club on Cowlaboration, your club must already be approved and registered at the University of Auckland.
+
+        </p>
+                <p>If this is not the case, please first ensure that your club meets all the requirements listed <a href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">here</a>, apply to start your club, and await approval.
+                </p>
+      </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Cancel</Button>
         <Button>Deploy</Button>
