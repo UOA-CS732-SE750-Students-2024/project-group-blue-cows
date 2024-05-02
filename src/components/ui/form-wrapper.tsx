@@ -1,6 +1,6 @@
-import React from "react";
+"use client";
 
-("use client");
+import React from "react";
 
 import {
   Card,
@@ -13,16 +13,12 @@ import { FormHeader } from "./form-header";
 interface FormWrapperProps {
   label: string;
   title: string;
-  backButtonHref: string;
-  backButtonLabel: string;
   children: React.ReactNode;
 }
 
 const FormWrapper = ({
   label,
   title,
-  backButtonHref,
-  backButtonLabel,
   children,
 }: FormWrapperProps) => {
   return (

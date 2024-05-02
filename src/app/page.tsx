@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { showToastDemo } from "@/util/toastUtils";
 import { getUsers } from "@/services/userServices";
@@ -20,6 +21,7 @@ import { AppUser, users } from "@/schemas/authSchema";
 import { postClub } from "@/services/clubServices";
 import { request } from "http";
 import { Club } from "@/schemas/clubSchema";
+import FormWrapper from "@/components/ui/form-wrapper";
 
 // Use this page to test your components
 export default function TestPage() {
@@ -101,6 +103,15 @@ export default function TestPage() {
           ))}
         </TableBody>
       </Table>
+
+      <FormWrapper
+      label="Create a Club"
+      title="Maker Space"
+      >
+        <div>
+          
+        </div>
+      </FormWrapper>
     </main>
   );
 }
