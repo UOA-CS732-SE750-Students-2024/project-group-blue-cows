@@ -25,7 +25,7 @@ import ClubRegistrationForm from "@/components/ui/club-registration-form";
 export default function Page() {
 
   return (
-    <ClubRegistrationForm />
+    <ClubRegistrationForm classnames="w-1/2"/>
   );
 }
 

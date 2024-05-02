@@ -83,7 +83,7 @@ export default function ClubRegistrationForm() {
 
 
   return (
-    <Form {...form}>
+    <Form {...form} className = "bg-black shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
         className="max-w-md w-full flex flex-col gap-4"
