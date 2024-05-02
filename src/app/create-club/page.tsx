@@ -26,9 +26,13 @@ import FormWrapper from "@/components/ui/form-wrapper";
 export default function Page() {
 
   return (
-    <FormWrapper label="Create a Club" title="Maker Space">
-      <ClubRegistrationForm />
-    </FormWrapper>
+    <section className="w-full">
+      <div className="h-screen flex items-center justify-center">
+        <FormWrapper label="Create a Club" title="Maker Space">
+          <ClubRegistrationForm />
+        </FormWrapper>
+      </div>
+    </section>
   );
 }
 
