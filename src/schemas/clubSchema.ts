@@ -1,4 +1,5 @@
-import { numeric, pgTable, text, serial, varchar} from "drizzle-orm/pg-core";
+import { numeric, pgTable, text, serial, varchar } from "drizzle-orm/pg-core";
+
 
 export interface Club {
   id: number;

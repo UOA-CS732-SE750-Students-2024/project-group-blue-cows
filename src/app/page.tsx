@@ -16,7 +16,10 @@ import { SignIn } from "@/components/ui/sign-in";
 import { SignOut } from "@/components/ui/sign-out";
 import { User } from "next-auth";
 import { getUser } from "@/services/authServices";
-import { AppUser } from "@/schemas/authSchema";
+import { AppUser, users } from "@/schemas/authSchema";
+import { postClub } from "@/services/clubServices";
+import { request } from "http";
+import { Club } from "@/schemas/clubSchema";
 
 // Use this page to test your components
 export default function TestPage() {
@@ -51,6 +54,32 @@ export default function TestPage() {
       <SignIn></SignIn>
       <SignOut></SignOut>
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>
+      <Button
+        onClick={() =>
+          postClub(
+            {
+              id: 0,
+              name: "SESA",
+              description: "A club for nerds",
+              membership_fee: "0.00",
+              logo: "test",
+              category: "Academic",
+            },
+            {
+              id: "a6574eb8-7764-4198-b2b4-280cf0190669",
+              name: "Alex Hope",
+              email: "ahop089@aucklanduni.ac.nz",
+              emailVerified: new Date(),
+              image: "gdffghgd",
+              upi: "ahop",
+              year_of_study: 4,
+              student_id: "814",
+            }
+          )
+        }
+      >
+        🍞
+      </Button>
       <Table className="w-100">
         <TableCaption>All users in the database.</TableCaption>
         <TableHeader>
