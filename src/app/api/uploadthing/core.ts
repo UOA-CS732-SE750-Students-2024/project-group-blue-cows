@@ -5,7 +5,7 @@ import { UploadThingError } from "uploadthing/server";
 const f = createUploadthing();
 
 // FileRouter for UploadThing
-export const ourFileRouter = {
+export const uploadThingFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
   imageUploader: f({ image: { maxFileSize: "8MB" } })
     // Set permissions and file types for this FileRoute
@@ -22,6 +22,7 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // Runs on the server after file upload
+      // TODO: remove before submission, this is just for debugging
       console.log("Upload complete for userId:", metadata.userId);
       console.log("file url", file.url);
 
@@ -30,4 +31,4 @@ export const ourFileRouter = {
     }),
 } satisfies FileRouter;
 
-export type OurFileRouter = typeof ourFileRouter;
+export type UploadThingFileRouter = typeof uploadThingFileRouter;
