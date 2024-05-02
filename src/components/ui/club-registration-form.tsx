@@ -4,8 +4,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postClub } from "@/services/clubServices";
-import { Card, CardContent, CardHeader, CardFooter, CardDescription, CardTitle } from "@/components/ui/card";
-
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardFooter,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,7 +23,14 @@ import {
   SelectItem,
   Select,
 } from "@/components/ui/select";
-import {Form, FormField, FormItem, FormLabel, FormMessage, FormControl} from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormControl,
+} from "@/components/ui/form";
 
 import * as z from "zod";
 
@@ -28,7 +41,7 @@ const formSchema = z.object({
   membership_fee: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
-    logo: z.string().min(1, "Logo is required"),
+  logo: z.string().min(1, "Logo is required"),
   // logo: z.object({
   //   file: z.any().refine((file) => {
   //     // Ensure file is validated only in browser environment
@@ -47,8 +60,6 @@ const formSchema = z.object({
   ]),
 });
 
-
-
 export default function ClubRegistrationForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,7 +69,7 @@ export default function ClubRegistrationForm() {
       description: "",
       membership_fee: "",
       logo: "",
-    }
+    },
   });
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
@@ -72,17 +83,17 @@ export default function ClubRegistrationForm() {
       upi: "ahop",
       year_of_study: 4,
       student_id: "814",
-    }).then(() => {
-      form.reset(); // Reset form fields after successful submission
-    }).catch((error) => {
-      console.error("Submission error:", error);
-    });
+    })
+      .then(() => {
+        form.reset(); // Reset form fields after successful submission
+      })
+      .catch((error) => {
+        console.error("Submission error:", error);
+      });
   };
-  
 
   form.watch("category");
   const fileRef = form.register("file");
-
 
   return (
     <Form {...form}>
@@ -90,25 +101,32 @@ export default function ClubRegistrationForm() {
         onSubmit={form.handleSubmit(handleSubmit)}
         className="max-w-md w-full flex flex-col gap-4"
       >
-
-<Card >
-      <CardHeader>
-        <CardTitle>Registering a club</CardTitle>
-        {/* <CardDescription>If this is not the case, please first ensure that your club meets all the requirements listed <a href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">here</a>, apply to start your club, and await approval.</CardDescription> */}
-      </CardHeader>
-      <CardContent>
-        <p>
-        To register a club on Cowlaboration, your club must already be approved and registered at the University of Auckland.
-
-        </p>
-                <p>If this is not the case, please first ensure that your club meets all the requirements listed <a href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">here</a>, apply to start your club, and await approval.
-                </p>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
-      </CardFooter>
-    </Card>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>Registering a club</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              To register a club on Cowlaboration, your club must already be
+              approved and registered at the University of Auckland.
+            </p>
+            <p>
+              If this is not the case, please first ensure that your club meets
+              all the requirements listed{" "}
+              <a
+                href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html"
+                className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+              >
+                here
+              </a>
+              , apply to start your club, and await approval.
+            </p>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button variant="outline">Cancel</Button>
+            <Button>Deploy</Button>
+          </CardFooter>
+        </Card>
         <FormField
           control={form.control}
           name="name"
@@ -154,8 +172,11 @@ export default function ClubRegistrationForm() {
                   <FormControl>
                     <SelectTrigger>
                       {/* <SelectValue placeholder="Select a category for your new club" /> */}
-                      {field.value ? <SelectValue placeholder="Select a category for your new club" /> : "Select a category for your new club"}
-
+                      {field.value ? (
+                        <SelectValue placeholder="Select a category for your new club" />
+                      ) : (
+                        "Select a category for your new club"
+                      )}
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -206,19 +227,13 @@ export default function ClubRegistrationForm() {
               <FormItem>
                 <FormLabel>Dummy Input until File Upload Component</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Logo URL here"
-                    type="logo"
-                    {...field}
-                  />
+                  <Input placeholder="Logo URL here" type="logo" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             );
           }}
         />
-
-
 
         {/* <FormField
           control={form.control}
@@ -243,8 +258,6 @@ export default function ClubRegistrationForm() {
     </Form>
   );
 }
-
-
 
 //Latest 'stable' version
 // export default function Page() {
@@ -285,7 +298,6 @@ export default function ClubRegistrationForm() {
 //     </div>
 //   );
 // }
-
 
 //ORIGINAL
 // export default function Page() {
