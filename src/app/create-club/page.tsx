@@ -19,13 +19,17 @@ import {Form, FormField, FormItem, FormLabel, FormMessage, FormControl} from "@/
 
 import * as z from "zod";
 import ClubRegistrationForm from "@/components/ui/club-registration-form";
+import FormWrapper from "@/components/ui/form-wrapper";
 
 
 
 export default function Page() {
 
   return (
-    <ClubRegistrationForm classnames="w-1/2"/>
+    <FormWrapper
+    
+    />
+    <ClubRegistrationForm/>
   );
 }
 
