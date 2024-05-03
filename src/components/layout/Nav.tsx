@@ -20,12 +20,7 @@ export default function Nav() {
         <TooltipProvider>
           <nav className="flex flex-col w-full items-start gap-4 lg:px-12 lg:py-5">
             <NavProfile />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <NavBrowse />
-              </TooltipTrigger>
-              <TooltipContent side="right">Club search</TooltipContent>
-            </Tooltip>
+            <NavBrowse />
             <Tooltip>
               <TooltipTrigger asChild>
                 <NavManage />

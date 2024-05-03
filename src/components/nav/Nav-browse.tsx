@@ -1,16 +1,13 @@
 import React from "react";
-import { Button } from "../ui/button";
-import Image from "next/image";
-import Link from "next/link";
 import NavTab from "./NavTab";
+import NavSection from "./NavSection";
 
 export default function NavBrowse() {
   return (
-    <div className="flex flex-col items-start py-2">
-      <h1 className="text-white text-sm">BROWSE CLUBS</h1>
+    <NavSection title="Browse Clubs" tooltip="Club Search">
       <NavTab href="/clubs" imgSrc="nav-search-icon.svg" imgAlt="Search Icon">
         Search For Clubs
       </NavTab>
-    </div>
+    </NavSection>
   );
 }
