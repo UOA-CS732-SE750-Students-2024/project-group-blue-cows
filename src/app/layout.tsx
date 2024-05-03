@@ -26,14 +26,14 @@ export default function RootLayout({
     <AuthContextProvider>
       <html lang="en">
         <body>
-          <div className="h-[calc(4rem)] flex flex-row sticky top-0">
+          <div className="h-[calc(4rem)] flex flex-row top-0 fixed">
             <NavTop />
           </div>
-          <div className="h-[calc(100vh-4rem)] flex flex-direction-col">
+          <div className="pt-[4rem] h-[calc(100vh-4rem)] flex flex-direction-col">
             <div className="w-1/6 h-full flex box-border fixed">
               <Nav />
             </div>
-            <div className="w-5/6 flex items-center justify-center">
+            <div className="w-5/6 flex items-center justify-center ml-auto overflow-auto">
               {children}
               <ToastContainer />
             </div>
