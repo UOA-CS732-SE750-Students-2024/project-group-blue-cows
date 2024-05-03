@@ -36,7 +36,7 @@ import * as z from "zod";
 
 const formSchema = z.object({
   id: z.number(),
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required").toUpperCase(),
   description: z.string().min(1, "Description is required"),
   membership_fee: z
     .string()
@@ -93,7 +93,7 @@ export default function ClubRegistrationForm() {
   };
 
   form.watch("category");
-  
+
   return (
     <Form {...form}>
       <form
