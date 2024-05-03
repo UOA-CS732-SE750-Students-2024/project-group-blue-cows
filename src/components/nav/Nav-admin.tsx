@@ -1,21 +1,47 @@
 "use client";
 import React, { useEffect } from "react";
-import { Button } from "../ui/button";
-import Image from "next/image";
-import { useContext, useState } from "react";
-import { authContext } from "../contexts/AuthContext";
-import { getUser } from "@/services/authServices";
-import { User } from "next-auth";
+import { useState } from "react";
+import NavSection from "./NavSection";
+import NavTab from "./NavTab";
+import { Club } from "@/schemas/clubSchema";
 
 export default function NavAdmin() {
-  const { user, token, currentUser, login, logout } = useContext(authContext);
+  const [clubs, setClubs] = useState<Club[]>([]);
+  useEffect(() => {
+    // Temporary until auth is set up
+    const tempClubs: Club[] = [
+      {
+        id: 1,
+        name: "Club 1",
+        logo: "/club1.png",
+        description: "Club 1",
+        membership_fee: "0",
+        category: "Sports",
+      },
+      {
+        id: 2,
+        name: "Club 2",
+        logo: "/club2.png",
+        description: "Club 2",
+        membership_fee: "0",
+        category: "Sports",
+      },
+    ];
+    Promise.resolve(tempClubs).then(setClubs);
+  }, []);
 
-  if (!currentUser) {
-    return null;
-  }
   return (
-    <div className="flex flex-col items-start py-2">
-      <h1 className="text-white text-sm">CLUB ADMIN</h1>
-    </div>
+    <NavSection title="Admin" tooltip="Clubs you're an admin of">
+      {clubs.map(({ id, name, logo }) => (
+        <NavTab
+          key={id}
+          href={`/clubs/${id}`}
+          imgSrc={logo}
+          imgAlt={`${name} Icon`}
+        >
+          {name}
+        </NavTab>
+      ))}
+    </NavSection>
   );
 }
