@@ -93,8 +93,7 @@ export default function ClubRegistrationForm() {
   };
 
   form.watch("category");
-  const fileRef = form.register("file");
-
+  
   return (
     <Form {...form}>
       <form
