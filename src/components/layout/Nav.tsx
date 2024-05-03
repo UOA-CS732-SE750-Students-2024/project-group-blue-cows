@@ -10,7 +10,7 @@ import Link from "next/link";
 import NavProfile from "@/components/nav/Nav-profile";
 import NavBrowse from "../nav/Nav-browse";
 import NavManage from "../nav/Nav-manage";
-import NavAdmin from "../nav/Nav-admin";
+import NavShortcut from "../nav/NavShortcut";
 import { AuthContextProvider } from "../contexts/AuthContext";
 
 export default function Nav() {
@@ -20,12 +20,7 @@ export default function Nav() {
         <TooltipProvider>
           <nav className="flex flex-col w-full items-start gap-4 lg:px-12 lg:py-5">
             <NavProfile />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <NavBrowse />
-              </TooltipTrigger>
-              <TooltipContent side="right">Club search</TooltipContent>
-            </Tooltip>
+            <NavBrowse />
             <Tooltip>
               <TooltipTrigger asChild>
                 <NavManage />
@@ -34,7 +29,7 @@ export default function Nav() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <NavAdmin />
+                <NavShortcut />
               </TooltipTrigger>
               <TooltipContent side="right">Admin options</TooltipContent>
             </Tooltip>
