@@ -51,6 +51,7 @@ export function FilterForm({
     field: ControllerRenderProps<z.infer<typeof formSchema>>,
     value: string,
   ) => {
+    console.log(value)
     field.onChange(value);
     setFilter(value !== "All" ? value : null);
   };

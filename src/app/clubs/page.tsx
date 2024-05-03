@@ -18,14 +18,14 @@ export default function ClubsPage() {
   const [filter, setFilter] = useState<string | null>(null);
 
   const updateClubsDebounced = useMemo(() => {
-    return debounce((searchString) => {
-      getAllClubs(searchString).then(setClubs);
+    return debounce(async (searchString) => {
+      await getAllClubs(searchString, filter).then(setClubs);
     }, 500);
-  }, []);
+  }, [filter]);
 
   useEffect(() => {
     updateClubsDebounced(searchString);
-  }, [updateClubsDebounced, searchString]);
+  }, [updateClubsDebounced, searchString, filter]);
 
   return (
     <main className="h-full">
@@ -76,7 +76,7 @@ function ClubsSearch({
           onChange={(event) => setSearchString(event.target.value)}
         />
       </div>
-      {/* <FilterForm filter={filter} setFilter={setFilter} /> */}
+      <FilterForm filter={filter} setFilter={setFilter} /> 
     </div>
   );
 }
