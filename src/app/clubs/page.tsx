@@ -5,10 +5,7 @@ import { debounce } from "lodash";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { FilterForm } from "@/components/ui/filter-form";
-import {
-  Card,
-  CardContent
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getAllClubs } from "@/services/clubServices";
 
@@ -55,7 +52,7 @@ function ClubsSearch({
   setFilter: (arg0: string | null) => void;
 }) {
   return (
-    <div className="flex flex-col justify-center items-center gap-5 h-[30%] bg-[url('cow-banner.svg')] bg-cover">
+    <div className="flex flex-col justify-center items-center gap-5 bg-[url('cow-banner.svg')] bg-cover">
       <h2 className="text-center text-4xl font-semibold">Browse Clubs</h2>
       <div role="doc-subtitle" className="text-center text-lg">
         Find a club that suits your interests and goals.
@@ -76,7 +73,7 @@ function ClubsSearch({
           onChange={(event) => setSearchString(event.target.value)}
         />
       </div>
-      <FilterForm filter={filter} setFilter={setFilter} /> 
+      <FilterForm filter={filter} setFilter={setFilter} />
     </div>
   );
 }
@@ -90,7 +87,10 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
       </div>
       <div className="mt-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
         {clubs.map(({ name, logo, description, category, id }) => (
-          <Card key={id} className="min-w-96 h-[19rem] shadow-sm shadow-slate-500 border-none">
+          <Card
+            key={id}
+            className="min-w-96 h-[19rem] shadow-sm shadow-slate-500 border-none"
+          >
             <CardContent className="px-8 py-5">
               <div className="flex gap-6">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
