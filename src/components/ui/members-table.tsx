@@ -15,11 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { DataTable } from "./data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
+import { Button } from "./button";
 
 type MembersTableProps = {
-    columns: ColumnDef<studentData>[];
-    data: studentData[];
-}
+  columns: ColumnDef<studentData>[];
+  data: studentData[];
+};
 
 export function MembersTable({ columns, data }: MembersTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -51,24 +52,37 @@ export function MembersTable({ columns, data }: MembersTableProps) {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="shadow-md max-w-sm"
-        />
-        <Input
-          placeholder="Filter upi..."
-          value={(table.getColumn("upi")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => {
-            table.getColumn("upi")?.setFilterValue(event.target.value);
-          }}
-          className="shadow-md max-w-sm"
-        />
+      <div className="flex items-center">
+        <div className="flex-1">
+          <h2>WDCC Members</h2>
+        </div>
+        <div className="flex-1">
+          <Button className="bg-customAccent text-black">Export Data</Button>
+        </div>
       </div>
+      <div className="flex items-center">
+        <div className="flex-1">
+          <Input
+            placeholder="Filter by name..."
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="shadow-md"
+          />
+        </div>
+        <div className="flex-1">
+          <Input
+            placeholder="Filter by UPI..."
+            value={(table.getColumn("upi")?.getFilterValue() as string) ?? ""}
+            onChange={(event) => {
+              table.getColumn("upi")?.setFilterValue(event.target.value);
+            }}
+            className="shadow-md"
+          />
+        </div>
+      </div>
+
       <DataTable table={table} columns={columns} />
     </div>
   );

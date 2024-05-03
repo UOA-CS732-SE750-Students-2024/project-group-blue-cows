@@ -8,23 +8,25 @@ import { useEffect, useState } from "react";
 
 export default function AdminPage({ params }: { params: { clubId: string } }) {
   const [membersData, setMembersData] = useState<studentData[]>([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const getData = async() => {
+    const getData = async () => {
       const data = await getAllMembers(Number(params.clubId));
       setMembersData(data);
-      setLoading(false)
-    }
+      setLoading(false);
+    };
     getData();
-  },[])
-  
+  }, []);
+
   return (
     <div className="flex h-screen">
-      <div>
-        {loading ? <LoadingSpinner /> : <div className="flex justify-center items-center w-screen pl-40 pr-40 mt-10">
-        <MembersTable columns={membersColumns} data={membersData} />
-        </div>}
-      </div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="flex justify-center items-center w-screen pl-40 pr-40 mt-5">
+          <MembersTable columns={membersColumns} data={membersData} />
+        </div>
+      )}
     </div>
   );
 }
