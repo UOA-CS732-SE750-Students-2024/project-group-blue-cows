@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";
+import { useSession } from "next-auth/react";
+import { AppUser } from "@/schemas/authSchema";
 
 interface NavSectionProps {
   children: ReactNode;
@@ -14,8 +16,12 @@ export default function NavSection({
   tooltip,
   loggedInOnly = false,
 }: NavSectionProps) {
-  // const { currentUser } = useAuth(); // Need Luca to set up auth first
-  // if (loggedInOnly && !currentUser) return null;
+  const session = useSession();
+  const user = session.data?.user as AppUser;
+
+  if (loggedInOnly && !user) {
+    return null;
+  }
 
   return (
     <Tooltip>
