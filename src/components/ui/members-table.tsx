@@ -54,13 +54,12 @@ export function MembersTable({ columns, data }: MembersTableProps) {
     <div className="w-full">
       <div className="flex items-center">
         <div className="flex-1">
-          <h2>WDCC Members</h2>
-        </div>
-        <div className="flex-1">
-          <Button className="bg-customAccent text-black">Export Data</Button>
+          <h2 className=" text-4xl font-extrabold">WDCC Members</h2>
+          {/* TODO -
+          REPLACE HEADER WITH RELEVANT CLUB NAME FROM API */}
         </div>
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center space-x-2">
         <div className="flex-1">
           <Input
             placeholder="Filter by name..."
@@ -80,6 +79,9 @@ export function MembersTable({ columns, data }: MembersTableProps) {
             }}
             className="shadow-md"
           />
+        </div>
+        <div className="flex">
+          <Button className="bg-customAccent text-black">Export Data</Button>
         </div>
       </div>
 

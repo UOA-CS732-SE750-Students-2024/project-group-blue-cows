@@ -18,6 +18,7 @@ export default function Nav() {
             height={400}
             alt="Cowmunity Logo"
             className="object-scale-down pt-2 pl-8"
+            priority
           />
         </Link>
       </div>
@@ -28,9 +29,9 @@ export default function Nav() {
           height={400}
           alt="Cowmunity pattern for top navbar"
           className="z-50"
+          priority
         />
       </div>
-
       <TooltipProvider>
         <nav className="flex flex-row-reverse w-full space-x-4 items-center gap-4 px-2 lg:py-10">
           <Tooltip>
