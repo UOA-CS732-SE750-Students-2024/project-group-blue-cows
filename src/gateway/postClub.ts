@@ -8,15 +8,7 @@ export async function postClubEntity(club: Club, user: AppUser) {
   try {
     const response = await db
       .insert(clubSchema)
-      .values([
-        {
-          name: club.name,
-          description: club.description,
-          membership_fee: club.membership_fee,
-          logo: club.logo,
-          category: club.category,
-        },
-      ])
+      .values([club])
       .returning({ insertedId: clubSchema.id });
     const clubId = response.at(0)?.insertedId;
     if (clubId) {

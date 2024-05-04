@@ -2,6 +2,8 @@
 import "server-only";
 import { postClubEntity } from "@/gateway/postClub";
 import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
+import { postMember } from "@/gateway/postMember";
+import { putMember } from "@/gateway/putMember";
 import { getClubs } from "@/gateway/getClubs";
 import { Club } from "@/schemas/clubSchema";
 import { AppUser } from "@/schemas/authSchema";
@@ -17,4 +19,22 @@ export async function getAllMembers(clubId: number) {
 
 export async function getAllClubs(name: string, filter: string | null) {
   return await getClubs(name, filter);
+}
+
+export async function addMember(
+  clubId: number,
+  user: AppUser,
+  isPaid: boolean,
+  isAdmin: boolean
+) {
+  return await postMember(clubId, user, isPaid, isAdmin);
+}
+
+export async function updateMember(
+  clubId: number,
+  userId: string,
+  isPaid: boolean,
+  isAdmin: boolean
+) {
+  return await putMember(clubId, userId, isPaid, isAdmin);
 }

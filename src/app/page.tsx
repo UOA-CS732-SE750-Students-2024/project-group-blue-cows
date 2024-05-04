@@ -18,11 +18,12 @@ import { SignOut } from "@/components/ui/sign-out";
 import { User } from "next-auth";
 import { getUser } from "@/services/authServices";
 import { AppUser, users } from "@/schemas/authSchema";
-import { postClub } from "@/services/clubServices";
+import { addMember, postClub, updateMember } from "@/services/clubServices";
 import { request } from "http";
 import { Club } from "@/schemas/clubSchema";
 import FormWrapper from "@/components/ui/form-wrapper";
 import { UploadButton, UploadDropzone } from "@/util/uploadThingUtils";
+import { putMember } from "@/gateway/putMember";
 // Use this page to test your components
 export default function TestPage() {
   // redirect("/clubs"); // Uncomment me for the submission
@@ -76,6 +77,13 @@ export default function TestPage() {
               student_id: "814",
             }
           )
+        }
+      >
+        🍞
+      </Button>
+      <Button
+        onClick={() =>
+          updateMember(2, "a6574eb8-7764-4198-b2b4-280cf0190669", true, true)
         }
       >
         🍞
