@@ -1,12 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import ClubsList from "@/components/ui/clubs-list";
+import UserNavCard from "@/components/ui/user-nav-card";
 
 const dummyAdminClubs = [
   {
@@ -16,7 +9,7 @@ const dummyAdminClubs = [
   },
   {
     imageUrl: "/sesa-logo.png",
-    name: "Another Club",
+    name: "Software Engineering Students Association",
     memberSince: 2020,
   },
 ];
@@ -28,7 +21,7 @@ const dummyClubs = [
   },
   {
     imageUrl: "/sesa-logo.png",
-    name: "Another Club",
+    name: "Software Engineering Students Association",
     memberSince: 2020,
   },
   {
@@ -38,7 +31,7 @@ const dummyClubs = [
   },
   {
     imageUrl: "/sesa-logo.png",
-    name: "Another Club",
+    name: "Software Engineering Students Association",
     memberSince: 2020,
   },
   {
@@ -48,18 +41,21 @@ const dummyClubs = [
   },
   {
     imageUrl: "/sesa-logo.png",
-    name: "Another Club",
+    name: "Software Engineering Students Association",
     memberSince: 2020,
   },
 ];
 
 export default function UserClubsPage() {
   return (
-    <div className="bg-blue-200 h-[calc(100vh-4rem)] w-full">
+    <div className="h-[calc(100vh-4rem)] w-full mt-10 bg-customGrass">
       <div className="flex flex-col h-screen">
-        <div className="flex flex-row h-2/5">
-          <div className="w-1/4 bg-red-200 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 bg-yellow-300 flex justify-center items-center">
+        <div
+          className="flex flex-row h-2/5 bg-cover bg-center"
+          style={{ backgroundImage: "url('/grass-background.svg')" }}
+        >
+          <div className="w-1/4  flex justify-center items-center">
+            <div className="w-3/4 h-3/4 flex justify-center items-center">
               <img
                 src="/cute-cow.png"
                 alt="Cute Cowmunity Cow"
@@ -67,57 +63,35 @@ export default function UserClubsPage() {
               />
             </div>
           </div>
-          <div className="w-1/4 bg-purple-200 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 bg-pink-300 flex justify-center items-center">
-              <h1>Welcome back, NAME!</h1>
+          <div className="w-1/4 flex justify-center items-center">
+            <div className="text-left">
+              <h1 className="text-3xl">Welcome back, name here!</h1>
             </div>
           </div>
-          <div className="w-1/4 bg-red-200 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 bg-yellow-300 flex justify-center items-center">
-              <Card className="h-13">
-                <CardHeader>
-                  <img
-                    src="/browse-clubs.png"
-                    alt="Register Clubs Image"
-                    style={{ height: "auto", width: "100px" }}
-                  />
-                </CardHeader>
-                <CardContent>
-                  <p>
-                    Browse a range clubs that match your interests and goals!
-                  </p>
-                  <Button className="mt-5" variant="outline">
-                    Browse and Join Clubs
-                  </Button>
-                </CardContent>
-              </Card>
+          <div className="w-1/4 flex justify-center items-center">
+            <div className="w-3/4 h-3/4 flex justify-center items-center">
+              <UserNavCard
+                imageUrl="/browse-clubs.png"
+                imageAlt="Browse Clubs Image"
+                textContent="Browse a range of clubs that match your interests and goals!"
+                buttonText="Browse and Join Clubs"
+              />
             </div>
           </div>
-          <div className="w-1/4 bg-purple-200 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 bg-pink-300 flex justify-center items-center">
-              <Card>
-                <CardHeader>
-                  <img
-                    src="/register-clubs.png"
-                    alt="Register Clubs Image"
-                    style={{ height: "auto", width: "100px" }}
-                  />
-                </CardHeader>
-                <CardContent>
-                  <p>
-                    Can’t find the right club for you? Register your own club!
-                  </p>
-                  <Button className="mt-5" variant="outline">
-                    Register a Club
-                  </Button>
-                </CardContent>
-              </Card>
+          <div className="w-1/4 flex justify-start items-center">
+            <div className="w-3/4 h-3/4 flex justify-start items-center">
+              <UserNavCard
+                imageUrl="/register-clubs.png"
+                imageAlt="Register Clubs Image"
+                textContent="Can’t find the right club for you? Register your own club!"
+                buttonText="Register a Club"
+              />
             </div>
           </div>
         </div>
         <div className="flex flex-row h-auto pt-3 bg-customGrass">
-          <div className="w-1/2 bg-orange-200 flex justify-center items-center">
-            <div className="w-5/6 h-auto bg-indigo-300 flex justify-center items-center">
+          <div className="w-1/2 flex justify-center items-center">
+            <div className="w-5/6 h-auto flex justify-center items-center">
               <ClubsList
                 listType={"View Clubs"}
                 clubs={dummyClubs}
@@ -125,8 +99,8 @@ export default function UserClubsPage() {
               />
             </div>
           </div>
-          <div className="w-1/2 bg-teal-200 flex justify-center items-start">
-            <div className="w-5/6 h-auto bg-cyan-300 flex justify-center items-start">
+          <div className="w-1/2 flex justify-center items-start">
+            <div className="w-5/6 h-auto flex justify-center items-start">
               <ClubsList
                 listType={"Manage Clubs"}
                 clubs={dummyAdminClubs}
