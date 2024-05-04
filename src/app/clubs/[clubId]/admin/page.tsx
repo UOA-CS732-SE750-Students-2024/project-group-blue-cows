@@ -19,11 +19,11 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
   }, []);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-auto">
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="flex justify-center items-center w-screen pl-40 pr-40 mt-5">
+        <div className="flex justify-center items-center w-screen px-10">
           <MembersTable columns={membersColumns} data={membersData} />
         </div>
       )}
