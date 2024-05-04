@@ -33,7 +33,7 @@ export default function RootLayout({
             <div className="w-1/6 h-full flex box-border fixed">
               <Nav />
             </div>
-            <div className="w-5/6 flex items-center justify-center ml-auto">
+            <div className="w-5/6 flex items-center justify-center ml-auto overflow-auto">
               {children}
               <ToastContainer />
             </div>

@@ -1,6 +1,6 @@
 "use client";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
+import { ControllerRenderProps, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import {
   SelectValue,
   SelectTrigger,
@@ -20,10 +19,24 @@ import {
 } from "@/components/ui/select";
 
 const formSchema = z.object({
-  category: z.enum(["Academic and specialist", "Sport", "Special Interest", "Religious and spiritual", "Causes", "Cultural"]),
+  category: z.enum([
+    "All",
+    "Academic and specialist",
+    "Sport",
+    "Special Interest",
+    "Religious and spiritual",
+    "Causes",
+    "Cultural",
+  ]),
 });
 
-export function FilterForm() {
+export function FilterForm({
+  filter,
+  setFilter,
+}: {
+  filter: string | null;
+  setFilter: (arg0: string | null) => void;
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -34,9 +47,18 @@ export function FilterForm() {
     console.log({ values });
   };
 
+  const handleChange = (
+    field: ControllerRenderProps<z.infer<typeof formSchema>>,
+    value: string,
+  ) => {
+    console.log(value)
+    field.onChange(value);
+    setFilter(value !== "All" ? value : null);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-3 ml-2 mt-5">
+      <form onSubmit={form.handleSubmit(handleRegister)}>
         <FormField
           control={form.control}
           name="category"
@@ -44,17 +66,25 @@ export function FilterForm() {
             return (
               <FormItem>
                 <FormLabel>Filter Clubs</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select onValueChange={(value) => handleChange(field, value)}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                      {/* Be aware this placeholder 'all' is different from the SelectItem 'all' */}
+                      <SelectValue placeholder="All" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Academic and specialist">Academic and specialist</SelectItem>
+                  <SelectContent className="inline">
+                    <SelectItem value="All">All</SelectItem>
+                    <SelectItem value="Academic and specialist">
+                      Academic and specialist
+                    </SelectItem>
                     <SelectItem value="Sport">Sport</SelectItem>
-                    <SelectItem value="Special Interest">Special Interest</SelectItem>
-                    <SelectItem value="Religious and spiritual">Religious and spiritual</SelectItem>
+                    <SelectItem value="Special Interest">
+                      Special Interest
+                    </SelectItem>
+                    <SelectItem value="Religious and spiritual">
+                      Religious and spiritual
+                    </SelectItem>
                     <SelectItem value="Causes">Causes</SelectItem>
                     <SelectItem value="Cultural">Cultural</SelectItem>
                   </SelectContent>
@@ -64,9 +94,6 @@ export function FilterForm() {
             );
           }}
         />
-        <Button type="submit">
-          Filter
-        </Button>
       </form>
     </Form>
   );

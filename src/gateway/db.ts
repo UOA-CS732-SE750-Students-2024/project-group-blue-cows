@@ -1,4 +1,3 @@
-import "server-only";
 import { db } from "../config/db";
 import { users, AppUser } from "@/schemas/authSchema";
 

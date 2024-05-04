@@ -15,6 +15,6 @@ export async function getAllMembers(clubId: number) {
   return await getAllMembersForClub(clubId);
 }
 
-export async function getAllClubs(name:string, filter?: string) {
+export async function getAllClubs(name: string, filter: string | null) {
   return await getClubs(name, filter);
 }
