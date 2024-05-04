@@ -48,7 +48,7 @@ const dummyClubs = [
 
 export default function UserClubsPage() {
   return (
-    <div className="h-[calc(100vh-4rem)] w-full mt-10 bg-customGrass">
+    <div className="h-[calc(100vh-4rem)] w-full mt-12 bg-customGrass">
       <div className="flex flex-col h-screen">
         <div
           className="flex flex-col sm:flex-row h-2/5 bg-cover bg-center"
@@ -89,7 +89,7 @@ export default function UserClubsPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row h-auto pt-3 bg-customGrass">
+        <div className="flex flex-col sm:flex-row h-auto pt-6 bg-customGrass">
           <div className="w-full sm:w-1/2 flex justify-center items-center">
             <div className="w-5/6 h-auto flex justify-center items-center">
               <ClubsList
