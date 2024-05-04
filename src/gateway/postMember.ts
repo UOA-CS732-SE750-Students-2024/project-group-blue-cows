@@ -1,9 +1,15 @@
-import membershipSchema, { Membership } from "@/schemas/membershipSchema";
-import { AppUser } from "@/schemas/authSchema";
+import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../config/db";
 
+export interface postMemberDto{
+  club: number;
+  user: string;
+  paid: boolean;
+  isAdmin: boolean;
+}
+
 export async function postMember(
-  member: Membership
+  member: postMemberDto
 ) {
   try {
   await db.insert(membershipSchema).values([
