@@ -78,8 +78,8 @@ export default function UserClubsPage() {
               />
             </div>
           </div>
-          <div className="w-full sm:w-1/4 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 flex justify-center items-center">
+          <div className="w-full sm:w-1/4 flex items-start">
+            <div className="w-3/4 h-3/4 flex items-start">
               <UserNavCard
                 imageUrl="/register-clubs.png"
                 imageAlt="Register Clubs Image"
