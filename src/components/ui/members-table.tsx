@@ -17,6 +17,7 @@ import { DataTable } from "./data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
+import Custom404 from "@/pages/404";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
@@ -58,7 +59,7 @@ export function MembersTable({
 
   if (!clubData) {
     // TODO: style and display this nicely - should also return a 404 status code
-    return <div>Club not found.</div>;
+    return <Custom404 />;
   }
 
   return (
