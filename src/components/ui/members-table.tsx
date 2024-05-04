@@ -17,7 +17,6 @@ import { DataTable } from "./data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
-import Custom404 from "@/pages/404";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
@@ -56,11 +55,6 @@ export function MembersTable({
       rowSelection,
     },
   });
-
-  if (!clubData) {
-    // TODO: style and display this nicely - should also return a 404 status code
-    return <Custom404 />;
-  }
 
   return (
     <div className="w-full">
