@@ -3,7 +3,7 @@ import { Button } from "../../ui/button";
 import Image from "next/image";
 import { ReactNode } from "react";
 
-interface props {
+interface Props {
   href: string;
   className?: string;
   imgSrc: string;
@@ -17,7 +17,7 @@ export default function NavTab({
   imgSrc,
   imgAlt,
   children,
-}: props) {
+}: Props) {
   return (
     <Link href={href}>
       <Button

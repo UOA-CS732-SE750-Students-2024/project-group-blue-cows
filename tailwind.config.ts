@@ -25,6 +25,7 @@ const config = withUt({
     extend: {
       colors: {
         customPrimary: '#077DF1',
+        customDark: '#04045E',
         customLight: '#E1EAFF',
         customAccent: '#FFD166',
         customGrass: '#D0D699',

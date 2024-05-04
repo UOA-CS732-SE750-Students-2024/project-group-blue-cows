@@ -63,7 +63,7 @@ function NavItem({
       <TooltipTrigger asChild>
         <Link
           href={href}
-          className="flex items-center justify-center rounded-lg p-4 text-xl text-white hover:opacity-70 transition-opacity"
+          className="text-white hover:text-black flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors md:h-8 md:w-32 text-md md:text-lg hover:bg-customAccent"
         >
           {children}
         </Link>
