@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import { FilterForm } from "@/components/ui/filter-form";
+import { FilterBar } from "@/components/ui/filter-bar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getAllClubs } from "@/services/clubServices";
@@ -79,7 +79,7 @@ function ClubsSearch({
         />
       </div>
       <div className="text-black pb-3">
-        <FilterForm filter={filter} setFilter={setFilter} />
+        <FilterBar filter={filter} setFilter={setFilter} />
       </div>
     </div>
   );
