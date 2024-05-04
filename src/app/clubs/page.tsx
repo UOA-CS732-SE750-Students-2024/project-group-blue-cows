@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import { FilterForm } from "@/components/ui/filter-form";
+import { FilterForm } from "@/components/form/filter-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getAllClubs } from "@/services/clubServices";

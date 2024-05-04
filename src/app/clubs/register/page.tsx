@@ -33,8 +33,8 @@ import {
 } from "@/components/ui/form";
 
 import * as z from "zod";
-import ClubRegistrationForm from "@/components/ui/club-registration-form";
-import FormWrapper from "@/components/ui/form-wrapper";
+import ClubRegistrationForm from "@/components/form/club-registration-form";
+import FormWrapper from "@/components/form/form-wrapper";
 
 export default function Page() {
   return (

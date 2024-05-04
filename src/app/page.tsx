@@ -21,7 +21,7 @@ import { AppUser, users } from "@/schemas/authSchema";
 import { postClub } from "@/services/clubServices";
 import { request } from "http";
 import { Club } from "@/schemas/clubSchema";
-import FormWrapper from "@/components/ui/form-wrapper";
+import FormWrapper from "@/components/form/form-wrapper";
 import { UploadButton, UploadDropzone } from "@/util/uploadThingUtils";
 // Use this page to test your components
 export default function TestPage() {
@@ -101,10 +101,6 @@ export default function TestPage() {
           ))}
         </TableBody>
       </Table>
-
-      <FormWrapper label="Create a Club" title="Maker Space">
-        <div></div>
-      </FormWrapper>
     </main>
   );
 }
