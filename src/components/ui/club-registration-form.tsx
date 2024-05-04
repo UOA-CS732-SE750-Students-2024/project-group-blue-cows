@@ -240,6 +240,10 @@ export default function ClubRegistrationForm() {
                     // Do something with the response
                     console.log("Files: ", res);
                     alert("Upload Completed");
+
+                    //Convert url to string
+                    const logoUrl = res[0].url.toString();
+                    form.setValue('logo', logoUrl, { shouldValidate: true });
                   }}
                   onUploadError={(error: Error) => {
                     // Do something with the error.
