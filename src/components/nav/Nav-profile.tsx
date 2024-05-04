@@ -1,16 +1,17 @@
 "Use client";
-import React, { useContext, useEffect, useState } from "react";
-import { authContext } from "../contexts/AuthContext";
+import React from "react";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import { SignIn } from "../ui/sign-in";
 import { SignOut } from "../ui/sign-out";
 import { EditProfile } from "../ui/edit-profile";
+import { useSession } from "next-auth/react";
+import { AppUser } from "@/schemas/authSchema";
 
 export default function NavProfile() {
-  const { user, token, currentUser, login, logout } = useContext(authContext);
+  const session = useSession();
+  const user = session.data?.user as AppUser;
 
-  if (!currentUser) {
+  if (!user) {
     return (
       <div className="flex flex-col items-center py-2">
         <div>
@@ -35,7 +36,7 @@ export default function NavProfile() {
     return (
       <div className="flex items-center py-5">
         <Image
-          src="/Tristan-Midjourney.png"
+          src={user?.image || ""}
           alt="Icon for user not logged-in"
           width={40}
           height={40}
@@ -43,7 +44,7 @@ export default function NavProfile() {
         />
         <div>
           <p className="text-m font-medium text-white">
-            {currentUser?.name || "Undefined"}
+            {user?.name || "Undefined"}
           </p>
           <div className="flex items-center space-x-3">
             <EditProfile />

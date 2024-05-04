@@ -2,15 +2,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { User } from "next-auth";
-import { getUser } from "@/services/authServices";
-import { authContext } from "../contexts/AuthContext";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { AppUser } from "@/schemas/authSchema";
 
 export default function NavManage() {
-  const { user, token, currentUser, login, logout } = useContext(authContext);
+  const session = useSession();
+  const user = session.data?.user as AppUser;
 
-  if (!currentUser) {
+  if (!user) {
     return null;
   }
 
