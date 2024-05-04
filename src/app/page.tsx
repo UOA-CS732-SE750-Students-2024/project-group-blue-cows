@@ -47,7 +47,7 @@ export default function TestPage() {
   }, []); // empty dependency array, will only run on component mount
 
   return (
-    <main className="h-screen grid justify-center content-center">
+    <main className="h-screen grid justify-center content-center pt-16">
       <h1>Test</h1>
       <p>{currentUser ? "Signed in" : "Signed out"}</p>
       <p>Name: {currentUser?.name || "Undefined"}</p>
