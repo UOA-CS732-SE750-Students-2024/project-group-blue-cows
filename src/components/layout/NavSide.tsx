@@ -5,9 +5,11 @@ import NavBrowse from "./nav/NavBrowse";
 import NavManage from "./nav/NavManage";
 import NavShortcut from "./nav/NavShortcut";
 
-export default function Nav() {
+export default function NavSide({ className }: { className?: string }) {
   return (
-    <aside className="inset-y-0 w-full flex flex-col border-r bg-blue-custom overflow-x-scroll">
+    <aside
+      className={`flex flex-col border-r bg-blue-custom ${className}`}
+    >
       <nav className="flex flex-col w-full items-start gap-4 lg:px-6 lg:py-5">
         <TooltipProvider>
           <NavProfile />
