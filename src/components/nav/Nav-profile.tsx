@@ -1,5 +1,6 @@
 "Use client";
 import React from "react";
+import Image from "next/image";
 import { SignIn } from "../ui/sign-in";
 import { SignOut } from "../ui/sign-out";
 import { EditProfile } from "../ui/edit-profile";
@@ -14,7 +15,7 @@ export default function NavProfile() {
     return (
       <div className="flex flex-col items-center py-2">
         <div>
-          <img
+          <Image
             src="/cowmunity-lock.svg"
             alt="Icon for user not logged-in"
             width={50}
@@ -34,7 +35,7 @@ export default function NavProfile() {
   } else {
     return (
       <div className="flex items-center py-5">
-        <img
+        <Image
           src={user?.image || ""}
           alt="Icon for user not logged-in"
           width={40}
