@@ -1,17 +1,61 @@
-import Image from "next/image";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ClubsList from "@/components/ui/clubs-list";
+
+const dummyAdminClubs = [
+  {
+    imageUrl: "/wdcc-logo.png",
+    name: "Web Development & Consulting Club",
+    memberSince: 2021,
+  },
+  {
+    imageUrl: "/sesa-logo.png",
+    name: "Another Club",
+    memberSince: 2020,
+  },
+];
+const dummyClubs = [
+  {
+    imageUrl: "/wdcc-logo.png",
+    name: "Web Development & Consulting Club",
+    memberSince: 2021,
+  },
+  {
+    imageUrl: "/sesa-logo.png",
+    name: "Another Club",
+    memberSince: 2020,
+  },
+  {
+    imageUrl: "/wdcc-logo.png",
+    name: "Web Development & Consulting Club",
+    memberSince: 2021,
+  },
+  {
+    imageUrl: "/sesa-logo.png",
+    name: "Another Club",
+    memberSince: 2020,
+  },
+  {
+    imageUrl: "/wdcc-logo.png",
+    name: "Web Development & Consulting Club",
+    memberSince: 2021,
+  },
+  {
+    imageUrl: "/sesa-logo.png",
+    name: "Another Club",
+    memberSince: 2020,
+  },
+];
 
 export default function UserClubsPage() {
   return (
-    <div className="bg-blue-200 h-[calc(100vh-4rem)] w-full p-10">
+    <div className="bg-blue-200 h-[calc(100vh-4rem)] w-full">
       <div className="flex flex-col h-screen">
         <div className="flex flex-row h-2/5">
           <div className="w-1/4 bg-red-200 flex justify-center items-center">
@@ -71,51 +115,23 @@ export default function UserClubsPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row h-3/5">
+        <div className="flex flex-row h-auto pt-3 bg-customGrass">
           <div className="w-1/2 bg-orange-200 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 bg-indigo-300 flex justify-center items-center">
-              <Card style={{ height: "100%", width: "100%" }}>
-                <CardHeader>
-                  <CardTitle>Visit Clubs</CardTitle>
-                  <CardDescription>
-                    You are a member of X clubs.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Card style={{ height: "10vh", width: "100%" }}>
-                    <div className="shadow-md bg-white rounded-lg p-4 flex items-center">
-                      <div className="w-1/5">
-                        <img
-                          src="/wdcc-logo.png"
-                          alt="Image"
-                          className="object-cover h-full w-full rounded-md"
-                        />
-                      </div>
-                      <div className="w-4/5 pl-4">
-                        <p className="text-md font-semibold mb-2">
-                          Web Development & Consulting Club
-                        </p>
-                        <p className="text-gray-700 mb-2">Member since 2021</p>
-                      </div>
-                    </div>
-                  </Card>
-                </CardContent>
-              </Card>
+            <div className="w-5/6 h-auto bg-indigo-300 flex justify-center items-center">
+              <ClubsList
+                listType={"View Clubs"}
+                clubs={dummyClubs}
+                numberOfClubs={dummyClubs.length}
+              />
             </div>
           </div>
-          <div className="w-1/2 bg-teal-200 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 bg-cyan-300 flex justify-center items-center">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Manage Clubs</CardTitle>
-                  <CardDescription>
-                    You are an admin for Y clubs
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>Card Content</p>
-                </CardContent>
-              </Card>
+          <div className="w-1/2 bg-teal-200 flex justify-center items-start">
+            <div className="w-5/6 h-auto bg-cyan-300 flex justify-center items-start">
+              <ClubsList
+                listType={"Manage Clubs"}
+                clubs={dummyAdminClubs}
+                numberOfClubs={dummyAdminClubs.length}
+              />
             </div>
           </div>
         </div>
