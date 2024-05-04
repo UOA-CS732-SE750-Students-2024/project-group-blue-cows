@@ -2,7 +2,6 @@ import { numeric, pgTable, text, serial, varchar } from "drizzle-orm/pg-core";
 
 
 export interface Club {
-  id: number;
   name: string;
   description: string;
   membership_fee: string;

@@ -12,7 +12,7 @@ export async function postClubEntity(club: Club, user: AppUser) {
       .returning({ insertedId: clubSchema.id });
     const clubId = response.at(0)?.insertedId;
     if (clubId) {
-      await postMember(clubId, user, true, true);
+      await postMember({club: clubId, user: user.id, paid: true, isAdmin: true});
     }
   } catch (error) {
     return "Failed to insert club into database";

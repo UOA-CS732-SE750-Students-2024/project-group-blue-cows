@@ -59,7 +59,6 @@ export default function TestPage() {
         onClick={() =>
           postClub(
             {
-              id: 0,
               name: "SESA",
               description: "A club for nerds",
               membership_fee: "0.00",
@@ -83,7 +82,9 @@ export default function TestPage() {
       </Button>
       <Button
         onClick={() =>
-          updateMember(2, "a6574eb8-7764-4198-b2b4-280cf0190669", true, true)
+          updateMember(6, "068d0938-2ae4-47f3-a1d2-fe82f486c3ad", {
+            paid: false,
+          })
         }
       >
         🍞

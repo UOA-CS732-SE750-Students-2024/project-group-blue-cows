@@ -3,7 +3,6 @@ import clubSchema from "./clubSchema";
 import { users } from "./authSchema";
 
 export interface Membership {
-  id: number;
   club: number;
   user: string;
   paid: boolean;
