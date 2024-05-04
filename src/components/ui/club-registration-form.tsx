@@ -111,7 +111,7 @@ export default function ClubRegistrationForm() {
             </p>
           </CardContent>
           <CardFooter>
-          <p>
+            <p>
               If this is not the case, please first ensure that your club meets
               all the requirements listed{" "}
               <a
@@ -248,7 +248,10 @@ export default function ClubRegistrationForm() {
           }}
         /> */}
 
-        <Button type="submit" className="w-full bg-[#087DF1] color-white uppercase">
+        <Button
+          type="submit"
+          className="w-full bg-[#087DF1] color-white uppercase"
+        >
           Register Club on Cowmunity
         </Button>
       </form>
