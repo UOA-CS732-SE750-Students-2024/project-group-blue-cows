@@ -27,6 +27,7 @@ const config = withUt({
         customPrimary: '#077DF1',
         customLight: '#E1EAFF',
         customAccent: '#FFD166',
+        customGrass: '#D0D699',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

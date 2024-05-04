@@ -9,6 +9,7 @@ import { Club } from "@/schemas/clubSchema";
 import { AppUser } from "@/schemas/authSchema";
 import { Membership } from "@/schemas/membershipSchema";
 import {  putMemberDto} from "@/gateway/putMember";
+import { getClub } from "@/gateway/getClub";
 
 export async function postClub(club: Club, user: AppUser) {
   // All this does is proxy the gateway request, a real service may do the same or more advanced logic
@@ -35,4 +36,8 @@ export async function updateMember(
   membership: putMemberDto
 ) {
   return await putMember(clubId, userId, membership);
+}
+
+export async function getClubById(clubID: number) {
+  return await getClub(clubID);
 }

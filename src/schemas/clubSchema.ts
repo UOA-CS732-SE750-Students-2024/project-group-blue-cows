@@ -1,12 +1,12 @@
 import { numeric, pgTable, text, serial, varchar } from "drizzle-orm/pg-core";
 
-
 export interface Club {
   name: string;
   description: string;
   membership_fee: string;
   logo: string;
   category: string;
+  coverImage?: string;
 }
 
 // The fields will grow as we add additional features
@@ -20,4 +20,5 @@ export default pgTable("clubs", {
   }).notNull(), // storing a money amount of up to 99.99
   logo: varchar("logo").notNull(),
   category: text("category").notNull(),
+  coverImage: varchar("coverImage")
 });

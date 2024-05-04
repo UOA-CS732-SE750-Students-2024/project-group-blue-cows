@@ -32,7 +32,13 @@ import {
   FormControl,
 } from "@/components/ui/form";
 
+import {UploadButton} from "@/util/uploadThingUtils";
+import { AppUser, users } from "@/schemas/authSchema";
+import { useSession } from "next-auth/react";
+
+
 import * as z from "zod";
+
 
 const formSchema = z.object({
   id: z.number(),
@@ -42,14 +48,6 @@ const formSchema = z.object({
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
   logo: z.string().min(1, "Logo is required"),
-  // logo: z.object({
-  //   file: z.any().refine((file) => {
-  //     // Ensure file is validated only in browser environment
-  //     return typeof FileList !== "undefined"
-  //       ? file instanceof FileList && file?.length === 1
-  //       : true;
-  //   }, "File is required."),
-  // }),
   category: z.enum([
     "Academic and specialist",
     "Sport",
@@ -61,6 +59,10 @@ const formSchema = z.object({
 });
 
 export default function ClubRegistrationForm() {
+
+  const { data: sessionData } = useSession(); // Get the session data
+  const user = sessionData?.user as AppUser; // Type assertion for the user
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,16 +76,7 @@ export default function ClubRegistrationForm() {
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    postClub(values, {
-      id: "a6574eb8-7764-4198-b2b4-280cf0190669",
-      name: "Alex Hope",
-      email: "ahop089@aucklanduni.ac.nz",
-      emailVerified: new Date(),
-      image: "gdffghgd",
-      upi: "ahop",
-      year_of_study: 4,
-      student_id: "814",
-    })
+    postClub(values, user)
       .then(() => {
         form.reset(); // Reset form fields after successful submission
       })
@@ -216,7 +209,7 @@ export default function ClubRegistrationForm() {
           }}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="logo"
           render={({ field }) => {
@@ -230,7 +223,48 @@ export default function ClubRegistrationForm() {
               </FormItem>
             );
           }}
+        /> */}
+
+        <FormField
+          control={form.control}
+          name="logo"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel className="font-bold">Club Logo</FormLabel>
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    // Do something with the response
+                    console.log("Files: ", res);
+                    alert("Upload Completed");
+
+                    //Convert url to string
+                    const logoUrl = res[0].url.toString();
+                    form.setValue('logo', logoUrl, { shouldValidate: true });
+                  }}
+                  onUploadError={(error: Error) => {
+                    // Do something with the error.
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                />
+              </FormItem>
+            );
+          }}
         />
+
+        {/* <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      /> */}
 
         {/* <FormField
           control={form.control}
