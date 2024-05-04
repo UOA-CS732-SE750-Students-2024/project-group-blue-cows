@@ -56,15 +56,7 @@ export default function UserClubsPage() {
             <div className="w-3/4 h-3/4 bg-pink-300 flex justify-center items-center">
               <Card>
                 <CardHeader>
-                  <div className="w-10 bg-slate-500">
-                    <Image
-                      layout="responsive"
-                      width={50}
-                      height={50}
-                      alt=""
-                      src="/register-clubs.png"
-                    />
-                  </div>
+                  <img src="/register-clubs.png" alt="Register Clubs Image" />
                 </CardHeader>
                 <CardContent>
                   <p>
