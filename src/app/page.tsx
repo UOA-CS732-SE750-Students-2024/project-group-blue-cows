@@ -83,7 +83,7 @@ export default function TestPage() {
       <Button
         onClick={() =>
           updateMember(6, "068d0938-2ae4-47f3-a1d2-fe82f486c3ad", {
-            paid: false,
+            paid: true,
           })
         }
       >

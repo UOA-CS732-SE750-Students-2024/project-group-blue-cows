@@ -5,13 +5,13 @@ import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
 import { postMember } from "@/gateway/postMember";
 import { putMember } from "@/gateway/putMember";
 import { getClubs } from "@/gateway/getClubs";
-import { Club } from "@/schemas/clubSchema";
+import { Club, CreateClubDto } from "@/schemas/clubSchema";
 import { AppUser } from "@/schemas/authSchema";
 import { Membership } from "@/schemas/membershipSchema";
 import {  putMemberDto} from "@/gateway/putMember";
 import { getClub } from "@/gateway/getClub";
 
-export async function postClub(club: Club, user: AppUser) {
+export async function postClub(club: CreateClubDto, user: AppUser) {
   // All this does is proxy the gateway request, a real service may do the same or more advanced logic
   return postClubEntity(club, user);
 }
