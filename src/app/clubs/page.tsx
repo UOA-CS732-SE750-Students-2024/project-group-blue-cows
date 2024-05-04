@@ -25,7 +25,7 @@ export default function ClubsPage() {
   }, [updateClubsDebounced, searchString, filter]);
 
   return (
-    <main className="h-full">
+    <main className="h-full w-full">
       <ClubsSearch
         searchString={searchString}
         setSearchString={setSearchString}
@@ -52,7 +52,7 @@ function ClubsSearch({
   setFilter: (arg0: string | null) => void;
 }) {
   return (
-    <div className="flex flex-col justify-center items-center gap-5 bg-[url('cow-banner.svg')] bg-cover">
+    <div className="flex flex-col justify-center items-center gap-5 bg-[url('cow-banner.svg')] bg-cover py-4">
       <h2 className="text-center text-4xl font-semibold">Browse Clubs</h2>
       <div role="doc-subtitle" className="text-center text-lg">
         Find a club that suits your interests and goals.
