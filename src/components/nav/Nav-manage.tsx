@@ -2,22 +2,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { User } from "next-auth";
-import { getUser } from "@/services/authServices";
-import { authContext } from "../contexts/AuthContext";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { AppUser } from "@/schemas/authSchema";
 
 export default function NavManage() {
-  const { user, token, currentUser, login, logout } = useContext(authContext);
+  const session = useSession();
+  const user = session.data?.user as AppUser;
 
-  if (!currentUser) {
+  if (!user) {
     return null;
   }
 
   return (
     <div className="flex flex-col items-start py-2">
       <h1 className="text-white text-sm">MANAGE CLUBS</h1>
-      <Link href="/clubs/admin">
+      <Link href="/users/me/clubs">
         <Button className="bg-blue-custom px-0 hover:bg-transparent">
           <Image
             src="nav-list-icon.svg"
@@ -29,7 +29,7 @@ export default function NavManage() {
           <span className="text">View My Clubs</span>
         </Button>
       </Link>
-      <Link href="/clubs/register">
+      <Link href="/create-club">
         <Button className="bg-blue-custom px-0 hover:bg-transparent">
           <Image
             src="nav-manage-icon.svg"
