@@ -65,7 +65,7 @@ export default function UserClubsPage() {
           </div>
           <div className="w-full sm:w-1/4 flex justify-center items-center">
             <div className="text-left">
-              <h1 className="text-3xl">Welcome back, name here!</h1>
+              <h1 className="text-2xl">Welcome back, name here!</h1>
             </div>
           </div>
           <div className="w-full sm:w-1/4 flex justify-center items-center">
@@ -90,8 +90,8 @@ export default function UserClubsPage() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row h-auto pt-6 bg-customGrass">
-          <div className="w-full sm:w-1/2 flex justify-center items-center">
-            <div className="w-5/6 h-auto flex justify-center items-center">
+          <div className="w-full sm:w-1/2 flex justify-center items-center overflow-hidden">
+            <div className="w-5/6 h-auto flex justify-center items-center overflow-hidden">
               <ClubsList
                 listType={"View Clubs"}
                 clubs={dummyClubs}
@@ -99,8 +99,8 @@ export default function UserClubsPage() {
               />
             </div>
           </div>
-          <div className="w-full sm:w-1/2 flex justify-center items-start">
-            <div className="w-5/6 h-auto flex justify-center items-start">
+          <div className="w-full sm:w-1/2 flex justify-center items-start overflow-hidden">
+            <div className="w-5/6 h-auto flex justify-center items-start overflow-hidden">
               <ClubsList
                 listType={"Manage Clubs"}
                 clubs={dummyAdminClubs}

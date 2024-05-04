@@ -21,11 +21,13 @@ const UserNavCard: React.FC<UserNavCardProps> = ({
         <img
           src={imageUrl}
           alt={imageAlt}
-          style={{ height: "10vh", width: "auto" }}
+          style={{ height: "8vh", width: "auto" }}
         />
       </CardHeader>
       <CardContent className="flex flex-col items-center">
-        <p>{textContent}</p>
+        <p className="text-base sm:text-xs md:text-xs lg:text-sm">
+          {textContent}
+        </p>
         <Button className="mt-3" variant="outline">
           {buttonText}
         </Button>
