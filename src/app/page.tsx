@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { showToastDemo } from "@/util/toastUtils";
 import { getUsers } from "@/services/userServices";
@@ -20,8 +21,8 @@ import { AppUser, users } from "@/schemas/authSchema";
 import { postClub } from "@/services/clubServices";
 import { request } from "http";
 import { Club } from "@/schemas/clubSchema";
+import FormWrapper from "@/components/ui/form-wrapper";
 import { UploadButton, UploadDropzone } from "@/util/uploadThingUtils";
-
 // Use this page to test your components
 export default function TestPage() {
   // redirect("/clubs"); // Uncomment me for the submission
@@ -52,38 +53,6 @@ export default function TestPage() {
       <p>{currentUser ? "Signed in" : "Signed out"}</p>
       <p>Name: {currentUser?.name || "Undefined"}</p>
       <p>Email: {currentUser?.email || "Undefined"}</p>
-      <SignIn></SignIn>
-      <SignOut></SignOut>
-      <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // File uploading demo with UploadThing
-          // res contains an array of files uploaded
-          // you can now store the url in the database
-          // see the docs for more information https://docs.uploadthing.com/
-          console.log("File uploaded: ", res[0].url);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Display the error message to the user
-          alert(`ERROR! ${error.message}. You currently need to be authenticated to upload files.`);
-        }}
-      />
-      <UploadDropzone
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // File uploading demo with UploadThing
-          // res contains an array of files uploaded
-          // you can now store the url in the database
-          // see the docs for more information https://docs.uploadthing.com/
-          console.log("File uploaded: ", res[0].url);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Display the error message to the user
-          alert(`ERROR! ${error.message}. You currently need to be authenticated to upload files.`);
-        }}
-        />
       <Button onClick={() => showToastDemo("🍞!")}>🍞</Button>
       <Button
         onClick={() =>
@@ -132,6 +101,10 @@ export default function TestPage() {
           ))}
         </TableBody>
       </Table>
+
+      <FormWrapper label="Create a Club" title="Maker Space">
+        <div></div>
+      </FormWrapper>
     </main>
   );
 }
