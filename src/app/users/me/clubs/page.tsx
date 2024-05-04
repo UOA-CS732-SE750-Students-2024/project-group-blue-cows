@@ -69,23 +69,23 @@ export default function UserClubsPage() {
             </div>
           </div>
           <div className="w-full sm:w-1/4 flex justify-center items-center">
-            <div className="w-4/5 h-3/4 flex justify-center items-center">
+            <div className="w-5/6 h-3/4 flex justify-center items-center">
               <UserNavCard
                 navigationLink="/clubs"
                 imageUrl="/browse-clubs.png"
                 imageAlt="Browse Clubs Image"
-                textContent="Browse a range of clubs that match your interests and goals!"
+                textContent="Browse clubs that match your interests and goals!"
                 buttonText="Browse and Join Clubs"
               />
             </div>
           </div>
           <div className="w-full sm:w-1/4 flex justify-center items-center mr-10">
-            <div className="w-4/5 h-3/4 flex justify-center items-center">
+            <div className="w-5/6 h-3/4 flex justify-center items-center">
               <UserNavCard
                 navigationLink="/create-club"
                 imageUrl="/register-clubs.png"
                 imageAlt="Register Clubs Image"
-                textContent="Can’t find the right club for you? Register your own club!"
+                textContent="Can’t find the right club for you? Register your own!"
                 buttonText="Register a Club"
               />
             </div>
