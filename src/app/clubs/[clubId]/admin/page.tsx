@@ -6,6 +6,7 @@ import { studentData } from "@/gateway/getAllMembersForClub";
 import { Club } from "@/schemas/clubSchema";
 import { getAllMembers, getClubById } from "@/services/clubServices";
 import { useEffect, useState } from "react";
+import Custom404 from "@/pages/404";
 
 export default function AdminPage({ params }: { params: { clubId: string } }) {
   const [membersData, setMembersData] = useState<studentData[]>([]);
@@ -21,7 +22,9 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
     };
     getData();
   }, []);
-
+  if (!clubData) {
+    return <Custom404 />;
+  }
   return (
     <div className="flex h-screen overflow-auto">
       {loading ? (
