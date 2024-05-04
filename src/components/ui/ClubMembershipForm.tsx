@@ -106,8 +106,8 @@ export default function ClubRegistrationForm() {
           </CardHeader>
           <CardContent>
             <p>
-              To register a club on Cowlaboration, your club must already be
-              approved and registered at the University of Auckland.
+              Stay up to date with upcoming events, projects, and competitions.
+              Become eligible to participate in our projects and competitions.
             </p>
           </CardContent>
           <CardFooter>

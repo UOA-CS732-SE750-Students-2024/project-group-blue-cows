@@ -55,8 +55,6 @@ export function MembersTable({ columns, data }: MembersTableProps) {
       <div className="flex items-center">
         <div className="flex-1">
           <h2 className=" text-4xl font-extrabold">WDCC Members</h2>
-          {/* TODO -
-          REPLACE HEADER WITH RELEVANT CLUB NAME FROM API */}
         </div>
       </div>
       <div className="flex items-center space-x-2">
