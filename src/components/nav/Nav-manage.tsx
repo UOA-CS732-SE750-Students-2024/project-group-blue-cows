@@ -23,7 +23,7 @@ export default function NavManage() {
         <span className="text">View My Clubs</span>
       </NavTab>
       <NavTab
-        href="/create-club"
+        href="/clubs/register"
         imgSrc="nav-manage-icon.svg"
         imgAlt="Register club icon"
       >
