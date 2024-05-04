@@ -32,7 +32,6 @@ export default function Nav() {
           priority
         />
       </div>
-
       <TooltipProvider>
         <nav className="flex flex-row-reverse w-full space-x-4 items-center gap-4 px-2 lg:py-10">
           <Tooltip>
