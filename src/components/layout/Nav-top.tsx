@@ -32,43 +32,43 @@ export default function Nav() {
           priority
         />
       </div>
-      <TooltipProvider>
-        <nav className="flex flex-row-reverse w-full space-x-4 items-center gap-4 px-2 lg:py-10">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="/profile"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-32 text-xl"
-              >
-                <span className="text-white">Profile</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Profile</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="/users/me/clubs"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
-              >
-                <span className="text-white">Manage Clubs</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Manage Clubs</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="/clubs"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
-              >
-                <span className="text-white">Browse Clubs</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Browse Clubs</TooltipContent>
-          </Tooltip>
-        </nav>
-      </TooltipProvider>
+      <nav className="flex flex-row justify-end w-full space-x-4 items-center pl-2 pr-8 lg:py-10">
+        <TooltipProvider>
+          <NavItem href="/clubs" tooltip="Browse Clubs">
+            Browse Clubs
+          </NavItem>
+          <NavItem href="/users/me/clubs" tooltip="Manage Clubs">
+            Manage Clubs
+          </NavItem>
+          <NavItem href="/users/me" tooltip="Profile">
+            Profile
+          </NavItem>
+        </TooltipProvider>
+      </nav>
     </aside>
+  );
+}
+
+function NavItem({
+  href,
+  tooltip,
+  children,
+}: {
+  href: string;
+  tooltip?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Link
+          href={href}
+          className="flex items-center justify-center rounded-lg p-4 text-xl text-white hover:opacity-70 transition-opacity"
+        >
+          {children}
+        </Link>
+      </TooltipTrigger>
+      {tooltip && <TooltipContent side="bottom">{tooltip}</TooltipContent>}
+    </Tooltip>
   );
 }
