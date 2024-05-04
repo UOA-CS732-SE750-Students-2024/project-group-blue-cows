@@ -13,6 +13,9 @@ const page = () => {
     <Button className="ml-10" onClick={handleData}>
       Test
     </Button>
+    <Button className="ml-10" onClick={() => {throw new Error()}}>
+      Throw Error
+    </Button>
   </div>
   )
 }
