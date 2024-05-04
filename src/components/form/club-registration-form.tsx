@@ -33,9 +33,12 @@ import {
 } from "@/components/ui/form";
 
 import {UploadButton} from "@/util/uploadThingUtils";
+import { AppUser, users } from "@/schemas/authSchema";
+import { useSession } from "next-auth/react";
 
 
 import * as z from "zod";
+
 
 const formSchema = z.object({
   id: z.number(),
@@ -56,6 +59,10 @@ const formSchema = z.object({
 });
 
 export default function ClubRegistrationForm() {
+
+  const { data: sessionData } = useSession(); // Get the session data
+  const user = sessionData?.user as AppUser; // Type assertion for the user
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,16 +76,7 @@ export default function ClubRegistrationForm() {
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    postClub(values, {
-      id: "a6574eb8-7764-4198-b2b4-280cf0190669",
-      name: "Alex Hope",
-      email: "ahop089@aucklanduni.ac.nz",
-      emailVerified: new Date(),
-      image: "gdffghgd",
-      upi: "ahop",
-      year_of_study: 4,
-      student_id: "814",
-    })
+    postClub(values, user)
       .then(() => {
         form.reset(); // Reset form fields after successful submission
       })
