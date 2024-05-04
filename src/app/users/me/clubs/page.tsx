@@ -69,8 +69,9 @@ export default function UserClubsPage() {
             </div>
           </div>
           <div className="w-full sm:w-1/4 flex justify-center items-center">
-            <div className="w-3/4 h-3/4 flex justify-center items-center">
+            <div className="w-4/5 h-3/4 flex justify-center items-center">
               <UserNavCard
+                navigationLink="/clubs"
                 imageUrl="/browse-clubs.png"
                 imageAlt="Browse Clubs Image"
                 textContent="Browse a range of clubs that match your interests and goals!"
@@ -78,9 +79,10 @@ export default function UserClubsPage() {
               />
             </div>
           </div>
-          <div className="w-full sm:w-1/4 flex items-start">
-            <div className="w-3/4 h-3/4 flex items-start">
+          <div className="w-full sm:w-1/4 flex justify-center items-center mr-10">
+            <div className="w-4/5 h-3/4 flex justify-center items-center">
               <UserNavCard
+                navigationLink="/create-club"
                 imageUrl="/register-clubs.png"
                 imageAlt="Register Clubs Image"
                 textContent="Can’t find the right club for you? Register your own club!"
@@ -89,7 +91,7 @@ export default function UserClubsPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row h-auto pt-6 bg-customGrass">
+        <div className="flex flex-col sm:flex-row h-auto pt-6 bg-customGrass pb-10">
           <div className="w-full sm:w-1/2 flex justify-center items-center overflow-hidden">
             <div className="w-5/6 h-auto flex justify-center items-center overflow-hidden">
               <ClubsList

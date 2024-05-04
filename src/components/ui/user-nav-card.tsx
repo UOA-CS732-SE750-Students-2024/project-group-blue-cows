@@ -1,8 +1,10 @@
 import React from "react";
 import { Card, CardHeader, CardContent } from "./card";
 import { Button } from "./button";
+import Link from "next/link";
 
 interface UserNavCardProps {
+  navigationLink: string;
   imageUrl: string;
   imageAlt: string;
   textContent: string;
@@ -10,13 +12,14 @@ interface UserNavCardProps {
 }
 
 const UserNavCard: React.FC<UserNavCardProps> = ({
+  navigationLink,
   imageUrl,
   imageAlt,
   textContent,
   buttonText,
 }) => {
   return (
-    <Card>
+    <Card className="">
       <CardHeader className="flex justify-center items-center">
         <img
           src={imageUrl}
@@ -28,9 +31,11 @@ const UserNavCard: React.FC<UserNavCardProps> = ({
         <p className="text-base sm:text-xs md:text-xs lg:text-sm">
           {textContent}
         </p>
-        <Button className="mt-3" variant="outline">
-          {buttonText}
-        </Button>
+        <Link href={navigationLink}>
+          <Button className="mt-3" variant="outline">
+            {buttonText}
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );
