@@ -16,11 +16,10 @@ export default function UserClubsPage() {
         <div className="flex flex-row h-2/5">
           <div className="w-1/4 bg-red-200 flex justify-center items-center">
             <div className="w-3/4 h-3/4 bg-yellow-300 flex justify-center items-center">
-              <Image
-                width={250}
-                height={250}
-                alt="Cute Cowmunity Cow"
+              <img
                 src="/cute-cow.png"
+                alt="Cute Cowmunity Cow"
+                style={{ height: "auto" }}
               />
             </div>
           </div>
@@ -33,21 +32,19 @@ export default function UserClubsPage() {
             <div className="w-3/4 h-3/4 bg-yellow-300 flex justify-center items-center">
               <Card>
                 <CardHeader>
-                  <div className="w-10 bg-slate-500">
-                    <Image
-                      layout="responsive"
-                      width={50}
-                      height={50}
-                      alt=""
-                      src="/browse-clubs.png"
-                    />
-                  </div>
+                  <img
+                    src="/browse-clubs.png"
+                    alt="Register Clubs Image"
+                    style={{ height: "auto", width: "100px" }}
+                  />
                 </CardHeader>
                 <CardContent>
                   <p>
                     Browse a range clubs that match your interests and goals!
                   </p>
-                  <Button variant="outline">Browse and Join Clubs</Button>
+                  <Button className="mt-5" variant="outline">
+                    Browse and Join Clubs
+                  </Button>
                 </CardContent>
               </Card>
             </div>
@@ -56,13 +53,19 @@ export default function UserClubsPage() {
             <div className="w-3/4 h-3/4 bg-pink-300 flex justify-center items-center">
               <Card>
                 <CardHeader>
-                  <img src="/register-clubs.png" alt="Register Clubs Image" />
+                  <img
+                    src="/register-clubs.png"
+                    alt="Register Clubs Image"
+                    style={{ height: "auto", width: "100px" }}
+                  />
                 </CardHeader>
                 <CardContent>
                   <p>
-                    Can’t find the right club for you? Register your own club!{" "}
+                    Can’t find the right club for you? Register your own club!
                   </p>
-                  <Button variant="outline">Register a Club</Button>
+                  <Button className="mt-5" variant="outline">
+                    Register a Club
+                  </Button>
                 </CardContent>
               </Card>
             </div>
