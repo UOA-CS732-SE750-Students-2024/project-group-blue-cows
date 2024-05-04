@@ -56,6 +56,11 @@ export function MembersTable({
     },
   });
 
+  if (!clubData) {
+    // TODO: style and display this nicely - should also return a 404 status code
+    return <div>Club not found.</div>;
+  }
+
   return (
     <div className="w-full">
       <div className="flex items-center">
