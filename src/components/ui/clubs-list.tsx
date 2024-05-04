@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 interface Club {
   imageUrl: string;
@@ -25,19 +26,21 @@ const ClubListItem: React.FC<ClubListItemProps> = ({
   memberSince,
 }) => {
   return (
-    <div className="shadow-md bg-white rounded-lg p-2 flex items-center">
-      <div className="w-1/5">
-        <img
-          src={imageUrl}
-          alt="Image"
-          className="object-cover h-full w-full rounded-md"
-        />
+    <Link href="/">
+      <div className="shadow-md bg-white rounded-lg p-2 flex items-center">
+        <div className="w-1/5">
+          <img
+            src={imageUrl}
+            alt="Image"
+            className="object-cover h-full w-full rounded-md"
+          />
+        </div>
+        <div className="w-4/5 pl-4">
+          <p className="text-md font-semibold mb-2">{clubName}</p>
+          <p className="text-gray-700 mb-2">Member since {memberSince}</p>
+        </div>
       </div>
-      <div className="w-4/5 pl-4">
-        <p className="text-md font-semibold mb-2">{clubName}</p>
-        <p className="text-gray-700 mb-2">Member since {memberSince}</p>
-      </div>
-    </div>
+    </Link>
   );
 };
 
