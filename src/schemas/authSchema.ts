@@ -61,7 +61,7 @@ export const accounts = pgTable(
     compoundKey: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
-  }),
+  })
 );
 
 export const sessions = pgTable(
@@ -80,7 +80,7 @@ export const sessions = pgTable(
     return {
       userIdIdx: index().on(table.userId),
     };
-  },
+  }
 );
 
 export const verificationTokens = pgTable(
@@ -92,5 +92,5 @@ export const verificationTokens = pgTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  }),
+  })
 );
