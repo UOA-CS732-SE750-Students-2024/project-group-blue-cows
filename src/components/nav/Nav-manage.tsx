@@ -17,7 +17,7 @@ export default function NavManage() {
   return (
     <div className="flex flex-col items-start py-2">
       <h1 className="text-white text-sm">MANAGE CLUBS</h1>
-      <Link href="/users/me/clubs">
+      <Link href="/clubs/admin">
         <Button className="bg-blue-custom px-0 hover:bg-transparent">
           <Image
             src="nav-list-icon.svg"
@@ -29,7 +29,7 @@ export default function NavManage() {
           <span className="text">View My Clubs</span>
         </Button>
       </Link>
-      <Link href="/create-club">
+      <Link href="/clubs/register">
         <Button className="bg-blue-custom px-0 hover:bg-transparent">
           <Image
             src="nav-manage-icon.svg"
