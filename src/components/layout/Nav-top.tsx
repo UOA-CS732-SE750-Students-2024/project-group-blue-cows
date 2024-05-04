@@ -38,7 +38,7 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="/profile"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-32 text-xl"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-32 text-md md:text-lg"
               >
                 <span className="text-white">Profile</span>
               </Link>
@@ -49,7 +49,7 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="/users/me/clubs"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-md md:text-lg"
               >
                 <span className="text-white">Manage Clubs</span>
               </Link>
@@ -60,7 +60,7 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="/clubs"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-md md:text-lg"
               >
                 <span className="text-white">Browse Clubs</span>
               </Link>
