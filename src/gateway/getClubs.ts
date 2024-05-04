@@ -1,3 +1,4 @@
+"use server"
 import "server-only";
 import { db } from "../config/db";
 import clubSchema, { Club } from "@/schemas/clubSchema";
