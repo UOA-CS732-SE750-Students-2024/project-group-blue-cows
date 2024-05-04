@@ -32,6 +32,9 @@ import {
   FormControl,
 } from "@/components/ui/form";
 
+import {UploadButton} from "@/util/uploadThingUtils";
+
+
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -42,14 +45,6 @@ const formSchema = z.object({
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
   logo: z.string().min(1, "Logo is required"),
-  // logo: z.object({
-  //   file: z.any().refine((file) => {
-  //     // Ensure file is validated only in browser environment
-  //     return typeof FileList !== "undefined"
-  //       ? file instanceof FileList && file?.length === 1
-  //       : true;
-  //   }, "File is required."),
-  // }),
   category: z.enum([
     "Academic and specialist",
     "Sport",
@@ -216,7 +211,7 @@ export default function ClubRegistrationForm() {
           }}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="logo"
           render={({ field }) => {
@@ -230,7 +225,44 @@ export default function ClubRegistrationForm() {
               </FormItem>
             );
           }}
+        /> */}
+
+        <FormField
+          control={form.control}
+          name="logo"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel className="font-bold">Club Logo</FormLabel>
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    // Do something with the response
+                    console.log("Files: ", res);
+                    alert("Upload Completed");
+                  }}
+                  onUploadError={(error: Error) => {
+                    // Do something with the error.
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                />
+              </FormItem>
+            );
+          }}
         />
+
+        {/* <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      /> */}
 
         {/* <FormField
           control={form.control}
