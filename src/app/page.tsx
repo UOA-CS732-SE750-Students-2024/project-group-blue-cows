@@ -101,10 +101,6 @@ export default function TestPage() {
           ))}
         </TableBody>
       </Table>
-
-      <FormWrapper label="Create a Club" title="Maker Space">
-        <div></div>
-      </FormWrapper>
     </main>
   );
 }
