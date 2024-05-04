@@ -8,15 +8,18 @@ import { FilterForm } from "@/components/ui/filter-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getAllClubs } from "@/services/clubServices";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 
 export default function ClubsPage() {
   const [clubs, setClubs] = useState<Club[]>([]);
   const [searchString, setSearchString] = useState("");
   const [filter, setFilter] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const updateClubsDebounced = useMemo(() => {
     return debounce(async (searchString) => {
       await getAllClubs(searchString, filter).then(setClubs);
+      setLoading(false);
     }, 500);
   }, [filter]);
 
@@ -34,7 +37,7 @@ export default function ClubsPage() {
       />
       <div className="w-full flex">
         {/*  */}
-        <ClubsList clubs={clubs} />
+        {loading ? <LoadingSpinner /> : <ClubsList clubs={clubs} />}
       </div>
     </main>
   );
