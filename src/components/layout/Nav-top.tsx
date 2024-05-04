@@ -48,7 +48,7 @@ export default function Nav() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/clubs/admin"
+                href="/users/me/clubs"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
               >
                 <span className="text-white">Manage Clubs</span>
