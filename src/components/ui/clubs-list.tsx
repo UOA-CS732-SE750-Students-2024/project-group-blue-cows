@@ -56,10 +56,7 @@ const ClubsList: React.FC<ClubsListProps> = ({
   numberOfClubs,
 }) => {
   return (
-    <Card
-      className="overflow-scroll"
-      style={{ height: "auto", width: "100%", minHeight: "40vh" }}
-    >
+    <Card style={{ height: "auto", width: "100%", minHeight: "40vh" }}>
       <CardHeader>
         <CardTitle>{listType}</CardTitle>
 
