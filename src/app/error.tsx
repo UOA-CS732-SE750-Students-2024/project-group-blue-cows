@@ -1,15 +1,23 @@
 "use client";
 
+import AltPage from "@/components/misc/AltPage";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 // Catches errors thrown in pages and child layouts
-export default function ErrorPage() {
+export default function ErrorPage({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
   return (
-    <div className="h-full flex flex-col items-center justify-center">
-      <h1 className="text-6xl font-bold text-red-600 mb-4">
-        500 - Internal Server Error
-      </h1>
-      <p className="text-xl text-gray-700 mb-8">
-        Something went wrong on our end. Please try again later.
-      </p>
-    </div>
+    <AltPage header="500 - Internal Server Error" subtitle={error.message}>
+      <div className="flex gap-5">
+        <Button onClick={reset}>Try Again</Button>
+        <Link href="/"><Button>Go Home</Button></Link>
+      </div>
+    </AltPage>
   );
 }
