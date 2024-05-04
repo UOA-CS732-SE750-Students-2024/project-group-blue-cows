@@ -9,6 +9,14 @@ export interface CreateClubDto {
   coverImage?: string;
 }
 
+export interface UpdateClubDto {
+  description?: string;
+  membership_fee?: string;
+  logo?: string;
+  category?: string;
+  coverImage?: string;
+}
+
 export interface Club extends CreateClubDto{
   id: number;
 }

@@ -18,7 +18,12 @@ import { SignOut } from "@/components/ui/sign-out";
 import { User } from "next-auth";
 import { getUser } from "@/services/authServices";
 import { AppUser, users } from "@/schemas/authSchema";
-import { addMember, postClub, updateMember } from "@/services/clubServices";
+import {
+  addMember,
+  postClub,
+  updateClub,
+  updateMember,
+} from "@/services/clubServices";
 import { request } from "http";
 import { Club } from "@/schemas/clubSchema";
 import FormWrapper from "@/components/form/form-wrapper";
@@ -84,6 +89,15 @@ export default function TestPage() {
         onClick={() =>
           updateMember(6, "068d0938-2ae4-47f3-a1d2-fe82f486c3ad", {
             paid: true,
+          })
+        }
+      >
+        🍞
+      </Button>
+      <Button
+        onClick={() =>
+          updateClub(2, {
+            description: "A club for losers",
           })
         }
       >
