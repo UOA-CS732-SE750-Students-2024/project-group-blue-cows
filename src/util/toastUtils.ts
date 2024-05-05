@@ -3,7 +3,7 @@ import "client-only";
 import { toast, Bounce, ToastPosition } from "react-toastify";
 
 const baseOptions = {
-  position: "bottom-left" as ToastPosition,
+  position: "bottom-right" as ToastPosition,
   autoClose: 5000,
   hideProgressBar: false,
   closeOnClick: true,
@@ -17,4 +17,8 @@ const baseOptions = {
 export const showToastDemo = (message: string) => {
   console.log(message);
   toast(message, baseOptions);
+};
+
+export const showToastLogin = (message: string) => {
+  toast.info(message, { ...baseOptions, position: "top-left" });
 };
