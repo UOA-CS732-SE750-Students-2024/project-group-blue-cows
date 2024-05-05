@@ -84,7 +84,7 @@ export default function ClubRegistrationForm({
   }, []);
 
   if (!user || !clubData) {
-    return <LoadingSpinner />; // Or replace with a loading spinner
+    return <LoadingSpinner />;
   }
 
   // TODO - Add a submit handler to post the user to the club membership endpoint HERE
@@ -113,8 +113,7 @@ export default function ClubRegistrationForm({
             <CardTitle>Membership Benefits</CardTitle>
           </CardHeader>
           <CardContent>
-            {" "}
-            {/* TODO: Allow content to be passed as a prop */}
+            {/* TODO - Allow signup description content to be passed as a prop here - ADD MEMBERSHIP DESCRIPTION TO SCHEMA? */}
             <ul className="list-disc list-inside">
               <li>
                 Stay up to date with upcoming events, projects, and

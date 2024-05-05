@@ -80,7 +80,6 @@ export function MembersTable({
   });
 
   if (!clubData) {
-    // TODO: style and display this nicely - should also return a 404 status code
     return <Custom404 />;
   }
 
