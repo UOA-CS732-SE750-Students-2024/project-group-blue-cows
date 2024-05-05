@@ -18,11 +18,12 @@ import { SignOut } from "@/components/ui/sign-out";
 import { User } from "next-auth";
 import { getUser } from "@/services/authServices";
 import { AppUser, users } from "@/schemas/authSchema";
-import { postClub } from "@/services/clubServices";
+import { addMember, postClub, updateMember } from "@/services/clubServices";
 import { request } from "http";
 import { Club } from "@/schemas/clubSchema";
 import FormWrapper from "@/components/form/form-wrapper";
 import { UploadButton, UploadDropzone } from "@/util/uploadThingUtils";
+import { putMember } from "@/gateway/putMember";
 // Use this page to test your components
 export default function TestPage() {
   // redirect("/clubs"); // Uncomment me for the submission
@@ -58,7 +59,6 @@ export default function TestPage() {
         onClick={() =>
           postClub(
             {
-              id: 0,
               name: "SESA",
               description: "A club for nerds",
               membership_fee: "0.00",
@@ -66,7 +66,7 @@ export default function TestPage() {
               category: "Academic",
             },
             {
-              id: "a6574eb8-7764-4198-b2b4-280cf0190669",
+              id: "068d0938-2ae4-47f3-a1d2-fe82f486c3ad",
               name: "Alex Hope",
               email: "ahop089@aucklanduni.ac.nz",
               emailVerified: new Date(),
@@ -76,6 +76,15 @@ export default function TestPage() {
               student_id: "814",
             }
           )
+        }
+      >
+        🍞
+      </Button>
+      <Button
+        onClick={() =>
+          updateMember(6, "068d0938-2ae4-47f3-a1d2-fe82f486c3ad", {
+            paid: true,
+          })
         }
       >
         🍞
