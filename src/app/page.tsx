@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { showToastDemo } from "@/util/toastUtils";
-import { getUsers } from "@/services/userServices";
+import { getAllUsers } from "@/services/userServices";
 import { useEffect, useState } from "react";
 import {
   Table,
@@ -36,7 +36,7 @@ export default function TestPage() {
   const [allUsers, setAllUsers] = useState<AppUser[]>([]);
 
   useEffect(() => {
-    getUsers().then(setAllUsers);
+    getAllUsers().then(setAllUsers);
   }, []);
 
   // Getting the auth state within a client component
