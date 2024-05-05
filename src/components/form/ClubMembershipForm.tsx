@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { postClub } from "@/services/clubServices";
+import { getClubById, postClub } from "@/services/clubServices";
 import {
   Card,
   CardContent,
@@ -59,7 +59,7 @@ export default function ClubRegistrationForm({
   params: { clubId: string };
 }) {
   const { data: sessionData } = useSession(); // Get the session data
-  const [clubData, setClubData] = useState<Club | null>(null);
+  const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
   const user = sessionData?.user as AppUser;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -75,10 +75,19 @@ export default function ClubRegistrationForm({
       major: "",
     },
   });
+  useEffect(() => {
+    const getData = async () => {
+      const clubData = await getClubById(Number(params.clubId));
+      setClubData(clubData);
+    };
+    getData();
+  }, []);
 
-  if (!user) {
+  if (!user || !clubData) {
     return <LoadingSpinner />; // Or replace with a loading spinner
   }
+
+  // TODO - Add a submit handler to post the user to the club membership endpoint HERE
 
   // const handleSubmit = (values: z.infer<typeof formSchema>) => {
   //   console.log(values);
