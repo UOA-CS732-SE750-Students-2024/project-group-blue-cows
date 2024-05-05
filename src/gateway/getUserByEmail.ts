@@ -3,8 +3,13 @@ import { users, AppUser } from "@/schemas/authSchema";
 import { eq } from "drizzle-orm";
 import { studentData } from "./getAllMembersForClub";
 
+export interface studentDataWithId extends studentData {
+  id: string;
+}
+
 export async function getUserByEmail(email: string) {
   const user = await db.select({
+    id: users.id,
     name: users.name, 
     email: users.email, 
     upi: users.upi, 
@@ -20,5 +25,5 @@ export async function getUserByEmail(email: string) {
     return null;
   }
 
-  return user[0] as studentData;
+  return user[0] as studentDataWithId;
 }
