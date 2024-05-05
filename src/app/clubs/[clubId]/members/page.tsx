@@ -16,6 +16,7 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
   useEffect(() => {
     const getData = async () => {
       const membersData = await getAllMembers(Number(params.clubId));
+      console.log(membersData);
       const clubData = await getClubById(Number(params.clubId));
       if (!clubData) {
         setNotFound(true);

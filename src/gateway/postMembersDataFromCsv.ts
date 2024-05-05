@@ -16,14 +16,11 @@ export async function postMembersDataFromCSV(clubId: number, formData: FormData)
                 name: data.name, 
                 email: data.email, 
                 upi: data.upi, 
-                year: data.year, 
-                studentId : data.studentId,
+                year_of_study: data.year_of_study, 
+                student_id : data.student_id,
             });
             if (typeof newId === 'string') {
                 id = newId
-            }
-            else {
-                return "Failed to create new user";
             }
         }
         

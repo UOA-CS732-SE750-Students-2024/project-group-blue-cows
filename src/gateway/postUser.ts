@@ -1,16 +1,16 @@
 import { db } from "../config/db";
 import { users } from "@/schemas/authSchema";
 
-export interface studentData{
+export interface postUserDto{
     name: string | null,
     email: string,
     upi: string | null,
-    year: number | null,
-    studentId: string | null,
+    year_of_study: number | null,
+    student_id: string | null,
 }
 
 export async function postUser(
-  user: studentData
+  user: postUserDto
 ) {
   try {
     const result = await db.insert(users).values([user]).returning({insertedId: users.id});

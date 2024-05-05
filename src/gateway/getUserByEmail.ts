@@ -8,8 +8,8 @@ export async function getUserByEmail(email: string) {
     name: users.name, 
     email: users.email, 
     upi: users.upi, 
-    year:users.year_of_study, 
-    studentId: users.student_id
+    year_of_study :users.year_of_study, 
+    student_id: users.student_id
  }).from(users).where(eq(users.email, email));
 
   if (user.length > 1) {
