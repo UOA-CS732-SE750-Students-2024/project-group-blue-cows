@@ -69,10 +69,7 @@ export default function ClubRegistrationForm({
       id: user?.student_id || "123456789",
       email: user?.email || "",
       upi: user?.upi || "",
-      university: "University of Auckland",
       yearLevel: user?.year_of_study || 0,
-      degree: "",
-      major: "",
     },
   });
   useEffect(() => {
@@ -216,26 +213,6 @@ export default function ClubRegistrationForm({
           />
           <FormField
             control={form.control}
-            name="university"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">University</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter University"
-                      defaultValue="University of Auckland"
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
             name="yearLevel"
             render={({ field }) => {
               return (
@@ -245,48 +222,6 @@ export default function ClubRegistrationForm({
                     <Input
                       placeholder="Enter your year level"
                       defaultValue={user?.year_of_study || 1}
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="degree"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">Degree</FormLabel>
-                  <FormControl>
-                    {/* TODO - add degree to schema???*/}
-                    <Input
-                      placeholder="Enter your degree"
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="major"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">
-                    Major / Specialisation
-                  </FormLabel>
-                  <FormControl>
-                    {/* TODO - add major to schema???*/}
-                    <Input
-                      placeholder="Enter your major"
                       type="description"
                       {...field}
                     />
