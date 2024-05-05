@@ -12,19 +12,26 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
   const [membersData, setMembersData] = useState<studentData[]>([]);
   const [clubData, setClubData] = useState<Club | null>(null);
   const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
   useEffect(() => {
     const getData = async () => {
       const membersData = await getAllMembers(Number(params.clubId));
       const clubData = await getClubById(Number(params.clubId));
+      if (!clubData) {
+        setNotFound(true);
+        return;
+      }
       setMembersData(membersData);
       setClubData(clubData);
       setLoading(false);
     };
     getData();
   }, []);
-  if (!clubData) {
+
+  if (notFound) {
     return <Custom404 />;
   }
+
   return (
     <div className="flex h-screen overflow-auto">
       {loading ? (
