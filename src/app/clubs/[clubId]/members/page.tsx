@@ -1,29 +1,57 @@
-import { membersColumns } from "@/components/ui/columns";
-import MembersPage from "@/components/ui/members-table";
+import MembersTable from "@/components/members/MembersTable";
 import { getAllMembers, getClubById } from "@/services/clubServices";
 import { notFound } from "next/navigation";
+import { MemberPageContextProvider } from "../../../../components/members/MemberPageContext";
+import Link from "next/link";
+import {
+  ExportButton,
+  ImportButton,
+  MembersPageBack,
+} from "@/components/members/membersPageClientComponents";
+import { Club } from "@/schemas/clubSchema";
 
-export default async function AdminPage({
-  params,
+export default async function MembersPage({
+  params: { clubId },
 }: {
   params: { clubId: string };
 }) {
-  if (isNaN(Number(params.clubId))) {
+  if (isNaN(+clubId)) {
     return notFound();
   }
-  const membersData = await getAllMembers(Number(params.clubId));
-  const clubData = await getClubById(Number(params.clubId));
-  if (!clubData || !membersData) {
+  const members = await getAllMembers(+clubId);
+  const club = await getClubById(+clubId);
+  if (!club) {
     return notFound();
   }
 
   return (
-    <div className="flex h-screen justify-center items-center w-screen px-10">
-      <MembersPage
-        columns={membersColumns}
-        membersData={membersData}
-        clubData={clubData}
-      />
+    <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">
+      <MemberPageContextProvider data={members}>
+        <div className="flex justify-between mb-6">
+          <MembersPageBack clubId={clubId} className="shrink-0" />
+          <PageHeader club={club} className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2" />
+          <ImportButton className="ml-6 lg:ml-0" />
+          <ExportButton className="ml-2 md:ml-6 xl:ml-12" />
+        </div>
+        
+        <MembersTable membersData={members} clubData={club} />
+      </MemberPageContextProvider>
+    </div>
+  );
+}
+
+function PageHeader({ club, className }: { club: Club; className?: string }) {
+  return (
+    <div className={`${className}`}>
+      <h2 className="text-lg lg:text-[length:calc(0.5rem+1.5vw)] font-extrabold leading-4 pb-[0.4em]">
+        Registered Members
+      </h2>
+      <Link
+        href={`http://localhost:3000/clubs/${club.id}`}
+        className="italic hover:underline text-sm lg:text-md"
+      >
+        {club.name}
+      </Link>
     </div>
   );
 }

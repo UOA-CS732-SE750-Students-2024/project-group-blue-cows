@@ -13,21 +13,42 @@ import {
 } from "@tanstack/react-table";
 
 import { Input } from "@/components/ui/input";
-import { DataTable } from "./data-table";
+import { DataTable } from "../ui/data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { Club } from "@/schemas/clubSchema";
 import { exportClubMembers } from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
 
 type MembersTableProps = {
-  columns: ColumnDef<studentData>[];
   membersData: studentData[];
   clubData: Club | null;
 };
 
-export default function MembersPage({
-  columns,
+const columns: ColumnDef<studentData>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "upi",
+    header: "Upi",
+  },
+  {
+    accessorKey: "year",
+    header: "Year",
+  },
+  {
+    accessorKey: "studentId",
+    header: "Student_Id",
+  },
+];
+
+export default function MembersTable({
   membersData,
   clubData,
 }: MembersTableProps) {
@@ -82,7 +103,6 @@ export default function MembersPage({
     <div className="w-full">
       <div className="flex items-center">
         <div className="flex-1">
-          <h2 className=" text-4xl font-extrabold">{clubData?.name}</h2>
           {/* TODO -
           REPLACE HEADER WITH RELEVANT CLUB NAME FROM API */}
         </div>
