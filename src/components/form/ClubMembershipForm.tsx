@@ -55,16 +55,16 @@ export default function ClubRegistrationForm() {
   const { data: sessionData } = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null);
   const user = sessionData?.user as AppUser; // Type assertion for the user
-
+  const id = user?.student_id || "123456789";
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: user.student_id || "123456789",
-      name: user.name || "",
-      email: user.email || "",
-      upi: user.upi || "",
+      id: user?.student_id || "123456789",
+      name: user?.name || "",
+      email: user?.email || "",
+      upi: user?.upi || "",
       university: "University of Auckland",
-      yearLevel: user.year_of_study || 0,
+      yearLevel: user?.year_of_study || 0,
       degree: "",
       major: "",
     },
@@ -92,7 +92,7 @@ export default function ClubRegistrationForm() {
       >
         <Card className="w-full bg-[#FFD166]">
           <CardHeader>
-            <CardTitle>MEMBERSHIP BENEFITS</CardTitle>
+            <CardTitle>Membership Benefits</CardTitle>
           </CardHeader>
           <CardContent>
             {" "}
@@ -108,8 +108,8 @@ export default function ClubRegistrationForm() {
             </ul>
           </CardContent>
         </Card>
-        <h1>PRE-POPULATED DETAILS</h1>
-        <sub className="text-it">Click on the boxes to edit.</sub>
+        <h1 className="-mb-2">PRE-POPULATED DETAILS</h1>
+        <sub className=" italic mb-2">Click on the boxes to edit.</sub>
         <FormField
           control={form.control}
           name="name"
@@ -120,6 +120,7 @@ export default function ClubRegistrationForm() {
                 <FormControl>
                   <Input
                     defaultValue={user?.name || "Name"}
+                    placeholder="Enter name"
                     type="name"
                     {...field}
                   />
@@ -140,7 +141,8 @@ export default function ClubRegistrationForm() {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter club description"
+                    defaultValue={user?.email || "Email"}
+                    placeholder="Enter email"
                     type="description"
                     {...field}
                   />
@@ -150,41 +152,140 @@ export default function ClubRegistrationForm() {
             );
           }}
         />
-
-        {/* <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      /> */}
-
-        {/* <FormField
-          control={form.control}
-          name="logo"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>File</FormLabel>
-                <FormControl>
-                  <Input type="file" placeholder="shadcn" {...fileRef} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        /> */}
+        <div className="grid grid-rows-3 grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="upi"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">
+                    UPI (e.g. abcd123)
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter UPI"
+                      defaultValue={user?.upi || "UPI"}
+                      type="description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            control={form.control}
+            name="upi"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">
+                    Student ID (e.g. 123456789)
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter your Student ID"
+                      defaultValue={user?.student_id || 0}
+                      type="description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            control={form.control}
+            name="university"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">University</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter University"
+                      defaultValue="University of Auckland"
+                      type="description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            control={form.control}
+            name="yearLevel"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">Year Level</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter your year level"
+                      defaultValue={user?.year_of_study || 1}
+                      type="description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            control={form.control}
+            name="degree"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">Degree</FormLabel>
+                  <FormControl>
+                    {/* TODO - add degree to schema???*/}
+                    <Input
+                      placeholder="Enter your degree"
+                      type="description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            control={form.control}
+            name="major"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">
+                    Major / Specialisation
+                  </FormLabel>
+                  <FormControl>
+                    {/* TODO - add degree to schema???*/}
+                    <Input
+                      placeholder="Enter your major"
+                      type="description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+        </div>
 
         <Button
           type="submit"
           className="w-full bg-[#087DF1] color-white uppercase"
         >
-          Register Club on Cowmunity
+          SUBMIT
         </Button>
       </form>
     </Form>
