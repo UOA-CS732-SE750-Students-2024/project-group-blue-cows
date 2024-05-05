@@ -17,15 +17,13 @@ export default function ProfileHeader() {
       <Image
         src={user?.image || ""}
         alt="Icon for user not logged-in"
-        width={40}
-        height={40}
+        width={60}
+        height={60}
         className="rounded-full mr-5"
       />
       <div className="flex-grow">
         <h1>Your Details</h1>
         <sub className="italic">Click on the boxes to edit.</sub>
-        <h2 className="text-sm font-bold">Full Name</h2>
-        <Input defaultValue={user.name || "Undefined"} />
       </div>
     </div>
   );

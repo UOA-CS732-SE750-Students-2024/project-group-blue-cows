@@ -15,31 +15,20 @@ export default function ProfileEditBody() {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="grid-item">
+        <h2 className="text-sm font-bold">Full Name</h2>
+        <Input defaultValue={user.name || "Undefined"} />
+      </div>
+      <div className="grid-item">
         <h2 className="text-sm font-bold">UPI (e.g. 'abc123')</h2>
         <Input defaultValue={user.upi || ""} />
       </div>
       <div className="grid-item">
         <h2 className="text-sm font-bold">Student ID (e.g. '123456789')</h2>
-        <Input defaultValue={user.id || ""} />
-      </div>
-      <div className="grid-item">
-        <h2 className="text-sm font-bold">University</h2>
-        <Input defaultValue={""} />
-        {/* TODO - Populate with user's university - ADD TO SCHEMA?*/}
+        <Input defaultValue={user.student_id || ""} />
       </div>
       <div className="grid-item">
         <h2 className="text-sm font-bold">Year Level</h2>
         <Input defaultValue={user.year_of_study || ""} />
-      </div>
-      <div className="grid-item">
-        <h2 className="text-sm font-bold">Degree</h2>
-        <Input defaultValue={""} />
-        {/* TODO - Populate with user's degree - ADD TO SCHEMA?*/}
-      </div>
-      <div className="grid-item">
-        <h2 className="text-sm font-bold">Specialisation/Majors</h2>
-        <Input defaultValue={""} />
-        {/* TODO - Populate with user's major - ADD TO SCHEMA?*/}
       </div>
     </div>
   );
