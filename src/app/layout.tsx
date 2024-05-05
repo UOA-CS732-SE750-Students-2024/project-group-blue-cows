@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import Nav from "@/components/layout/Nav";
 import NavTop from "@/components/layout/Nav-top";
 import { SessionProvider } from "next-auth/react";
+import { Modal } from "@/components/misc/Modal";
 
 export const metadata: Metadata = {
   title: "Cowmunity",
@@ -36,6 +37,7 @@ export default function RootLayout({
             <div className="w-5/6 flex items-center justify-center ml-auto overflow-auto">
               {children}
               <ToastContainer />
+              <Modal />
             </div>
           </div>
         </body>

@@ -1,5 +1,4 @@
 "use client";
-import { Modal, openModal } from "@/components/misc/Modal";
 import {
   BackButton,
   BlueButton,
@@ -7,8 +6,8 @@ import {
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
 import { getAllMembers } from "@/services/clubServices";
+import { openModal } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
-import { toast } from "react-toastify";
 
 const handleData = async () => {
   const values = await getAllMembers(2);
@@ -30,10 +29,19 @@ const page = () => {
       </BlueButton>
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
 
-      <BlueButton onClick={() => openModal({content: "Wow", title: "Test"})}>Open Modal</BlueButton>
-      <Modal></Modal>
+      <BlueButton
+        onClick={() =>
+          openModal({
+            content: <YellowButton>Wow</YellowButton>,
+            title: "Test",
+            className: "hover:bg-red-100",
+          })
+        }
+      >
+        Open Modal
+      </BlueButton>
     </div>
   );
 };
 
-export default page
+export default page;
