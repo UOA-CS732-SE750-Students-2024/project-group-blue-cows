@@ -32,58 +32,45 @@ import {
   FormControl,
 } from "@/components/ui/form";
 
+import { UploadButton } from "@/util/uploadThingUtils";
+import { AppUser, users } from "@/schemas/authSchema";
+import { useSession } from "next-auth/react";
+
 import * as z from "zod";
+import { postMember } from "@/gateway/postMember";
 
 const formSchema = z.object({
-  id: z.number(),
+  id: z.string().min(1, "ID is required"),
   name: z.string().min(1, "Name is required").toUpperCase(),
-  description: z.string().min(1, "Description is required"),
-  membership_fee: z
-    .string()
-    .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
-  logo: z.string().min(1, "Logo is required"),
-  // logo: z.object({
-  //   file: z.any().refine((file) => {
-  //     // Ensure file is validated only in browser environment
-  //     return typeof FileList !== "undefined"
-  //       ? file instanceof FileList && file?.length === 1
-  //       : true;
-  //   }, "File is required."),
-  // }),
-  category: z.enum([
-    "Academic and specialist",
-    "Sport",
-    "Special Interest",
-    "Religious and spiritual",
-    "Cultural",
-    "Causes",
-  ]),
+  email: z.string().min(1, "Email is required"),
+  upi: z.string().min(7, "UPI is required"),
+  university: z.string().min(1, "University is required"),
+  yearLevel: z.number().min(1, "Year level is required"),
+  degree: z.string().min(1, "Degree is required"),
+  major: z.string().min(1, "Specialisation/Major is required"),
 });
 
 export default function ClubRegistrationForm() {
+  const { data: sessionData } = useSession(); // Get the session data
+  const user = sessionData?.user as AppUser; // Type assertion for the user
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: 0,
-      name: "",
-      description: "",
-      membership_fee: "",
-      logo: "",
+      id: user.student_id || "123456789",
+      name: user.name || "",
+      email: user.email || "",
+      upi: user.upi || "",
+      university: "University of Auckland",
+      yearLevel: user.year_of_study || 0,
+      degree: "",
+      major: "",
     },
   });
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    postClub(values, {
-      id: "a6574eb8-7764-4198-b2b4-280cf0190669",
-      name: "Alex Hope",
-      email: "ahop089@aucklanduni.ac.nz",
-      emailVerified: new Date(),
-      image: "gdffghgd",
-      upi: "ahop",
-      year_of_study: 4,
-      student_id: "814",
-    })
+    postMember(club.id, user, isPaid, isAdmin)
       .then(() => {
         form.reset(); // Reset form fields after successful submission
       })
@@ -102,37 +89,37 @@ export default function ClubRegistrationForm() {
       >
         <Card className="w-full bg-[#FFD166]">
           <CardHeader>
-            <CardTitle>Registering a club</CardTitle>
+            <CardTitle>MEMBERSHIP BENEFITS</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>
-              Stay up to date with upcoming events, projects, and competitions.
-              Become eligible to participate in our projects and competitions.
-            </p>
+            {" "}
+            {/* TODO: Allow content to be passed as a prop */}
+            <ul className="list-disc list-inside">
+              <li>
+                Stay up to date with upcoming events, projects, and
+                competitions.
+              </li>
+              <li>
+                Become eligible to participate in our projects and competitions.
+              </li>
+            </ul>
           </CardContent>
-          <CardFooter>
-            <p>
-              If this is not the case, please first ensure that your club meets
-              all the requirements listed{" "}
-              <a
-                href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html"
-                className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
-              >
-                here
-              </a>
-              , apply to start your club, and await approval.
-            </p>
-          </CardFooter>
         </Card>
+        <h1>PRE-POPULATED DETAILS</h1>
+        <sub className="text-it">Click on the boxes to edit.</sub>
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Club Name</FormLabel>
+                <FormLabel className="font-bold">Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter club name" type="name" {...field} />
+                  <Input
+                    defaultValue={user?.name || "Name"}
+                    type="name"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -141,11 +128,13 @@ export default function ClubRegistrationForm() {
         />
         <FormField
           control={form.control}
-          name="description"
+          name="email"
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Club Description</FormLabel>
+                <FormLabel className="font-bold">
+                  Preferred Email Address
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter club description"
@@ -222,15 +211,40 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Dummy Input until File Upload Component</FormLabel>
-                <FormControl>
-                  <Input placeholder="Logo URL here" type="logo" {...field} />
-                </FormControl>
-                <FormMessage />
+                <FormLabel className="font-bold">Club Logo</FormLabel>
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    // Do something with the response
+                    console.log("Files: ", res);
+                    alert("Upload Completed");
+
+                    //Convert url to string
+                    const logoUrl = res[0].url.toString();
+                    form.setValue("logo", logoUrl, { shouldValidate: true });
+                  }}
+                  onUploadError={(error: Error) => {
+                    // Do something with the error.
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                />
               </FormItem>
             );
           }}
         />
+
+        {/* <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      /> */}
 
         {/* <FormField
           control={form.control}
