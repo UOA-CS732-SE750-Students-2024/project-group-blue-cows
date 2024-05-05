@@ -1,5 +1,5 @@
 "use client";
-import { Modal } from "@/components/misc/Modal";
+import { Modal, openModal } from "@/components/misc/Modal";
 import {
   BackButton,
   BlueButton,
@@ -28,11 +28,10 @@ const page = () => {
       <BlueButton onClick={() => showToastDemo("Blue Button")}>
         Blue Button
       </BlueButton>
-      <BackButton onClick={() => showToastDemo("Back Button")}>
-        
-      </BackButton>
+      <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
 
-      <Modal />
+      <BlueButton onClick={() => openModal({content: "Wow", title: "Test"})}>Open Modal</BlueButton>
+      <Modal></Modal>
     </div>
   );
 };
