@@ -10,47 +10,30 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./button";
 import { toast } from "react-toastify";
+import Image from "next/image";
+import { showToastLogin } from "@/util/toastUtils";
 
 export function SignIn() {
   return (
     <form
       action={() => {
+        showToastLogin("Signing in with Google");
         signIn("google");
       }}
     >
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="default" className=" bg-blue-500 text-white">
-            Sign In or Register
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle className="text-center text-2xl">
-              Log In / Register
-            </DialogTitle>
-          </DialogHeader>
-          <Button
-            type="submit"
-            className="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-50 text-xl h-24 w-full"
-            onClick={() => {
-              toast.info("Loading...", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-              signIn("google");
-            }}
-          >
-            <img src="/google.svg" alt="Google Logo" className="w-8 h-8" />
-            Sign In with Google
-          </Button>
-        </DialogContent>
-      </Dialog>
+      <Button
+        type="submit"
+        className="px-8 py-2 hover:bg-slate-800 border border-slate-700 lg:text-sm w-full"
+      >
+        <Image
+          src="/google.svg"
+          width={20}
+          height={20}
+          alt="Google Logo"
+          className="pr-2 w-6 h-6"
+        />
+        Sign in<span className="ml-1 hidden lg:inline">with Google</span>
+      </Button>
     </form>
   );
 }
