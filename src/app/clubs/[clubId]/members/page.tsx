@@ -29,11 +29,14 @@ export default async function MembersPage({
       <MemberPageContextProvider data={members}>
         <div className="flex justify-between mb-6">
           <MembersPageBack clubId={clubId} className="shrink-0" />
-          <PageHeader club={club} className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2" />
+          <PageHeader
+            club={club}
+            className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
+          />
           <ImportButton className="ml-6 lg:ml-0" />
-          <ExportButton className="ml-2 md:ml-6 xl:ml-12" />
+          <ExportButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
         </div>
-        
+
         <MembersTable membersData={members} clubData={club} />
       </MemberPageContextProvider>
     </div>

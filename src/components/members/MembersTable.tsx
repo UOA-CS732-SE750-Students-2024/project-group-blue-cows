@@ -15,10 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { DataTable } from "../ui/data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
-import { Button } from "../ui/button";
 import { Club } from "@/schemas/clubSchema";
-import { exportClubMembers } from "@/services/clubServices";
-import { showToastDemo } from "@/util/toastUtils";
 
 type MembersTableProps = {
   membersData: studentData[];
@@ -59,26 +56,6 @@ export default function MembersTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-
-  const handleClick = async () => {
-    if (clubData) {
-      try {
-        const csvData = await exportClubMembers(clubData.id);
-        const blob = new Blob([csvData], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${clubData.name}_membership.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-        showToastDemo("Yay! Data successfully exported");
-      } catch (error) {
-        showToastDemo("Problem with exporting data");
-      }
-    }
-  };
 
   const table = useReactTable({
     columns,
@@ -127,11 +104,6 @@ export default function MembersTable({
             }}
             className="shadow-md"
           />
-        </div>
-        <div className="flex">
-          <Button onClick={handleClick} className="bg-customAccent text-black">
-            Export Data
-          </Button>
         </div>
       </div>
 
