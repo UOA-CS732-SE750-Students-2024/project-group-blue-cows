@@ -18,16 +18,9 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormControl,
-} from "@/components/ui/form";
 import ClubEditForm from "@/components/form/club-edit-form";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function AdminEditPage({
   params,
@@ -72,10 +65,10 @@ export default function AdminEditPage({
     { name: "John Doe", position: "Software Engineer" },
     { name: "Jane Smith", position: "Product Manager" },
     { name: "Alice Johnson", position: "UI/UX Designer" },
-    // Add more dummy data as needed
   ];
 
-  // Copy text to clipboard
+  // Copies the registration link to the clipboard
+  //TODO: INSERT LINK
   const handleCopyClick = () => {
     navigator.clipboard
       .writeText("insert the form link here")
@@ -89,7 +82,7 @@ export default function AdminEditPage({
 
   return (
     <div className="h-[calc(100vh-4rem)] w-full">
-      <div className="flex p-4">
+      <div className="flex px-10 pt-4 pb-2">
         <div className="w-1/10">
           <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
             Back
@@ -98,7 +91,7 @@ export default function AdminEditPage({
         <div className="w-9/10"></div>
       </div>
 
-      <div className="flex px-4">
+      <div className="flex px-10">
         <div className="w-1/10">
           <img
             src="/wdcc-logo.png"
@@ -129,7 +122,7 @@ export default function AdminEditPage({
       </div>
 
       <div className="flex">
-        <div className="w-1/3 p-4">
+        <div className="w-1/3 px-10 py-4">
           <Card>
             <CardHeader>
               <div className="text-xl">Registration Form</div>
@@ -154,9 +147,11 @@ export default function AdminEditPage({
                   <p className="text-xs">Copy Public Registration Form link</p>
                 </div>
               </div>
-              <Button className="mt-3 bg-customAccent text-black">
-                Edit Registration Form
-              </Button>
+              <Link href={"/clubs/1/admin/registration"}>
+                <Button className="mt-3 bg-customAccent text-black">
+                  Edit Registration Form
+                </Button>
+              </Link>
             </CardContent>
           </Card>
           <Card className="mt-5">
@@ -164,11 +159,10 @@ export default function AdminEditPage({
               <p className="text-lg">Membership Count</p>
               <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
                 <div className="text-center">
-                  <h1 className="text-lg md:text-xl lg:text-2xl">
-                    800
-                    <br />
+                  <h1 className="text-lg md:text-xl lg:text-2xl">800</h1>
+                  <h2 className="text-sm md:text-md lg:text-lg">
                     Registered Members
-                  </h1>
+                  </h2>
                 </div>
               </div>
               <Button className="mt-3 bg-customAccent text-black">
@@ -251,7 +245,7 @@ export default function AdminEditPage({
       </div> */}
 
       {/* form */}
-      <div className="p-4">
+      <div className="p-10">
         <ClubEditForm />
       </div>
     </div>
