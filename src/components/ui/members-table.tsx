@@ -48,7 +48,7 @@ export function MembersTable({
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "data.csv";
+        a.download = `${clubData.name}_membership.csv`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
