@@ -38,9 +38,9 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="/profile"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-32 text-xl"
+                className="text-white hover:text-black flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors md:h-8 md:w-32 text-md md:text-lg hover:bg-customAccent"
               >
-                <span className="text-white">Profile</span>
+                <span>Profile</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">Profile</TooltipContent>
@@ -49,9 +49,9 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="/users/me/clubs"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
+                className="text-white hover:text-black flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors md:h-8 md:w-40 text-md md:text-lg hover:bg-customAccent"
               >
-                <span className="text-white">Manage Clubs</span>
+                <span>Manage Clubs</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">Manage Clubs</TooltipContent>
@@ -60,9 +60,9 @@ export default function Nav() {
             <TooltipTrigger asChild>
               <Link
                 href="/clubs"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-40 text-xl"
+                className="text-white hover:text-black flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors md:h-8 md:w-40 text-md md:text-lg hover:bg-customAccent"
               >
-                <span className="text-white">Browse Clubs</span>
+                <span>Browse Clubs</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">Browse Clubs</TooltipContent>
