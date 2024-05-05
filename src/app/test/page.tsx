@@ -1,4 +1,5 @@
 "use client";
+import { Modal } from "@/components/misc/Modal";
 import {
   BackButton,
   BlueButton,
@@ -30,6 +31,8 @@ const page = () => {
       <BackButton onClick={() => showToastDemo("Back Button")}>
         
       </BackButton>
+
+      <Modal />
     </div>
   );
 };
