@@ -6,7 +6,6 @@ import { studentData } from "@/gateway/getAllMembersForClub";
 import { Club } from "@/schemas/clubSchema";
 import { getAllMembers, getClubById } from "@/services/clubServices";
 import { useEffect, useState } from "react";
-import Custom404 from "@/pages/404";
 
 export default function AdminPage({ params }: { params: { clubId: string } }) {
   const [membersData, setMembersData] = useState<studentData[]>([]);
@@ -26,10 +25,10 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
       setLoading(false);
     };
     getData();
-  }, []);
+  }, [params.clubId]);
 
   if (notFound) {
-    return <Custom404 />;
+    return null;
   }
 
   return (
@@ -38,11 +37,11 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
         <LoadingSpinner />
       ) : (
         <div className="flex justify-center items-center w-screen px-10">
-          <MembersTable
+          {/* <MembersTable
             columns={membersColumns}
             membersData={membersData}
             clubData={clubData}
-          />
+          /> */}
         </div>
       )}
     </div>
