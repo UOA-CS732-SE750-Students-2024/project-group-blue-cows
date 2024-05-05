@@ -28,7 +28,7 @@ export default function RootLayout({
         <SessionProvider>
           <NavTop className="h-[4rem]" />
           <div className="flex flex-auto overflow-hidden">
-            <NavSide className="w-1/6" />
+            <NavSide />
             <div className="flex-auto overflow-auto">{children}</div>
           </div>
           <ToastContainer />

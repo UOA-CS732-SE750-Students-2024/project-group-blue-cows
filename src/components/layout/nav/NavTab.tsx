@@ -21,7 +21,7 @@ export default function NavTab({
   return (
     <Link href={href}>
       <Button
-        className={`bg-blue-custom px-0 hover:bg-transparent text-white hover:opacity-70 transition-opacity ${className}`}
+        className={`bg-blue-custom px-0 hover:bg-transparent text-white hover:opacity-70 transition-opacity h-8 lg:h-10 ${className}`}
       >
         <Image
           src={imgSrc}

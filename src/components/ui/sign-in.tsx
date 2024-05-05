@@ -23,7 +23,7 @@ export function SignIn() {
     >
       <Button
         type="submit"
-        className="px-8 py-2 hover:bg-slate-800 border border-slate-700 text-sm w-full"
+        className="px-8 py-2 hover:bg-slate-800 border border-slate-700 lg:text-sm w-full"
       >
         <Image
           src="/google.svg"
@@ -32,7 +32,7 @@ export function SignIn() {
           alt="Google Logo"
           className="pr-2 w-6 h-6"
         />
-        Sign in with Google
+        Sign in<span className="ml-1 hidden lg:inline">with Google</span>
       </Button>
     </form>
   );

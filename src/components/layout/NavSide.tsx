@@ -8,9 +8,9 @@ import NavShortcut from "./nav/NavShortcut";
 export default function NavSide({ className }: { className?: string }) {
   return (
     <aside
-      className={`flex flex-col border-r bg-blue-custom ${className}`}
+      className={`w-1/6 lg:min-w-[16rem] min-w-[12rem] flex flex-col items-center lg:p-6 content-middle bg-blue-custom ${className}`}
     >
-      <nav className="flex flex-col w-full items-start gap-4 lg:px-6 lg:py-5">
+      <nav className="flex flex-col items-start lg:gap-4">
         <TooltipProvider>
           <NavProfile />
           <NavBrowse />
