@@ -1,4 +1,9 @@
 "use client";
+import {
+  BackButton,
+  BlueButton,
+  YellowButton,
+} from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
 import { showToastDemo } from "@/util/toastUtils";
 import { getUsers } from "@/services/userServices";
@@ -38,13 +43,13 @@ export default function TestPage() {
     });
   }, []); // empty dependency array, will only run on component mount
 
-  const handleData = async() => {
+  const handleData = async () => {
     const values = await getAllMembers(2);
-    console.log(values)
-  }
+    console.log(values);
+  };
 
   return (
-    <main className="h-screen grid justify-center content-center pt-16 ">
+    <main className="h-screen grid justify-center content-center py-16 ">
       <h1>Test</h1>
       <p>{currentUser ? "Signed in" : "Signed out"}</p>
       <p>Name: {currentUser?.name || "Undefined"}</p>
@@ -73,12 +78,10 @@ export default function TestPage() {
           )
         }
       >
-        🍞
+        Post Club
       </Button>
-        <Button className="ml-10" onClick={handleData}>
-          Test
-        </Button>
-      <Table className="w-100">
+
+      <Table>
         <TableCaption>All users in the database.</TableCaption>
         <TableHeader>
           <TableRow>
@@ -99,6 +102,18 @@ export default function TestPage() {
           ))}
         </TableBody>
       </Table>
+
+      <Button className="ml-10" onClick={handleData}>
+        Test
+      </Button>
+
+      <YellowButton onClick={() => showToastDemo("Yellow Button")}>
+        Yellow Button
+      </YellowButton>
+      <BlueButton onClick={() => showToastDemo("Blue Button")}>
+        Blue Button
+      </BlueButton>
+      <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
     </main>
   );
-};
+}
