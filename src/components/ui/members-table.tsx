@@ -20,6 +20,7 @@ import { Club } from "@/schemas/clubSchema";
 import Custom404 from "@/pages/404";
 import { exportClubMembers } from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
+import { UploadButton } from "@/util/uploadThingUtils";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
@@ -120,6 +121,21 @@ export function MembersTable({
           </Button>
         </div>
       </div>
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+
+          //Convert url to string
+          const logoUrl = res[0].url.toString();
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
 
       <DataTable table={table} columns={columns} />
     </div>

@@ -3,7 +3,7 @@ import csvParser from 'csv-parser';
 import { studentData } from '@/gateway/getAllMembersForClub';
 
 export const importCsvFile = (filename: string) => {
-    const extractedValues: any[] = [];
+    const extractedValues: studentData[] = [];
     fs.createReadStream(filename)
     .pipe(csvParser())
     .on('data', (row) => {
@@ -11,6 +11,7 @@ export const importCsvFile = (filename: string) => {
     })
     .on('end', () => {
         console.log('Extracted values:', extractedValues);
+        return extractedValues;
     });
 }
 

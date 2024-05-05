@@ -7,7 +7,7 @@ const f = createUploadthing();
 // FileRouter for UploadThing
 export const uploadThingFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
-  imageUploader: f({ image: { maxFileSize: "8MB" } })
+  imageUploader: f({ image: { maxFileSize: "8MB" }, "text/csv": { maxFileSize: "4MB" }})
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
