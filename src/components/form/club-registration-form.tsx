@@ -32,16 +32,13 @@ import {
   FormControl,
 } from "@/components/ui/form";
 
-import {UploadButton} from "@/util/uploadThingUtils";
+import { UploadButton } from "@/util/uploadThingUtils";
 import { AppUser, users } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
 
-
 import * as z from "zod";
 
-
 const formSchema = z.object({
-  id: z.number(),
   name: z.string().min(1, "Name is required").toUpperCase(),
   description: z.string().min(1, "Description is required"),
   membership_fee: z
@@ -59,14 +56,12 @@ const formSchema = z.object({
 });
 
 export default function ClubRegistrationForm() {
-
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: 0,
       name: "",
       description: "",
       membership_fee: "",
@@ -241,7 +236,7 @@ export default function ClubRegistrationForm() {
 
                     //Convert url to string
                     const logoUrl = res[0].url.toString();
-                    form.setValue('logo', logoUrl, { shouldValidate: true });
+                    form.setValue("logo", logoUrl, { shouldValidate: true });
                   }}
                   onUploadError={(error: Error) => {
                     // Do something with the error.

@@ -54,7 +54,6 @@ export default function TestPage() {
         onClick={() =>
           postClub(
             {
-              id: 0,
               name: "SESA",
               description: "A club for nerds",
               membership_fee: "0.00",
