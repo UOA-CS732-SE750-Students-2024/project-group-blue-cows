@@ -75,8 +75,20 @@ export default function AdminEditPage({
     // Add more dummy data as needed
   ];
 
+  // Copy text to clipboard
+  const handleCopyClick = () => {
+    navigator.clipboard
+      .writeText("insert the form link here")
+      .then(() => {
+        console.log("Text copied to clipboard");
+      })
+      .catch((error) => {
+        console.error("Failed to copy text: ", error);
+      });
+  };
+
   return (
-    <div className="h-[calc(100vh-4rem)] w-full bg-customGrass">
+    <div className="h-[calc(100vh-4rem)] w-full">
       <div className="flex p-4">
         <div className="w-1/10">
           <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
@@ -97,7 +109,9 @@ export default function AdminEditPage({
         <div className="w-9/10">
           <div className="ml-5 flex flex-col">
             <div className="flex items-start">
-              <p className="text-lg">Web Development & Consulting Club</p>
+              <p className="text-lg font-bold">
+                Web Development & Consulting Club
+              </p>
             </div>
             <div className="flex items-start">
               <p>
@@ -106,9 +120,9 @@ export default function AdminEditPage({
               </p>
             </div>
             <div className="flex items-start">
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+              <Button className="mt-3 bg-customAccent text-black">
                 Edit Club Information
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -125,10 +139,24 @@ export default function AdminEditPage({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Copy Public Registration Form link</p>
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+              <div
+                className="flex items-center bg-slate-200 p-1 rounded-md hover:bg-slate-300 cursor-pointer"
+                onClick={handleCopyClick}
+              >
+                <div className="w-10%">
+                  <img
+                    src="/copy-icon.svg"
+                    alt="Copy Icon"
+                    className="w-5 m-1 h-auto rounded-lg"
+                  />
+                </div>
+                <div className="w-90% ">
+                  <p className="text-xs">Copy Public Registration Form link</p>
+                </div>
+              </div>
+              <Button className="mt-3 bg-customAccent text-black">
                 Edit Registration Form
-              </button>
+              </Button>
             </CardContent>
           </Card>
           <Card className="mt-5">
@@ -143,9 +171,9 @@ export default function AdminEditPage({
                   </h1>
                 </div>
               </div>
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold p-2 px-4 rounded">
+              <Button className="mt-3 bg-customAccent text-black">
                 View Members
-              </button>
+              </Button>
             </div>
           </Card>
         </div>
@@ -159,9 +187,9 @@ export default function AdminEditPage({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold p-2 px-4 rounded">
-                Add new exec
-              </button>
+              <Button className="mt-3 bg-customAccent text-black">
+                Add New Exec
+              </Button>
               <div className="overflow-scroll" style={{ height: "300px" }}>
                 <Table className="min-w-full">
                   <TableHeader>
