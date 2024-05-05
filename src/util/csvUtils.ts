@@ -4,6 +4,11 @@ import csvParser from 'csv-parser';
 import { studentData } from '@/gateway/getAllMembersForClub';
 import { revalidatePath } from 'next/cache';
 
+export interface studentAllData extends studentData {
+    paid: boolean,
+    isAdmin: boolean
+}
+
 export const importCsvFile = async (formData: FormData) => {
     try {
         const file = formData.get("file") as File;
@@ -11,8 +16,8 @@ export const importCsvFile = async (formData: FormData) => {
         const buffer = new Uint8Array(arrayBuffer);
         await fs.writeFile(`./public/uploads/${file.name}`, buffer);
 
-        return new Promise<studentData[]>((resolve, reject) => {
-            const extractedValues: studentData[] = [];
+        return new Promise<studentAllData[]>((resolve, reject) => {
+            const extractedValues: studentAllData[] = [];
             originalFS.createReadStream(`./public/uploads/${file.name}`)
                 .pipe(csvParser())
                 .on('data', (row) => {
@@ -21,7 +26,7 @@ export const importCsvFile = async (formData: FormData) => {
                 .on('end', () => {
                     console.log('Extracted values:', extractedValues);
                     revalidatePath("/");
-                    resolve(extractedValues as studentData[]);
+                    resolve(extractedValues as studentAllData[]);
                 })
                 .on('error', (error) => {
                     reject(error);
