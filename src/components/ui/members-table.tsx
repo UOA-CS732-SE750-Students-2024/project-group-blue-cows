@@ -53,6 +53,7 @@ export function MembersTable({
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
+        showToastDemo("Yay! Data successfully exported");
       } catch (error) {
         showToastDemo("Problem with exporting data");
       }
