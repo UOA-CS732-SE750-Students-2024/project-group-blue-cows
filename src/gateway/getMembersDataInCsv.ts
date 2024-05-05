@@ -4,11 +4,10 @@ export async function getMembersDataInCSV(clubId: number) {
 
     try {
      const data = await getAllMembersForClub(clubId);
+     const csv = data.map(row => Object.values(row).join(',')).join('\n');
+     return csv;
 
-    // Format data into CSV format
-    const csv = data.map(row => Object.values(row).join(',')).join('\n');
     } catch(error) {
-        const errorMessage = "Error exporting data";
-        return errorMessage
+        throw new Error("Problem with exporting data")
     }
 }

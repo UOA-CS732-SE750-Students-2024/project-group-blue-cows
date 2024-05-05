@@ -18,6 +18,8 @@ import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
 import Custom404 from "@/pages/404";
+import { exportClubMembers } from "@/services/clubServices";
+import { showToastDemo } from "@/util/toastUtils";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
@@ -37,6 +39,25 @@ export function MembersTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const handleClick = async () => {
+    if (clubData) {
+      try {
+        const csvData = await exportClubMembers(clubData.id);
+        const blob = new Blob([csvData], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        showToastDemo("Problem with exporting data");
+      }
+    }
+  };
 
   const table = useReactTable({
     columns,
@@ -93,7 +114,9 @@ export function MembersTable({
           />
         </div>
         <div className="flex">
-          <Button className="bg-customAccent text-black">Export Data</Button>
+          <Button onClick={handleClick} className="bg-customAccent text-black">
+            Export Data
+          </Button>
         </div>
       </div>
 
