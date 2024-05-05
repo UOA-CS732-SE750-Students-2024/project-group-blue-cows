@@ -55,7 +55,7 @@ export default function AdminEditPage({
           <img
             src="/wdcc-logo.png"
             alt="Square Image"
-            className="w-full h-auto"
+            className="w-full h-auto rounded-lg"
           />
         </div>
         <div className="w-9/10">
@@ -112,15 +112,21 @@ export default function AdminEditPage({
       <div className="flex">
         <div className="w-1/3 p-4">
           <Card>
-            <CardHeader>
+            <div className="m-5">
               <CardTitle>Membership Count</CardTitle>
-              <CardDescription>800 Registered Members</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+              <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
+                <div className="text-center">
+                  <h1 className="text-lg md:text-xl lg:text-2xl">
+                    800
+                    <br />
+                    Registered Members
+                  </h1>
+                </div>
+              </div>
+              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold p-2 px-4 rounded">
                 View Members
               </button>
-            </CardContent>
+            </div>
           </Card>
         </div>
         <div className="w-2/3 p-4">
