@@ -1,6 +1,6 @@
 "use client"; // to get react to know it's a client compponent
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postClub } from "@/services/clubServices";
@@ -39,6 +39,7 @@ import { useSession } from "next-auth/react";
 import * as z from "zod";
 import { postMember } from "@/gateway/postMember";
 import { Club } from "@/schemas/clubSchema";
+import { getUser } from "@/services/authServices";
 
 const formSchema = z.object({
   id: z.string().min(1, "ID is required"),
@@ -51,7 +52,11 @@ const formSchema = z.object({
   major: z.string().min(1, "Specialisation/Major is required"),
 });
 
-export default function ClubRegistrationForm() {
+export default function ClubRegistrationForm({
+  params,
+}: {
+  params: { clubId: string };
+}) {
   const { data: sessionData } = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null);
   const user = sessionData?.user as AppUser; // Type assertion for the user
@@ -69,6 +74,7 @@ export default function ClubRegistrationForm() {
       major: "",
     },
   });
+
   const clubId = clubData?.id;
 
   // const handleSubmit = (values: z.infer<typeof formSchema>) => {
