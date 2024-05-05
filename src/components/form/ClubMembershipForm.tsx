@@ -284,7 +284,7 @@ export default function ClubRegistrationForm({
                     Major / Specialisation
                   </FormLabel>
                   <FormControl>
-                    {/* TODO - add degree to schema???*/}
+                    {/* TODO - add major to schema???*/}
                     <Input
                       placeholder="Enter your major"
                       type="description"
