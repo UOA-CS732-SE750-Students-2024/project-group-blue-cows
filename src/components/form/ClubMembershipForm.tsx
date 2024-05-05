@@ -40,6 +40,7 @@ import * as z from "zod";
 import { postMember } from "@/gateway/postMember";
 import { Club } from "@/schemas/clubSchema";
 import { getUser } from "@/services/authServices";
+import LoadingSpinner from "../ui/loading-spinner";
 
 const formSchema = z.object({
   id: z.string().min(1, "ID is required"),
@@ -59,13 +60,13 @@ export default function ClubRegistrationForm({
 }) {
   const { data: sessionData } = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null);
-  const user = sessionData?.user as AppUser; // Type assertion for the user
-  const id = user?.student_id || "123456789";
+  const user = sessionData?.user as AppUser;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: user?.student_id || "123456789",
       name: user?.name || "",
+      id: user?.student_id || "123456789",
       email: user?.email || "",
       upi: user?.upi || "",
       university: "University of Auckland",
@@ -74,6 +75,10 @@ export default function ClubRegistrationForm({
       major: "",
     },
   });
+
+  if (!user) {
+    return <LoadingSpinner />; // Or replace with a loading spinner
+  }
 
   // const handleSubmit = (values: z.infer<typeof formSchema>) => {
   //   console.log(values);
