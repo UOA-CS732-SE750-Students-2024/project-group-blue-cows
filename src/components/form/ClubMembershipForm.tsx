@@ -41,16 +41,14 @@ import { postMember } from "@/gateway/postMember";
 import { Club } from "@/schemas/clubSchema";
 import { getUser } from "@/services/authServices";
 import LoadingSpinner from "../ui/loading-spinner";
+import { Session } from "next-auth";
 
 const formSchema = z.object({
   id: z.string().min(1, "ID is required"),
   name: z.string().min(1, "Name is required").toUpperCase(),
   email: z.string().min(1, "Email is required"),
-  upi: z.string().min(7, "UPI is required"),
-  university: z.string().min(1, "University is required"),
+  upi: z.string().min(1, "UPI is required"),
   yearLevel: z.number().min(1, "Year level is required"),
-  degree: z.string().min(1, "Degree is required"),
-  major: z.string().min(1, "Specialisation/Major is required"),
 });
 
 export default function ClubRegistrationForm({
@@ -58,32 +56,41 @@ export default function ClubRegistrationForm({
 }: {
   params: { clubId: string };
 }) {
-  const { data: sessionData } = useSession(); // Get the session data
+  const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  const user = sessionData?.user as AppUser;
+  const user = session.data?.user as AppUser;
+  const [loading, setLoading] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: user?.name || "",
-      id: user?.student_id || "123456789",
-      email: user?.email || "",
-      upi: user?.upi || "",
-      university: "University of Auckland",
-      yearLevel: user?.year_of_study || 0,
-      degree: "",
-      major: "",
+      name: "",
+      id: "",
+      email: "",
+      upi: "",
+      yearLevel: 0,
     },
   });
   useEffect(() => {
     const getData = async () => {
       const clubData = await getClubById(Number(params.clubId));
       setClubData(clubData);
+      setLoading(false);
     };
     getData();
   }, []);
 
-  if (!user || !clubData) {
+  useEffect(() => {
+    if (user) {
+      form.setValue("name", user.name || "");
+      form.setValue("id", user.student_id || "");
+      form.setValue("email", user.email || "");
+      form.setValue("upi", user.upi || "");
+      form.setValue("yearLevel", user.year_of_study || 0);
+    }
+  }, [user]);
+
+  if (loading || !user) {
     return <LoadingSpinner />;
   }
 
@@ -147,29 +154,30 @@ export default function ClubRegistrationForm({
             );
           }}
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">
-                  Preferred Email Address
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    defaultValue={user?.email || "Email"}
-                    placeholder="Enter email"
-                    type="description"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
+
         <div className="grid grid-rows-3 grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">
+                    Preferred Email Address
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      defaultValue={user?.email || "Email"}
+                      placeholder="Enter email"
+                      type="description"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
           <FormField
             control={form.control}
             name="upi"
@@ -216,26 +224,6 @@ export default function ClubRegistrationForm({
           />
           <FormField
             control={form.control}
-            name="university"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">University</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter University"
-                      defaultValue="University of Auckland"
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
             name="yearLevel"
             render={({ field }) => {
               return (
@@ -245,48 +233,6 @@ export default function ClubRegistrationForm({
                     <Input
                       placeholder="Enter your year level"
                       defaultValue={user?.year_of_study || 1}
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="degree"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">Degree</FormLabel>
-                  <FormControl>
-                    {/* TODO - add degree to schema???*/}
-                    <Input
-                      placeholder="Enter your degree"
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="major"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">
-                    Major / Specialisation
-                  </FormLabel>
-                  <FormControl>
-                    {/* TODO - add major to schema???*/}
-                    <Input
-                      placeholder="Enter your major"
                       type="description"
                       {...field}
                     />
