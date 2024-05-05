@@ -75,11 +75,9 @@ export default function ClubRegistrationForm({
     },
   });
 
-  const clubId = clubData?.id;
-
   // const handleSubmit = (values: z.infer<typeof formSchema>) => {
   //   console.log(values);
-  //   postMember(clubId, user, isPaid, isAdmin)
+  //   postMember(user)
   //     .then(() => {
   //       form.reset(); // Reset form fields after successful submission
   //     })

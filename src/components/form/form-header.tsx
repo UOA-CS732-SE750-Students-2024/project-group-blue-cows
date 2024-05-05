@@ -30,7 +30,7 @@ export const FormHeader = ({
   }, []);
 
   if (loading) {
-    return <LoadingSpinner />; // Or replace with a loading spinner
+    return <LoadingSpinner />;
   }
 
   return (
