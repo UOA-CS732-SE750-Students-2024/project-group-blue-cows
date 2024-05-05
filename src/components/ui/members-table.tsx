@@ -18,9 +18,9 @@ import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
 import Custom404 from "@/pages/404";
-import { exportClubMembers } from "@/services/clubServices";
+import { exportClubMembers, importClubMembers } from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
-import { UploadButton } from "@/util/uploadThingUtils";
+import { useRef } from "react";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
@@ -40,6 +40,7 @@ export function MembersTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const fileInput = useRef<HTMLInputElement>(null);
 
   const handleClick = async () => {
     if (clubData) {
@@ -58,6 +59,19 @@ export function MembersTable({
       } catch (error) {
         showToastDemo("Problem with exporting data");
       }
+    }
+  };
+
+  const handleUploadFile = async (
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    evt.preventDefault();
+
+    const formData = new FormData();
+    formData.append("file", fileInput?.current?.files?.[0]!);
+    if (clubData) {
+      const studentData = await importClubMembers(clubData.id, formData);
+      console.log(studentData);
     }
   };
 
@@ -121,23 +135,16 @@ export function MembersTable({
           </Button>
         </div>
       </div>
-      <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-
-          //Convert url to string
-          const logoUrl = res[0].url.toString();
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
-
       <DataTable table={table} columns={columns} />
+      <form className="flex flex-col gap-4">
+        <label>
+          <span>Upload a file</span>
+          <input type="file" name="file" ref={fileInput} />
+        </label>
+        <button type="submit" onClick={handleUploadFile}>
+          Submit
+        </button>
+      </form>
     </div>
   );
 }
