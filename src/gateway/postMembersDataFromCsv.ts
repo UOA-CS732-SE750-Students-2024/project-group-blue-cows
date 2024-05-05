@@ -1,28 +1,38 @@
 import { importCsvFile } from "@/util/csvUtils";
 import { getUserByEmail } from "./getUserByEmail";
 import { putMember } from "./putMember";
+import { postMember } from "./postMember";
+import {postUser} from "./postUser";
+import { getMemberForClub } from "./getMemberForClub";
 
 export async function postMembersDataFromCSV(clubId: number, formData: FormData) {
-    //Need to get the JSON structure from the CSV function
     const studentData = await importCsvFile(formData);
-
-    //Check if the email exists
     studentData.map(async (data) => {
-        if(data.email) {
-            const user = await getUserByEmail(data.email)
-            if(user) {
-                //await putMember(clubId, user.id, )
-
+        const user = await getUserByEmail(data.email);
+        let id = ""
+        if(!user) {            
+           const newId = await postUser(
+            {
+                name: data.name, 
+                email: data.email, 
+                upi: data.upi, 
+                year: data.year, 
+                studentId : data.studentId,
+            });
+            if (typeof newId === 'string') {
+                id = newId
             }
-
+            else {
+                return "Failed to create new user";
+            }
         }
         
+        const result = await getMemberForClub(id, clubId)
+        if(result) {
+            await putMember(clubId, id, {paid: data.paid, isAdmin: data.isAdmin})
+        }
+        else {
+            await postMember({club: clubId, user: id, paid: data.paid, isAdmin: data.isAdmin})
+        }
     })
-
-
-    //If the email exists then fetch the id and we should be able to add a member easily
-
-    //If email does not exist
-    //We will need to create a new user with the fields
-
 }

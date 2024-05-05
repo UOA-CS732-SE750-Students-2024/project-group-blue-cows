@@ -6,7 +6,7 @@ import clubSchema from "@/schemas/clubSchema";
 
 export type studentData = {
     name: string | null;
-    email: string | null;
+    email: string;
     upi: string | null;
     year: number | null;
     studentId: string | null;
