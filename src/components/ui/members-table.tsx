@@ -26,7 +26,7 @@ type MembersTableProps = {
   clubData: Club | null;
 };
 
-export function MembersTable({
+export default function MembersPage({
   columns,
   membersData,
   clubData,
