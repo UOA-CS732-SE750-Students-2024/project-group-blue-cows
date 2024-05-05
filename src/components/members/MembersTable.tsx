@@ -15,12 +15,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { DataTable } from "../ui/data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
-import { Club } from "@/schemas/clubSchema";
-
-type MembersTableProps = {
-  membersData: studentData[];
-  clubData: Club | null;
-};
 
 const columns: ColumnDef<studentData>[] = [
   {
@@ -45,10 +39,7 @@ const columns: ColumnDef<studentData>[] = [
   },
 ];
 
-export default function MembersTable({
-  membersData,
-  clubData,
-}: MembersTableProps) {
+export default function MembersTable({ members }: { members: studentData[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -59,7 +50,7 @@ export default function MembersTable({
 
   const table = useReactTable({
     columns,
-    data: membersData,
+    data: members,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -78,12 +69,6 @@ export default function MembersTable({
 
   return (
     <div className="w-full">
-      <div className="flex items-center">
-        <div className="flex-1">
-          {/* TODO -
-          REPLACE HEADER WITH RELEVANT CLUB NAME FROM API */}
-        </div>
-      </div>
       <div className="flex items-center space-x-2">
         <div className="flex-1">
           <Input
@@ -106,7 +91,6 @@ export default function MembersTable({
           />
         </div>
       </div>
-
       <DataTable table={table} columns={columns} />
     </div>
   );

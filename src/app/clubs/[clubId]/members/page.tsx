@@ -37,7 +37,7 @@ export default async function MembersPage({
           <ExportButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
         </div>
 
-        <MembersTable membersData={members} clubData={club} />
+        <MembersTable members={members} />
       </MemberPageContextProvider>
     </div>
   );
