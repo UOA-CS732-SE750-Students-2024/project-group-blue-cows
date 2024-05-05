@@ -29,7 +29,7 @@ export default function RootLayout({
           <div className="h-[calc(4rem)] flex flex-row top-0 fixed w-full">
             <NavTop />
           </div>
-          <div className="pt-[4rem] h-[100vh] flex flex-direction-col">
+          <div className="pt-[4rem] h-[100vh] flex flex-direction-col ">
             <div className="w-1/6 h-full flex box-border fixed">
               <Nav />
             </div>
