@@ -3,7 +3,7 @@ import { Button, ButtonProps } from "../ui/button";
 export function YellowButton({ children, className, ...props }: ButtonProps) {
   return (
     <Button
-      className={`bg-customAccent hover:bg-customAccent hover:brightness-90 text-black w-[20em] font-bold ${className}`}
+      className={`bg-customAccent hover:bg-customAccent hover:brightness-90 transition text-black w-[20em] font-bold ${className}`}
       {...props}
     >
       {children}
@@ -14,7 +14,7 @@ export function YellowButton({ children, className, ...props }: ButtonProps) {
 export function BlueButton({ children, className, ...props }: ButtonProps) {
   return (
     <Button
-      className={`bg-customPrimary hover:bg-customPrimary hover:brightness-90 text-white w-[20em] font-bold ${className}`}
+      className={`bg-customPrimary hover:bg-customPrimary hover:brightness-90 transition text-white w-[20em] font-bold ${className}`}
       {...props}
     >
       {children}
