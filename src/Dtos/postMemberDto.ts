@@ -1,6 +1,6 @@
-export interface postMemberDto{
-    club: number;
-    user: string;
-    paid: boolean;
-    isAdmin: boolean;
-  }
+export interface PostMemberDto {
+  club: number;
+  user: string;
+  paid: boolean;
+  isAdmin: boolean;
+}

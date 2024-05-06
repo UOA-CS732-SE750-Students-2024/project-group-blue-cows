@@ -2,14 +2,14 @@
 import "server-only";
 import { postClubEntity } from "@/gateway/postClub";
 import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
-import { postMember} from "@/gateway/postMember";
-import { postMemberDto } from "@/Dtos/postMemberDto";
+import { postMember } from "@/gateway/postMember";
+import { PostMemberDto } from "@/dtos/PostMemberDto";
 import { putMember } from "@/gateway/putMember";
 import { getClubs } from "@/gateway/getClubs";
-import { CreateClubDto } from "@/Dtos/CreateClubDto";
-import { UpdateClubDto } from "@/Dtos/UpdateClubDto"; 
+import { CreateClubDto } from "@/dtos/CreateClubDto";
+import { UpdateClubDto } from "@/dtos/UpdateClubDto";
 import { AppUser } from "@/schemas/authSchema";
-import { putMemberDto } from "@/Dtos/putMemberDto";
+import { PutMemberDto } from "@/dtos/PutMemberDto";
 import { getClub } from "@/gateway/getClub";
 import { putClub } from "@/gateway/putClub";
 import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";
@@ -33,16 +33,14 @@ export async function getAllClubs(name: string, filter: string | null) {
   return await getClubs(name, filter);
 }
 
-export async function addMember(
-  member: postMemberDto
-) {
+export async function addMember(member: PostMemberDto) {
   return await postMember(member);
 }
 
 export async function updateMember(
   clubId: number,
   userId: string,
-  membership: putMemberDto
+  membership: PutMemberDto
 ) {
   return await putMember(clubId, userId, membership);
 }

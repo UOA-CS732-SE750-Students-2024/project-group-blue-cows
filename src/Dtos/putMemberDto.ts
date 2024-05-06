@@ -1,4 +1,4 @@
-export interface putMemberDto{
-    paid?: boolean;
-    isAdmin?: boolean;
-  }
+export interface PutMemberDto {
+  paid?: boolean;
+  isAdmin?: boolean;
+}

@@ -3,7 +3,7 @@ import { db } from "../config/db";
 import clubSchema, { Club } from "@/schemas/clubSchema";
 import { AppUser } from "@/schemas/authSchema";
 import { postMember } from "./postMember";
-import { CreateClubDto } from "@/Dtos/CreateClubDto";
+import { CreateClubDto } from "@/dtos/CreateClubDto";
 
 export async function postClubEntity(club: CreateClubDto, user: AppUser) {
   try {
@@ -13,7 +13,12 @@ export async function postClubEntity(club: CreateClubDto, user: AppUser) {
       .returning({ insertedId: clubSchema.id });
     const clubId = response.at(0)?.insertedId;
     if (clubId) {
-      await postMember({club: clubId, user: user.id, paid: true, isAdmin: true});
+      await postMember({
+        club: clubId,
+        user: user.id,
+        paid: true,
+        isAdmin: true,
+      });
     }
   } catch (error) {
     return "Failed to insert club into database";

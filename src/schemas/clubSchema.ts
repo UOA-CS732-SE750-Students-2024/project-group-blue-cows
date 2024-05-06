@@ -1,7 +1,7 @@
 import { numeric, pgTable, text, serial, varchar } from "drizzle-orm/pg-core";
-import { CreateClubDto } from "@/Dtos/CreateClubDto";
+import { CreateClubDto } from "@/dtos/CreateClubDto";
 
-export interface Club extends CreateClubDto{
+export interface Club extends CreateClubDto {
   id: number;
 }
 
@@ -16,5 +16,5 @@ export default pgTable("clubs", {
   }).notNull(), // storing a money amount of up to 99.99
   logo: varchar("logo").notNull(),
   category: text("category").notNull(),
-  coverImage: varchar("coverImage")
+  coverImage: varchar("coverImage"),
 });

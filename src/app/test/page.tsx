@@ -23,14 +23,14 @@ import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
 import {
-  createOptionForm,
-  getAllOptions,
-  removeOptionsForm,
-  updateOptionsForm,
+  addAdditionalFieldToForm,
+  getAllExtendedFields,
+  removeExtendedFieldForForm,
+  updateFormField,
 } from "@/services/optionsFormServices";
-import { putOptionsForm } from "@/gateway/putOptionsForm";
-import { deleteOptionsForm } from "@/gateway/deleteOptionsForm";
-import { getOptionsForClub } from "@/gateway/getOptionsForClub";
+import { putExtendedFormField } from "@/gateway/putExtendedFormField";
+import { deleteExtendedFormField } from "@/gateway/deleteExtendedFormField";
+import { getExtendedFormForClub } from "@/gateway/getExtendedFormForClub";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -92,7 +92,7 @@ export default function TestPage() {
       </Button>
       <Button
         onClick={() =>
-          createOptionForm({
+          addAdditionalFieldToForm({
             clubId: 2,
             order: 2,
             name: "favourite-animal",
@@ -102,11 +102,11 @@ export default function TestPage() {
       >
         create form
       </Button>
-      <Button onClick={() => updateOptionsForm(1, { order: 2 })}>
+      <Button onClick={() => updateFormField(1, { order: 2 })}>
         update form
       </Button>
-      <Button onClick={() => removeOptionsForm(1)}>remove form</Button>
-      <Button onClick={async () => console.log(await getAllOptions(2))}>
+      <Button onClick={() => removeExtendedFieldForForm(1)}>remove form</Button>
+      <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
         get forms for club
       </Button>
       <Table>

@@ -1,5 +1,5 @@
 import { pgTable, serial, integer, varchar, text } from "drizzle-orm/pg-core";
-import optionsFormSchema from "./optionsFormSchema";
+import optionsFormSchema from "./extendedFormFieldSchema";
 import memberships from "./membershipSchema";
 
 export interface FormInput {
@@ -15,7 +15,7 @@ export const formInput = pgTable("formInput", {
     .notNull()
     .references(() => memberships.id),
   formOptionId: integer("formOptionId")
-  .notNull()
-  .references(() => optionsFormSchema.id),
-  value: text("value").notNull()
+    .notNull()
+    .references(() => optionsFormSchema.id),
+  value: text("value").notNull(),
 });
