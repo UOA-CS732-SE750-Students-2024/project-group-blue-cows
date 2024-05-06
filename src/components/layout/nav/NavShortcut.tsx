@@ -31,7 +31,7 @@ export default function NavShortcut() {
   }, []);
 
   return (
-    <NavSection title="Shortcuts" tooltip="Recently viewed clubs">
+    <NavSection title="Shortcuts" tooltip="Recently viewed clubs" loggedInOnly>
       {clubs.map(({ id, name, logo }) => (
         <NavTab
           key={id}
