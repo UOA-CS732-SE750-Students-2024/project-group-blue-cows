@@ -43,8 +43,9 @@ import { getUser } from "@/services/authServices";
 import LoadingSpinner from "../ui/loading-spinner";
 import { Session } from "next-auth";
 import { getExtendedFormForClub } from "@/gateway/getExtendedFormForClub";
+import { FormExtension } from "@/schemas/extendedFormFieldSchema";
 
-const createFormSchema = (headers: string[]) => {
+const createFormSchema = (formExtensions: FormExtension[]) => {
   let schema: z.ZodRawShape = {
     id: z.string().min(1, "ID is required"),
     name: z.string().min(1, "Name is required").toUpperCase(),
@@ -53,29 +54,45 @@ const createFormSchema = (headers: string[]) => {
     yearLevel: z.number().min(1, "Year level is required"),
   };
 
-  headers.forEach((header) => {
+  formExtensions.forEach((formExtension) => {
+    let field;
+    switch (formExtension.type) {
+      case "string":
+        field = z.string().min(1, `${formExtension.name} is required`);
+        break;
+      case "number":
+        field = z.number().min(1, `${formExtension.name} is required`);
+        break;
+      // Add more cases if there are other types
+      default:
+        field = z.string().min(1, `${formExtension.name} is required`);
+    }
     schema = {
       ...schema,
-      [header]: z.string().min(1, `${header} is required`),
+      [formExtension.name]: field,
     };
   });
 
   return z.object(schema);
 };
 
-export default function ClubRegistrationForm({
+export default async function ClubRegistrationForm({
   params,
 }: {
   params: { clubId: string };
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  getExtendedFormForClub(Number(params.clubId)).then((res) => {
-    setHeaders(res);
-  });
+  const extendedForm = (
+    await getExtendedFormForClub(Number(params.clubId))
+  ).map((form) => ({
+    ...form,
+    description: form.description || undefined,
+  }));
+
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
-  const formSchema = createFormSchema(headers);
+  const formSchema = createFormSchema(extendedForm);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
