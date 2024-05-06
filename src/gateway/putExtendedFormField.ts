@@ -1,6 +1,6 @@
 import { db } from "../config/db";
 import { eq } from "drizzle-orm";
-import { PutExtendedFormFieldDto } from "@/dtos/PutExtendedFormFieldDto";
+import { PutExtendedFormFieldDto } from "@/Dtos/PutExtendedFormFieldDto";
 import optionsFormSchema from "@/schemas/extendedFormFieldSchema";
 
 //  updates one of the extended fields for the club sign up
