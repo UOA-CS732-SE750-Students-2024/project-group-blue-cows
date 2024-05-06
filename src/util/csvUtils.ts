@@ -19,7 +19,6 @@ export const parseCsvFile = async(filename: string) => {
                 extractedValues.push(row);
             })
             .on('end', () => {
-                console.log('Extracted values:', extractedValues);
                 revalidatePath("/");
                 resolve(extractedValues as studentAllData[]);
             })
@@ -37,7 +36,7 @@ export const importCsvFile = async (formData: FormData) => {
         const filePath = path.join("/tmp", file.name);
         await fs.writeFile(filePath, buffer);
         const extractedValues = await parseCsvFile(filePath);
-        await fs.unlink(filePath);
+        console.log('Extracted values:', extractedValues);
         return extractedValues;
 
     } catch (error) {
