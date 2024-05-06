@@ -3,7 +3,7 @@ import { db } from "../config/db";
 import clubSchema, { Club } from "@/schemas/clubSchema";
 import { AppUser } from "@/schemas/authSchema";
 import { postMember } from "./postMember";
-import { CreateClubDto } from "@/dtos/CreateClubDto";
+import { CreateClubDto } from "@/Dtos/CreateClubDto";
 
 export async function postClubEntity(club: CreateClubDto, user: AppUser) {
   try {
