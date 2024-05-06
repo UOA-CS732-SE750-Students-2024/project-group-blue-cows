@@ -13,6 +13,8 @@ export type studentData = {
 }
 
 export async function getAllMembersForClub(clubId: number) {
+    //This is a predefined template for headers based on what is shown on the table
+    let headers = ["name", "email", "upi", "year_of_study", "student_id"]
     const membersData = await db.select({
         name: users.name, 
         email: users.email, 
@@ -25,7 +27,10 @@ export async function getAllMembersForClub(clubId: number) {
     .leftJoin(clubSchema, eq(membershipSchema.club, clubSchema.id))
     .where(eq(clubSchema.id,clubId)) as studentData[];
 
-    const headers = Object.keys(membersData[0]);
+    if(membersData.length > 0) {
+        headers = Object.keys(membersData[0]);
+    }
+
     return {headers, membersData};
 }
 
