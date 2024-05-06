@@ -11,6 +11,8 @@ import {  putMemberDto} from "@/gateway/putMember";
 import { getClub } from "@/gateway/getClub";
 import { putClub } from "@/gateway/putClub";
 import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";
+import { postMembersDataFromCSV } from "@/gateway/postMembersDataFromCsv";
+import { getMemberForClub } from "@/gateway/getMemberForClub";
 
 export async function postClub(club: CreateClubDto, user: AppUser) {
   // All this does is proxy the gateway request, a real service may do the same or more advanced logic
@@ -49,4 +51,12 @@ export async function getClubById(clubID: number) {
 
 export async function exportClubMembers(clubId: number) {
   return await getMembersDataInCSV(clubId);
+}
+
+export async function importClubMembers(clubId: number, formData: FormData) {
+  return await postMembersDataFromCSV(clubId, formData);
+}
+
+export async function fetchMemberForClub(userId: string, clubId: number) {
+  return await getMemberForClub(userId, clubId);
 }
