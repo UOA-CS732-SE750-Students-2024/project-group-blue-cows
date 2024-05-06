@@ -4,6 +4,9 @@ import csvParser from 'csv-parser';
 import { studentData } from '@/gateway/getAllMembersForClub';
 import { revalidatePath } from 'next/cache';
 import path from 'path';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export interface studentAllData extends studentData {
     paid: boolean,
@@ -29,11 +32,17 @@ export const parseCsvFile = async(filename: string) => {
 }
 
 export const importCsvFile = async (formData: FormData) => {
+    let dataDir = "/tmp";
+    if(process.env.ENVIRONMENT === "DEV") {
+        dataDir = path.join(process.cwd(), "./data");
+        await fs.mkdir(dataDir, { recursive: true });
+    }
+
     try {
         const file = formData.get("file") as File;
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const filePath = path.join("/tmp", file.name);
+        const filePath = path.join(dataDir, file.name);
         await fs.writeFile(filePath, buffer);
         const extractedValues = await parseCsvFile(filePath);
         console.log('Extracted values:', extractedValues);

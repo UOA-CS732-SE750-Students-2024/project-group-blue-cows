@@ -7,7 +7,6 @@ import { getMemberForClub } from "./getMemberForClub";
 
 export async function postMembersDataFromCSV(clubId: number, formData: FormData) {
     const studentData = await importCsvFile(formData);
-    console.log('Hello', studentData);
     studentData.map(async (data) => {
         const user = await getUserByEmail(data.email);
         let id = user?.id
