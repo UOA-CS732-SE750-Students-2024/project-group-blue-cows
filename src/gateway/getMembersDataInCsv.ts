@@ -4,8 +4,8 @@ import { getAllMembersForClub } from "./getAllMembersForClub";
 export async function getMembersDataInCSV(clubId: number) {
 
     try {
-     const data = await getAllMembersForClub(clubId);
-     return exportCsvFile(data);
+        const {headers, membersData} = await getAllMembersForClub(clubId);
+        return exportCsvFile(headers, membersData);
 
     } catch(error) {
         throw new Error("Problem with exporting data")

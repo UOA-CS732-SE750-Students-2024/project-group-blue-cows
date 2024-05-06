@@ -38,8 +38,8 @@ export const importCsvFile = async (formData: FormData) => {
     }
 };
 
-export const exportCsvFile = (data: studentData[]) => {
-    const csv = data.map(row => Object.values(row).join(',')).join('\n');
+export const exportCsvFile = (headers: string[], data: studentData[]) => {
+    const csv = [headers.join(','), ...data.map(row => Object.values(row).join(','))].join('\n');
     return csv;
 }
 

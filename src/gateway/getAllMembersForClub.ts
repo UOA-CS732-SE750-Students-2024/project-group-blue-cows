@@ -13,7 +13,7 @@ export type studentData = {
 }
 
 export async function getAllMembersForClub(clubId: number) {
-    const results = await db.select({
+    const membersData = await db.select({
         name: users.name, 
         email: users.email, 
         upi: users.upi, 
@@ -24,8 +24,9 @@ export async function getAllMembersForClub(clubId: number) {
     .leftJoin(users,eq(membershipSchema.user, users.id))
     .leftJoin(clubSchema, eq(membershipSchema.club, clubSchema.id))
     .where(eq(clubSchema.id,clubId)) as studentData[];
-    console.log(results)
-    return results;
+
+    const headers = Object.keys(membersData[0]);
+    return {headers, membersData};
 }
 
 
