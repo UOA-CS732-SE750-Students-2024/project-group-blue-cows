@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 
 import * as z from "zod";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
+import { BlueButton } from "../misc/buttons";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").toUpperCase(),
@@ -82,24 +83,9 @@ export default function EditClubRegistrationForm({
           onSubmit={form.handleSubmit(handleSubmit)}
           className="w-full flex flex-col gap-4"
         >
-          <Card className="w-full bg-[#FFD166]">
-            <CardContent className="py-6">
-              <p>
-                By default, Cowlaboration will collect default information about
-                a member, including their full name, email, UPI, student ID,
-                University, year level, degree, and specialisation/majors. If
-                you would like to collect additional information about your club
-                members, you may add custom fields to your club&apos;s
-                registration form here.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Button>Add New Short-Answer Question</Button>
-
-          <Card className="w-full bg-customLight mb-5">
+          <Card className="w-full bg-customLight">
             <CardHeader>
-              <CardTitle>New Short-Answer Question</CardTitle>
+              <CardTitle>New Question</CardTitle>
             </CardHeader>
             <CardContent>
               <FormField
@@ -123,6 +109,8 @@ export default function EditClubRegistrationForm({
               />
             </CardContent>
           </Card>
+
+          <BlueButton className="w-full">Add New Question</BlueButton>
         </form>
       </Form>
     </div>

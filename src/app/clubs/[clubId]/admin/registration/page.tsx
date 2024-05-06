@@ -5,6 +5,7 @@ import {
   PreviewFormButton,
   SaveFormButton,
 } from "@/components/members/membersPageClientComponents";
+import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getClubById } from "@/services/clubServices";
 import { getAllExtendedFields } from "@/services/optionsFormServices";
@@ -31,6 +32,7 @@ export default async function AdminEditPage({
         <PreviewFormButton club={club} className="ml-6 lg:ml-0" />
         <SaveFormButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
       </div>
+      <PageInfo />
       <EditClubRegistrationForm
         clubId={+clubId}
         initialExtendedFields={extendedFields}
@@ -52,5 +54,21 @@ function PageHeader({ club, className }: { club: Club; className?: string }) {
         {club.name}
       </Link>
     </div>
+  );
+}
+
+function PageInfo() {
+  return (
+    <Card className="w-full bg-[#FFD166] mb-4">
+      <CardContent className="py-6">
+        <p>
+          By default, Cowlaboration will collect default information about a
+          member, including their full name, email, UPI, student ID, University,
+          year level, degree, and specialisation/majors. If you would like to
+          collect additional information about your club members, you may add
+          custom fields to your club&apos;s registration form here.
+        </p>
+      </CardContent>
+    </Card>
   );
 }
