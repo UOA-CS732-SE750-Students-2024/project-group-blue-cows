@@ -7,18 +7,24 @@ import { Club } from "@/schemas/clubSchema";
 import Custom404 from '@/pages/404';
 import Image from 'next/image';
 import TimelineHeader from "@/components/misc/timelineheader";
-import { Gallery } from '@/components/misc/gallery';
+import  Gallery  from '@/components/misc/gallery';
+import { Image as ImageSchema } from '@/schemas/imagesSchema';
+import { getAllImagesForClub } from '@/services/imageServices';
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({ params }: { params: { clubId: string } }) {
   const [clubData, setClubData] = useState<Club | null>(null);
+  const [images, setImages] = useState<typeof Image[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Effect to fetch club data using the provided clubId
   useEffect(() => {
     const fetchClubData = async () => {
-      const data = await getClubById(Number(params.clubId));
+      const clubId = Number(params.clubId);
+      const data = await getClubById(clubId);
+      const images = await getAllImagesForClub(clubId);
       setClubData(data);
+      setImages(images);
       setLoading(false);
     };
     fetchClubData();
@@ -76,7 +82,7 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
               {/* Gallery implemented in div below */}
               <div>
                 <h1 className='text-lg font-bold'>Gallery</h1>
-                <Gallery />
+                <Gallery images={images} />
                 </div>
             </div>
           </div>
