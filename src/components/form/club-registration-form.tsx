@@ -101,7 +101,7 @@ export default function ClubRegistrationForm() {
           <CardFooter>
             <p>
               If this is not the case, please first ensure that your club meets
-              all the requirements listed{" "}
+              all the requirements listed
               <a
                 href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html"
                 className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
