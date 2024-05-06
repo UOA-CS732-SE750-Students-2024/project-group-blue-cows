@@ -72,7 +72,11 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
                 <h2 className="text-md font-semibold pb-2">DESCRIPTION</h2>
                 <p>{clubData?.description}</p>
               </div>
-              {/* Gallery can be implemented here */}
+              {/* Gallery implemented in div below */}
+              <div>
+                <h1 className='text-lg font-bold'>Gallery</h1>
+                <img src='https://utfs.io/f/b140f8be-2093-4543-9de1-7a9855fdef44-peiyms.jpg' />
+                </div>
             </div>
           </div>
         </div>
