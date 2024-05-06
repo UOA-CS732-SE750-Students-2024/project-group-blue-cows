@@ -28,9 +28,6 @@ import {
   removeExtendedFieldForForm,
   updateFormField,
 } from "@/services/optionsFormServices";
-import { putExtendedFormField } from "@/gateway/putExtendedFormField";
-import { deleteExtendedFormField } from "@/gateway/deleteExtendedFormField";
-import { getExtendedFormForClub } from "@/gateway/getExtendedFormForClub";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs

@@ -9,7 +9,7 @@ import { getClubs } from "@/gateway/getClubs";
 import { CreateClubDto } from "@/Dtos/CreateClubDto";
 import { UpdateClubDto } from "@/Dtos/UpdateClubDto";
 import { AppUser } from "@/schemas/authSchema";
-import { PutMemberDto } from "@/Dtos/putMemberDto";
+import { PutMemberDto } from "@/Dtos/PutMemberDto";
 import { getClub } from "@/gateway/getClub";
 import { putClub } from "@/gateway/putClub";
 import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";
