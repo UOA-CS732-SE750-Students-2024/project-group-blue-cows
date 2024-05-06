@@ -49,7 +49,25 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
             />
           </div>
         </div>
+        <div className="grid grid-cols-2 gap-4 p-5">
+            <div className="flex flex-col space-y-4">
+              {/* Social Links Section */}
+              <div><a href="#">Facebook</a></div>
+              <div><a href="#">Twitter</a></div>
+              <div><a href="#">LinkedIn</a></div>
+              <div><a href="#">Other Socials</a></div>
+            </div>
+            <div>
+              {/* Description and Gallery Section */}
+              <h2 className="text-lg font-semibold">About the Club</h2>
+              <p>{clubData?.description}</p>
+              {/* Gallery can be implemented here */}
+            </div>
       </div>
+      </div>
+      
+
+      
 
 
 
