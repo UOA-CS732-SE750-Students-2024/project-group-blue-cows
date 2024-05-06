@@ -7,6 +7,7 @@ import { Club } from "@/schemas/clubSchema";
 import Custom404 from '@/pages/404';
 import Image from 'next/image';
 import TimelineHeader from "@/components/misc/timelineheader";
+import { Gallery } from '@/components/misc/gallery';
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({ params }: { params: { clubId: string } }) {
@@ -75,6 +76,7 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
               {/* Gallery implemented in div below */}
               <div>
                 <h1 className='text-lg font-bold'>Gallery</h1>
+                <Gallery />
                 <img src='https://utfs.io/f/b140f8be-2093-4543-9de1-7a9855fdef44-peiyms.jpg' />
                 </div>
             </div>
