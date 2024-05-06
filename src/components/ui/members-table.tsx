@@ -141,9 +141,9 @@ export function MembersTable({
           <span>Upload a file</span>
           <input type="file" name="file" ref={fileInput} />
         </label>
-        <button type="submit" onClick={handleUploadFile}>
+        <Button className="w-60" type="submit" onClick={handleUploadFile}>
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );

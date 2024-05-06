@@ -9,7 +9,6 @@ export async function postMembersDataFromCSV(clubId: number, formData: FormData)
     const studentData = await importCsvFile(formData);
     studentData.map(async (data) => {
         const user = await getUserByEmail(data.email);
-        console.log(user)
         let id = user?.id
         if(!user) {            
            const newId = await postUser(
