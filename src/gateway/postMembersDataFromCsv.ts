@@ -9,6 +9,7 @@ export async function postMembersDataFromCSV(clubId: number, formData: FormData)
     const studentData = await importCsvFile(formData);
     studentData.map(async (data) => {
         const user = await getUserByEmail(data.email);
+        console.log(user)
         let id = user?.id
         if(!user) {            
            const newId = await postUser(
@@ -26,6 +27,7 @@ export async function postMembersDataFromCSV(clubId: number, formData: FormData)
         
         if(id) {
             const result = await getMemberForClub(id , clubId)
+            console.log(result)
             if(result) {
                 await putMember(clubId, id, {paid: data.paid, isAdmin: data.isAdmin})
             }
