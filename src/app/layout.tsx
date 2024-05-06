@@ -5,8 +5,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import Nav from "@/components/layout/Nav";
-import NavTop from "@/components/layout/Nav-top";
+import NavSide from "@/components/layout/NavSide";
+import NavTop from "@/components/layout/NavTop";
 import { SessionProvider } from "next-auth/react";
 import { Modal } from "@/components/misc/Modal";
 
@@ -25,23 +25,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <SessionProvider>
-        <body>
-          <div className="h-[calc(4rem)] flex flex-row top-0 fixed w-full">
-            <NavTop />
+      <body className="flex flex-col h-screen">
+        <SessionProvider>
+          <NavTop className="h-[4rem]" />
+          <div className="flex flex-auto overflow-hidden">
+            <NavSide />
+            <div className="flex-auto overflow-auto">{children}</div>
           </div>
-          <div className="pt-[4rem] h-[100vh] flex flex-direction-col ">
-            <div className="w-1/6 h-full flex box-border fixed">
-              <Nav />
-            </div>
-            <div className="w-5/6 flex items-center justify-center ml-auto overflow-auto">
-              {children}
-              <ToastContainer />
-              <Modal />
-            </div>
-          </div>
-        </body>
-      </SessionProvider>
+          <ToastContainer />
+          <Modal />
+        </SessionProvider>
+      </body>
     </html>
   );
 }
