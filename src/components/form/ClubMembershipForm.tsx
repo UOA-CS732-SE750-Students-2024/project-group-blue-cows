@@ -63,7 +63,6 @@ const createFormSchema = (formExtensions: FormExtension[]) => {
       case "number":
         field = z.number().min(1, `${formExtension.name} is required`);
         break;
-      // Add more cases if there are other types
       default:
         field = z.string().min(1, `${formExtension.name} is required`);
     }
@@ -83,23 +82,58 @@ export default function ClubRegistrationForm({
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  const [extendedForm, setExtendedForm] = useState<FormExtension[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedExtendedForm = await getExtendedFormForClub(
-        Number(params.clubId)
-      );
-      setExtendedForm(
-        fetchedExtendedForm.map((form) => ({
-          ...form,
-          description: form.description || undefined,
-        }))
-      );
-    };
-    fetchData();
-    setLoading(false);
-  }, [params.clubId]);
+  // UNCOMMENT THIS WHEN THE API IS READY TO FETCH THE FORM EXTENSIONS
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const fetchedExtendedForm = await getExtendedFormForClub(
+  //       Number(params.clubId)
+  //     );
+  //     setExtendedForm(
+  //       fetchedExtendedForm.map((form) => ({
+  //         ...form,
+  //         description: form.description || undefined,
+  //       }))
+  //     );
+  //   };
+  //   fetchData();
+  //   setLoading(false);
+  // }, [params.clubId]);
+
+  const [extendedForm, setExtendedForm] = useState<FormExtension[]>([
+    {
+      name: "University",
+      type: "string",
+      description: "The institution you are studying at",
+      id: 0,
+      clubId: 0,
+      order: 1,
+    },
+    {
+      name: "Degree",
+      type: "string",
+      description: "The degree you are studying",
+      id: 0,
+      clubId: 0,
+      order: 1,
+    },
+    {
+      name: "Major",
+      type: "string",
+      description: "The major or specialisation of your degree",
+      id: 0,
+      clubId: 0,
+      order: 2,
+    },
+    {
+      name: "Favourite Number",
+      type: "number",
+      description: "",
+      id: 0,
+      clubId: 0,
+      order: 3,
+    },
+  ]);
 
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
