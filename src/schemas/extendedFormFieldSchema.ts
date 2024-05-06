@@ -13,10 +13,10 @@ export interface FormExtension {
 export default pgTable("formExtension", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
-    .notNull()
-    .references(() => clubSchema.id),
+  .notNull()
+  .references(() => clubSchema.id),
   order: integer("order").notNull(),
   name: text("name").notNull(),
   type: text("type").notNull(),
-  description: text("description").notNull(),
+  description: text("description")
 });

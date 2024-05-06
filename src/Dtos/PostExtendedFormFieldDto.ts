@@ -3,5 +3,5 @@ export interface PostExtendedFormFieldDto {
   order: number;
   name: string;
   type: string;
-  description: string;
+  description?: string;
 }

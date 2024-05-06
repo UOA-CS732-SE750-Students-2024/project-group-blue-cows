@@ -1,13 +1,12 @@
+"use client";
 import EditClubRegistrationForm from "@/components/form/club-edit-registration";
-import { getAllExtendedFields } from "@/services/optionsFormServices";
 
-export default async function AdminEditPage({
-  params: { clubId },
+export default function AdminEditPage({
+  params,
 }: {
   params: { clubId: string };
 }) {
-  const extendedFields = await getAllExtendedFields(+clubId);
-  console.log(extendedFields);
+  console.log(params);
 
   return (
     <div className="h-[calc(100vh-4rem)] w-full p-10">

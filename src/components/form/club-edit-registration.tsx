@@ -1,4 +1,4 @@
-"use client";
+"use client"; // to get react to know it's a client compponent
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
