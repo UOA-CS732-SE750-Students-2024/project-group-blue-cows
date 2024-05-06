@@ -28,15 +28,19 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
 
   return (
     // top most div (below) is equivalent to body
-    <div className="flex h-screen overflow-auto">
+    <div className="w-full m-0 p-0 box-border min-h-screen">
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div name="header_wrapper">
+        //div below is equivalent to header_wrapper
+        <div>
           <header></header>
-          <div name="cols_container">
-            <div name="left_col">
-              <div name="img_container">
+          {/* div below is equivalent to cols_container */}
+          <div>
+            {/* div below is equivalent to left_col */}
+            <div className='text-center  '>
+              {/* div below is equivalent to img_container */}
+              <div>
                 <img src={clubData?.logo} alt="club logo" />
                 <span></span>
               </div>
@@ -46,13 +50,19 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
               <p>Social Media Data here once its ready to go</p>
             </div>
 
-            <div name="right_col">
+            {/* div below is equivalent to right_col */}
+            <div>
               <nav>
                 <button>Follow</button>
               </nav>
 
               <div>
-                <img src"{clubData?.logo}" alt="club logo" />
+                <img src={clubData?.logo} alt="club logo" />
+                <img src={clubData?.logo} alt="club logo" />
+                <img src={clubData?.logo} alt="club logo" />
+                <img src={clubData?.logo} alt="club logo" />
+                <img src={clubData?.logo} alt="club logo" />
+
               </div>
             </div>
           </div>
