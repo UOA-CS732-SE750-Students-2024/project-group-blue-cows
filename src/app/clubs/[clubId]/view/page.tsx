@@ -5,6 +5,7 @@ import { getClubById } from '@/services/clubServices';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 import { Club } from "@/schemas/clubSchema";
 import Custom404 from '@/pages/404';
+import Image from 'next/image';
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({ params }: { params: { clubId: string } }) {
@@ -38,9 +39,9 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
           {/* div below is equivalent to cols_container */}
           <div>
             {/* div below is equivalent to left_col */}
-            <div className='text-center  '>
+            <div className='px-[20px] py-[25px] text-center max-w-[350px] relative mx-auto  '>
               {/* div below is equivalent to img_container */}
-              <div>
+              <div className='absolute -top-[60px] left-2/4 [transform:translatex(-50%)]'>
                 <img src={clubData?.logo} alt="club logo" />
                 <span></span>
               </div>
