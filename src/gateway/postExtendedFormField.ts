@@ -1,5 +1,5 @@
 import { db } from "../config/db";
-import { PostExtendedFormFieldDto } from "@/dtos/PostExtendedFormFieldDto";
+import { PostExtendedFormFieldDto } from "@/Dtos/PostExtendedFormFieldDto";
 import optionsFormSchema from "@/schemas/extendedFormFieldSchema";
 
 // extends the feilds for the club sign up form
