@@ -5,8 +5,9 @@ import {
   YellowButton,
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
+import { openModal } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
-import { getUsers } from "@/services/userServices";
+import { getAllUsers } from "@/services/userServices";
 import { useEffect, useState } from "react";
 import {
   Table,
@@ -21,6 +22,12 @@ import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
+import {
+  addAdditionalFieldToForm,
+  getAllExtendedFields,
+  removeExtendedFieldForForm,
+  updateFormField,
+} from "@/services/optionsFormServices";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -31,7 +38,7 @@ export default function TestPage() {
   const [allUsers, setAllUsers] = useState<AppUser[]>([]);
 
   useEffect(() => {
-    getUsers().then(setAllUsers);
+    getAllUsers().then(setAllUsers);
   }, []);
 
   // Getting the auth state within a client component
@@ -80,7 +87,25 @@ export default function TestPage() {
       >
         Post Club
       </Button>
-
+      <Button
+        onClick={() =>
+          addAdditionalFieldToForm({
+            clubId: 2,
+            order: 2,
+            name: "favourite-animal",
+            type: "string",
+          })
+        }
+      >
+        create form
+      </Button>
+      <Button onClick={() => updateFormField(1, { order: 2 })}>
+        update form
+      </Button>
+      <Button onClick={() => removeExtendedFieldForForm(1)}>remove form</Button>
+      <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
+        get forms for club
+      </Button>
       <Table>
         <TableCaption>All users in the database.</TableCaption>
         <TableHeader>
@@ -114,6 +139,18 @@ export default function TestPage() {
         Blue Button
       </BlueButton>
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
+
+      <BlueButton
+        onClick={() =>
+          openModal({
+            content: <YellowButton>Wow</YellowButton>,
+            title: "Test",
+            className: "hover:bg-red-100",
+          })
+        }
+      >
+        Open Modal
+      </BlueButton>
     </main>
   );
 }
