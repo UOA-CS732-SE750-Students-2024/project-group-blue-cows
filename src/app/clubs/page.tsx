@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import { FilterForm } from "@/components/ui/filter-form";
+import { FilterBar } from "@/components/ui/filter-bar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getAllClubs } from "@/services/clubServices";
@@ -17,7 +17,7 @@ export default function ClubsPage() {
   const [loading, setLoading] = useState(true);
 
   const updateClubsDebounced = useMemo(() => {
-    return debounce(async (searchString) => {
+    return debounce(async (searchString: string) => {
       await getAllClubs(searchString, filter).then(setClubs);
       setLoading(false);
     }, 500);
@@ -36,7 +36,6 @@ export default function ClubsPage() {
         setFilter={setFilter}
       />
       <div className="w-full flex">
-        {/*  */}
         {loading ? <LoadingSpinner /> : <ClubsList clubs={clubs} />}
       </div>
     </main>
@@ -55,8 +54,11 @@ function ClubsSearch({
   setFilter: (arg0: string | null) => void;
 }) {
   return (
-    <div className="flex flex-col justify-center items-center gap-5 bg-[url('cow-banner.svg')] bg-cover py-4">
-      <h2 className="text-center text-4xl font-semibold">Browse Clubs</h2>
+    <div
+      className="flex flex-col justify-center items-center gap-5 bg-cover py-4 text-white"
+      style={{ backgroundImage: "url('/cow-pattern-background.png')" }}
+    >
+      <h2 className="text-center text-3xl font-semibold mt-3">Browse Clubs</h2>
       <div role="doc-subtitle" className="text-center text-lg">
         Find a club that suits your interests and goals.
       </div>
@@ -76,19 +78,21 @@ function ClubsSearch({
           onChange={(event) => setSearchString(event.target.value)}
         />
       </div>
-      <FilterForm filter={filter} setFilter={setFilter} />
+      <div className="text-black pb-3">
+        <FilterBar filter={filter} setFilter={setFilter} />
+      </div>
     </div>
   );
 }
 
 function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <div className="w-5/6 lg:w-2/3 m-auto">
+    <div className="w-5/6 lg:w-11/12 m-auto">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results
       </div>
-      <div className="mt-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {clubs.map(({ name, logo, description, category, id }) => (
           <Card
             key={id}

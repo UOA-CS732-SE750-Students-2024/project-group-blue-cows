@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import Image from "next/image";
 import { ReactNode } from "react";
 
-interface props {
+interface Props {
   href: string;
   className?: string;
   imgSrc: string;
@@ -17,11 +17,11 @@ export default function NavTab({
   imgSrc,
   imgAlt,
   children,
-}: props) {
+}: Props) {
   return (
     <Link href={href}>
       <Button
-        className={`bg-blue-custom px-0 hover:bg-transparent ${className}`}
+        className={`bg-blue-custom px-0 hover:bg-transparent text-white hover:opacity-70 transition-opacity h-8 lg:h-10 ${className}`}
       >
         <Image
           src={imgSrc}
@@ -30,7 +30,7 @@ export default function NavTab({
           alt={imgAlt ?? ""}
           className="icon mr-2 left-0 w-5 h-5"
         />
-        <span className="text">{children}</span>
+        {children}
       </Button>
     </Link>
   );

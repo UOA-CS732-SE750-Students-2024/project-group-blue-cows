@@ -16,13 +16,22 @@ import { Input } from "@/components/ui/input";
 import { DataTable } from "./data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
+import { Club } from "@/schemas/clubSchema";
+import Custom404 from "@/pages/404";
+import { exportClubMembers } from "@/services/clubServices";
+import { showToastDemo } from "@/util/toastUtils";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
-  data: studentData[];
+  membersData: studentData[];
+  clubData: Club | null;
 };
 
-export function MembersTable({ columns, data }: MembersTableProps) {
+export function MembersTable({
+  columns,
+  membersData,
+  clubData,
+}: MembersTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -31,9 +40,29 @@ export function MembersTable({ columns, data }: MembersTableProps) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const handleClick = async () => {
+    if (clubData) {
+      try {
+        const csvData = await exportClubMembers(clubData.id);
+        const blob = new Blob([csvData], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${clubData.name}_membership.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        showToastDemo("Yay! Data successfully exported");
+      } catch (error) {
+        showToastDemo("Problem with exporting data");
+      }
+    }
+  };
+
   const table = useReactTable({
     columns,
-    data,
+    data: membersData,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -50,11 +79,16 @@ export function MembersTable({ columns, data }: MembersTableProps) {
     },
   });
 
+  if (!clubData) {
+    // TODO: style and display this nicely - should also return a 404 status code
+    return <Custom404 />;
+  }
+
   return (
     <div className="w-full">
       <div className="flex items-center">
         <div className="flex-1">
-          <h2 className=" text-4xl font-extrabold">WDCC Members</h2>
+          <h2 className=" text-4xl font-extrabold">{clubData?.name}</h2>
           {/* TODO -
           REPLACE HEADER WITH RELEVANT CLUB NAME FROM API */}
         </div>
@@ -81,7 +115,9 @@ export function MembersTable({ columns, data }: MembersTableProps) {
           />
         </div>
         <div className="flex">
-          <Button className="bg-customAccent text-black">Export Data</Button>
+          <Button onClick={handleClick} className="bg-customAccent text-black">
+            Export Data
+          </Button>
         </div>
       </div>
 
