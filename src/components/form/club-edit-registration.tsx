@@ -98,8 +98,8 @@ export default function EditClubRegistrationForm() {
                 a member, including their full name, email, UPI, student ID,
                 University, year level, degree, and specialisation/majors. If
                 you would like to collect additional information about your club
-                members you may add custom fields to your club's registration
-                form.
+                members you may add custom fields to your club&apos;s
+                registration form.
               </p>
             </CardContent>
           </Card>
