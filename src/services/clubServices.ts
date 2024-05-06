@@ -2,12 +2,14 @@
 import "server-only";
 import { postClubEntity } from "@/gateway/postClub";
 import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
-import { postMember, postMemberDto } from "@/gateway/postMember";
+import { postMember} from "@/gateway/postMember";
+import { postMemberDto } from "@/Dtos/postMemberDto";
 import { putMember } from "@/gateway/putMember";
 import { getClubs } from "@/gateway/getClubs";
-import { Club, CreateClubDto, UpdateClubDto } from "@/schemas/clubSchema";
+import { CreateClubDto } from "@/Dtos/CreateClubDto";
+import { UpdateClubDto } from "@/Dtos/UpdateClubDto"; 
 import { AppUser } from "@/schemas/authSchema";
-import {  putMemberDto} from "@/gateway/putMember";
+import { putMemberDto } from "@/Dtos/putMemberDto";
 import { getClub } from "@/gateway/getClub";
 import { putClub } from "@/gateway/putClub";
 import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";

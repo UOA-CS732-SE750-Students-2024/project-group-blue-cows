@@ -1,12 +1,6 @@
 import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../config/db";
-
-export interface postMemberDto{
-  club: number;
-  user: string;
-  paid: boolean;
-  isAdmin: boolean;
-}
+import { postMemberDto } from "@/Dtos/postMemberDto";
 
 export async function postMember(
   member: postMemberDto

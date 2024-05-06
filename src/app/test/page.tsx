@@ -21,6 +21,15 @@ import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
+import {
+  createOptionForm,
+  getAllOptions,
+  removeOptionsForm,
+  updateOptionsForm,
+} from "@/services/optionsFormServices";
+import { putOptionsForm } from "@/gateway/putOptionsForm";
+import { deleteOptionsForm } from "@/gateway/deleteOptionsForm";
+import { getOptionsForClub } from "@/gateway/getOptionsForClub";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -80,7 +89,25 @@ export default function TestPage() {
       >
         Post Club
       </Button>
-
+      <Button
+        onClick={() =>
+          createOptionForm({
+            clubId: 2,
+            order: 2,
+            name: "favourite-animal",
+            type: "string",
+          })
+        }
+      >
+        create form
+      </Button>
+      <Button onClick={() => updateOptionsForm(1, { order: 2 })}>
+        update form
+      </Button>
+      <Button onClick={() => removeOptionsForm(1)}>remove form</Button>
+      <Button onClick={async () => console.log(await getAllOptions(2))}>
+        get forms for club
+      </Button>
       <Table>
         <TableCaption>All users in the database.</TableCaption>
         <TableHeader>

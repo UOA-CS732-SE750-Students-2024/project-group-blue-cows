@@ -1,0 +1,9 @@
+name,email,upi,year_of_study,student_id,paid,isAdmin
+Tristan Mona,tmon261@aucklanduni.ac.nz,ghi,4,ghi,true,false
+Lucy Zhu,lzhu613@aucklanduni.ac.nz,abc,4,abc,true,false
+Naren Rohan,nroh555@aucklanduni.ac.nz,ghi,4,ghi,true,false
+Alex Hope,ahop089@aucklanduni.ac.nz,,,,true,false
+Nate Williamson,nwil508@aucklanduni.ac.nz,def,3,def,true,false
+Luca Eastwood,leas022@aucklanduni.ac.nz,ghi,4,ghi,true,false
+Vishva Dave,vdav604@aucklanduni.ac.nz,ghi,4,ghi,true,false
+Andrew Mead,andrew@gmail.com,am,3,pm,false,true

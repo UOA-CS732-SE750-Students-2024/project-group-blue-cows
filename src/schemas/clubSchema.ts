@@ -1,22 +1,5 @@
 import { numeric, pgTable, text, serial, varchar } from "drizzle-orm/pg-core";
-
-export interface CreateClubDto {
-  name: string;
-  description: string;
-  membership_fee: string;
-  logo: string;
-  category: string;
-  coverImage?: string;
-}
-
-export interface UpdateClubDto {
-  name: string;
-  description?: string;
-  membership_fee?: string;
-  logo?: string;
-  category?: string;
-  coverImage?: string;
-}
+import { CreateClubDto } from "@/Dtos/CreateClubDto";
 
 export interface Club extends CreateClubDto{
   id: number;

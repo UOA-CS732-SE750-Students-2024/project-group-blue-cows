@@ -1,11 +1,7 @@
 import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../config/db";
 import { and, eq } from "drizzle-orm";
-
-export interface putMemberDto{
-  paid?: boolean;
-  isAdmin?: boolean;
-}
+import { putMemberDto } from "@/Dtos/putMemberDto";
 
 export async function putMember(
   clubId: number,
