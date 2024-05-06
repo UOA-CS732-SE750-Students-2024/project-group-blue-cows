@@ -1,27 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postClub } from "@/services/clubServices";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardFooter,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from "@/components/ui/select";
 import {
   Form,
   FormField,
@@ -30,12 +16,11 @@ import {
   FormMessage,
   FormControl,
 } from "@/components/ui/form";
-
-import { UploadButton } from "@/util/uploadThingUtils";
-import { AppUser, users } from "@/schemas/authSchema";
+import { AppUser } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
 
 import * as z from "zod";
+import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").toUpperCase(),
@@ -54,9 +39,18 @@ const formSchema = z.object({
   ]),
 });
 
-export default function EditClubRegistrationForm() {
+export default function EditClubRegistrationForm({
+  clubId,
+  initialExtendedFields,
+}: {
+  clubId: number;
+  initialExtendedFields: GetExtendedFormFieldDto[];
+}) {
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
+
+  const [extendedFields, setExtendedFields] = useState(initialExtendedFields);
+  console.log(extendedFields);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -89,17 +83,14 @@ export default function EditClubRegistrationForm() {
           className="w-full flex flex-col gap-4"
         >
           <Card className="w-full bg-[#FFD166]">
-            <CardHeader>
-              <CardTitle>Club Registration</CardTitle>
-            </CardHeader>
-            <CardContent>
+            <CardContent className="py-6">
               <p>
                 By default, Cowlaboration will collect default information about
                 a member, including their full name, email, UPI, student ID,
                 University, year level, degree, and specialisation/majors. If
                 you would like to collect additional information about your club
-                members you may add custom fields to your club&apos;s
-                registration form.
+                members, you may add custom fields to your club&apos;s
+                registration form here.
               </p>
             </CardContent>
           </Card>
