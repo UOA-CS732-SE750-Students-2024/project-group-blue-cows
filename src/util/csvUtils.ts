@@ -1,28 +1,62 @@
-import { toastError } from "./toastUtils";
+"use server";
+import "server-only";
+import { promises as fs } from 'fs';
+import * as originalFS from "fs";
+import csvParser from 'csv-parser';
+import { studentData } from '@/gateway/getAllMembersForClub';
+import { revalidatePath } from 'next/cache';
+import path from 'path';
+import dotenv from "dotenv";
 
-export function downloadAsCsv(objArray: Object[], csvFileName: string) {
-  try {
-    const csvData = objArrayToCsv(objArray);
-    const blob = new Blob([csvData], { type: "text/csv" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = csvFileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    toastError("Failed to export. Please try again.");
-  }
+dotenv.config();
+
+export interface studentAllData extends studentData {
+    paid: boolean,
+    isAdmin: boolean
 }
 
-function objArrayToCsv(objArray: Object[]) {
-  try {
-    return objArray.map((row) => Object.values(row).join(",")).join("\n");
-  } catch (error) {
-    throw new Error(
-      `Problem converting data to CSV format. Received data: ${objArray}`,
-    );
-  }
+export const parseCsvFile = async(filename: string) => {
+    return new Promise<studentAllData[]>((resolve, reject) => {
+        const extractedValues: studentAllData[] = [];
+        originalFS.createReadStream(filename)
+            .pipe(csvParser())
+            .on('data', (row) => {
+                extractedValues.push(row);
+            })
+            .on('end', () => {
+                revalidatePath("/");
+                resolve(extractedValues as studentAllData[]);
+            })
+            .on('error', (error) => {
+                reject(error);
+            });
+    });
+}
+
+export const importCsvFile = async (formData: FormData) => {
+    let dataDir = "/tmp";
+    if(process.env.ENVIRONMENT === "DEV") {
+        dataDir = path.join(process.cwd(), "./data");
+        await fs.mkdir(dataDir, { recursive: true });
+    }
+
+    try {
+        const file = formData.get("file") as File;
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const filePath = path.join(dataDir, file.name);
+        await fs.writeFile(filePath, buffer);
+        const extractedValues = await parseCsvFile(filePath);
+        console.log('Extracted values:', extractedValues);
+        return extractedValues;
+
+    } catch (error) {
+        console.error('Error importing CSV file:', error);
+        throw new Error('Error importing CSV file');
+    }
+};
+
+export const exportCsvFile = (headers: string[], data: studentData[]) => {
+    const csv = [headers.join(','), ...data.map(row => Object.values(row).join(','))].join('\n');
+    return csv;
 }

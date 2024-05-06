@@ -5,14 +5,22 @@ import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
 import { postMember, postMemberDto } from "@/gateway/postMember";
 import { putMember } from "@/gateway/putMember";
 import { getClubs } from "@/gateway/getClubs";
-import { Club, CreateClubDto } from "@/schemas/clubSchema";
+import { CreateClubDto, UpdateClubDto } from "@/schemas/clubSchema";
 import { AppUser } from "@/schemas/authSchema";
 import {  putMemberDto} from "@/gateway/putMember";
 import { getClub } from "@/gateway/getClub";
+import { putClub } from "@/gateway/putClub";
+import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";
+import { postMembersDataFromCSV } from "@/gateway/postMembersDataFromCsv";
+import { getMemberForClub } from "@/gateway/getMemberForClub";
 
 export async function postClub(club: CreateClubDto, user: AppUser) {
   // All this does is proxy the gateway request, a real service may do the same or more advanced logic
   return postClubEntity(club, user);
+}
+
+export async function updateClub(clubId: number, club: UpdateClubDto) {
+  return putClub(clubId, club);
 }
 
 export async function getAllMembers(clubId: number) {
@@ -39,4 +47,16 @@ export async function updateMember(
 
 export async function getClubById(clubID: number) {
   return await getClub(clubID);
+}
+
+export async function exportClubMembers(clubId: number) {
+  return await getMembersDataInCSV(clubId);
+}
+
+export async function importClubMembers(clubId: number, formData: FormData) {
+  return await postMembersDataFromCSV(clubId, formData);
+}
+
+export async function fetchMemberForClub(userId: string, clubId: number) {
+  return await getMemberForClub(userId, clubId);
 }

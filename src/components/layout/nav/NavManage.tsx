@@ -9,7 +9,7 @@ export default function NavManage() {
       <NavTab href="/users/me/clubs" imgSrc="/nav-list-icon.svg">
         View My Clubs
       </NavTab>
-      <NavTab href="/clubs/register" imgSrc="/nav-manage-icon.svg">
+      <NavTab href="/clubs/new" imgSrc="/nav-manage-icon.svg">
         Register a New Club
       </NavTab>
     </NavSection>

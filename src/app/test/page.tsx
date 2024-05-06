@@ -5,8 +5,9 @@ import {
   YellowButton,
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
+import { openModal } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
-import { getUsers } from "@/services/userServices";
+import { getAllUsers } from "@/services/userServices";
 import { useEffect, useState } from "react";
 import {
   Table,
@@ -31,7 +32,7 @@ export default function TestPage() {
   const [allUsers, setAllUsers] = useState<AppUser[]>([]);
 
   useEffect(() => {
-    getUsers().then(setAllUsers);
+    getAllUsers().then(setAllUsers);
   }, []);
 
   // Getting the auth state within a client component
@@ -114,6 +115,18 @@ export default function TestPage() {
         Blue Button
       </BlueButton>
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
+
+      <BlueButton
+        onClick={() =>
+          openModal({
+            content: <YellowButton>Wow</YellowButton>,
+            title: "Test",
+            className: "hover:bg-red-100",
+          })
+        }
+      >
+        Open Modal
+      </BlueButton>
     </main>
   );
 }
