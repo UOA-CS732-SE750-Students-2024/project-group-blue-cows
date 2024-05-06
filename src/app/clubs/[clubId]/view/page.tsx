@@ -77,48 +77,10 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
               <div>
                 <h1 className='text-lg font-bold'>Gallery</h1>
                 <Gallery />
-                <img src='https://utfs.io/f/b140f8be-2093-4543-9de1-7a9855fdef44-peiyms.jpg' />
                 </div>
             </div>
           </div>
         </div>
-
-        //   //div below is equivalent to header_wrapper
-        //   <div>
-        //     <header></header>
-        //     {/* div below is equivalent to cols_container */}
-        //     <div>
-        //       {/* div below is equivalent to left_col */}
-        //       <div className='px-[20px] py-[25px] text-center max-w-[350px] relative mx-auto  '>
-        //         {/* div below is equivalent to img_container */}
-        //         <div className='absolute -top-[60px] left-2/4 [transform:translatex(-50%)]'>
-        //           <img src={clubData?.logo} alt="club logo" />
-        //           <span></span>
-        //         </div>
-        //         <h2>{clubData?.name}</h2>
-        //         {/* <p>{clubData?.aliases</p> JUST MOVE THIS LINE WHEREVER THE NAME IS FOR NOW, IT'LL GO UNDER THE NAME IF WE CHOOSE TO ACTUALLY DO THIS */}
-        //         <p>Socials</p>
-        //         <p>Social Media Data here once its ready to go</p>
-        //       </div>
-
-        //       {/* div below is equivalent to right_col */}
-        //       <div>
-        //         <nav>
-        //           <button>Follow</button>
-        //         </nav>
-
-        //         <div>
-        //           <img src={clubData?.logo} alt="club logo" />
-        //           <img src={clubData?.logo} alt="club logo" />
-        //           <img src={clubData?.logo} alt="club logo" />
-        //           <img src={clubData?.logo} alt="club logo" />
-        //           <img src={clubData?.logo} alt="club logo" />
-
-        //         </div>
-        //       </div>
-        //     </div>
-        //   </div>
-        // )}
       )}
     </div>
   );
