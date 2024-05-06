@@ -1,9 +1,0 @@
-name,email,upi,year_of_study,student_id,paid,isAdmin
-Lucy Zhu,lzhu613@aucklanduni.ac.nz,abc,4,abc,TRUE,FALSE
-Nate Williamson,nwil508@aucklanduni.ac.nz,def,3,def,FALSE,FALSE
-Tristan Mona,tmon261@aucklanduni.ac.nz,ghi,4,ghi,FALSE,TRUE
-Vishva Dave,vdav604@aucklanduni.ac.nz,ghi,4,ghi,FALSE,TRUE
-Naren Rohan,nroh555@aucklanduni.ac.nz,ghi,4,ghi,FALSE,FALSE
-Andrew Meads,andrew@gmail.com,am,5,am,FALSE,FALSE
-Alex Hope,ahop089@aucklanduni.ac.nz,NULL,4,NULL,FALSE,FALSE
-Luca Eastwood,leas022@aucklanduni.ac.nz,ghi,4,ghi,FALSE,FALSE
