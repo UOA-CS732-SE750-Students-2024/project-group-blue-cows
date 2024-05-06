@@ -2,7 +2,7 @@ import "server-only";
 import { db } from "../config/db";
 import { eq } from "drizzle-orm";
 import clubSchema from "@/schemas/clubSchema";
-import { UpdateClubDto } from "@/dtos/UpdateClubDto";
+import { UpdateClubDto } from "@/Dtos/UpdateClubDto";
 
 export async function putClub(clubId: number, club: UpdateClubDto) {
   try {

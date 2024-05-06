@@ -1,6 +1,6 @@
 import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../config/db";
-import { PostMemberDto } from "@/dtos/PostMemberDto";
+import { PostMemberDto } from "@/Dtos/postMemberDto";
 
 export async function postMember(member: PostMemberDto) {
   try {

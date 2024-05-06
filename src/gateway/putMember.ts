@@ -1,7 +1,7 @@
 import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../config/db";
 import { and, eq } from "drizzle-orm";
-import { PutMemberDto } from "@/dtos/PutMemberDto";
+import { PutMemberDto } from "@/Dtos/putMemberDto";
 
 export async function putMember(
   clubId: number,
