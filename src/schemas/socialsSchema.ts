@@ -5,6 +5,7 @@ export interface Socials {
   id: number;
   clubId: number;
   link: string;
+  tag: string;
   type: string;
 }
 
@@ -14,5 +15,6 @@ export const socials = pgTable("socials", {
   .notNull()
   .references(() => clubSchema.id),
   link: varchar("link").notNull(),
+  tag: text("tag").notNull(),
   type: text("type").notNull(),
 });
