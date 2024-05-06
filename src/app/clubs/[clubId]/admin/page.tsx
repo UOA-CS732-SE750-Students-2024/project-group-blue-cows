@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import MembershipDashboard from "@/components/ui/membership-dashboard";
+// import MembershipDashboard from "@/components/ui/membership-dashboard";
 import {
   Table,
   TableHeader,
@@ -18,7 +18,7 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import ClubEditForm from "@/components/form/club-edit-form";
+import ClubEditForm from "@/components/form/club-edit-information";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
