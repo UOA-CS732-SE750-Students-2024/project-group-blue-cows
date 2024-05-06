@@ -30,15 +30,11 @@ export const parseCsvFile = async(filename: string) => {
 }
 
 export const importCsvFile = async (formData: FormData) => {
-    
-    const dataDir = path.join(process.cwd(), "./data");
     try {
         const file = formData.get("file") as File;
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-
-        await fs.mkdir(dataDir, { recursive: true });
-        const filePath = path.join(dataDir, file.name);
+        const filePath = path.join("/tmp", file.name);
         await fs.writeFile(filePath, buffer);
         const extractedValues = await parseCsvFile(filePath);
         await fs.unlink(filePath);
