@@ -43,23 +43,36 @@ import { getUser } from "@/services/authServices";
 import LoadingSpinner from "../ui/loading-spinner";
 import { Session } from "next-auth";
 
-const formSchema = z.object({
-  id: z.string().min(1, "ID is required"),
-  name: z.string().min(1, "Name is required").toUpperCase(),
-  email: z.string().min(1, "Email is required"),
-  upi: z.string().min(1, "UPI is required"),
-  yearLevel: z.number().min(1, "Year level is required"),
-});
+const createFormSchema = (headers: string[]) => {
+  let schema: z.ZodRawShape = {
+    id: z.string().min(1, "ID is required"),
+    name: z.string().min(1, "Name is required").toUpperCase(),
+    email: z.string().min(1, "Email is required"),
+    upi: z.string().min(1, "UPI is required"),
+    yearLevel: z.number().min(1, "Year level is required"),
+  };
+
+  headers.forEach((header) => {
+    schema = {
+      ...schema,
+      [header]: z.string().min(1, `${header} is required`),
+    };
+  });
+
+  return z.object(schema);
+};
 
 export default function ClubRegistrationForm({
   params,
 }: {
-  params: { clubId: string };
+  params: { clubId: string; headers: string[] };
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
+  const headers = params.headers;
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
+  const formSchema = createFormSchema(headers);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,6 +84,7 @@ export default function ClubRegistrationForm({
       yearLevel: 0,
     },
   });
+
   useEffect(() => {
     const getData = async () => {
       const clubData = await getClubById(Number(params.clubId));
