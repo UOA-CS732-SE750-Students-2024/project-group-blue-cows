@@ -1,21 +1,11 @@
 import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../config/db";
+import { PostMemberDto } from "@/Dtos/PostMemberDto";
 
-export interface postMemberDto{
-  club: number;
-  user: string;
-  paid: boolean;
-  isAdmin: boolean;
-}
-
-export async function postMember(
-  member: postMemberDto
-) {
+export async function postMember(member: PostMemberDto) {
   try {
-  await db.insert(membershipSchema).values([
-    member
-  ]);
-} catch (error) {
-  return "Failed to insert membership into database";
-}
+    await db.insert(membershipSchema).values([member]);
+  } catch (error) {
+    return "Failed to insert membership into database";
+  }
 }

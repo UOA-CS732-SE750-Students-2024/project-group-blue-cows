@@ -2,12 +2,14 @@
 import "server-only";
 import { postClubEntity } from "@/gateway/postClub";
 import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
-import { postMember, postMemberDto } from "@/gateway/postMember";
+import { postMember } from "@/gateway/postMember";
+import { PostMemberDto } from "@/Dtos/PostMemberDto";
 import { putMember } from "@/gateway/putMember";
 import { getClubs } from "@/gateway/getClubs";
-import { Club, CreateClubDto, UpdateClubDto } from "@/schemas/clubSchema";
+import { CreateClubDto } from "@/Dtos/CreateClubDto";
+import { UpdateClubDto } from "@/Dtos/UpdateClubDto";
 import { AppUser } from "@/schemas/authSchema";
-import {  putMemberDto} from "@/gateway/putMember";
+import { PutMemberDto } from "@/Dtos/PutMemberDto";
 import { getClub } from "@/gateway/getClub";
 import { putClub } from "@/gateway/putClub";
 import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";
@@ -31,16 +33,14 @@ export async function getAllClubs(name: string, filter: string | null) {
   return await getClubs(name, filter);
 }
 
-export async function addMember(
-  member: postMemberDto
-) {
+export async function addMember(member: PostMemberDto) {
   return await postMember(member);
 }
 
 export async function updateMember(
   clubId: number,
   userId: string,
-  membership: putMemberDto
+  membership: PutMemberDto
 ) {
   return await putMember(clubId, userId, membership);
 }
