@@ -16,11 +16,11 @@ export const membersColumns: ColumnDef<studentData>[] = [
     header: "Upi",
   },
   {
-    accessorKey: "year",
+    accessorKey: "year_of_study",
     header: "Year",
   },
   {
-    accessorKey: "studentId",
+    accessorKey: "student_id",
     header: "Student_Id",
   },
 ];
