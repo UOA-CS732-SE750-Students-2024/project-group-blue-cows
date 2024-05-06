@@ -42,6 +42,7 @@ import { Club } from "@/schemas/clubSchema";
 import { getUser } from "@/services/authServices";
 import LoadingSpinner from "../ui/loading-spinner";
 import { Session } from "next-auth";
+import { getExtendedFormForClub } from "@/gateway/getExtendedFormForClub";
 
 const createFormSchema = (headers: string[]) => {
   let schema: z.ZodRawShape = {
@@ -65,11 +66,13 @@ const createFormSchema = (headers: string[]) => {
 export default function ClubRegistrationForm({
   params,
 }: {
-  params: { clubId: string; headers: string[] };
+  params: { clubId: string };
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  const headers = params.headers;
+  getExtendedFormForClub(Number(params.clubId)).then((res) => {
+    setHeaders(res);
+  });
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
   const formSchema = createFormSchema(headers);

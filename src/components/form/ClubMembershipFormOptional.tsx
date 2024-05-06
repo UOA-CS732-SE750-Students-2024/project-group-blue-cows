@@ -23,34 +23,6 @@ const formSchema = z.object({
   yearLevel: z.number().min(1, "Year level is required"),
 });
 
-const ClubMembershipFormOptional = ({ headers }: { headers: string[] }) => {
-
-    const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      id: "",
-      email: "",
-      upi: "",
-      yearLevel: 0,
-    }
-
-  return (
-    <FormField
-    control={form.control}
-    name="name"
-    render={({ field }) =>
-      {headers.map((header, index) => (
-        <div key={index}>
-          <label htmlFor={header}>{header}</label>
-          <input type="text" id={header} name={header} />
-        </div>
-      ))}
-      <button type="submit">Submit</button>
-    </FormField>
-  );
-};
-
 /*{
   <FormField
 control={form.control}

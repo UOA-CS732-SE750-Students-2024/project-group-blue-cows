@@ -33,9 +33,9 @@ export default function Page({ params }: { params: { clubId: string } }) {
           label="Membership Form"
           title=""
           formType="membership"
-          params={params}
+          params={{ ...params }}
         >
-          <ClubMembershipForm params={params} />
+          <ClubMembershipForm params={{ ...params }} />
         </FormWrapper>
       </div>
     </section>
