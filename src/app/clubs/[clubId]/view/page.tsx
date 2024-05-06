@@ -34,17 +34,17 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="px-44 shadow">
-        <div className="relative h-96 rounded-b flex justify-center w-full">
+        <div className="w-full">
+        <div className="relative h-96 rounded-b flex justify-start w-full">
           <img
             src="https://picsum.photos/id/1018/3000"
             className="object-cover w-full h-full rounded-b"
             alt="cover"
           />
-          <div className="absolute -bottom-6">
+          <div className="absolute -bottom-20 left-20">
             <img
               src={clubData?.logo}
-              className="object-cover border-4 border-white w-40 h-40"
+              className="object-cover border-8 border-white w-40 h-40 rounded-md"
               alt="club logo"
             />
           </div>
