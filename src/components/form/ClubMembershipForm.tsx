@@ -76,19 +76,30 @@ const createFormSchema = (formExtensions: FormExtension[]) => {
   return z.object(schema);
 };
 
-export default async function ClubRegistrationForm({
+export default function ClubRegistrationForm({
   params,
 }: {
   params: { clubId: string };
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  const extendedForm = (
-    await getExtendedFormForClub(Number(params.clubId))
-  ).map((form) => ({
-    ...form,
-    description: form.description || undefined,
-  }));
+  const [extendedForm, setExtendedForm] = useState<FormExtension[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedExtendedForm = await getExtendedFormForClub(
+        Number(params.clubId)
+      );
+      setExtendedForm(
+        fetchedExtendedForm.map((form) => ({
+          ...form,
+          description: form.description || undefined,
+        }))
+      );
+    };
+    fetchData();
+    setLoading(false);
+  }, [params.clubId]);
 
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
@@ -276,6 +287,8 @@ export default async function ClubRegistrationForm({
               );
             }}
           />
+
+          <DynamicFields extendedForm={extendedForm} form={form} />
         </div>
 
         <Button
@@ -290,23 +303,25 @@ export default async function ClubRegistrationForm({
 }
 
 type DynamicFieldsProps = {
-  headers: string[];
+  extendedForm: FormExtension[];
   form: ReturnType<typeof useForm>;
 };
-
-const DynamicFields: React.FC<DynamicFieldsProps> = ({ headers, form }) => {
+const DynamicFields: React.FC<DynamicFieldsProps> = ({
+  extendedForm,
+  form,
+}) => {
   return (
     <>
-      {headers.map((header) => (
+      {extendedForm.map((formExtension) => (
         <FormField
-          key={header}
+          key={formExtension.name}
           control={form.control}
-          name={header}
+          name={formExtension.name}
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-bold">{header}</FormLabel>
+              <FormLabel className="font-bold">{formExtension.name}</FormLabel>
               <FormControl>
-                <Input placeholder={`Enter ${header}`} {...field} />
+                <Input placeholder={`Enter ${formExtension.name}`} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
