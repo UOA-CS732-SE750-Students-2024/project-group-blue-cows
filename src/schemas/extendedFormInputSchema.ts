@@ -1,6 +1,6 @@
 import { pgTable, serial, integer, varchar, text } from "drizzle-orm/pg-core";
-import optionsFormSchema from "./extendedFormFieldSchema";
-import memberships from "./membershipSchema";
+import extendedFormFieldSchema from "./extendedFormFieldSchema";
+import membershipSchema from "./membershipSchema";
 
 export interface FormInput {
   id: number;
@@ -9,13 +9,13 @@ export interface FormInput {
   value: string;
 }
 
-export const formInput = pgTable("formInput", {
+export default pgTable("formInput", {
   id: serial("id").primaryKey(),
-  membershipId: text("membershipId")
+  membershipId: integer("membershipId")
     .notNull()
-    .references(() => memberships.id),
+    .references(() => membershipSchema.id),
   formOptionId: integer("formOptionId")
     .notNull()
-    .references(() => optionsFormSchema.id),
+    .references(() => extendedFormFieldSchema.id),
   value: text("value").notNull(),
 });

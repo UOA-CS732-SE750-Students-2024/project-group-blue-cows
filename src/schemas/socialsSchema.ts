@@ -9,7 +9,7 @@ export interface Socials {
   type: string;
 }
 
-export const socials = pgTable("socials", {
+export default pgTable("socials", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
   .notNull()
