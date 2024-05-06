@@ -5,10 +5,10 @@ export interface Image {
   id: number;
   clubId: number;
   imageUrl: string;
-  title: string;
+  title: string; 
 }
 
-export const images = pgTable("images", {
+export default pgTable("images", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
   .notNull()
