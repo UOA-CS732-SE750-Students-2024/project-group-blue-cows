@@ -15,7 +15,6 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   SelectValue,
   SelectTrigger,
@@ -83,198 +82,58 @@ export default function EditClubRegistrationForm() {
   form.watch("category");
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleSubmit)}
-        className="w-full flex flex-col gap-4"
-      >
-        <Card className="w-full bg-[#FFD166]">
-          <CardHeader>
-            <CardTitle>Club Registration</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>
-              By default, Cowlaboration will collect default information about a
-              member, including their full name, email, UPI, student ID,
-              University, year level, degree, and specialisation/majors. If you
-              would like to collect additional information about your club
-              members you may add custom fields to your club's registration
-              form.
-            </p>
-          </CardContent>
-        </Card>
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">Club Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter club name" type="name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">Club Description</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter club description"
-                    type="description"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">Club Category</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      {/* <SelectValue placeholder="Select a category for your new club" /> */}
-                      {field.value ? (
-                        <SelectValue placeholder="Select a category for your new club" />
-                      ) : (
-                        "Select a category for your new club"
-                      )}
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Academic and specialist">
-                      Academic and specialist
-                    </SelectItem>
-                    <SelectItem value="Sport">Sport</SelectItem>
-                    <SelectItem value="Special Interest">
-                      Special Interest
-                    </SelectItem>
-                    <SelectItem value="Religious and spiritual">
-                      Religious and spiritual
-                    </SelectItem>
-                    <SelectItem value="Cultural">Cultural</SelectItem>
-                    <SelectItem value="Causes">Causes</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="membership_fee"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">Membership Fee</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter fee amount"
-                    type="membership_fee"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-
-        {/* <FormField
-          control={form.control}
-          name="logo"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Dummy Input until File Upload Component</FormLabel>
-                <FormControl>
-                  <Input placeholder="Logo URL here" type="logo" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        /> */}
-
-        <FormField
-          control={form.control}
-          name="logo"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">Club Logo</FormLabel>
-                <UploadButton
-                  endpoint="imageUploader"
-                  onClientUploadComplete={(res) => {
-                    // Do something with the response
-                    console.log("Files: ", res);
-                    alert("Upload Completed");
-
-                    //Convert url to string
-                    const logoUrl = res[0].url.toString();
-                    form.setValue("logo", logoUrl, { shouldValidate: true });
-                  }}
-                  onUploadError={(error: Error) => {
-                    // Do something with the error.
-                    alert(`ERROR! ${error.message}`);
-                  }}
-                />
-              </FormItem>
-            );
-          }}
-        />
-
-        {/* <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      /> */}
-
-        {/* <FormField
-          control={form.control}
-          name="logo"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>File</FormLabel>
-                <FormControl>
-                  <Input type="file" placeholder="shadcn" {...fileRef} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        /> */}
-
-        <Button
-          type="submit"
-          className="w-full bg-[#087DF1] color-white uppercase"
+    <div>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="w-full flex flex-col gap-4"
         >
-          Register Club on Cowmunity
-        </Button>
-      </form>
-    </Form>
+          <Card className="w-full bg-[#FFD166]">
+            <CardHeader>
+              <CardTitle>Club Registration</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                By default, Cowlaboration will collect default information about
+                a member, including their full name, email, UPI, student ID,
+                University, year level, degree, and specialisation/majors. If
+                you would like to collect additional information about your club
+                members you may add custom fields to your club's registration
+                form.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Button>Add New Short-Answer Question</Button>
+
+          <Card className="w-full bg-customLight mb-5">
+            <CardHeader>
+              <CardTitle>New Short-Answer Question</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="font-bold">Question:</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter new question"
+                          type="name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            </CardContent>
+          </Card>
+        </form>
+      </Form>
+    </div>
   );
 }

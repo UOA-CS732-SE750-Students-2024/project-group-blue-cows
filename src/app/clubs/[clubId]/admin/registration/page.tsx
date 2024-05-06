@@ -10,7 +10,6 @@ export default function AdminEditPage({
 
   return (
     <div className="h-[calc(100vh-4rem)] w-full p-10">
-      <h1>heyyy</h1>
       <EditClubRegistrationForm />
     </div>
   );
