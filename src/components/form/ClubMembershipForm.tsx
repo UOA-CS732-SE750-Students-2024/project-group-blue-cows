@@ -254,3 +254,31 @@ export default function ClubRegistrationForm({
     </Form>
   );
 }
+
+type DynamicFieldsProps = {
+  headers: string[];
+  form: ReturnType<typeof useForm>;
+};
+
+const DynamicFields: React.FC<DynamicFieldsProps> = ({ headers, form }) => {
+  return (
+    <>
+      {headers.map((header) => (
+        <FormField
+          key={header}
+          control={form.control}
+          name={header}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-bold">{header}</FormLabel>
+              <FormControl>
+                <Input placeholder={`Enter ${header}`} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      ))}
+    </>
+  );
+};
