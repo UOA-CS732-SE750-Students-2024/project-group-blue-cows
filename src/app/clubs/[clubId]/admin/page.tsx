@@ -80,6 +80,13 @@ export default function AdminEditPage({
       });
   };
 
+  const scrollToEditForm = () => {
+    const editFormDiv = document.getElementById("edit-form");
+    if (editFormDiv) {
+      editFormDiv.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="h-[calc(100vh-4rem)] w-full">
       <div className="flex px-10 pt-4 pb-2">
@@ -113,7 +120,10 @@ export default function AdminEditPage({
               </p>
             </div>
             <div className="flex items-start">
-              <Button className="mt-3 bg-customAccent text-black">
+              <Button
+                className="mt-3 bg-customAccent text-black"
+                onClick={() => scrollToEditForm()}
+              >
                 Edit Club Information
               </Button>
             </div>
@@ -245,7 +255,7 @@ export default function AdminEditPage({
       </div> */}
 
       {/* form */}
-      <div className="p-10">
+      <div className="p-10" id="edit-form">
         <ClubEditForm />
       </div>
     </div>
