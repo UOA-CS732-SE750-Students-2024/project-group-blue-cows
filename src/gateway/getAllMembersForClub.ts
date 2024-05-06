@@ -30,7 +30,7 @@ export async function getAllMembersForClub(clubId: number) {
     if(membersData.length > 0) {
         headers = Object.keys(membersData[0]);
     }
-
+    
     return {headers, membersData};
 }
 

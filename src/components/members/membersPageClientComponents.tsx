@@ -2,8 +2,9 @@
 import { useRouter } from "next/navigation";
 import { BackButton, YellowButton } from "../misc/buttons";
 import { Club } from "@/schemas/clubSchema";
-import { downloadAsCsv } from "@/util/csvUtils";
 import { getAllMembers } from "@/services/clubServices";
+import { downloadAsCsv } from "@/util/csvClientUtils";
+import { toastError } from "@/util/toastUtils";
 
 export function MembersPageBack({
   clubId,
@@ -22,15 +23,31 @@ export function MembersPageBack({
 }
 
 export function ImportButton({ className }: { className?: string }) {
-  return <YellowButton className={`w-[24rem] ${className}`}>Import Data</YellowButton>;
+  function importMembers() {
+    console.log("Clicked")
+  }
+
+  return (
+    <YellowButton onClick={importMembers} className={`w-[24rem] ${className}`}>
+      Import Data
+    </YellowButton>
+  );
 }
 
-export function ExportButton({ club, className }: { club: Club, className?: string }) {
+export function ExportButton({
+  club,
+  className,
+}: {
+  club: Club;
+  className?: string;
+}) {
   async function exportMembers() {
-    downloadAsCsv(
-      await getAllMembers(club.id),
-      `${club.name}_membership.csv`
-    );
+    try {
+      const { headers, membersData } = await getAllMembers(club.id);
+      downloadAsCsv(headers, membersData, `${club.name}_membership.csv`);
+    } catch (error) {
+      toastError("Error exporting CSV");
+    }
   }
 
   return (
