@@ -28,11 +28,11 @@ const UserNavCard: React.FC<UserNavCardProps> = ({
         />
       </CardHeader>
       <CardContent className="flex flex-col items-center">
-        <p className="text-base sm:text-xs md:text-xs lg:text-sm">
+        <p className="text-base text-center sm:text-xs md:text-xs lg:text-sm">
           {textContent}
         </p>
         <Link href={navigationLink}>
-          <Button className="mt-3" variant="outline">
+          <Button className="mt-3 bg-customAccent" variant="outline">
             {buttonText}
           </Button>
         </Link>

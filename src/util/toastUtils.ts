@@ -19,8 +19,20 @@ export const showToastDemo = (message: string) => {
   toast(message, baseOptions);
 };
 
-export const showToastLogin = (message: string) => {
-  toast.info(message, { ...baseOptions, position: "top-left" });
+export const toastLoading = () => {
+  toast.info("Loading...", { ...baseOptions });
+};
+
+export const toastLogin = (message: string) => {
+  toast.info(message, { ...baseOptions });
+};
+
+export const toastError = (message: string) => {
+  toast.error(message, { ...baseOptions });
+};
+
+export const toastSuccess = (message: string) => {
+  toast.success(message, { ...baseOptions });
 };
 
 export const toastError = (message: string) => {
