@@ -1,20 +1,20 @@
 "use server";
 import "server-only";
-import { postClubEntity } from "@/gateway/postClub";
-import { getAllMembersForClub } from "@/gateway/getAllMembersForClub";
-import { postMember } from "@/gateway/postMember";
-import { PostMemberDto } from "@/Dtos/PostMemberDto";
-import { putMember } from "@/gateway/putMember";
-import { getClubs } from "@/gateway/getClubs";
-import { CreateClubDto } from "@/Dtos/CreateClubDto";
-import { UpdateClubDto } from "@/Dtos/UpdateClubDto";
+import { postClubEntity } from "@/gateway/club/postClub";
+import { getAllMembersForClub } from "@/gateway/member/getAllMembersForClub";
+import { postMember } from "@/gateway/member/postMember";
+import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
+import { putMember } from "@/gateway/member/putMember";
+import { getClubs } from "@/gateway/club/getClubs";
+import { CreateClubDto } from "@/Dtos/club/CreateClubDto";
+import { UpdateClubDto } from "@/Dtos/club/UpdateClubDto";
 import { AppUser } from "@/schemas/authSchema";
-import { PutMemberDto } from "@/Dtos/PutMemberDto";
-import { getClub } from "@/gateway/getClub";
-import { putClub } from "@/gateway/putClub";
-import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";
-import { postMembersDataFromCSV } from "@/gateway/postMembersDataFromCsv";
-import { getMemberForClub } from "@/gateway/getMemberForClub";
+import { PutMemberDto } from "@/Dtos/member/PutMemberDto";
+import { getClub } from "@/gateway/club/getClub";
+import { putClub } from "@/gateway/club/putClub";
+import { getMembersDataInCSV } from "@/gateway/member/getMembersDataInCsv";
+import { postMembersDataFromCSV } from "@/gateway/member/postMembersDataFromCsv";
+import { getMemberForClub } from "@/gateway/member/getMemberForClub";
 
 export async function postClub(club: CreateClubDto, user: AppUser) {
   // All this does is proxy the gateway request, a real service may do the same or more advanced logic
