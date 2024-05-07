@@ -27,7 +27,7 @@ export async function postMembersDataFromCSV(clubId: number, formData: FormData)
           isAdmin: false
         }
     ]
-    studentData.map(async (data) => {
+    for(const data of studentData) {
         const user = await getUserByEmail(data.email);
         let id = user?.id
         if(!user) {            
@@ -54,5 +54,5 @@ export async function postMembersDataFromCSV(clubId: number, formData: FormData)
                 await postMember({club: clubId, user: id, paid: data.paid, isAdmin: data.isAdmin})
             }
         } 
-    })
+    }
 }
