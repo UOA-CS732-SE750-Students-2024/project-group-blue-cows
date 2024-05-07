@@ -3,7 +3,7 @@ name: Build DEV
 on:
   push:
     branches:
-      - '*'  
+      - '**'  
 
 jobs:
   BuildApp:
