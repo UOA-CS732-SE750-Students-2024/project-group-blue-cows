@@ -2,9 +2,9 @@ import { db } from "../../config/db";
 import { eq } from "drizzle-orm";
 import optionsFormSchema from "@/schemas/extendedFormFieldSchema";
 
-// removes an extended field from a clubs signup form
-export async function deleteExtendedFormField(optionsId: number) {
+// removes all extended fields from a clubs signup form
+export async function deleteExtendedFormField(clubId: number) {
   return await db
     .delete(optionsFormSchema)
-    .where(eq(optionsFormSchema.id, optionsId));
+    .where(eq(optionsFormSchema.clubId, clubId));
 }
