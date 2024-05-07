@@ -1,5 +1,5 @@
 "use client";
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { ReactNode, createContext, useContext, useState } from "react";
 
 interface MemberPageContextType {

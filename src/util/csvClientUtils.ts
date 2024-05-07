@@ -1,4 +1,4 @@
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 
 export async function downloadAsCsv(
   headers: string[],

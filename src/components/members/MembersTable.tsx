@@ -13,7 +13,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { DataTable } from "../ui/data-table";
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { useState } from "react";
 import { useMemberPage } from "./MemberPageContext";
 
