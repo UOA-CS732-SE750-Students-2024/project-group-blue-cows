@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { Club } from "@/schemas/clubSchema";
-import { useRegistrationEditContext } from "@/app/clubs/[clubId]/admin/registration/RegistratonEditContext";
+import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
 import { postClub } from "@/services/clubServices";
 import { toastError, toastSuccess } from "@/util/toastUtils";
 import { useSession } from "next-auth/react";
@@ -25,20 +25,16 @@ export function MembersPageBack({
   );
 }
 
-export function PreviewFormButton({
-  className,
-  club,
-}: {
-  className?: string;
-  club: Club;
-}) {
-  function preview() {
-    console.log("Preview Clicked");
+export function PreviewFormButton({ className }: { className?: string }) {
+  const { showPreview, setShowPreview } = useRegistrationEditContext();
+
+  function togglePreview() {
+    setShowPreview(!showPreview);
   }
 
   return (
-    <YellowButton onClick={preview} className={`w-[24rem] ${className}`}>
-      Preview
+    <YellowButton onClick={togglePreview} className={`w-[24rem] ${className}`}>
+      {showPreview ? "Edit" : "Preview"}
     </YellowButton>
   );
 }

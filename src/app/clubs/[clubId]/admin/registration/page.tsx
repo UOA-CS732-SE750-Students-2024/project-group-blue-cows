@@ -10,7 +10,8 @@ import { getClubById } from "@/services/clubServices";
 import { getAllExtendedFields } from "@/services/optionsFormServices";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { RegistrationEditProvider } from "./RegistratonEditContext";
+import { RegistrationEditProvider } from "../../../../../components/form/RegistratonEditContext";
+import Preview from "@/components/form/Preview";
 
 export default async function RegistrationEditPage({
   params: { clubId },
@@ -30,14 +31,20 @@ export default async function RegistrationEditPage({
             club={club}
             className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
           />
-          <PreviewFormButton club={club} className="ml-6 lg:ml-0" />
+          <PreviewFormButton className="ml-6 lg:ml-0" />
           <SaveFormButton className="ml-2 md:ml-6 xl:ml-12" />
         </div>
-        <PageInfo />
-        <EditClubRegistrationForm
-          clubId={+clubId}
-          initialExtendedFields={extendedFields}
-        />
+        <Preview
+          previewComponent={
+            <p>Replace me with registration form page/component</p>
+          }
+        >
+          <PageInfo />
+          <EditClubRegistrationForm
+            clubId={+clubId}
+            initialExtendedFields={extendedFields}
+          />
+        </Preview>
       </RegistrationEditProvider>
     </div>
   );

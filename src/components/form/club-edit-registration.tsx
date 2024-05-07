@@ -22,7 +22,7 @@ import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { BlueButton } from "../misc/buttons";
 import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { SelectContent } from "@radix-ui/react-select";
-import { useRegistrationEditContext } from "@/app/clubs/[clubId]/admin/registration/RegistratonEditContext";
+import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
 
 const formSchema = z.object({});
 

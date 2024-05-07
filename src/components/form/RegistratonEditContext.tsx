@@ -6,7 +6,14 @@ import { ReactNode, createContext, useContext, useState } from "react";
 const RegistratonEditContext = createContext<{
   extendedFields: GetExtendedFormFieldDto[];
   setExtendedFields: (extendedFields: GetExtendedFormFieldDto[]) => void;
-}>({ extendedFields: [], setExtendedFields() {} });
+  showPreview: boolean;
+  setShowPreview: (showPreview: boolean) => void;
+}>({
+  extendedFields: [],
+  setExtendedFields() {},
+  showPreview: false,
+  setShowPreview() {},
+});
 
 export function RegistrationEditProvider({
   children,
@@ -16,10 +23,11 @@ export function RegistrationEditProvider({
   initialExtendedFields: GetExtendedFormFieldDto[];
 }) {
   const [extendedFields, setExtendedFields] = useState(initialExtendedFields);
+  const [showPreview, setShowPreview] = useState(false);
 
   return (
     <RegistratonEditContext.Provider
-      value={{ extendedFields, setExtendedFields }}
+      value={{ extendedFields, setExtendedFields, showPreview, setShowPreview }}
     >
       {children}
     </RegistratonEditContext.Provider>
