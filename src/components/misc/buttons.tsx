@@ -1,4 +1,5 @@
 import { Button, ButtonProps } from "../ui/button";
+import Image from "next/image";
 
 export function YellowButton({ children, className, ...props }: ButtonProps) {
   return (
@@ -25,12 +26,48 @@ export function BlueButton({ children, className, ...props }: ButtonProps) {
 export function BackButton({ className, ...props }: ButtonProps) {
   return (
     <Button
-      className={`bg-customAccent hover:bg-customAccent hover:brightness-90 h-16 w-16 p-0 rounded-full ${className}`}
+      className={`bg-customAccent hover:bg-customAccent hover:brightness-90 h-16 aspect-square p-0 rounded-full ${className}`}
       {...props}
     >
       <div className="w-full h-full flex justify-center items-center relative left-[-0.2em] transition-transform hover:-translate-x-1">
         <div className="w-0 h-0 border-transparent border-r-black border-y-[1em] border-r-[1.2em]" />
       </div>
     </Button>
+  );
+}
+
+export function MiniButton({ className, children, ...props }: ButtonProps) {
+  return (
+    <Button
+      className={`bg-customLight hover:bg-customLight hover:brightness-90 transition h-8 p-0 aspect-square rounded-full ${className}`}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+}
+
+type MiniIconButtonProps = ButtonProps & { icon: string; alt: string };
+
+export function MiniIconButton({
+  icon,
+  alt,
+  className,
+  ...props
+}: MiniIconButtonProps) {
+  return (
+    <MiniButton className={`${className}`} {...props}>
+      <Image src={icon} alt={alt} width={20} height={20} />
+    </MiniButton>
+  );
+}
+
+export function MiniArrowButton({ className, ...props }: ButtonProps) {
+  return (
+    <MiniButton className={`${className}`} {...props}>
+      <div className="w-full h-full flex justify-center items-center relative left-[-0.1em] transition-transform hover:-translate-x-0.5">
+        <div className="w-0 h-0 border-transparent border-r-black border-y-[0.5em] border-r-[0.6em]" />
+      </div>
+    </MiniButton>
   );
 }

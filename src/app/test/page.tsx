@@ -2,6 +2,8 @@
 import {
   BackButton,
   BlueButton,
+  MiniArrowButton,
+  MiniIconButton,
   YellowButton,
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
@@ -151,6 +153,21 @@ export default function TestPage() {
       >
         Open Modal
       </BlueButton>
+      <MiniIconButton
+        className="saturation-0"
+        icon="/delete.svg"
+        alt="delete"
+        onClick={() => showToastDemo("Never gonna")}
+      />
+      <MiniIconButton
+        icon="/setting-logo.png"
+        alt="Settings"
+        onClick={() => showToastDemo("Never gonna")}
+      />
+      <MiniArrowButton
+        className="rotate-90"
+        onClick={() => showToastDemo("🍞")}
+      />
     </main>
   );
 }
