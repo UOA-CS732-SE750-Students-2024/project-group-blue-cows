@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { getClubById } from "@/services/clubServices";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { Club } from "@/schemas/clubSchema";
-import Custom404 from "@/pages/404";
+import NotFoundPage from "@/app/not-found";
 import Image from "next/image";
-import TimelineHeader from "@/components/misc/timelineheader";
 import Gallery from "@/components/misc/gallery";
 import { Image as ImageSchema } from "@/schemas/imagesSchema";
 import { getAllImagesForClub } from "@/services/imageServices";
@@ -36,7 +35,7 @@ export default function ClubViewPage({
 
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
-    return <Custom404 />;
+    return <NotFoundPage />;
   }
 
   return (
