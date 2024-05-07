@@ -15,6 +15,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { AppUser } from "@/schemas/authSchema";
 import { Button } from "../ui/button";
+import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
+import { updateUser } from "@/services/userServices";
+import { useRouter } from "next/navigation";
 
 // All fields are optional, they are just used to help the user fill in forms
 // the regex allows for blank values, so the user can clear the field if they want
@@ -37,6 +40,7 @@ const formSchema = z.object({
 // The name, email and profile picture fields are not editable, as they are managed by the user's identity provider (Google at the moment)
 // Each field will be wrapped with FormField
 export default function EditProfileForm() {
+  const router = useRouter();
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
 
@@ -51,6 +55,26 @@ export default function EditProfileForm() {
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
+    // Convert values to UpdateUserDTO
+    const updateUserDto = {
+      student_id: values?.studentId ? values.studentId : null,
+      upi: values?.upi ? values.upi : null,
+      year_of_study: values?.yearOfStudy ? Number(values.yearOfStudy) : null,
+    } satisfies UpdateUserDto;
+
+    console.log(updateUserDto);
+
+    // Try to persist the changes to the user profile
+    updateUser(updateUserDto)
+      .then(() => {
+        alert("Profile updated successfully");
+        // Redirect to / using the next router
+        //router.push("/");
+      })
+      .catch((error) => {
+        // Show error message
+        alert("Failed to update profile");
+      });
   };
 
   // Doesn't use the form wrapper so we can maximize page width
