@@ -36,7 +36,9 @@ export default async function RegistrationEditPage({
         </div>
         <Preview
           previewComponent={
-            <p>Replace me with registration form page/component</p>
+            <p>
+              Replace me with registration form page/component
+            </p> /* VishvaDave replace this when member registration form is done */
           }
         >
           <PageInfo />
