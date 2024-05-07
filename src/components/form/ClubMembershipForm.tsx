@@ -107,7 +107,7 @@ export default function ClubRegistrationForm({
       description: "The institution you are studying at",
       id: 0,
       clubId: 0,
-      order: 1,
+      order: 3,
     },
     {
       name: "Degree",
@@ -115,7 +115,7 @@ export default function ClubRegistrationForm({
       description: "The degree you are studying",
       id: 0,
       clubId: 0,
-      order: 1,
+      order: 2,
     },
     {
       name: "Major",
@@ -126,12 +126,12 @@ export default function ClubRegistrationForm({
       order: 2,
     },
     {
-      name: "Favourite Number",
+      name: "If you had an elephant, what would you do with it?",
       type: "number",
-      description: "",
+      description: "You can't sell it or give it away.",
       id: 0,
       clubId: 0,
-      order: 3,
+      order: 1,
     },
   ]);
 
@@ -340,6 +340,7 @@ type DynamicFieldsProps = {
   extendedForm: FormExtension[];
   form: ReturnType<typeof useForm>;
 };
+
 const DynamicFields: React.FC<DynamicFieldsProps> = ({
   extendedForm,
   form,
@@ -351,6 +352,7 @@ const DynamicFields: React.FC<DynamicFieldsProps> = ({
           key={formExtension.name}
           control={form.control}
           name={formExtension.name}
+          rules={{ required: `${formExtension.name} is required` }}
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-bold">{formExtension.name}</FormLabel>
