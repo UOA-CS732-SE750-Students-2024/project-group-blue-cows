@@ -34,11 +34,3 @@ export const toastError = (message: string) => {
 export const toastSuccess = (message: string) => {
   toast.success(message, { ...baseOptions });
 };
-
-export const toastError = (message: string) => {
-  toast.error(message, baseOptions);
-};
-
-export const toastSuccess = (message: string) => {
-  toast.success(message, baseOptions);
-};
