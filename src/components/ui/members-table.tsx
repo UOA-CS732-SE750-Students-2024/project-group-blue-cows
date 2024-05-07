@@ -17,7 +17,6 @@ import { DataTable } from "./data-table";
 import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
-import Custom404 from "@/pages/404";
 import { exportClubMembers, importClubMembers } from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
 import { useRef } from "react";
@@ -93,11 +92,6 @@ export function MembersTable({
       rowSelection,
     },
   });
-
-  if (!clubData) {
-    // TODO: style and display this nicely - should also return a 404 status code
-    return <Custom404 />;
-  }
 
   return (
     <div className="w-full">
