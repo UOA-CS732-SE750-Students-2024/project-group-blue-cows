@@ -18,7 +18,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-
+          
+      - name: Create env file
+        run: echo ${{ secrets.BACKEND_ENVFILE }} | base64 --decode > .env
+    
       - run: yarn
 
       - run: yarn build
