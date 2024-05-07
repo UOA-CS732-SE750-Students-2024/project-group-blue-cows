@@ -18,11 +18,7 @@ import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
 import Custom404 from "@/pages/404";
-import {
-  exportClubMembers,
-  importClubMembers,
-  postClub,
-} from "@/services/clubServices";
+import { exportClubMembers, importClubMembers } from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
 import { useRef } from "react";
 import { revalidatePath } from "next/cache";
@@ -100,11 +96,6 @@ export function MembersTable({
       rowSelection,
     },
   });
-
-  if (!clubData) {
-    // TODO: style and display this nicely - should also return a 404 status code
-    return <Custom404 />;
-  }
 
   return (
     <div className="w-full">
