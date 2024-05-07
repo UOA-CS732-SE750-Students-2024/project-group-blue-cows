@@ -330,6 +330,7 @@ const DynamicFields: React.FC<DynamicFieldsProps> = ({
               <FormControl>
                 <Input placeholder={`Enter ${formExtension.name}`} {...field} />
               </FormControl>
+              {formExtension.description && <p>{formExtension.description}</p>}
               <FormMessage />
             </FormItem>
           )}
