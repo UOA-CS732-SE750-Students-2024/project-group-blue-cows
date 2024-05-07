@@ -33,10 +33,8 @@ interface EditFieldFunctions {
 
 export default function EditClubRegistrationForm() {
   const { extendedFields, setExtendedFields } = useRegistrationEditContext();
-  console.log(extendedFields);
 
   function addField() {
-    console.log("A");
     setExtendedFields([
       ...extendedFields,
       {
@@ -48,7 +46,6 @@ export default function EditClubRegistrationForm() {
   }
 
   function changeField(index: number, field: GetExtendedFormFieldDto) {
-    console.log("B");
     setExtendedFields([
       ...extendedFields.slice(0, index),
       field,
@@ -57,7 +54,6 @@ export default function EditClubRegistrationForm() {
   }
 
   function deleteField(index: number) {
-    console.log("C");
     setExtendedFields([
       ...extendedFields.slice(0, index),
       ...extendedFields.slice(index + 1),
@@ -65,7 +61,6 @@ export default function EditClubRegistrationForm() {
   }
 
   function moveFieldUp(index: number) {
-    console.log("D");
     if (index === 0) return;
     const newFields = [...extendedFields];
     [newFields[index], newFields[index - 1]] = [
@@ -76,7 +71,6 @@ export default function EditClubRegistrationForm() {
   }
 
   function moveFieldDown(index: number) {
-    console.log("E");
     if (index === extendedFields.length - 1) return;
     const newFields = [...extendedFields];
     [newFields[index], newFields[index + 1]] = [
