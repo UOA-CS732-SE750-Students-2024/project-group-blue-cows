@@ -1,7 +1,7 @@
 "use client"; // to get react to know it's a client compponent
 
 import React, { useEffect, useState } from "react";
-
+import { GetServerSidePropsContext } from "next";
 import FormWrapper from "@/components/form/form-wrapper";
 import ClubMembershipForm from "@/components/form/ClubMembershipForm";
 import { Button } from "@/components/ui/button";
@@ -40,4 +40,25 @@ export default function Page({ params }: { params: { clubId: string } }) {
       </div>
     </section>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  if (context.params) {
+    const clubId = context.params.clubId;
+    return {
+      props: {
+        params: {
+          clubId: clubId,
+        },
+      },
+    };
+  } else {
+    // redirect to 404
+    return {
+      redirect: {
+        destination: "/404",
+        permanent: false,
+      },
+    };
+  }
 }

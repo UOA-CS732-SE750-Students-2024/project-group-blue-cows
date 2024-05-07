@@ -37,15 +37,16 @@ import { AppUser, users } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
 
 import * as z from "zod";
-import { postMember } from "@/gateway/postMember";
+import { postMember } from "@/gateway/member/postMember";
 import { Club } from "@/schemas/clubSchema";
 import { getUser } from "@/services/authServices";
 import LoadingSpinner from "../ui/loading-spinner";
 import { Session } from "next-auth";
-import { getExtendedFormForClub } from "@/gateway/getExtendedFormForClub";
+import { getExtendedFormForClub } from "@/gateway/extendedFormField/getExtendedFormForClub";
 import { FormExtension } from "@/schemas/extendedFormFieldSchema";
+import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedFormFieldDto";
 
-const createFormSchema = (formExtensions: FormExtension[]) => {
+const createFormSchema = (formExtensions: PostExtendedFormFieldDto[]) => {
   let schema: z.ZodRawShape = {
     id: z.string().min(1, "ID is required"),
     name: z.string().min(1, "Name is required").toUpperCase(),
@@ -75,69 +76,56 @@ const createFormSchema = (formExtensions: FormExtension[]) => {
   return z.object(schema);
 };
 
-export default function ClubRegistrationForm({
+export default async function ClubRegistrationForm({
   params,
 }: {
   params: { clubId: string };
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
+  const extendedFormFields = await getExtendedFormForClub(
+    Number(params.clubId)
+  );
 
-  // UNCOMMENT THIS WHEN THE API IS READY TO FETCH THE FORM EXTENSIONS
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const fetchedExtendedForm = await getExtendedFormForClub(
-  //       Number(params.clubId)
-  //     );
-  //     setExtendedForm(
-  //       fetchedExtendedForm.map((form) => ({
-  //         ...form,
-  //         description: form.description || undefined,
-  //       }))
-  //     );
-  //   };
-  //   fetchData();
-  //   setLoading(false);
-  // }, [params.clubId]);
-
-  const [extendedForm, setExtendedForm] = useState<FormExtension[]>([
-    {
-      name: "University",
-      type: "string",
-      description: "The institution you are studying at",
-      id: 0,
-      clubId: 0,
-      order: 3,
-    },
-    {
-      name: "Degree",
-      type: "string",
-      description: "The degree you are studying",
-      id: 0,
-      clubId: 0,
-      order: 2,
-    },
-    {
-      name: "Major",
-      type: "string",
-      description: "The major or specialisation of your degree",
-      id: 0,
-      clubId: 0,
-      order: 2,
-    },
-    {
-      name: "If you had an elephant, what would you do with it?",
-      type: "number",
-      description: "You can't sell it or give it away.",
-      id: 0,
-      clubId: 0,
-      order: 1,
-    },
-  ]);
+  // HARDCODED FORM EXTENSIONS FOR TESTING:
+  // const [extendedForm, setExtendedForm] = useState<FormExtension[]>([
+  //   {
+  //     name: "University",
+  //     type: "string",
+  //     description: "The institution you are studying at",
+  //     id: 0,
+  //     clubId: 0,
+  //     order: 3,
+  //   },
+  //   {
+  //     name: "Degree",
+  //     type: "string",
+  //     description: "The degree you are studying",
+  //     id: 0,
+  //     clubId: 0,
+  //     order: 2,
+  //   },
+  //   {
+  //     name: "Major",
+  //     type: "string",
+  //     description: "The major or specialisation of your degree",
+  //     id: 0,
+  //     clubId: 0,
+  //     order: 2,
+  //   },
+  //   {
+  //     name: "If you had an elephant, what would you do with it?",
+  //     type: "number",
+  //     description: "You can't sell it or give it away.",
+  //     id: 0,
+  //     clubId: 0,
+  //     order: 1,
+  //   },
+  // ]);
 
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
-  const formSchema = createFormSchema(extendedForm);
+  const formSchema = createFormSchema(extendedFormFields);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -322,7 +310,7 @@ export default function ClubRegistrationForm({
             }}
           />
 
-          <DynamicFields extendedForm={extendedForm} form={form} />
+          <DynamicFields extendedForm={extendedFormFields} form={form} />
         </div>
 
         <Button
@@ -337,7 +325,7 @@ export default function ClubRegistrationForm({
 }
 
 type DynamicFieldsProps = {
-  extendedForm: FormExtension[];
+  extendedForm: PostExtendedFormFieldDto[];
   form: ReturnType<typeof useForm>;
 };
 

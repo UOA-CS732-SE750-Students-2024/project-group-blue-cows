@@ -24,12 +24,7 @@ import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
-import {
-  addAdditionalFieldToForm,
-  getAllExtendedFields,
-  removeExtendedFieldForForm,
-  updateFormField,
-} from "@/services/optionsFormServices";
+import { getAllExtendedFields } from "@/services/optionsFormServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -100,7 +95,7 @@ export default function TestPage() {
       >
         Post Club
       </Button>
-      <Button
+      {/* <Button
         onClick={() =>
           addAdditionalFieldToForm({
             clubId: 2,
@@ -118,7 +113,7 @@ export default function TestPage() {
       <Button onClick={() => removeExtendedFieldForForm(1)}>remove form</Button>
       <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
         get forms for club
-      </Button>
+      </Button> */}
       <Button
         onClick={() =>
           addImageToGallery({
