@@ -38,6 +38,14 @@ const columns: ColumnDef<studentData>[] = [
     accessorKey: "student_id",
     header: "Student_Id",
   },
+  {
+    accessorKey: "paid",
+    header: "Paid",
+  },
+  {
+    accessorKey: "isAdmin",
+    header: "Admin",
+  },
 ];
 
 export default function MembersTable() {
