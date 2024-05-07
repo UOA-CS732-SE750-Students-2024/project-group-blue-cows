@@ -26,6 +26,7 @@ export default function ClubViewPage({
   const [socials, setSocials] = useState<(typeof socialsSchema)[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+
   // Effect to fetch club data using the provided clubId
   useEffect(() => {
     const fetchClubData = async () => {
