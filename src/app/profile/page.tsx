@@ -1,9 +1,6 @@
 "use server";
 import ProfileHeader from "@/components/profile/ProfileHeader";
-import ProfileEditBody from "@/components/profile/EditProfileBody";
 import ReturnButton from "@/components/profile/ReturnButton";
-import SubmitButton from "@/components/profile/SubmitButton";
-import { Edit } from "lucide-react";
 import ProfileEditForm from "@/components/form/profile-edit-form";
 
 export default async function ProfilePage() {
