@@ -16,14 +16,24 @@ import { useSession } from "next-auth/react";
 import { AppUser } from "@/schemas/authSchema";
 import { Button } from "../ui/button";
 
+// All fields are optional, they are just used to help the user fill in forms
 const formSchema = z.object({
-  studentId: z.string().optional(),
-  upi: z.string().optional(),
-  yearLevel: z.string().optional(),
+  studentId: z
+    .string()
+    .regex(/^\d+$/, "Please enter a valid student ID") // matches any number of digits
+    .optional(),
+  upi: z
+    .string()
+    .regex(/^[(a-z)|(A-Z)]{4}\d{3}$/, " Please enter a valid UPI")
+    .optional(), // matches 4 letters followed by 3 digits e.g. leas022 (no official documentation on UPI format, so using this for the MVP)
+  yearOfStudy: z
+    .string()
+    .regex(/^[1-9]{1}?$/, "Please enter a valid year of study") // matches any number between 1 and 9 i.e. 1st to 9th year
+    .optional(),
 });
 
 // The edit profile form contains fields for the user to edit their student ID number, UPI and year level
-// Using react form hook to handle form state
+// The name, email and profile picture fields are not editable, as they are managed by the user's identity provider (Google at the moment)
 // Each field will be wrapped with FormField
 export default function EditProfileForm() {
   const { data: sessionData } = useSession(); // Get the session data
@@ -34,7 +44,7 @@ export default function EditProfileForm() {
     defaultValues: {
       studentId: String(user?.student_id) || "", // need to use string, so blank values are allowed
       upi: user?.upi || "",
-      yearLevel: String(user?.year_of_study) || "", // need to use string, so blank values are allowed
+      yearOfStudy: String(user?.year_of_study) || "", // need to use string, so blank values are allowed
     },
   });
 
@@ -43,9 +53,11 @@ export default function EditProfileForm() {
     form.reset(); // Reset form fields after successful submission
   };
 
+  // Doesn't use the form wrapper so we can maximize page width
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
+        {/* disabled and uncontrolled as we're not pushing these fields to the DB*/}
         <Input disabled defaultValue={user?.name || ""} />
 
         <Input disabled defaultValue={user?.email || ""} />
@@ -58,7 +70,11 @@ export default function EditProfileForm() {
               <FormItem>
                 <FormLabel className="font-bold">Student ID</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g. 12345678" type="number" {...field} />
+                  <Input
+                    placeholder="e.g. 123456789"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -74,7 +90,7 @@ export default function EditProfileForm() {
               <FormItem>
                 <FormLabel className="font-bold">UPI</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g. jdoe" {...field} />
+                  <Input placeholder="e.g. jdoe123" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -84,11 +100,11 @@ export default function EditProfileForm() {
 
         <FormField
           control={form.control}
-          name="yearLevel"
+          name="yearOfStudy"
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Year Level</FormLabel>
+                <FormLabel className="font-bold">Year of Study</FormLabel>
                 <FormControl>
                   <Input placeholder="e.g. 1" type="number" {...field} />
                 </FormControl>
