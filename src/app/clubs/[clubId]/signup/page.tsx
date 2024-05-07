@@ -1,16 +1,16 @@
 "use client"; // to get react to know it's a client compponent
 
 import React, { useEffect, useState } from "react";
-import { GetServerSidePropsContext } from "next";
+import { useParams } from "next/navigation";
 import FormWrapper from "@/components/form/form-wrapper";
 import ClubMembershipForm from "@/components/form/ClubMembershipForm";
 import { Button } from "@/components/ui/button";
 import { Club } from "@/schemas/clubSchema";
 import { getClubById } from "@/services/clubServices";
 
-export default function Page({ params }: { params: { clubId: string } }) {
+export default function Page() {
   const [clubData, setClubData] = useState<Club | null>(null);
-
+  const params = useParams<{ clubId: string }>();
   useEffect(() => {
     const getData = async () => {
       const clubData = await getClubById(Number(params.clubId));
@@ -40,25 +40,4 @@ export default function Page({ params }: { params: { clubId: string } }) {
       </div>
     </section>
   );
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  if (context.params) {
-    const clubId = context.params.clubId;
-    return {
-      props: {
-        params: {
-          clubId: clubId,
-        },
-      },
-    };
-  } else {
-    // redirect to 404
-    return {
-      redirect: {
-        destination: "/404",
-        permanent: false,
-      },
-    };
-  }
 }

@@ -46,7 +46,9 @@ import { getExtendedFormForClub } from "@/gateway/extendedFormField/getExtendedF
 import { FormExtension } from "@/schemas/extendedFormFieldSchema";
 import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedFormFieldDto";
 
-const createFormSchema = (formExtensions: PostExtendedFormFieldDto[]) => {
+const createFormSchema = (
+  formExtensions: PostExtendedFormFieldDto[]
+): z.ZodObject<any, any, any, any, any> => {
   let schema: z.ZodRawShape = {
     id: z.string().min(1, "ID is required"),
     name: z.string().min(1, "Name is required").toUpperCase(),
@@ -76,52 +78,33 @@ const createFormSchema = (formExtensions: PostExtendedFormFieldDto[]) => {
   return z.object(schema);
 };
 
-export default async function ClubRegistrationForm({
+export default function ClubRegistrationForm({
   params,
 }: {
   params: { clubId: string };
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  const extendedFormFields = await getExtendedFormForClub(
-    Number(params.clubId)
-  );
+  if (params.clubId) {
+    return <p>Club Id: {params.clubId}</p>;
+  }
+  const [extendedFormFields, setExtendedFormFields] = useState<
+    PostExtendedFormFieldDto[]
+  >([]);
 
-  // HARDCODED FORM EXTENSIONS FOR TESTING:
-  // const [extendedForm, setExtendedForm] = useState<FormExtension[]>([
-  //   {
-  //     name: "University",
-  //     type: "string",
-  //     description: "The institution you are studying at",
-  //     id: 0,
-  //     clubId: 0,
-  //     order: 3,
-  //   },
-  //   {
-  //     name: "Degree",
-  //     type: "string",
-  //     description: "The degree you are studying",
-  //     id: 0,
-  //     clubId: 0,
-  //     order: 2,
-  //   },
-  //   {
-  //     name: "Major",
-  //     type: "string",
-  //     description: "The major or specialisation of your degree",
-  //     id: 0,
-  //     clubId: 0,
-  //     order: 2,
-  //   },
-  //   {
-  //     name: "If you had an elephant, what would you do with it?",
-  //     type: "number",
-  //     description: "You can't sell it or give it away.",
-  //     id: 0,
-  //     clubId: 0,
-  //     order: 1,
-  //   },
-  // ]);
+  useEffect(() => {
+    const fetchExtendedFormFields = async () => {
+      try {
+        const fetchedExtendedFormFields = await getExtendedFormForClub(
+          Number(params.clubId)
+        );
+        setExtendedFormFields(fetchedExtendedFormFields);
+      } catch (error) {
+        console.error("Failed to fetch extended form fields:", error);
+      }
+    };
+    fetchExtendedFormFields();
+  }, [params.clubId]);
 
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
