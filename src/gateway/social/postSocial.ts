@@ -1,5 +1,5 @@
 import { db } from "../../config/db";
-import { PostSocialDto } from "@/Dtos/PostSocialDto";
+import { PostSocialDto } from "@/Dtos/social/PostSocialDto";
 import socialsSchema from "@/schemas/socialsSchema";
 
 // adds a link to a clubs socials

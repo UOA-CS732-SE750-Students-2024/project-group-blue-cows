@@ -1,5 +1,5 @@
 import { db } from "../../config/db";
-import { PostGalleryImageDto } from "@/Dtos/PostGalleryImageDto";
+import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
 import imagesSchema from "@/schemas/imagesSchema";
 
 // adds a image to a clubs gallery

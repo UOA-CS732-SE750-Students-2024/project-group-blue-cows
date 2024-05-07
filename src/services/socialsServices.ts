@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
-import { PostSocialDto } from "@/Dtos/PostSocialDto";
-import { PutSocialDto } from "@/Dtos/PutSocialDto";
+import { PostSocialDto } from "@/Dtos/social/PostSocialDto";
+import { PutSocialDto } from "@/Dtos/social/PutSocialDto";
 import { postSocial } from "@/gateway/social/postSocial";
 import { deleteSocial } from "@/gateway/social/deleteSocial";
 import { getSocialsForClub } from "@/gateway/social/getSocialsForClub";

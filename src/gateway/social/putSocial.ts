@@ -1,6 +1,6 @@
 import { db } from "../../config/db";
 import { eq } from "drizzle-orm";
-import { PutSocialDto } from "@/Dtos/PutSocialDto";
+import { PutSocialDto } from "@/Dtos/social/PutSocialDto";
 import socialsSchema from "@/schemas/socialsSchema";
 
 // updates a link for a clubs socials

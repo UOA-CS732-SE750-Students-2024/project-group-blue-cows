@@ -1,6 +1,6 @@
 "use server";
 import "server-only";
-import { PostGalleryImageDto } from "@/Dtos/PostGalleryImageDto";
+import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
 import { postGalleryImage } from "@/gateway/image/postGalleryImage";
 import { deleteGalleryImage } from "@/gateway/image/deleteGalleryImage";
 import { getGalleryImagesForClub } from "@/gateway/image/getGalleryImagesForClub";
