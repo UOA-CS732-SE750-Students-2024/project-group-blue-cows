@@ -7,7 +7,7 @@ import { postClub } from "@/services/clubServices";
 import { toastError, toastSuccess } from "@/util/toastUtils";
 import { useSession } from "next-auth/react";
 import { AppUser } from "@/schemas/authSchema";
-import { postExtendedFormField } from "@/gateway/postExtendedFormField";
+import { postExtendedFormField } from "@/gateway/extendedFormField/postExtendedFormField";
 
 export function MembersPageBack({
   clubId,
