@@ -24,12 +24,6 @@ import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
-import {
-  addAdditionalFieldToForm,
-  getAllExtendedFields,
-  removeExtendedFieldForForm,
-  updateFormField,
-} from "@/services/optionsFormServices";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -88,25 +82,6 @@ export default function TestPage() {
         }
       >
         Post Club
-      </Button>
-      <Button
-        onClick={() =>
-          addAdditionalFieldToForm({
-            clubId: 2,
-            order: 2,
-            name: "favourite-animal",
-            type: "string",
-          })
-        }
-      >
-        create form
-      </Button>
-      <Button onClick={() => updateFormField(1, { order: 2 })}>
-        update form
-      </Button>
-      <Button onClick={() => removeExtendedFieldForForm(1)}>remove form</Button>
-      <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
-        get forms for club
       </Button>
       <Table>
         <TableCaption>All users in the database.</TableCaption>
