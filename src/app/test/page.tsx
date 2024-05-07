@@ -100,36 +100,31 @@ export default function TestPage() {
       </Button>
       <Button
         onClick={() =>
-          updateForm([
-            {
-              clubId: 2,
-              order: 1,
-              name: "favourite-colour",
-              type: "string",
-              description: "string",
-            },
-            {
-              clubId: 2,
-              order: 4,
-              name: "favourite-animal",
-              type: "string",
-              description: "string",
-            },
-            {
-              clubId: 2,
-              order: 3,
-              name: "favourite-song",
-              type: "string",
-              description: "string",
-            },
-            {
-              clubId: 2,
-              order: 2,
-              name: "favourite-food",
-              type: "string",
-              description: "string",
-            },
-          ])
+          updateForm(
+            [
+              {
+                name: "favourite-colour",
+                type: "string",
+                description: "string",
+              },
+              {
+                name: "favourite-animal",
+                type: "string",
+                description: "string",
+              },
+              {
+                name: "favourite-song",
+                type: "string",
+                description: "string",
+              },
+              {
+                name: "favourite-food",
+                type: "string",
+                description: "string",
+              },
+            ],
+            2
+          )
         }
       >
         create form

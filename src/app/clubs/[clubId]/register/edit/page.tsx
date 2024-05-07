@@ -9,7 +9,7 @@ import { Club } from "@/schemas/clubSchema";
 import { getClubById } from "@/services/clubServices";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { RegistrationEditProvider } from "../../../../../components/form/RegistratonEditContext";
+import { RegistrationEditProvider } from "@/components/form/RegistratonEditContext";
 import Preview from "@/components/form/Preview";
 import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 
