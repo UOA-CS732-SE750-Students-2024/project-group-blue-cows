@@ -25,13 +25,17 @@ import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
 import {
+  updateForm,
+  getAllExtendedFields,
+} from "@/services/clubFormFieldServices";
+import {
   addImageToGallery,
   getAllImagesForClub,
   removeImageFromGallery,
 } from "@/services/imageServices";
 import {
   addSocialLink,
-  getAllISocialsForClub,
+  getAllSocialsForClub,
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
@@ -96,6 +100,45 @@ export default function TestPage() {
       </Button>
       <Button
         onClick={() =>
+          updateForm([
+            {
+              clubId: 2,
+              order: 1,
+              name: "favourite-colour",
+              type: "string",
+              description: "string",
+            },
+            {
+              clubId: 2,
+              order: 4,
+              name: "favourite-animal",
+              type: "string",
+              description: "string",
+            },
+            {
+              clubId: 2,
+              order: 3,
+              name: "favourite-song",
+              type: "string",
+              description: "string",
+            },
+            {
+              clubId: 2,
+              order: 2,
+              name: "favourite-food",
+              type: "string",
+              description: "string",
+            },
+          ])
+        }
+      >
+        create form
+      </Button>
+      <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
+        get forms for club
+      </Button>
+      <Button
+        onClick={() =>
           addImageToGallery({
             clubId: 1,
             imageUrl: "https://i.ytimg.com/vi/koGaFHRGmLw/maxresdefault.jpg",
@@ -130,7 +173,7 @@ export default function TestPage() {
       >
         update social link
       </Button>
-      <Button onClick={async () => console.log(await getAllISocialsForClub(1))}>
+      <Button onClick={async () => console.log(await getAllSocialsForClub(1))}>
         get social links
       </Button>
       <Table>

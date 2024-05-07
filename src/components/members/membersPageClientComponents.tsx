@@ -3,11 +3,13 @@ import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { Club } from "@/schemas/clubSchema";
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
-import { postClub } from "@/services/clubServices";
-import { toastError, toastSuccess } from "@/util/toastUtils";
+import { getAllMembers, importClubMembers } from "@/services/clubServices";
+import { toastError, toastLoading, toastSuccess } from "@/util/toastUtils";
 import { useSession } from "next-auth/react";
 import { AppUser } from "@/schemas/authSchema";
-import { postExtendedFormField } from "@/gateway/extendedFormField/postExtendedFormField";
+import { useMemberPage } from "./MemberPageContext";
+import { downloadAsCsv, importFile } from "@/util/csvClientUtils";
+import { importCsvFile } from "@/util/csvUtils";
 
 export function MembersPageBack({
   clubId,
@@ -20,7 +22,7 @@ export function MembersPageBack({
   return (
     <BackButton
       className={`hidden lg:block ${className}`}
-      onClick={() => router.push(`http://localhost:3000/clubs/${clubId}`)}
+      onClick={() => router.push(`/clubs/${clubId}`)}
     />
   );
 }
@@ -58,5 +60,63 @@ export function SaveFormButton({ className }: { className?: string }) {
     <BlueButton onClick={save} className={`w-[24rem] ${className}`}>
       Save
     </BlueButton>
+  );
+}
+
+export function ImportButton({
+  club,
+  className,
+}: {
+  club: Club;
+  className?: string;
+}) {
+  const { setMembers } = useMemberPage();
+
+  const handleImportMembers = () => {
+    importFile(async (formData: FormData) => {
+      toastLoading();
+      try {
+        if (!club.id) throw new Error("Club ID not found");
+        const membersData = await importCsvFile(formData);
+        await importClubMembers(club.id, membersData);
+        console.log(membersData)
+        setMembers(membersData);
+        toastSuccess("Members imported successfully");
+      } catch (error) {
+        toastError("Error importing CSV");
+      }
+    });
+  };
+
+  return (
+    <YellowButton
+      onClick={handleImportMembers}
+      className={`w-[24rem] ${className}`}
+    >
+      Import Data
+    </YellowButton>
+  );
+}
+
+export function ExportButton({
+  club,
+  className,
+}: {
+  club: Club;
+  className?: string;
+}) {
+  async function exportMembers() {
+    try {
+      const { headers, membersData } = await getAllMembers(club.id);
+      downloadAsCsv(headers, membersData, `${club.name}_membership.csv`);
+    } catch (error) {
+      toastError("Error exporting CSV");
+    }
+  }
+
+  return (
+    <YellowButton onClick={exportMembers} className={`w-[24rem] ${className}`}>
+      Export Data
+    </YellowButton>
   );
 }

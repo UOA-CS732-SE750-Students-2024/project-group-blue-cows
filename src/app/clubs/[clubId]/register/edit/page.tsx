@@ -7,11 +7,11 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getClubById } from "@/services/clubServices";
-import { getAllExtendedFields } from "@/services/optionsFormServices";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RegistrationEditProvider } from "../../../../../components/form/RegistratonEditContext";
 import Preview from "@/components/form/Preview";
+import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 
 export default async function RegistrationEditPage({
   params: { clubId },
