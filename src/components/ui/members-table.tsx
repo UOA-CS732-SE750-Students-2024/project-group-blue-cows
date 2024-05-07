@@ -17,13 +17,9 @@ import { DataTable } from "./data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
-import Custom404 from "@/pages/404";
 import { exportClubMembers, importClubMembers } from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
 import { useRef } from "react";
-import { revalidatePath } from "next/cache";
-import { postMember } from "@/gateway/postMember";
-import { postUser } from "@/gateway/postUser";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
