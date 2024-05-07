@@ -24,6 +24,17 @@ import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
+import {
+  addImageToGallery,
+  getAllImagesForClub,
+  removeImageFromGallery,
+} from "@/services/imageServices";
+import {
+  addSocialLink,
+  getAllISocialsForClub,
+  removeSocialLink,
+  updateSocialLink,
+} from "@/services/socialsServices";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -82,6 +93,45 @@ export default function TestPage() {
         }
       >
         Post Club
+      </Button>
+      <Button
+        onClick={() =>
+          addImageToGallery({
+            clubId: 1,
+            imageUrl: "https://i.ytimg.com/vi/koGaFHRGmLw/maxresdefault.jpg",
+            title: "ming",
+          })
+        }
+      >
+        add image
+      </Button>
+      <Button onClick={() => removeImageFromGallery(1)}> remove image</Button>
+      <Button onClick={async () => console.log(await getAllImagesForClub(1))}>
+        {" "}
+        get images
+      </Button>
+      <Button
+        onClick={() =>
+          addSocialLink({
+            clubId: 1,
+            link: "instagram.com",
+            tag: "insta",
+            type: "instagram",
+          })
+        }
+      >
+        add social link
+      </Button>
+      <Button onClick={() => removeSocialLink(1)}> remove social link</Button>
+      <Button
+        onClick={() =>
+          updateSocialLink(1, { link: "string", tag: "string", type: "string" })
+        }
+      >
+        update social link
+      </Button>
+      <Button onClick={async () => console.log(await getAllISocialsForClub(1))}>
+        get social links
       </Button>
       <Table>
         <TableCaption>All users in the database.</TableCaption>

@@ -1,8 +1,8 @@
 import { importCsvFile } from "@/util/csvUtils";
-import { getUserByEmail } from "./getUserByEmail";
+import { getUserByEmail } from "../user/getUserByEmail";
 import { putMember } from "./putMember";
 import { postMember } from "./postMember";
-import {postUser} from "./postUser";
+import {postUser} from "../user/postUser";
 import { getMemberForClub } from "./getMemberForClub";
 
 export async function postMembersDataFromCSV(clubId: number, formData: FormData) {

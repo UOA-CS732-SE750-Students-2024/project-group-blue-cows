@@ -1,5 +1,5 @@
 export interface UpdateClubDto {
-    name: string;
+    name?: string;
     description?: string;
     membership_fee?: string;
     logo?: string;

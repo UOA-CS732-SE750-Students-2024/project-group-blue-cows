@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 
 export const membersColumns: ColumnDef<studentData>[] = [
   {
