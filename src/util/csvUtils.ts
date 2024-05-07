@@ -2,11 +2,14 @@
 import "server-only";
 import { promises as fs } from "fs";
 import * as originalFS from "fs";
-import csvParser from "csv-parser";
-import { studentData } from "@/gateway/getAllMembersForClub";
-import { revalidatePath } from "next/cache";
-import path from "path";
 import { ENVIRONMENT } from "@/config/env";
+import csvParser from 'csv-parser';
+import { studentData } from '@/gateway/member/getAllMembersForClub';
+import { revalidatePath } from 'next/cache';
+import path from 'path';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export interface studentAllData extends studentData {
   paid: boolean;

@@ -1,5 +1,5 @@
-import { db } from "../config/db";
 import { asc, eq } from "drizzle-orm";
+import { db } from "../../config/db";
 import { users } from "@/schemas/authSchema";
 import membershipSchema from "@/schemas/membershipSchema";
 import clubSchema from "@/schemas/clubSchema";

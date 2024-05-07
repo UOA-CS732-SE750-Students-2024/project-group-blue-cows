@@ -1,9 +1,9 @@
 import { studentAllData } from "@/util/csvUtils";
-import { getUserByEmail } from "./getUserByEmail";
-import { putMember } from "./putMember";
-import { postMember } from "./postMember";
-import { postUser } from "./postUser";
-import { getMemberForClub } from "./getMemberForClub";
+import { getMemberForClub } from "./member/getMemberForClub";
+import { postMember } from "./member/postMember";
+import { putMember } from "./member/putMember";
+import { getUserByEmail } from "./user/getUserByEmail";
+import { postUser } from "./user/postUser";
 
 export async function postMembersData(clubId: number, memberData: studentAllData[]) {
     memberData.map(async (data) => {

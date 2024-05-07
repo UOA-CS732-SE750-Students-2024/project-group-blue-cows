@@ -41,6 +41,7 @@ export function ImportButton({
         if (!club.id) throw new Error("Club ID not found");
         const membersData = await importCsvFile(formData);
         await importClubMembers(club.id, membersData);
+        console.log(membersData)
         setMembers(membersData);
         toastSuccess("Members imported successfully");
       } catch (error) {

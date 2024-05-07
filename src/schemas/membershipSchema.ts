@@ -15,7 +15,7 @@ export default pgTable("memberships", {
   id: serial("id").primaryKey(),
   club: integer("club")
     .notNull()
-    .references(() => clubSchema.id),
+    .references(() => clubSchema.id,  { onDelete: "cascade" }),
   user: text("user")
     .notNull()
     .references(() => users.id),
