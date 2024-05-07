@@ -2,7 +2,7 @@
 import { membersColumns } from "@/components/ui/columns";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { MembersTable } from "@/components/ui/members-table";
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { Club } from "@/schemas/clubSchema";
 import { getAllMembers, getClubById } from "@/services/clubServices";
 import { useEffect, useState } from "react";
@@ -42,11 +42,13 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
         <LoadingSpinner />
       ) : (
         <div className="flex justify-center items-center w-screen px-10">
-          {/* <MembersTable
-            columns={membersColumns}
-            membersData={membersData}
-            clubData={clubData}
-          /> */}
+          {
+            <MembersTable
+              columns={membersColumns}
+              membersData={membersData}
+              clubData={clubData}
+            />
+          }
         </div>
       )}
     </div>

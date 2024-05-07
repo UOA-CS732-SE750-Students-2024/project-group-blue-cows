@@ -14,7 +14,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { DataTable } from "./data-table";
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
 import { exportClubMembers, importClubMembers } from "@/services/clubServices";
@@ -69,8 +69,8 @@ export function MembersTable({
     const formData = new FormData();
     formData.append("file", fileInput?.current?.files?.[0]!);
     if (clubData) {
-      const studentData = await importClubMembers(clubData.id, formData);
-      console.log(studentData);
+      showToastDemo("Loading... Refresh page when finish loading");
+      await importClubMembers(clubData.id, formData);
     }
   };
 
