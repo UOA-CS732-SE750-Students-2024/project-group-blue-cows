@@ -14,7 +14,7 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({
   return (
     <button
       className={`px-3 py-1 rounded-full ${
-        selected ? "bg-customAccent text-black" : "bg-gray-200 text-gray-700"
+        selected ? "bg-customAccent text-black" : "bg-customPrimary text-white"
       }`}
       onClick={() => onClick(value)}
     >

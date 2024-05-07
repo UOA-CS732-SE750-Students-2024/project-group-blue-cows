@@ -35,7 +35,7 @@ export default function ClubsPage() {
         filter={filter}
         setFilter={setFilter}
       />
-      <div className="w-full flex">
+      <div className="w-full flex bg-customGrass">
         {loading ? <LoadingSpinner /> : <ClubsList clubs={clubs} />}
       </div>
     </main>
@@ -55,10 +55,12 @@ function ClubsSearch({
 }) {
   return (
     <div
-      className="flex flex-col justify-center items-center gap-5 bg-cover py-4 text-white"
-      style={{ backgroundImage: "url('/cow-pattern-background.png')" }}
+      className="flex flex-col justify-center items-center gap-5 bg-cover py-4"
+      style={{ backgroundImage: "url('/cow-pattern-background.svg')" }}
     >
-      <h2 className="text-center text-3xl font-semibold mt-3">Browse Clubs</h2>
+      <h2 className="text-center text-black text-3xl font-semibold mt-3">
+        Browse Clubs
+      </h2>
       <div role="doc-subtitle" className="text-center text-lg">
         Find a club that suits your interests and goals.
       </div>
@@ -87,7 +89,7 @@ function ClubsSearch({
 
 function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <div className="w-5/6 lg:w-11/12 m-auto">
+    <div className="w-5/6 lg:w-11/12 m-auto mb-10">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results
