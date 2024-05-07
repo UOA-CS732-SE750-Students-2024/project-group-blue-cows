@@ -12,7 +12,7 @@ export default pgTable("images", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
   .notNull()
-  .references(() => clubSchema.id),
+  .references(() => clubSchema.id,  { onDelete: "cascade" }),
   imageUrl: varchar("imageUrl").notNull(),
   title: text("title")
 });
