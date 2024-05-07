@@ -8,18 +8,18 @@ export interface ClubFormField {
   formFieldId: number;
   order: number;
   type: string;
-  description?: string;
+  description: string;
 }
 
 export default pgTable("club_form_fields", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
-  .notNull()
-  .references(() => clubSchema.id,  { onDelete: "cascade" }),
+    .notNull()
+    .references(() => clubSchema.id, { onDelete: "cascade" }),
   formFieldId: integer("formFieldId")
-  .notNull()
-  .references(() => formFieldSchema.id,  { onDelete: "cascade" }),
+    .notNull()
+    .references(() => formFieldSchema.id, { onDelete: "cascade" }),
   order: integer("order").notNull(),
   type: text("type").notNull(),
-  description: text("description")
+  description: text("description").notNull(),
 });
