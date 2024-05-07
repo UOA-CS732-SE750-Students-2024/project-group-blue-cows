@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, UseFormWatch, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postClub } from "@/services/clubServices";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,23 +22,17 @@ import { useSession } from "next-auth/react";
 import * as z from "zod";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { BlueButton } from "../misc/buttons";
+import {
+  Select,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { SelectContent } from "@radix-ui/react-select";
 
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required").toUpperCase(),
-  description: z.string().min(1, "Description is required"),
-  membership_fee: z
-    .string()
-    .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
-  logo: z.string().min(1, "Logo is required"),
-  category: z.enum([
-    "Academic and specialist",
-    "Sport",
-    "Special Interest",
-    "Religious and spiritual",
-    "Cultural",
-    "Causes",
-  ]),
-});
+const formSchema = z.object({});
 
 export default function EditClubRegistrationForm({
   clubId,
@@ -51,30 +45,23 @@ export default function EditClubRegistrationForm({
   const user = sessionData?.user as AppUser; // Type assertion for the user
 
   const [extendedFields, setExtendedFields] = useState(initialExtendedFields);
-  console.log(extendedFields);
+  // console.log(extendedFields);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      membership_fee: "",
-      logo: "",
-    },
+    defaultValues: {},
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    postClub(values, user)
-      .then(() => {
-        form.reset(); // Reset form fields after successful submission
-      })
-      .catch((error) => {
-        console.error("Submission error:", error);
-      });
+  const handleSubmit = () => {
+    console.log("Submit");
+    // postClub(values, user)
+    //   .then(() => {
+    //     form.reset(); // Reset form fields after successful submission
+    //   })
+    //   .catch((error) => {
+    //     console.error("Submission error:", error);
+    //   });
   };
-
-  form.watch("category");
 
   return (
     <div>
@@ -83,36 +70,82 @@ export default function EditClubRegistrationForm({
           onSubmit={form.handleSubmit(handleSubmit)}
           className="w-full flex flex-col gap-4"
         >
-          <Card className="w-full bg-customLight">
-            <CardHeader>
-              <CardTitle>New Question</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel className="font-bold">Question:</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter new question"
-                          type="name"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-            </CardContent>
-          </Card>
-
-          <BlueButton className="w-full">Add New Question</BlueButton>
+          {extendedFields.map((field, index) => (
+            <Field
+              key={extendedFields[index].name}
+              index={index}
+              form={form}
+              field={extendedFields[index]}
+            />
+          ))}
+          <BlueButton type="submit" className="w-full">
+            Add New Question
+          </BlueButton>
         </form>
       </Form>
     </div>
+  );
+}
+
+function Field({
+  form,
+  index,
+  field,
+}: {
+  form: UseFormReturn<z.infer<typeof formSchema> | any>;
+  index: number;
+  field: GetExtendedFormFieldDto;
+}) {
+  return (
+    <Card className="w-full bg-customLight">
+      <CardContent className="pt-4">
+        <FormField
+          control={form.control}
+          name="name"
+          render={() => {
+            return (
+              <FormItem>
+                <FormLabel className="font-bold">
+                  Question {index + 1}:
+                </FormLabel>
+                <div className="flex gap-2">
+                  <FormControl>
+                    <Input
+                      className="inline w-1/6"
+                      placeholder="New field"
+                      type="name"
+                      value={field.name}
+                      onChange={() => console.log("Change")}
+                    />
+                  </FormControl>
+                  <Input
+                    className="inline w-4/6"
+                    placeholder="Description"
+                    type="name"
+                    value={field.description}
+                    onChange={() => console.log("Change")}
+                  />
+                  <Select
+                    defaultValue={"text"}
+                    onValueChange={(value) => {
+                      () => console.log(value);
+                    }}
+                  >
+                    <SelectTrigger className="w-1/6">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="text">Short Answer</SelectItem>
+                      <SelectItem value="textArea">Long Answer</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+      </CardContent>
+    </Card>
   );
 }
