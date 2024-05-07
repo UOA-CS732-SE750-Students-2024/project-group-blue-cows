@@ -1,7 +1,10 @@
 "use client";
 
+import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
+
 interface GalleryProps {
-  images: typeof Image[];
+  // images: typeof Image[];
+  images: PostGalleryImageDto[] ;
 }
 
 const Gallery: React.FC<GalleryProps> = ({ images }) => {

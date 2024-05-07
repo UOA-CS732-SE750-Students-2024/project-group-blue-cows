@@ -5,14 +5,12 @@ import { getClubById } from "@/services/clubServices";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { Club } from "@/schemas/clubSchema";
 import NotFoundPage from "@/app/not-found";
-import Image from "next/image";
 import Gallery from "@/components/misc/gallery";
-import { Image as ImageSchema } from "@/schemas/imagesSchema";
+import { Image, Image as ImageSchema } from "@/schemas/imagesSchema";
 import { getAllImagesForClub } from "@/services/imageServices";
 import SocialLinks from "@/components/misc/social-links";
-import socialsSchema from "@/schemas/socialsSchema";
+import { Socials } from "@/schemas/socialsSchema";
 import { getAllSocialsForClub } from "@/services/socialsServices";
-import Link from "next/link";
 import router, { useRouter } from "next/navigation";
 
 // Component definition accepting clubId as a prop
@@ -22,12 +20,13 @@ export default function ClubViewPage({
   params: { clubId: string };
 }) {
   const [clubData, setClubData] = useState<Club | null>(null);
-  const [images, setImages] = useState<(typeof Image)[]>([]);
-  const [socials, setSocials] = useState<(typeof socialsSchema)[]>([]);
+  const [images, setImages] = useState<ImageSchema[]>([]);
+  const [socials, setSocials] = useState<Socials[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   // Effect to fetch club data using the provided clubId
+
   useEffect(() => {
     const fetchClubData = async () => {
       const clubId = Number(params.clubId);
@@ -36,14 +35,36 @@ export default function ClubViewPage({
         getAllImagesForClub(clubId),
         getAllSocialsForClub(clubId),
       ]);
-
+  
+      const filteredImages = images.filter((image) => image.title !== null) as Image[];
+        
       setClubData(data);
-      setImages(images);
+      setImages(filteredImages);
       setSocials(socialLinks);
       setLoading(false);
     };
     fetchClubData();
   }, [params.clubId]);
+
+
+  // useEffect(() => {
+  //   const fetchClubData = async () => {
+  //     const clubId = Number(params.clubId);
+  //     const [data, images, socialLinks] = await Promise.all([
+  //       getClubById(clubId),
+  //       getAllImagesForClub(clubId),
+  //       getAllSocialsForClub(clubId),
+  //     ]);
+  
+  //     const filteredImages = images.filter((image) => image.title !== null) as Image[];
+  
+  //     setClubData(data);
+  //     setImages(filteredImages);
+  //     setSocials(socialLinks);
+  //     setLoading(false);
+  //   };
+  //   fetchClubData();
+  // }, [params.clubId]);
 
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
