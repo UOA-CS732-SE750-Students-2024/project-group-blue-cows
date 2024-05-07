@@ -5,6 +5,7 @@ import extendedFormFieldSchema from "@/schemas/FormFieldSchema";
 
 // gets all the extended fields of a form for a specified club
 export async function getClubFormFields(clubId: number) {
+  console.log(clubId+"server")
   return await db
     .select()
     .from(clubFormFieldSchema).leftJoin(extendedFormFieldSchema,eq(clubFormFieldSchema.formFieldId, extendedFormFieldSchema.id))

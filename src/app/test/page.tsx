@@ -22,7 +22,10 @@ import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
-import { updateForm, getAllExtendedFields } from "@/services/clubFormFieldServices";
+import {
+  updateForm,
+  getAllExtendedFields,
+} from "@/services/clubFormFieldServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -101,35 +104,35 @@ export default function TestPage() {
               order: 1,
               name: "favourite-colour",
               type: "string",
-              description: "string"
+              description: "string",
             },
             {
               clubId: 2,
               order: 4,
               name: "favourite-animal",
               type: "string",
-              description: "string"
+              description: "string",
             },
             {
               clubId: 2,
               order: 3,
               name: "favourite-song",
               type: "string",
-              description: "string"
+              description: "string",
             },
             {
               clubId: 2,
               order: 2,
               name: "favourite-food",
               type: "string",
-              description: "string"
+              description: "string",
             },
           ])
         }
       >
         create form
       </Button>
-      <Button onClick={async () => console.log(await getAllExtendedFields(1))}>
+      <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
         get forms for club
       </Button>
       <Button

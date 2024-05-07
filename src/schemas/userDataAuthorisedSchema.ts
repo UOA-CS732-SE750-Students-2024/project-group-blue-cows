@@ -10,12 +10,12 @@ export interface DataAuthorisation {
 }
 
 // The fields will grow as we add additional features
-export default pgTable("data_authorisations", {
+export default pgTable("user_data_authorisations", {
   id: serial("id").primaryKey(),
   memberId: integer("memberId")
     .notNull()
     .references(() => membershipSchema.id,  { onDelete: "cascade" }),
-    formFieldInputId: text("formFieldInputId")
+    formFieldInputId: integer("formFieldInputId")
     .notNull()
     .references(() => formFieldInputSchema.id),
 });

@@ -9,9 +9,9 @@ export interface FormInput {
   value: string;
 }
 
-export default pgTable("user_form_inputs", {
+export default pgTable("form_inputs", {
   id: serial("id").primaryKey(),
-  userId: integer("userId")
+  userId: text("userId")
     .notNull()
     .references(() => users.id,  { onDelete: "cascade" }),
   formFieldId: integer("formFieldId")
@@ -19,4 +19,3 @@ export default pgTable("user_form_inputs", {
     .references(() => formFieldSchema.id),
   value: text("value").notNull(),
 }); 
-

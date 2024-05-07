@@ -11,5 +11,6 @@ export async function updateForm(
 }
 
 export async function getAllExtendedFields(clubId: number) {
+  console.log(clubId+"clinet")
   return getClubFormFields(clubId)
 }
