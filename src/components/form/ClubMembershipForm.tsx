@@ -48,9 +48,11 @@ import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedF
 import { getAllExtendedFields } from "@/services/optionsFormServices";
 import { get } from "http";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
+import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
+import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
 
 const createFormSchema = (
-  formExtensions: GetExtendedFormFieldDto[]
+  formExtensions: GetClubFormFieldDto[]
 ): z.ZodObject<any, any, any, any, any> => {
   let schema: z.ZodRawShape = {
     id: z.string().min(1, "ID is required"),
@@ -87,26 +89,23 @@ export default function ClubRegistrationForm({
   params: { clubId: string };
 }) {
   const session = useSession(); // Get the session data
-  const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
   // const extendedFormFields = getAllExtendedFields(Number(params.clubId)).then(
   //   const formSchema = createFormSchema(extendedFormFields);
   // );
-  const [extendedFormFields, setExtendedFormFields] = useState<
-    GetExtendedFormFieldDto[]
-  >([]);
+  const [clubFormFields, setClubFormFields] = useState<GetClubFormFieldDto[]>(
+    []
+  );
 
   useEffect(() => {
-    // Define a separate async function
     const fetchFields = async () => {
-      const fields = await getAllExtendedFields(Number(params.clubId));
-      setExtendedFormFields(fields);
+      const fields = await getClubFormFields(Number(params.clubId));
+      setClubFormFields(fields);
     };
 
-    // Call the async function
     fetchFields();
   }, [params.clubId]);
 
-  const formSchema = createFormSchema(extendedFormFields);
+  const formSchema = createFormSchema(clubFormFields);
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
 
@@ -120,15 +119,6 @@ export default function ClubRegistrationForm({
       yearLevel: 0,
     },
   });
-
-  useEffect(() => {
-    const getData = async () => {
-      const clubData = await getClubById(Number(params.clubId));
-      setClubData(clubData);
-      setLoading(false);
-    };
-    getData();
-  }, []);
 
   useEffect(() => {
     if (user) {
@@ -293,7 +283,7 @@ export default function ClubRegistrationForm({
             }}
           />
 
-          <DynamicFields extendedForm={extendedFormFields} form={form} />
+          <DynamicFields extendedForm={clubFormFields} form={form} />
         </div>
 
         <Button
@@ -308,7 +298,7 @@ export default function ClubRegistrationForm({
 }
 
 type DynamicFieldsProps = {
-  extendedForm: GetExtendedFormFieldDto[];
+  extendedForm: GetClubFormFieldDto[];
   form: ReturnType<typeof useForm>;
 };
 
@@ -328,7 +318,20 @@ const DynamicFields: React.FC<DynamicFieldsProps> = ({
             <FormItem>
               <FormLabel className="font-bold">{formExtension.name}</FormLabel>
               <FormControl>
-                <Input placeholder={`Enter ${formExtension.name}`} {...field} />
+                {formExtension.type === "string" && (
+                  <Input
+                    placeholder={`Enter ${formExtension.name}`}
+                    {...field}
+                  />
+                )}
+                {formExtension.type === "number" && (
+                  <Input
+                    type="number"
+                    placeholder={`Enter ${formExtension.name}`}
+                    {...field}
+                  />
+                )}
+                {/* Add more conditions here for other types of fields */}
               </FormControl>
               {formExtension.description && <p>{formExtension.description}</p>}
               <FormMessage />

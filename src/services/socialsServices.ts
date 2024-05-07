@@ -15,7 +15,7 @@ export async function removeSocialLink(socialId: number){
     return deleteSocial(socialId);
 }
 
-export async function getAllISocialsForClub(clubId: number){
+export async function getAllSocialsForClub(clubId: number){
     return getSocialsForClub(clubId);
 }
 
