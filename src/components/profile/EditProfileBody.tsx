@@ -16,7 +16,11 @@ export default function ProfileEditBody() {
     <div className="grid grid-cols-2 gap-4">
       <div className="grid-item">
         <h2 className="text-sm font-bold">Full Name</h2>
-        <Input defaultValue={user.name || "Undefined"} />
+        <Input disabled defaultValue={user.name || ""} />
+      </div>
+      <div className="grid-item">
+        <h2 className="text-sm font-bold">Email Address</h2>
+        <Input disabled defaultValue={user.email || ""} />
       </div>
       <div className="grid-item">
         <h2 className="text-sm font-bold">UPI (e.g. 'abc123')</h2>
