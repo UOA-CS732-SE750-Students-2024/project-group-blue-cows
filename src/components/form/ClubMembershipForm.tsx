@@ -347,23 +347,30 @@ const DynamicFields: React.FC<DynamicFieldsProps> = ({
 }) => {
   return (
     <>
-      {extendedForm.map((formExtension) => (
-        <FormField
-          key={formExtension.name}
-          control={form.control}
-          name={formExtension.name}
-          rules={{ required: `${formExtension.name} is required` }}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-bold">{formExtension.name}</FormLabel>
-              <FormControl>
-                <Input placeholder={`Enter ${formExtension.name}`} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      ))}
+      {extendedForm
+        .sort((a, b) => a.order - b.order)
+        .map((formExtension) => (
+          <FormField
+            key={formExtension.name}
+            control={form.control}
+            name={formExtension.name}
+            rules={{ required: `${formExtension.name} is required` }}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-bold">
+                  {formExtension.name}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={`Enter ${formExtension.name}`}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        ))}
     </>
   );
 };
