@@ -69,8 +69,8 @@ export function MembersTable({
     const formData = new FormData();
     formData.append("file", fileInput?.current?.files?.[0]!);
     if (clubData) {
-      const studentData = await importClubMembers(clubData.id, formData);
-      console.log(studentData);
+      showToastDemo("Loading... Refresh page when finish loading");
+      await importClubMembers(clubData.id, formData);
     }
   };
 
