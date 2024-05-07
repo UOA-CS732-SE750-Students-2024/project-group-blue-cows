@@ -1,0 +1,24 @@
+name: Build DEV
+
+on:
+  push:
+    branches:
+      - '*'  
+
+jobs:
+  BuildApp:
+    runs-on: ubuntu-latest
+    environment: PROD
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: yarn
+
+      - run: yarn build
