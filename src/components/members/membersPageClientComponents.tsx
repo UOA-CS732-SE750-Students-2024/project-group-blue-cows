@@ -10,6 +10,7 @@ import { AppUser } from "@/schemas/authSchema";
 import { useMemberPage } from "./MemberPageContext";
 import { downloadAsCsv, importFile } from "@/util/csvClientUtils";
 import { importCsvFile } from "@/util/csvUtils";
+import { updateForm } from "@/services/clubFormFieldServices";
 
 export function MembersPageBack({
   clubId,
@@ -41,15 +42,18 @@ export function PreviewFormButton({ className }: { className?: string }) {
   );
 }
 
-export function SaveFormButton({ className }: { className?: string }) {
+export function SaveFormButton({
+  clubId,
+  className,
+}: {
+  clubId: number;
+  className?: string;
+}) {
   const { extendedFields } = useRegistrationEditContext();
-  const { data: sessionData } = useSession();
-  const user = sessionData?.user as AppUser;
 
   async function save() {
     try {
-      console.log(extendedFields);
-      // await postExtendedFormFields(extendedFields, club, user); // AlexHope look here - can you write this API?
+      await updateForm(extendedFields, clubId);
       toastSuccess("Form saved successfully");
     } catch (error) {
       toastError("Error saving. Are you logged in?");

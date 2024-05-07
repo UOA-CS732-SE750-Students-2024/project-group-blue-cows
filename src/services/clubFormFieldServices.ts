@@ -1,13 +1,14 @@
 "use server";
 import "server-only";
-import { PostClubFormFieldDto } from "@/Dtos/clubFormField/PostClubFormFieldDto";
 import { PostClubFormFields } from "@/gateway/clubFormField/postClubFormFields";
 import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
+import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 
 export async function updateForm(
-  formInput: PostClubFormFieldDto[]
+  formInput: GetClubFormFieldDto[],
+  clubId: number
 ) {
-  return PostClubFormFields(formInput);
+  return PostClubFormFields(formInput, clubId);
 }
 
 export async function getAllExtendedFields(clubId: number) {

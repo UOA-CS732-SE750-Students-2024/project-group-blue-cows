@@ -32,7 +32,7 @@ export default async function RegistrationEditPage({
             className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
           />
           <PreviewFormButton className="ml-6 lg:ml-0" />
-          <SaveFormButton className="ml-2 md:ml-6 xl:ml-12" />
+          <SaveFormButton clubId={+clubId} className="ml-2 md:ml-6 xl:ml-12" />
         </div>
         <Preview
           previewComponent={
