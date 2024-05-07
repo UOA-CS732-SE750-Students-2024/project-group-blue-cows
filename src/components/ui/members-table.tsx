@@ -18,9 +18,16 @@ import { studentData } from "@/gateway/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
 import Custom404 from "@/pages/404";
-import { exportClubMembers, importClubMembers } from "@/services/clubServices";
+import {
+  exportClubMembers,
+  importClubMembers,
+  postClub,
+} from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
 import { useRef } from "react";
+import { revalidatePath } from "next/cache";
+import { postMember } from "@/gateway/postMember";
+import { postUser } from "@/gateway/postUser";
 
 type MembersTableProps = {
   columns: ColumnDef<studentData>[];
@@ -70,8 +77,8 @@ export function MembersTable({
     const formData = new FormData();
     formData.append("file", fileInput?.current?.files?.[0]!);
     if (clubData) {
-      const studentData = await importClubMembers(clubData.id, formData);
-      console.log(studentData);
+      await importClubMembers(clubData.id, formData);
+      showToastDemo("Loading... Refresh page when finish loading");
     }
   };
 
