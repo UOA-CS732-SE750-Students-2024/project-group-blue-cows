@@ -1,5 +1,5 @@
-import { Button, ButtonProps } from "../ui/button";
 import Image from "next/image";
+import { Button, ButtonProps } from "../ui/button";
 
 export function YellowButton({ children, className, ...props }: ButtonProps) {
   return (
@@ -56,7 +56,7 @@ export function MiniIconButton({
   ...props
 }: MiniIconButtonProps) {
   return (
-    <MiniButton className={`${className}`} {...props}>
+    <MiniButton type="button" className={`${className}`} {...props}>
       <Image
         src={icon}
         alt={alt}
@@ -70,7 +70,7 @@ export function MiniIconButton({
 
 export function MiniArrowButton({ className, ...props }: ButtonProps) {
   return (
-    <MiniButton className={`${className}`} {...props}>
+    <MiniButton type="button" className={`${className}`} {...props}>
       <div className="w-full h-full flex justify-center items-center relative left-[-0.1em] transition-transform hover:-translate-x-0.5">
         <div className="w-0 h-0 border-transparent border-r-black border-y-[0.5em] border-r-[0.6em]" />
       </div>

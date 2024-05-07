@@ -1,28 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { UseFormReturn, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, CardContent } from "@/components/ui/card";
+import { UseFormReturn, useForm } from "react-hook-form";
 
-import { Input } from "@/components/ui/input";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormControl,
 } from "@/components/ui/form";
-import { AppUser } from "@/schemas/authSchema";
-import { useSession } from "next-auth/react";
 
-import * as z from "zod";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
-import { BlueButton, MiniArrowButton, MiniIconButton } from "../misc/buttons";
-import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { SelectContent } from "@radix-ui/react-select";
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
+import { SelectContent } from "@radix-ui/react-select";
+import * as z from "zod";
+import { BlueButton, MiniArrowButton, MiniIconButton } from "../misc/buttons";
+import { Card, CardContent } from "../ui/card";
+import { Input } from "../ui/input";
+import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 const formSchema = z.object({});
 
@@ -39,6 +36,7 @@ export default function EditClubRegistrationForm() {
   console.log(extendedFields);
 
   function addField() {
+    console.log("A");
     setExtendedFields([
       ...extendedFields,
       {
@@ -50,6 +48,7 @@ export default function EditClubRegistrationForm() {
   }
 
   function changeField(index: number, field: GetExtendedFormFieldDto) {
+    console.log("B");
     setExtendedFields([
       ...extendedFields.slice(0, index),
       field,
@@ -58,6 +57,7 @@ export default function EditClubRegistrationForm() {
   }
 
   function deleteField(index: number) {
+    console.log("C");
     setExtendedFields([
       ...extendedFields.slice(0, index),
       ...extendedFields.slice(index + 1),
@@ -65,6 +65,7 @@ export default function EditClubRegistrationForm() {
   }
 
   function moveFieldUp(index: number) {
+    console.log("D");
     if (index === 0) return;
     const newFields = [...extendedFields];
     [newFields[index], newFields[index - 1]] = [
@@ -75,6 +76,7 @@ export default function EditClubRegistrationForm() {
   }
 
   function moveFieldDown(index: number) {
+    console.log("E");
     if (index === extendedFields.length - 1) return;
     const newFields = [...extendedFields];
     [newFields[index], newFields[index + 1]] = [
