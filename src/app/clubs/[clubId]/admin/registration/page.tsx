@@ -1,4 +1,3 @@
-import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import EditClubRegistrationForm from "@/components/form/club-edit-registration";
 import {
   MembersPageBack,
@@ -11,8 +10,9 @@ import { getClubById } from "@/services/clubServices";
 import { getAllExtendedFields } from "@/services/optionsFormServices";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RegistrationEditProvider } from "./RegistratonEditContext";
 
-export default async function AdminEditPage({
+export default async function RegistrationEditPage({
   params: { clubId },
 }: {
   params: { clubId: string };
@@ -23,20 +23,22 @@ export default async function AdminEditPage({
 
   return (
     <div className="h-[calc(100vh-4rem)] w-full p-10">
-      <div className="flex justify-between mb-6">
-        <MembersPageBack clubId={clubId} className="shrink-0" />
-        <PageHeader
-          club={club}
-          className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
+      <RegistrationEditProvider initialExtendedFields={extendedFields}>
+        <div className="flex justify-between mb-6">
+          <MembersPageBack clubId={clubId} className="shrink-0" />
+          <PageHeader
+            club={club}
+            className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
+          />
+          <PreviewFormButton club={club} className="ml-6 lg:ml-0" />
+          <SaveFormButton className="ml-2 md:ml-6 xl:ml-12" />
+        </div>
+        <PageInfo />
+        <EditClubRegistrationForm
+          clubId={+clubId}
+          initialExtendedFields={extendedFields}
         />
-        <PreviewFormButton club={club} className="ml-6 lg:ml-0" />
-        <SaveFormButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
-      </div>
-      <PageInfo />
-      <EditClubRegistrationForm
-        clubId={+clubId}
-        initialExtendedFields={extendedFields}
-      />
+      </RegistrationEditProvider>
     </div>
   );
 }
@@ -61,13 +63,11 @@ function PageInfo() {
   return (
     <Card className="w-full bg-[#FFD166] mb-4">
       <CardContent className="py-6">
-        <p>
-          By default, Cowlaboration will collect default information about a
-          member, including their full name, email, UPI, student ID, University,
-          year level, degree, and specialisation/majors. If you would like to
-          collect additional information about your club members, you may add
-          custom fields to your club&apos;s registration form here.
-        </p>
+        Cowlaboration will automatically collect default information about a
+        member, including their full name, email, UPI, student ID, University,
+        year level, degree, and specialisation/majors. If you would like to
+        collect additional information about your club members, you may add
+        custom fields to your club&apos;s registration form here.
       </CardContent>
     </Card>
   );

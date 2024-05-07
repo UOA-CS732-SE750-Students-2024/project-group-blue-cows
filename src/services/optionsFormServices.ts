@@ -8,12 +8,13 @@ import { PutExtendedFormFieldDto } from "@/Dtos/PutExtendedFormFieldDto";
 import { putExtendedFormField } from "@/gateway/putExtendedFormField";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 
-export async function addAdditionalFieldToForm(
-  formInput: PostExtendedFormFieldDto,
-) {
-  return postExtendedFormField(formInput);
-}
+// export async function addAdditionalFieldToForm(
+//   formInput: PostExtendedFormFieldDto,
+// ) {
+//   return postExtendedFormField(formInput);
+// }
 
+// AlexHope I only used this function - you can delete the others and replace with the API in the SaveFormButton component :)
 export async function getAllExtendedFields(
   clubId: number,
 ): Promise<GetExtendedFormFieldDto[]> {
@@ -21,13 +22,13 @@ export async function getAllExtendedFields(
   return extendedFields.toSorted((a, b) => a.order - b.order);
 }
 
-export async function removeExtendedFieldForForm(optionsId: number) {
-  return deleteExtendedFormField(optionsId);
-}
+// export async function removeExtendedFieldForForm(optionsId: number) {
+//   return deleteExtendedFormField(optionsId);
+// }
 
-export async function updateFormField(
-  optionsFormId: number,
-  updatedForm: PutExtendedFormFieldDto,
-) {
-  return putExtendedFormField(optionsFormId, updatedForm);
-}
+// export async function updateFormField(
+//   optionsFormId: number,
+//   updatedForm: PutExtendedFormFieldDto,
+// ) {
+//   return putExtendedFormField(optionsFormId, updatedForm);
+// }

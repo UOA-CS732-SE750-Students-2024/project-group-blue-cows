@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { UseFormReturn, UseFormWatch, useForm } from "react-hook-form";
+import { UseFormReturn, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { postClub } from "@/services/clubServices";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormField,
@@ -22,15 +20,9 @@ import { useSession } from "next-auth/react";
 import * as z from "zod";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { BlueButton } from "../misc/buttons";
-import {
-  Select,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { SelectContent } from "@radix-ui/react-select";
+import { useRegistrationEditContext } from "@/app/clubs/[clubId]/admin/registration/RegistratonEditContext";
 
 const formSchema = z.object({});
 
@@ -41,10 +33,7 @@ export default function EditClubRegistrationForm({
   clubId: number;
   initialExtendedFields: GetExtendedFormFieldDto[];
 }) {
-  const { data: sessionData } = useSession(); // Get the session data
-  const user = sessionData?.user as AppUser; // Type assertion for the user
-
-  const [extendedFields, setExtendedFields] = useState(initialExtendedFields);
+  const { extendedFields, setExtendedFields } = useRegistrationEditContext();
   console.log(extendedFields);
 
   function addField() {
@@ -71,22 +60,11 @@ export default function EditClubRegistrationForm({
     defaultValues: {},
   });
 
-  const handleSubmit = () => {
-    addField();
-    // postClub(values, user)
-    //   .then(() => {
-    //     form.reset(); // Reset form fields after successful submission
-    //   })
-    //   .catch((error) => {
-    //     console.error("Submission error:", error);
-    //   });
-  };
-
   return (
     <div>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(handleSubmit)}
+          onSubmit={form.handleSubmit(addField)}
           className="w-full flex flex-col gap-4"
         >
           {extendedFields.map((field, index) => (
