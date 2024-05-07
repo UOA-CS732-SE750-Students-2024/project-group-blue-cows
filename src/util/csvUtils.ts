@@ -46,7 +46,6 @@ export const importCsvFile = async (formData: FormData) => {
     const filePath = path.join(dataDir, file.name);
     await fs.writeFile(filePath, buffer);
     const extractedValues = await parseCsvFile(filePath);
-    console.log("Extracted values:", extractedValues);
     return extractedValues;
   } catch (error) {
     console.error("Error importing CSV file:", error);

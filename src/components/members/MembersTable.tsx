@@ -15,7 +15,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { DataTable } from "../ui/data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
-import { useRef } from "react";
 
 const columns: ColumnDef<studentData>[] = [
   {
@@ -48,21 +47,6 @@ export default function MembersTable({ members }: { members: studentData[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const fileInput = useRef<HTMLInputElement>(null);
-
-  // const handleUploadFile = async (
-  //   evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  // ) => {
-  //   evt.preventDefault();
-
-  //   const formData = new FormData();
-  //   formData.append("file", fileInput?.current?.files?.[0]!);
-  //   if (club) {
-  //     const studentData = await importClubMembers(club.id, formData);
-  //     console.log(studentData);
-  //   }
-  // };
-
   const table = useReactTable({
     columns,
     data: members,
@@ -107,15 +91,6 @@ export default function MembersTable({ members }: { members: studentData[] }) {
         </div>
       </div>
       <DataTable table={table} columns={columns} />
-      <form className="flex flex-col gap-4">
-        <label>
-          <span>Upload a file</span>
-          <input type="file" name="file" ref={fileInput} />
-        </label>
-        {/* <Button className="w-60" type="submit" onClick={handleUploadFile}>
-          Submit
-        </Button> */}
-      </form>
     </div>
   );
 }

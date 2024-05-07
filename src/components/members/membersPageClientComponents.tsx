@@ -2,9 +2,10 @@
 import { useRouter } from "next/navigation";
 import { BackButton, YellowButton } from "../misc/buttons";
 import { Club } from "@/schemas/clubSchema";
-import { getAllMembers } from "@/services/clubServices";
+import { getAllMembers, importClubMembers } from "@/services/clubServices";
 import { downloadAsCsv } from "@/util/csvClientUtils";
-import { toastError } from "@/util/toastUtils";
+import { showToastDemo, toastError } from "@/util/toastUtils";
+import { useEffect, useRef, useState } from "react";
 
 export function MembersPageBack({
   clubId,
@@ -17,19 +18,54 @@ export function MembersPageBack({
   return (
     <BackButton
       className={`hidden lg:block ${className}`}
-      onClick={() => router.push(`http://localhost:3000/clubs/${clubId}`)}
+      onClick={() => router.push(`/clubs/${clubId}`)}
     />
   );
 }
 
-export function ImportButton({ className }: { className?: string }) {
-  function importMembers() {
-    console.log("Clicked")
-  }
+export function ImportButton({
+  club,
+  className,
+}: {
+  club: Club;
+  className?: string;
+}) {
+  const fileInput = useRef<HTMLInputElement>(null);
+  const [selectFile, setSelectFile] = useState(false);
+
+  const handleImportMembers = () => {
+    setSelectFile(true);
+  };
+
+  const importMembers = async () => {
+    console.log("test");
+    const formData = new FormData();
+    formData.append("file", fileInput?.current?.files?.[0]!);
+    if (club.id) {
+      showToastDemo("Loading... Refresh page when finish loading");
+      await importClubMembers(club.id, formData);
+      setSelectFile(false);
+    }
+  };
 
   return (
-    <YellowButton onClick={importMembers} className={`w-[24rem] ${className}`}>
-      Import Data
+    <YellowButton
+      onClick={handleImportMembers}
+      className={`w-[24rem] ${className}`}
+    >
+      {selectFile ? (
+        <label>
+          <input
+            className="ml-10"
+            type="file"
+            name="file"
+            ref={fileInput}
+            onChange={importMembers}
+          />
+        </label>
+      ) : (
+        `Import Data`
+      )}
     </YellowButton>
   );
 }
