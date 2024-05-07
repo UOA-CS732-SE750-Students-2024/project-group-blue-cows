@@ -42,10 +42,7 @@ export default async function RegistrationEditPage({
           }
         >
           <PageInfo />
-          <EditClubRegistrationForm
-            clubId={+clubId}
-            initialExtendedFields={extendedFields}
-          />
+          <EditClubRegistrationForm />
         </Preview>
       </RegistrationEditProvider>
     </div>
