@@ -1,4 +1,4 @@
-import { importCsvFile, studentAllData } from "@/util/csvUtils";
+import { studentAllData } from "@/util/csvUtils";
 import { getUserByEmail } from "./getUserByEmail";
 import { putMember } from "./putMember";
 import { postMember } from "./postMember";

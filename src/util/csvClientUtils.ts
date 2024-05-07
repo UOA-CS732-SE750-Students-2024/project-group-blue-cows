@@ -25,17 +25,17 @@ const objArrayToCsv = (headers: string[], data: studentData[]) => {
   return csv;
 };
 
-export function importFile() {
+export async function importFile(callback: (formData: FormData) => void) {
   const input = document.createElement("input");
   input.type = "file";
   input.accept = ".csv";
   input.onchange = async (e) => {
     const file = (e.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      console.log(formData.get("file"));
-    }
+    if (!file) throw new Error("No file selected");
+
+    const formData = new FormData();
+    formData.append("file", file);
+    callback(formData);
   };
   input.click();
 }

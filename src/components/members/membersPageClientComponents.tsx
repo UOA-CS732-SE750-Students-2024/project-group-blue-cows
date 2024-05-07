@@ -3,8 +3,8 @@ import { useRouter } from "next/navigation";
 import { BackButton, YellowButton } from "../misc/buttons";
 import { Club } from "@/schemas/clubSchema";
 import { getAllMembers, importClubMembers } from "@/services/clubServices";
-import { downloadAsCsv } from "@/util/csvClientUtils";
-import { showToastDemo, toastError, toastLoading } from "@/util/toastUtils";
+import { downloadAsCsv, importFile } from "@/util/csvClientUtils";
+import { showToastDemo, toastError, toastLoading, toastSuccess } from "@/util/toastUtils";
 import { useRef, useState } from "react";
 import { useMemberPage } from "./MemberPageContext";
 import { importCsvFile } from "@/util/csvUtils";
@@ -33,27 +33,20 @@ export function ImportButton({
   className?: string;
 }) {
   const { setMembers } = useMemberPage();
-  const fileInput = useRef<HTMLInputElement>(null);
-  const [selectFile, setSelectFile] = useState(false);
 
   const handleImportMembers = () => {
-    setSelectFile(true);
-  };
-
-  const importMembers = async () => {
-    const formData = new FormData();
-    formData.append("file", fileInput.current?.files?.[0]!);
-    if (club.id) {
+    importFile(async (formData: FormData) => {
       toastLoading();
       try {
-        setSelectFile(false);
+        if (!club.id) throw new Error("Club ID not found");
         const membersData = await importCsvFile(formData);
         await importClubMembers(club.id, membersData);
         setMembers(membersData);
+        toastSuccess("Members imported successfully");
       } catch (error) {
         toastError("Error importing CSV");
       }
-    }
+    });
   };
 
   return (
@@ -61,19 +54,7 @@ export function ImportButton({
       onClick={handleImportMembers}
       className={`w-[24rem] ${className}`}
     >
-      {selectFile ? (
-        <label>
-          <input
-            className="ml-10"
-            type="file"
-            name="file"
-            ref={fileInput}
-            onChange={importMembers}
-          />
-        </label>
-      ) : (
-        `Import Data`
-      )}
+      Import Data
     </YellowButton>
   );
 }

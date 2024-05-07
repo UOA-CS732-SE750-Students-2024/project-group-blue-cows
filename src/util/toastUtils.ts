@@ -30,3 +30,7 @@ export const toastLogin = (message: string) => {
 export const toastError = (message: string) => {
   toast.error(message, { ...baseOptions });
 };
+
+export const toastSuccess = (message: string) => {
+  toast.success(message, { ...baseOptions });
+};
