@@ -17,7 +17,6 @@ export default async function ProfilePage() {
       </div>
       <div>
         <EditProfileForm />
-        <ProfileEditBody />
       </div>
       <div className="mt-4 text-right">
         <SubmitButton />

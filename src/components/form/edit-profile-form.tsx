@@ -10,26 +10,27 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import * as z from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { AppUser } from "@/schemas/authSchema";
 import { Button } from "../ui/button";
 
 // All fields are optional, they are just used to help the user fill in forms
+// the regex allows for blank values, so the user can clear the field if they want
 const formSchema = z.object({
   studentId: z
     .string()
-    .regex(/^\d+$/, "Please enter a valid student ID") // matches any number of digits
-    .optional(),
+    .regex(/(^\d+$)|(^$)/, "Please enter a valid student ID")
+    .optional(), // matches any number of digits
   upi: z
     .string()
-    .regex(/^[(a-z)|(A-Z)]{4}\d{3}$/, " Please enter a valid UPI")
-    .optional(), // matches 4 letters followed by 3 digits e.g. leas022 (no official documentation on UPI format, so using this for the MVP)
+    .regex(/(^[(a-z)|(A-Z)]{3,4}\d{3}$)|(^$)/, " Please enter a valid UPI")
+    .optional(), // matches 3-4 letters followed by 3 digits e.g. leas022 (no official documentation on UPI format, so using this for the MVP)
   yearOfStudy: z
     .string()
-    .regex(/^[1-9]{1}?$/, "Please enter a valid year of study") // matches any number between 1 and 9 i.e. 1st to 9th year
-    .optional(),
+    .regex(/(^[1-9]{1}?$)|(^$)/, "Please enter a valid year of study")
+    .optional(), // matches any number between 1 and 9 i.e. 1st to 9th year
 });
 
 // The edit profile form contains fields for the user to edit their student ID number, UPI and year level
@@ -42,15 +43,14 @@ export default function EditProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      studentId: String(user?.student_id) || "", // need to use string, so blank values are allowed
+      studentId: user?.student_id || "", // need to use string, so blank values are allowed
       upi: user?.upi || "",
-      yearOfStudy: String(user?.year_of_study) || "", // need to use string, so blank values are allowed
+      yearOfStudy: user?.year_of_study ? String(user.year_of_study) : "", // need to use string, so blank values are allowed
     },
   });
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    form.reset(); // Reset form fields after successful submission
   };
 
   // Doesn't use the form wrapper so we can maximize page width
@@ -70,11 +70,7 @@ export default function EditProfileForm() {
               <FormItem>
                 <FormLabel className="font-bold">Student ID</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="e.g. 123456789"
-                    type="number"
-                    {...field}
-                  />
+                  <Input placeholder="e.g. 123456789" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,7 +102,7 @@ export default function EditProfileForm() {
               <FormItem>
                 <FormLabel className="font-bold">Year of Study</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g. 1" type="number" {...field} />
+                  <Input placeholder="e.g. 1" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
