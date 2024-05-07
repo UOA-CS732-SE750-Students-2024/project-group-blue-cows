@@ -11,6 +11,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
 import { DataTable } from "./data-table";
@@ -94,51 +102,84 @@ export function MembersTable({
   });
 
   return (
-    <div className="w-full">
-      <div className="flex items-center">
-        <div className="flex-1">
-          <h2 className=" text-4xl font-extrabold">{clubData?.name}</h2>
-          {/* TODO -
-          REPLACE HEADER WITH RELEVANT CLUB NAME FROM API */}
+    <div className="w-full h-auto p-10">
+      <div className="flex justify-between">
+        <div className="w-1/3 p-4">
+          <h2 className=" text-3xl font-extrabold">{clubData?.name} Members</h2>
+          <p>There are X registered members for CLUB NAME.</p>
+        </div>
+        <div className="w-1/3 p-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Import Data</CardTitle>
+              <CardDescription>
+                Have existing membership data? Upload a CSV of this data to add
+                it to Cowmunity!
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form className="flex flex-col gap-4">
+                <label>
+                  <span>Upload a file</span>
+                  <input type="file" name="file" ref={fileInput} />
+                </label>
+                <Button
+                  className="w-full bg-customAccent text-black"
+                  type="submit"
+                  onClick={handleUploadFile}
+                >
+                  Import Data
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="w-1/3 p-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Export Data</CardTitle>
+              <CardDescription>
+                Need to export your membership data for use elsewhere? Click
+                here to download a CSV of your club's membership data.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button
+                onClick={handleClick}
+                className="w-full bg-customAccent text-black"
+              >
+                Export Data
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
-      <div className="flex items-center space-x-2">
-        <div className="flex-1">
+
+      <div className="flex justify-between mb-5">
+        <div className="w-1/2 ph-2">
           <Input
             placeholder="Filter by name..."
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="shadow-md"
+            className="shadow-md mr-1"
           />
         </div>
-        <div className="flex-1">
+        <div className="w-1/2 ph-2">
           <Input
             placeholder="Filter by UPI..."
             value={(table.getColumn("upi")?.getFilterValue() as string) ?? ""}
             onChange={(event) => {
               table.getColumn("upi")?.setFilterValue(event.target.value);
             }}
-            className="shadow-md"
+            className="shadow-md ml-1"
           />
         </div>
-        <div className="flex">
-          <Button onClick={handleClick} className="bg-customAccent text-black">
-            Export Data
-          </Button>
-        </div>
       </div>
-      <DataTable table={table} columns={columns} />
-      <form className="flex flex-col gap-4">
-        <label>
-          <span>Upload a file</span>
-          <input type="file" name="file" ref={fileInput} />
-        </label>
-        <Button className="w-60" type="submit" onClick={handleUploadFile}>
-          Submit
-        </Button>
-      </form>
+      <div>
+        <DataTable table={table} columns={columns} />
+      </div>
     </div>
   );
 }
