@@ -68,7 +68,7 @@ const ClubsList: React.FC<ClubsListProps> = ({
       </CardHeader>
       <CardContent>
         {clubs.map((club, index) => (
-          <Card key={index} style={{ height: "auto", width: "100%" }}>
+          <Card key={index} className="h-auto w-ful mb-1">
             <ClubListItem
               imageUrl={club.imageUrl}
               clubName={club.name}

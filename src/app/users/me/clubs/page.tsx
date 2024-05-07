@@ -63,9 +63,13 @@ export default function UserClubsPage() {
               />
             </div>
           </div>
-          <div className="w-full sm:w-1/4 flex justify-center items-center">
+          <div className="w-full sm:w-1/4 flex items-center">
             <div className="text-left">
-              <h1 className="text-2xl">Welcome back, name here!</h1>
+              <h1 className="text-xl">
+                Welcome back,
+                <br />
+                name here!
+              </h1>
             </div>
           </div>
           <div className="w-full sm:w-1/4 flex justify-center items-center">
