@@ -45,9 +45,12 @@ import { Session } from "next-auth";
 import { getExtendedFormForClub } from "@/gateway/extendedFormField/getExtendedFormForClub";
 import { FormExtension } from "@/schemas/extendedFormFieldSchema";
 import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedFormFieldDto";
+import { getAllExtendedFields } from "@/services/optionsFormServices";
+import { get } from "http";
+import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 
 const createFormSchema = (
-  formExtensions: PostExtendedFormFieldDto[]
+  formExtensions: GetExtendedFormFieldDto[]
 ): z.ZodObject<any, any, any, any, any> => {
   let schema: z.ZodRawShape = {
     id: z.string().min(1, "ID is required"),
@@ -85,30 +88,27 @@ export default function ClubRegistrationForm({
 }) {
   const session = useSession(); // Get the session data
   const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  if (params.clubId) {
-    return <p>Club Id: {params.clubId}</p>;
-  }
+  // const extendedFormFields = getAllExtendedFields(Number(params.clubId)).then(
+  //   const formSchema = createFormSchema(extendedFormFields);
+  // );
   const [extendedFormFields, setExtendedFormFields] = useState<
-    PostExtendedFormFieldDto[]
+    GetExtendedFormFieldDto[]
   >([]);
 
   useEffect(() => {
-    const fetchExtendedFormFields = async () => {
-      try {
-        const fetchedExtendedFormFields = await getExtendedFormForClub(
-          Number(params.clubId)
-        );
-        setExtendedFormFields(fetchedExtendedFormFields);
-      } catch (error) {
-        console.error("Failed to fetch extended form fields:", error);
-      }
+    // Define a separate async function
+    const fetchFields = async () => {
+      const fields = await getAllExtendedFields(Number(params.clubId));
+      setExtendedFormFields(fields);
     };
-    fetchExtendedFormFields();
+
+    // Call the async function
+    fetchFields();
   }, [params.clubId]);
 
+  const formSchema = createFormSchema(extendedFormFields);
   const user = session.data?.user as AppUser;
   const [loading, setLoading] = useState(true);
-  const formSchema = createFormSchema(extendedFormFields);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -308,7 +308,7 @@ export default function ClubRegistrationForm({
 }
 
 type DynamicFieldsProps = {
-  extendedForm: PostExtendedFormFieldDto[];
+  extendedForm: GetExtendedFormFieldDto[];
   form: ReturnType<typeof useForm>;
 };
 
@@ -318,30 +318,23 @@ const DynamicFields: React.FC<DynamicFieldsProps> = ({
 }) => {
   return (
     <>
-      {extendedForm
-        .sort((a, b) => a.order - b.order)
-        .map((formExtension) => (
-          <FormField
-            key={formExtension.name}
-            control={form.control}
-            name={formExtension.name}
-            rules={{ required: `${formExtension.name} is required` }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-bold">
-                  {formExtension.name}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={`Enter ${formExtension.name}`}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
+      {extendedForm.map((formExtension) => (
+        <FormField
+          key={formExtension.name}
+          control={form.control}
+          name={formExtension.name}
+          rules={{ required: `${formExtension.name} is required` }}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-bold">{formExtension.name}</FormLabel>
+              <FormControl>
+                <Input placeholder={`Enter ${formExtension.name}`} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      ))}
     </>
   );
 };

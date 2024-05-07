@@ -11,6 +11,7 @@ import { getClubById } from "@/services/clubServices";
 export default function Page() {
   const [clubData, setClubData] = useState<Club | null>(null);
   const params = useParams<{ clubId: string }>();
+
   useEffect(() => {
     const getData = async () => {
       const clubData = await getClubById(Number(params.clubId));
