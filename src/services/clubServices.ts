@@ -10,7 +10,6 @@ import { AppUser } from "@/schemas/authSchema";
 import {  putMemberDto} from "@/gateway/putMember";
 import { getClub } from "@/gateway/getClub";
 import { putClub } from "@/gateway/putClub";
-import { getMembersDataInCSV } from "@/gateway/getMembersDataInCsv";
 import { postMembersDataFromCSV } from "@/gateway/postMembersDataFromCsv";
 import { getMemberForClub } from "@/gateway/getMemberForClub";
 
@@ -47,10 +46,6 @@ export async function updateMember(
 
 export async function getClubById(clubID: number) {
   return await getClub(clubID);
-}
-
-export async function exportClubMembers(clubId: number) {
-  return await getMembersDataInCSV(clubId);
 }
 
 export async function importClubMembers(clubId: number, formData: FormData) {

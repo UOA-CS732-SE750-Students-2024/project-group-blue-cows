@@ -49,7 +49,7 @@ function PageHeader({ club, className }: { club: Club; className?: string }) {
         Registered Members
       </h2>
       <Link
-        href={`http://localhost:3000/clubs/${club.id}`}
+        href={`/clubs/${club.id}`}
         className="italic hover:underline text-sm lg:text-md"
       >
         {club.name}
