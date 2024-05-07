@@ -8,6 +8,7 @@ on:
 jobs:
   BuildApp:
     runs-on: ubuntu-latest
+    environment: DEV
     defaults:
       run:
         working-directory: .
