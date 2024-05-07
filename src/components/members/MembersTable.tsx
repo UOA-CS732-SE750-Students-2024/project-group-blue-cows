@@ -1,5 +1,4 @@
 "use client";
-import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -15,6 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { DataTable } from "../ui/data-table";
 import { studentData } from "@/gateway/getAllMembersForClub";
+import { useState } from "react";
+import { useMemberPage } from "./MemberPageContext";
 
 const columns: ColumnDef<studentData>[] = [
   {
@@ -39,14 +40,12 @@ const columns: ColumnDef<studentData>[] = [
   },
 ];
 
-export default function MembersTable({ members }: { members: studentData[] }) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+export default function MembersTable() {
+  const { members } = useMemberPage();
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
   const table = useReactTable({
     columns,
     data: members,

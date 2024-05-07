@@ -39,11 +39,12 @@ export function ImportButton({
 
   const importMembers = async () => {
     const formData = new FormData();
-    formData.append("file", fileInput?.current?.files?.[0]!);
+    formData.append("file", fileInput.current?.files?.[0]!);
     if (club.id) {
       setSelectFile(false);
       showToastDemo("Loading... Refresh page when finish loading");
       await importClubMembers(club.id, formData);
+      showToastDemo("Imported members successfully");
     }
   };
 

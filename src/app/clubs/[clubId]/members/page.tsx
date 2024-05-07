@@ -18,7 +18,7 @@ export default async function MembersPage({
   if (isNaN(+clubId)) {
     return notFound();
   }
-  const members = await getAllMembers(+clubId);
+  const { membersData } = await getAllMembers(+clubId);
   const club = await getClubById(+clubId);
   if (!club) {
     return notFound();
@@ -26,7 +26,7 @@ export default async function MembersPage({
 
   return (
     <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">
-      <MemberPageContextProvider data={members}>
+      <MemberPageContextProvider initialMembers={membersData}>
         <div className="flex justify-between mb-6">
           <MembersPageBack clubId={clubId} className="shrink-0" />
           <PageHeader
@@ -36,7 +36,7 @@ export default async function MembersPage({
           <ImportButton club={club} className="ml-6 lg:ml-0" />
           <ExportButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
         </div>
-        <MembersTable members={members.membersData} />
+        <MembersTable />
       </MemberPageContextProvider>
     </div>
   );

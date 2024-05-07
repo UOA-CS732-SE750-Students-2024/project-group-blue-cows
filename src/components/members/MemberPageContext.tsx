@@ -1,30 +1,33 @@
 "use client";
-import { ReactNode, createContext } from "react";
+import { studentData } from "@/gateway/getAllMembersForClub";
+import { ReactNode, createContext, useContext, useState } from "react";
 
-const defaultMemberPageContextData = {
-  // sorting: [],
-  // setSorting: () => {},
-  // columnFilters: [],
-  // setColumnFilters: () => {},
-  // columnVisibility: {},
-  // setColumnVisibility: () => {},
-  // rowSelection: {},
-  // setRowSelection: () => {},
-  // handleClick: () => {},
-};
+interface MemberPageContextType {
+  members: studentData[];
+  setMembers: (members: studentData[]) => void;
+}
 
-const MemberPageContext = createContext(defaultMemberPageContextData);
+const MemberPageContext = createContext<MemberPageContextType>({
+  members: [],
+  setMembers() {},
+});
 
 export function MemberPageContextProvider({
-  data,
+  initialMembers,
   children,
 }: {
-  data: {};
+  initialMembers: studentData[];
   children: ReactNode;
 }) {
+  const [members, setMembers] = useState(initialMembers);
+
   return (
-    <MemberPageContext.Provider value={data}>
+    <MemberPageContext.Provider value={{ members, setMembers }}>
       {children}
     </MemberPageContext.Provider>
   );
+}
+
+export function useMemberPage() {
+  return useContext(MemberPageContext);
 }
