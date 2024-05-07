@@ -12,6 +12,8 @@ import { getAllImagesForClub } from "@/services/imageServices";
 import SocialLinks from "@/components/misc/social-links";
 import socialsSchema from "@/schemas/socialsSchema";
 import { getAllSocialsForClub } from "@/services/socialsServices";
+import Link from "next/link";
+import router, { useRouter } from "next/navigation";
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({
@@ -23,7 +25,7 @@ export default function ClubViewPage({
   const [images, setImages] = useState<(typeof Image)[]>([]);
   const [socials, setSocials] = useState<(typeof socialsSchema)[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   // Effect to fetch club data using the provided clubId
   useEffect(() => {
     const fetchClubData = async () => {
@@ -46,7 +48,9 @@ export default function ClubViewPage({
   if (!clubData && !loading) {
     return <NotFoundPage />;
   }
-
+  const navigateToSignup = () => {
+    router.push(`/clubs/${params.clubId}/signup`);
+  };
   return (
     // top most div (below) is equivalent to body
     <div className="w-full m-0 p-0 box-border min-h-screen">
@@ -67,7 +71,10 @@ export default function ClubViewPage({
                 alt="club logo"
               />
               {/* Button below the logo */}
-              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out">
+              <button
+                onClick={navigateToSignup}
+                className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
+              >
                 Register
               </button>
             </div>
