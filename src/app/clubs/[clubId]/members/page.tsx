@@ -42,11 +42,13 @@ export default function AdminPage({ params }: { params: { clubId: string } }) {
         <LoadingSpinner />
       ) : (
         <div className="flex justify-center items-center w-screen px-10">
-          {/* <MembersTable
-            columns={membersColumns}
-            membersData={membersData}
-            clubData={clubData}
-          /> */}
+          {
+            <MembersTable
+              columns={membersColumns}
+              membersData={membersData}
+              clubData={clubData}
+            />
+          }
         </div>
       )}
     </div>
