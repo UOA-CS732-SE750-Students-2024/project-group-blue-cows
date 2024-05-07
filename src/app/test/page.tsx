@@ -39,6 +39,7 @@ import {
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
+import { addFormInputs } from "@/services/formFieldInputServices";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -176,6 +177,21 @@ export default function TestPage() {
       <Button onClick={async () => console.log(await getAllSocialsForClub(1))}>
         get social links
       </Button>
+      <YellowButton
+        onClick={() =>
+          addFormInputs(
+            [
+              { fieldName: "favourite-colour", value: "green" },
+              { fieldName: "favourite-animal", value: "bear" },
+              { fieldName: "favourite-drink", value: "fanta" },
+            ],
+            1,
+            "a6574eb8-7764-4198-b2b4-280cf0190669"
+          )
+        }
+      >
+        adds Form Field Inputs
+      </YellowButton>
       <Table>
         <TableCaption>All users in the database.</TableCaption>
         <TableHeader>
