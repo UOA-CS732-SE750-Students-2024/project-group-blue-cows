@@ -11,13 +11,13 @@ import {
 import { Button } from "./button";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import { showToastLogin } from "@/util/toastUtils";
+import { toastLogin } from "@/util/toastUtils";
 
 export function SignIn() {
   return (
     <form
       action={() => {
-        showToastLogin("Signing in with Google");
+        toastLogin("Signing in with Google");
         signIn("google");
       }}
     >

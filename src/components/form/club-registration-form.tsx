@@ -49,7 +49,7 @@ const formSchema = z.object({
     "Academic and specialist",
     "Sport",
     "Special Interest",
-    "Religious and spiritual",
+    "Religious and Spiritual",
     "Cultural",
     "Causes",
   ]),
@@ -88,20 +88,22 @@ export default function ClubRegistrationForm() {
         onSubmit={form.handleSubmit(handleSubmit)}
         className="w-full flex flex-col gap-4"
       >
-        <Card className="w-full bg-[#FFD166]">
+        <Card className="w-full bg-customAccent">
           <CardHeader>
             <CardTitle>Registering a club</CardTitle>
           </CardHeader>
           <CardContent>
             <p>
-              To register a club on Cowlaboration, your club must already be
-              approved and registered at the University of Auckland.
+              The <span className="text-red-500">*</span>
+              &nbsp;indicates that a field is required. To register a club on
+              Cowlaboration, your club must already be approved and registered
+              at the University of Auckland.
             </p>
           </CardContent>
           <CardFooter>
             <p>
               If this is not the case, please first ensure that your club meets
-              all the requirements listed{" "}
+              all the requirements listed&nbsp;
               <a
                 href="https://www.auckland.ac.nz/en/on-campus/life-on-campus/clubs-societies/how-to-start-a-club.html"
                 className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
@@ -118,7 +120,9 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Club Name</FormLabel>
+                <FormLabel className="font-bold">
+                  Club Name <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter club name" type="name" {...field} />
                 </FormControl>
@@ -133,7 +137,9 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Club Description</FormLabel>
+                <FormLabel className="font-bold">
+                  Club Description <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter club description"
@@ -152,11 +158,12 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Club Category</FormLabel>
+                <FormLabel className="font-bold">
+                  Club Category <span className="text-red-500">*</span>
+                </FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      {/* <SelectValue placeholder="Select a category for your new club" /> */}
                       {field.value ? (
                         <SelectValue placeholder="Select a category for your new club" />
                       ) : (
@@ -190,7 +197,10 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Membership Fee</FormLabel>
+                <FormLabel className="font-bold">
+                  Membership Fee
+                  <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter fee amount"
@@ -226,11 +236,12 @@ export default function ClubRegistrationForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel className="font-bold">Club Logo</FormLabel>
+                <FormLabel className="font-bold">
+                  Club Logo <span className="text-red-500">*</span>
+                </FormLabel>
                 <UploadButton
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
-                    // Do something with the response
                     console.log("Files: ", res);
                     alert("Upload Completed");
 
@@ -279,7 +290,7 @@ export default function ClubRegistrationForm() {
 
         <Button
           type="submit"
-          className="w-full bg-[#087DF1] color-white uppercase"
+          className="w-full bg-customPrimary color-white uppercase"
         >
           Register Club on Cowmunity
         </Button>

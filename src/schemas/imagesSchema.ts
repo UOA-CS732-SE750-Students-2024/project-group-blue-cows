@@ -5,14 +5,14 @@ export interface Image {
   id: number;
   clubId: number;
   imageUrl: string;
-  title: string;
+  title: string; 
 }
 
-export const images = pgTable("images", {
+export default pgTable("images", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
   .notNull()
-  .references(() => clubSchema.id),
+  .references(() => clubSchema.id,  { onDelete: "cascade" }),
   imageUrl: varchar("imageUrl").notNull(),
   title: text("title")
 });

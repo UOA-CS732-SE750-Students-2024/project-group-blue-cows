@@ -2,11 +2,14 @@
 import {
   BackButton,
   BlueButton,
+  MiniArrowButton,
+  MiniIconButton,
   YellowButton,
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
+import { openModal } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
-import { getUsers } from "@/services/userServices";
+import { getAllUsers } from "@/services/userServices";
 import { useEffect, useState } from "react";
 import {
   Table,
@@ -21,6 +24,23 @@ import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
 import { User } from "next-auth";
+import {
+  addAdditionalFieldToForm,
+  getAllExtendedFields,
+  removeExtendedFieldForForm,
+  updateFormField,
+} from "@/services/optionsFormServices";
+import {
+  addImageToGallery,
+  getAllImagesForClub,
+  removeImageFromGallery,
+} from "@/services/imageServices";
+import {
+  addSocialLink,
+  getAllISocialsForClub,
+  removeSocialLink,
+  updateSocialLink,
+} from "@/services/socialsServices";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -31,7 +51,7 @@ export default function TestPage() {
   const [allUsers, setAllUsers] = useState<AppUser[]>([]);
 
   useEffect(() => {
-    getUsers().then(setAllUsers);
+    getAllUsers().then(setAllUsers);
   }, []);
 
   // Getting the auth state within a client component
@@ -80,7 +100,64 @@ export default function TestPage() {
       >
         Post Club
       </Button>
-
+      <Button
+        onClick={() =>
+          addAdditionalFieldToForm({
+            clubId: 2,
+            order: 2,
+            name: "favourite-animal",
+            type: "string",
+          })
+        }
+      >
+        create form
+      </Button>
+      <Button onClick={() => updateFormField(1, { order: 2 })}>
+        update form
+      </Button>
+      <Button onClick={() => removeExtendedFieldForForm(1)}>remove form</Button>
+      <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
+        get forms for club
+      </Button>
+      <Button
+        onClick={() =>
+          addImageToGallery({
+            clubId: 1,
+            imageUrl: "https://i.ytimg.com/vi/koGaFHRGmLw/maxresdefault.jpg",
+            title: "ming",
+          })
+        }
+      >
+        add image
+      </Button>
+      <Button onClick={() => removeImageFromGallery(1)}> remove image</Button>
+      <Button onClick={async () => console.log(await getAllImagesForClub(1))}>
+        {" "}
+        get images
+      </Button>
+      <Button
+        onClick={() =>
+          addSocialLink({
+            clubId: 1,
+            link: "instagram.com",
+            tag: "insta",
+            type: "instagram",
+          })
+        }
+      >
+        add social link
+      </Button>
+      <Button onClick={() => removeSocialLink(1)}> remove social link</Button>
+      <Button
+        onClick={() =>
+          updateSocialLink(1, { link: "string", tag: "string", type: "string" })
+        }
+      >
+        update social link
+      </Button>
+      <Button onClick={async () => console.log(await getAllISocialsForClub(1))}>
+        get social links
+      </Button>
       <Table>
         <TableCaption>All users in the database.</TableCaption>
         <TableHeader>
@@ -114,6 +191,33 @@ export default function TestPage() {
         Blue Button
       </BlueButton>
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
+
+      <BlueButton
+        onClick={() =>
+          openModal({
+            content: <YellowButton>Wow</YellowButton>,
+            title: "Test",
+            className: "hover:bg-red-100",
+          })
+        }
+      >
+        Open Modal
+      </BlueButton>
+      <MiniIconButton
+        className="saturation-0"
+        icon="/delete.svg"
+        alt="delete"
+        onClick={() => showToastDemo("Never gonna")}
+      />
+      <MiniIconButton
+        icon="/setting-logo.png"
+        alt="Settings"
+        onClick={() => showToastDemo("Never gonna")}
+      />
+      <MiniArrowButton
+        className="rotate-90"
+        onClick={() => showToastDemo("🍞")}
+      />
     </main>
   );
 }
