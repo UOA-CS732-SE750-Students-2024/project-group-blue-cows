@@ -57,7 +57,13 @@ export function MiniIconButton({
 }: MiniIconButtonProps) {
   return (
     <MiniButton className={`${className}`} {...props}>
-      <Image src={icon} alt={alt} width={20} height={20} />
+      <Image
+        src={icon}
+        alt={alt}
+        width={20}
+        height={20}
+        className="hover:scale-[115%] transition-transform"
+      />
     </MiniButton>
   );
 }

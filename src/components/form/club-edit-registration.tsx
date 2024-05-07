@@ -19,7 +19,7 @@ import { useSession } from "next-auth/react";
 
 import * as z from "zod";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
-import { BlueButton } from "../misc/buttons";
+import { BlueButton, MiniArrowButton, MiniIconButton } from "../misc/buttons";
 import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { SelectContent } from "@radix-ui/react-select";
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
@@ -97,7 +97,7 @@ function Field({
   changeField: (index: number, field: GetExtendedFormFieldDto) => void;
 }) {
   return (
-    <Card className="w-full bg-customLight">
+    <Card className="w-full bg-customLight relative">
       <CardContent className="pt-4">
         <FormField
           control={form.control}
@@ -153,6 +153,7 @@ function Field({
                       <SelectItem value="long">Long Answer</SelectItem>
                     </SelectContent>
                   </Select>
+                  <EditButtons />
                 </div>
                 <FormMessage />
               </FormItem>
@@ -161,5 +162,19 @@ function Field({
         />
       </CardContent>
     </Card>
+  );
+}
+
+function EditButtons() {
+  return (
+    <div className="absolute top-3 right-6 flex">
+      <MiniArrowButton className="rotate-90" />
+      <MiniArrowButton className="-rotate-90" />
+      <MiniIconButton
+        icon="/delete.svg"
+        alt="delete"
+        className="hover:bg-red-200"
+      />
+    </div>
   );
 }
