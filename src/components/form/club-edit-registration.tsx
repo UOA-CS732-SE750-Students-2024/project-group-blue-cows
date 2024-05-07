@@ -45,7 +45,7 @@ export default function EditClubRegistrationForm({
   const user = sessionData?.user as AppUser; // Type assertion for the user
 
   const [extendedFields, setExtendedFields] = useState(initialExtendedFields);
-  // console.log(extendedFields);
+  console.log(extendedFields);
 
   function addField() {
     setExtendedFields([
@@ -53,8 +53,16 @@ export default function EditClubRegistrationForm({
       {
         name: "",
         description: "",
-        type: "text",
+        type: "short",
       },
+    ]);
+  }
+
+  function changeField(index: number, field: GetExtendedFormFieldDto) {
+    setExtendedFields([
+      ...extendedFields.slice(0, index),
+      field,
+      ...extendedFields.slice(index + 1),
     ]);
   }
 
@@ -83,10 +91,11 @@ export default function EditClubRegistrationForm({
         >
           {extendedFields.map((field, index) => (
             <Field
-              key={extendedFields[index].name}
+              key={index}
               index={index}
               form={form}
               field={extendedFields[index]}
+              changeField={changeField}
             />
           ))}
           <BlueButton type="submit" className="w-full">
@@ -102,10 +111,12 @@ function Field({
   form,
   index,
   field,
+  changeField,
 }: {
   form: UseFormReturn<z.infer<typeof formSchema> | any>;
   index: number;
   field: GetExtendedFormFieldDto;
+  changeField: (index: number, field: GetExtendedFormFieldDto) => void;
 }) {
   return (
     <Card className="w-full bg-customLight">
@@ -126,7 +137,12 @@ function Field({
                       placeholder="New field"
                       type="name"
                       value={field.name}
-                      onChange={() => console.log("Change")}
+                      onChange={(event) =>
+                        changeField(index, {
+                          ...field,
+                          name: event.target.value,
+                        })
+                      }
                     />
                   </FormControl>
                   <Input
@@ -134,20 +150,28 @@ function Field({
                     placeholder="Description"
                     type="name"
                     value={field.description}
-                    onChange={() => console.log("Change")}
+                    onChange={(event) =>
+                      changeField(index, {
+                        ...field,
+                        description: event.target.value,
+                      })
+                    }
                   />
                   <Select
-                    defaultValue={"text"}
+                    defaultValue={field.type}
                     onValueChange={(value) => {
-                      () => console.log(value);
+                      changeField(index, {
+                        ...field,
+                        type: value,
+                      });
                     }}
                   >
                     <SelectTrigger className="w-1/6">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="text">Short Answer</SelectItem>
-                      <SelectItem value="textArea">Long Answer</SelectItem>
+                      <SelectItem value="short">Short Answer</SelectItem>
+                      <SelectItem value="long">Long Answer</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
