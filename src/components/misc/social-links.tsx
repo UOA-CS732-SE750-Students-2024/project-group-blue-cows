@@ -4,10 +4,10 @@ import { Socials } from '@/schemas/socialsSchema';
 
 // Helper object to map social media types to their icons
 export const socialIcons: { [key: string]: string } = {
-    facebook: '/public/socials/facebook.png',
-    instagram: '/public/socials/instagram.png',
-    discord: '/public/socials/discord.png',
-    web: '/public/socials/web.png',
+    facebook: '/socials/facebook.png',
+    instagram: '/socials/instagram.png',
+    discord: '/socials/discord.png',
+    web: '/socials/web.png',
 };
 
 const SocialLinks = ({ socials }: { socials: Socials[] }) => (
@@ -15,7 +15,7 @@ const SocialLinks = ({ socials }: { socials: Socials[] }) => (
       {socials.map((social: Socials) => (
         <a key={social.id} href={social.link} className="flex items-center space-x-2">
           <Image
-            src={socialIcons[social.type] || '/public/socials/web.png'} // Use the icon from the mapping or default (web) if not found
+            src={socialIcons[social.type] || '/socials/web.png'} // Use the icon from the mapping or default (web) if not found
             alt={social.tag}
             width={24}
             height={24}
