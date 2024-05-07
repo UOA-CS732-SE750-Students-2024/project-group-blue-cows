@@ -140,7 +140,7 @@ export function MembersTable({
               <CardTitle>Export Data</CardTitle>
               <CardDescription>
                 Need to export your membership data for use elsewhere? Click
-                here to download a CSV of your club's membership data.
+                here to download a CSV of your club&apos;s membership data.
               </CardDescription>
             </CardHeader>
             <CardContent>
