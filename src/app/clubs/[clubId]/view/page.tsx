@@ -1,20 +1,24 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { getClubById } from '@/services/clubServices';
-import LoadingSpinner from '@/components/ui/loading-spinner';
+import { useEffect, useState } from "react";
+import { getClubById } from "@/services/clubServices";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 import { Club } from "@/schemas/clubSchema";
-import Custom404 from '@/pages/404';
-import Image from 'next/image';
+import Custom404 from "@/pages/404";
+import Image from "next/image";
 import TimelineHeader from "@/components/misc/timelineheader";
-import  Gallery  from '@/components/misc/gallery';
-import { Image as ImageSchema } from '@/schemas/imagesSchema';
-import { getAllImagesForClub } from '@/services/imageServices';
+import Gallery from "@/components/misc/gallery";
+import { Image as ImageSchema } from "@/schemas/imagesSchema";
+import { getAllImagesForClub } from "@/services/imageServices";
 
 // Component definition accepting clubId as a prop
-export default function ClubViewPage({ params }: { params: { clubId: string } }) {
+export default function ClubViewPage({
+  params,
+}: {
+  params: { clubId: string };
+}) {
   const [clubData, setClubData] = useState<Club | null>(null);
-  const [images, setImages] = useState<typeof Image[]>([]);
+  const [images, setImages] = useState<(typeof Image)[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Effect to fetch club data using the provided clubId
@@ -54,6 +58,10 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
                 className="object-cover border-8 border-white w-40 h-40 rounded-md"
                 alt="club logo"
               />
+              {/* Button below the logo */}
+              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out">
+                Register
+              </button>
             </div>
           </div>
           <div className="grid grid-cols-5 gap-1 p-5">
@@ -81,9 +89,9 @@ export default function ClubViewPage({ params }: { params: { clubId: string } })
               </div>
               {/* Gallery implemented in div below */}
               <div>
-                <h1 className='text-lg font-bold'>Gallery</h1>
+                <h1 className="text-lg font-bold">Gallery</h1>
                 <Gallery images={images} />
-                </div>
+              </div>
             </div>
           </div>
         </div>
