@@ -47,13 +47,24 @@ export default function EditClubRegistrationForm({
   const [extendedFields, setExtendedFields] = useState(initialExtendedFields);
   // console.log(extendedFields);
 
+  function addField() {
+    setExtendedFields([
+      ...extendedFields,
+      {
+        name: "",
+        description: "",
+        type: "text",
+      },
+    ]);
+  }
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {},
   });
 
   const handleSubmit = () => {
-    console.log("Submit");
+    addField();
     // postClub(values, user)
     //   .then(() => {
     //     form.reset(); // Reset form fields after successful submission
