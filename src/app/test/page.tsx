@@ -35,7 +35,7 @@ import {
 } from "@/services/imageServices";
 import {
   addSocialLink,
-  getAllISocialsForClub,
+  getAllSocialsForClub,
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
@@ -153,7 +153,7 @@ export default function TestPage() {
       >
         update social link
       </Button>
-      <Button onClick={async () => console.log(await getAllISocialsForClub(1))}>
+      <Button onClick={async () => console.log(await getAllSocialsForClub(1))}>
         get social links
       </Button>
       <Table>

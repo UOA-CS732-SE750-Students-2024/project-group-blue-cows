@@ -9,6 +9,9 @@ import Image from "next/image";
 import Gallery from "@/components/misc/gallery";
 import { Image as ImageSchema } from "@/schemas/imagesSchema";
 import { getAllImagesForClub } from "@/services/imageServices";
+import SocialLinks from "@/components/misc/social-links";
+import socialsSchema from "@/schemas/socialsSchema";
+import { getAllSocialsForClub } from "@/services/socialsServices";
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({
@@ -18,20 +21,26 @@ export default function ClubViewPage({
 }) {
   const [clubData, setClubData] = useState<Club | null>(null);
   const [images, setImages] = useState<(typeof Image)[]>([]);
+  const [socials, setSocials] = useState<(typeof socialsSchema)[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Effect to fetch club data using the provided clubId
   useEffect(() => {
     const fetchClubData = async () => {
       const clubId = Number(params.clubId);
-      const data = await getClubById(clubId);
-      const images = await getAllImagesForClub(clubId);
+      const [data, images, socialLinks] = await Promise.all([
+        getClubById(clubId),
+        getAllImagesForClub(clubId),
+        getAllSocialsForClub(clubId),
+      ]);
+
       setClubData(data);
       setImages(images);
+      setSocials(socialLinks);
       setLoading(false);
     };
     fetchClubData();
-  }, []);
+  }, [params.clubId]);
 
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
@@ -66,18 +75,7 @@ export default function ClubViewPage({
           <div className="grid grid-cols-5 gap-1 p-5">
             <div className="flex flex-col space-y-4 mt-20 ml-16 col-span-1">
               {/* Social Links Section */}
-              <div>
-                <a href="#">Facebook</a>
-              </div>
-              <div>
-                <a href="#">Twitter</a>
-              </div>
-              <div>
-                <a href="#">LinkedIn</a>
-              </div>
-              <div>
-                <a href="#">Other Socials</a>
-              </div>
+              <SocialLinks socials={socials} />
             </div>
             <div className="col-span-4 mr-20">
               {/* Title, Description and Gallery Section */}
