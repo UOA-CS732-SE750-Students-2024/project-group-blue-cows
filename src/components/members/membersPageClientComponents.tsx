@@ -6,6 +6,7 @@ import { getAllMembers, importClubMembers } from "@/services/clubServices";
 import { downloadAsCsv } from "@/util/csvClientUtils";
 import { showToastDemo, toastError } from "@/util/toastUtils";
 import { useRef, useState } from "react";
+import { useMemberPage } from "./MemberPageContext";
 
 export function MembersPageBack({
   clubId,
@@ -30,6 +31,7 @@ export function ImportButton({
   club: Club;
   className?: string;
 }) {
+  const { setMembers } = useMemberPage();
   const fileInput = useRef<HTMLInputElement>(null);
   const [selectFile, setSelectFile] = useState(false);
 
@@ -44,6 +46,13 @@ export function ImportButton({
       setSelectFile(false);
       showToastDemo("Loading... Refresh page when finish loading");
       await importClubMembers(club.id, formData);
+
+      // @nroh555: Cache issue happening somewhere along the call to getAllMembers
+      // Can we have the convert-csv-to-json logic here instead of in the gateway?
+      // That way we can just call setMembers directly with the json data
+      const { membersData } = await getAllMembers(club.id);
+      console.log(membersData);
+      setMembers(membersData);
       showToastDemo("Imported members successfully");
     }
   };
