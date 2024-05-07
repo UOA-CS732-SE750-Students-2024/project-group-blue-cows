@@ -1,6 +1,6 @@
 "use server";
-import { getUsers} from "@/gateway/getUsers";
-import {getUserByEmail} from "@/gateway/getUserByEmail";
+import { getUsers} from "@/gateway/user/getUsers";
+import {getUserByEmail} from "@/gateway/user/getUserByEmail";
 import "server-only";
 
 export async function getAllUsers() {
