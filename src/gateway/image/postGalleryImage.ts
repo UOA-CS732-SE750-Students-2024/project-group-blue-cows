@@ -1,4 +1,4 @@
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { PostGalleryImageDto } from "@/Dtos/PostGalleryImageDto";
 import imagesSchema from "@/schemas/imagesSchema";
 

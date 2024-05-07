@@ -1,4 +1,4 @@
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { eq } from "drizzle-orm";
 import { PutSocialDto } from "@/Dtos/PutSocialDto";
 import socialsSchema from "@/schemas/socialsSchema";

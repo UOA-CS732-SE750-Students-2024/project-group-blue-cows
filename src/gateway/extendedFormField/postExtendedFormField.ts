@@ -1,4 +1,4 @@
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { PostExtendedFormFieldDto } from "@/Dtos/PostExtendedFormFieldDto";
 import entendedFormFieldSchema from "@/schemas/extendedFormFieldSchema";
 

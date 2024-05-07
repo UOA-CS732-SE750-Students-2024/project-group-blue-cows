@@ -2,10 +2,10 @@
 import "server-only";
 import { PostSocialDto } from "@/Dtos/PostSocialDto";
 import { PutSocialDto } from "@/Dtos/PutSocialDto";
-import { postSocial } from "@/gateway/postSocial";
-import { deleteSocial } from "@/gateway/deleteSocial";
-import { getSocialsForClub } from "@/gateway/getSocialsForClub";
-import { putSocial } from "@/gateway/putSocial";
+import { postSocial } from "@/gateway/social/postSocial";
+import { deleteSocial } from "@/gateway/social/deleteSocial";
+import { getSocialsForClub } from "@/gateway/social/getSocialsForClub";
+import { putSocial } from "@/gateway/social/putSocial";
 
 export async function addSocialLink(socialDto : PostSocialDto){
     return postSocial(socialDto);

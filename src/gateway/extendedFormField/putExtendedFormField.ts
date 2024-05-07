@@ -1,4 +1,4 @@
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { eq } from "drizzle-orm";
 import { PutExtendedFormFieldDto } from "@/Dtos/PutExtendedFormFieldDto";
 import optionsFormSchema from "@/schemas/extendedFormFieldSchema";

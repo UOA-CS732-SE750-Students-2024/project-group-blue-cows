@@ -1,8 +1,8 @@
 import "server-only";
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import clubSchema from "@/schemas/clubSchema";
 import { AppUser } from "@/schemas/authSchema";
-import { postMember } from "./postMember";
+import { postMember } from "../member/postMember";
 import { CreateClubDto } from "@/Dtos/CreateClubDto";
 
 export async function postClubEntity(club: CreateClubDto, user: AppUser) {

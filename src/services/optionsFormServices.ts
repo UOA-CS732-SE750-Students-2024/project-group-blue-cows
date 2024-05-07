@@ -1,11 +1,11 @@
 "use server";
 import "server-only";
 import { PostExtendedFormFieldDto } from "@/Dtos/PostExtendedFormFieldDto";
-import { postExtendedFormField } from "@/gateway/postExtendedFormField";
-import { getExtendedFormForClub } from "@/gateway/getExtendedFormForClub";
-import { deleteExtendedFormField } from "@/gateway/deleteExtendedFormField";
+import { postExtendedFormField } from "@/gateway/extendedFormField/postExtendedFormField";
+import { getExtendedFormForClub } from "@/gateway/extendedFormField/getExtendedFormForClub";
+import { deleteExtendedFormField } from "@/gateway/extendedFormField/deleteExtendedFormField";
 import { PutExtendedFormFieldDto } from "@/Dtos/PutExtendedFormFieldDto";
-import { putExtendedFormField } from "@/gateway/putExtendedFormField";
+import { putExtendedFormField } from "@/gateway/extendedFormField/putExtendedFormField";
 
 export async function addAdditionalFieldToForm(
   formInput: PostExtendedFormFieldDto

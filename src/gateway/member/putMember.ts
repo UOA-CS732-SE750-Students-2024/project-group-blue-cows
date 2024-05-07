@@ -1,5 +1,5 @@
 import membershipSchema from "@/schemas/membershipSchema";
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { and, eq } from "drizzle-orm";
 import { PutMemberDto } from "@/Dtos/PutMemberDto";
 

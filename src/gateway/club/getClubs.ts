@@ -1,5 +1,5 @@
 import "server-only";
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import clubSchema, { Club } from "@/schemas/clubSchema";
 import { and, like, eq } from "drizzle-orm";
 

@@ -1,5 +1,5 @@
 import "server-only";
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { eq } from "drizzle-orm";
 import clubSchema from "@/schemas/clubSchema";
 import { UpdateClubDto } from "@/Dtos/UpdateClubDto";

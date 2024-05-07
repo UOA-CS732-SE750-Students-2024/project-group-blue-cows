@@ -14,7 +14,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { DataTable } from "./data-table";
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
 import Custom404 from "@/pages/404";
