@@ -14,10 +14,9 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { DataTable } from "./data-table";
-import { studentData } from "@/gateway/getAllMembersForClub";
+import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { Button } from "./button";
 import { Club } from "@/schemas/clubSchema";
-import Custom404 from "@/pages/404";
 import { exportClubMembers, importClubMembers } from "@/services/clubServices";
 import { showToastDemo } from "@/util/toastUtils";
 import { useRef } from "react";
@@ -70,8 +69,8 @@ export function MembersTable({
     const formData = new FormData();
     formData.append("file", fileInput?.current?.files?.[0]!);
     if (clubData) {
-      const studentData = await importClubMembers(clubData.id, formData);
-      console.log(studentData);
+      showToastDemo("Loading... Refresh page when finish loading");
+      await importClubMembers(clubData.id, formData);
     }
   };
 
@@ -93,10 +92,6 @@ export function MembersTable({
       rowSelection,
     },
   });
-
-  if (!clubData) {
-    return <Custom404 />;
-  }
 
   return (
     <div className="w-full">

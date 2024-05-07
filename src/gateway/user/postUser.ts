@@ -1,4 +1,4 @@
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { users } from "@/schemas/authSchema";
 
 export interface postUserDto{

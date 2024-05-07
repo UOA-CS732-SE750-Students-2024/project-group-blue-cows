@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="delete" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e93434;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="42.2" y="224.8" width="415.7" height="50.5" rx="25.2" ry="25.2" transform="translate(250 -103.6) rotate(45)"/>
+  <rect class="cls-1" x="42.2" y="224.8" width="415.7" height="50.5" rx="25.2" ry="25.2" transform="translate(603.6 250) rotate(135)"/>
+</svg>
