@@ -1,9 +1,9 @@
 "use server";
 import "server-only";
-import { PostGalleryImageDto } from "@/Dtos/PostGalleryImageDto";
-import { postGalleryImage } from "@/gateway/postGalleryImage";
-import { deleteGalleryImage } from "@/gateway/deleteGalleryImage";
-import { getGalleryImagesForClub } from "@/gateway/getGalleryImagesForClub";
+import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
+import { postGalleryImage } from "@/gateway/image/postGalleryImage";
+import { deleteGalleryImage } from "@/gateway/image/deleteGalleryImage";
+import { getGalleryImagesForClub } from "@/gateway/image/getGalleryImagesForClub";
 
 export async function addImageToGallery(imageDto : PostGalleryImageDto){
     return postGalleryImage(imageDto);

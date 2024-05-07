@@ -9,11 +9,11 @@ export interface Socials {
   type: string;
 }
 
-export const socials = pgTable("socials", {
+export default pgTable("socials", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
   .notNull()
-  .references(() => clubSchema.id),
+  .references(() => clubSchema.id,  { onDelete: "cascade" }),
   link: varchar("link").notNull(),
   tag: text("tag").notNull(),
   type: text("type").notNull(),

@@ -1,4 +1,4 @@
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import {and, eq} from 'drizzle-orm';
 import membershipSchema from "@/schemas/membershipSchema";
 
