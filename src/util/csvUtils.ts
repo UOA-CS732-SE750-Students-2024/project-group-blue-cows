@@ -48,7 +48,6 @@ export const importCsvFile = async (formData: FormData) => {
     const extractedValues = await parseCsvFile(filePath);
     return extractedValues;
   } catch (error) {
-    console.error("Error importing CSV file:", error);
     throw new Error("Error importing CSV file");
   }
 };

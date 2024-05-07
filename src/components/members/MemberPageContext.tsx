@@ -19,9 +19,7 @@ export function MemberPageContextProvider({
   data,
   children,
 }: {
-  data: {
-
-  }
+  data: {};
   children: ReactNode;
 }) {
   return (

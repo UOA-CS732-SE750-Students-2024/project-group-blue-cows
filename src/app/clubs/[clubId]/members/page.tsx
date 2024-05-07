@@ -26,18 +26,16 @@ export default async function MembersPage({
 
   return (
     <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">
-      <MemberPageContextProvider data={members}>
-        <div className="flex justify-between mb-6">
-          <MembersPageBack clubId={clubId} className="shrink-0" />
-          <PageHeader
-            club={club}
-            className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
-          />
-          <ImportButton club={club} className="ml-6 lg:ml-0" />
-          <ExportButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
-        </div>
-        <MembersTable members={members.membersData} />
-      </MemberPageContextProvider>
+      <div className="flex justify-between mb-6">
+        <MembersPageBack clubId={clubId} className="shrink-0" />
+        <PageHeader
+          club={club}
+          className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
+        />
+        <ImportButton club={club} className="ml-6 lg:ml-0" />
+        <ExportButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
+      </div>
+      <MembersTable members={members.membersData} />
     </div>
   );
 }
