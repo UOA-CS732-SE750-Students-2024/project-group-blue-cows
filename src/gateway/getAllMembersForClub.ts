@@ -1,5 +1,5 @@
 import { db } from "../config/db";
-import {eq} from 'drizzle-orm';
+import {asc, eq} from 'drizzle-orm';
 import { users } from "@/schemas/authSchema";
 import membershipSchema from "@/schemas/membershipSchema";
 import clubSchema from "@/schemas/clubSchema";
@@ -25,7 +25,8 @@ export async function getAllMembersForClub(clubId: number) {
     .from(membershipSchema)
     .leftJoin(users,eq(membershipSchema.user, users.id))
     .leftJoin(clubSchema, eq(membershipSchema.club, clubSchema.id))
-    .where(eq(clubSchema.id,clubId)) as studentData[];
+    .where(eq(clubSchema.id,clubId))
+    .orderBy(asc(users.name)) as studentData[];
 
     if(membersData.length > 0) {
         headers = Object.keys(membersData[0]);
