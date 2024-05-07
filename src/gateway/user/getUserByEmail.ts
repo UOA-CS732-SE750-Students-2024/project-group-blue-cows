@@ -1,7 +1,7 @@
-import { db } from "../config/db";
+import { db } from "../../config/db";
 import { users, AppUser } from "@/schemas/authSchema";
 import { eq } from "drizzle-orm";
-import { studentData } from "./getAllMembersForClub";
+import { studentData } from "../member/getAllMembersForClub";
 
 export interface studentDataWithId extends studentData {
   id: string;
