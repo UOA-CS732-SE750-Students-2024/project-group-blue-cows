@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -39,7 +39,7 @@ const formSchema = z.object({
 // The edit profile form contains fields for the user to edit their student ID number, UPI and year level
 // The name, email and profile picture fields are not editable, as they are managed by the user's identity provider (Google at the moment)
 // Each field will be wrapped with FormField
-export default function EditProfileForm() {
+export default function ProfileEditForm() {
   const router = useRouter();
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
@@ -54,22 +54,19 @@ export default function EditProfileForm() {
   });
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     // Convert values to UpdateUserDTO
-    const updateUserDto = {
+    const updateUserDto: UpdateUserDto = {
       student_id: values?.studentId ? values.studentId : null,
       upi: values?.upi ? values.upi : null,
       year_of_study: values?.yearOfStudy ? Number(values.yearOfStudy) : null,
-    } satisfies UpdateUserDto;
-
-    console.log(updateUserDto);
+    };
 
     // Try to persist the changes to the user profile
     updateUser(updateUserDto)
       .then(() => {
         alert("Profile updated successfully");
         // Redirect to / using the next router
-        //router.push("/");
+        router.push("/");
       })
       .catch((error) => {
         // Show error message
@@ -82,64 +79,86 @@ export default function EditProfileForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         {/* disabled and uncontrolled as we're not pushing these fields to the DB*/}
-        <Input disabled defaultValue={user?.name || ""} />
 
-        <Input disabled defaultValue={user?.email || ""} />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="grid-item">
+            <h2 className="text-sm font-bold">Name</h2>
+            <Input disabled defaultValue={user?.name || ""} />
+          </div>
 
-        <FormField
-          control={form.control}
-          name="studentId"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">Student ID</FormLabel>
-                <FormControl>
-                  <Input placeholder="e.g. 123456789" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        ></FormField>
+          <div className="grid-item">
+            <h2 className="text-sm font-bold">Email Address</h2>
+            <Input disabled defaultValue={user?.email || ""} />
+          </div>
 
-        <FormField
-          control={form.control}
-          name="upi"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">UPI</FormLabel>
-                <FormControl>
-                  <Input placeholder="e.g. jdoe123" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        ></FormField>
+          <div className="grid-item">
+            <h2 className="text-sm font-bold">Profile Picture</h2>
+            <Input disabled type="file" />
+          </div>
 
-        <FormField
-          control={form.control}
-          name="yearOfStudy"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel className="font-bold">Year of Study</FormLabel>
-                <FormControl>
-                  <Input placeholder="e.g. 1" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        ></FormField>
+          <div className="grid-item">
+            <FormField
+              control={form.control}
+              name="studentId"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="font-bold">Student ID</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g. 123456789" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            ></FormField>
+          </div>
 
-        <Button
-          type="submit"
-          className="w-full bg-[#087DF1] color-white uppercase"
-        >
-          Save Profile
-        </Button>
+          <div className="grid-item">
+            <FormField
+              control={form.control}
+              name="upi"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="font-bold">UPI</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g. jdoe123" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            ></FormField>
+          </div>
+
+          <div className="grid-item">
+            <FormField
+              control={form.control}
+              name="yearOfStudy"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="font-bold">Year of Study</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g. 1" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            ></FormField>
+          </div>
+        </div>
+
+        <div className="mt-4 text-right">
+          <Button
+            type="submit"
+            className="w-full bg-[#087DF1] color-white uppercase"
+          >
+            Save Profile
+          </Button>
+        </div>
       </form>
     </Form>
   );

@@ -30,19 +30,6 @@ export default function ProfileHeader() {
           <p></p>
         </CardFooter>
       </Card>
-      <div className="flex items-center py-4">
-        <Image
-          src={user?.image || ""}
-          alt="Icon for user not logged-in"
-          width={60}
-          height={60}
-          className="rounded-full mr-5"
-        />
-        <div className="flex-grow">
-          <h1>Your Details</h1>
-          <sub className="italic">Click on the boxes to edit.</sub>
-        </div>
-      </div>
     </div>
   );
 }

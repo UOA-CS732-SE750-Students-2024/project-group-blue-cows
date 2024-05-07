@@ -4,7 +4,7 @@ import ProfileEditBody from "@/components/profile/EditProfileBody";
 import ReturnButton from "@/components/profile/ReturnButton";
 import SubmitButton from "@/components/profile/SubmitButton";
 import { Edit } from "lucide-react";
-import EditProfileForm from "@/components/form/edit-profile-form";
+import ProfileEditForm from "@/components/form/profile-edit-form";
 
 export default async function ProfilePage() {
   return (
@@ -15,11 +15,8 @@ export default async function ProfilePage() {
       <div className="mt-2">
         <ProfileHeader />
       </div>
-      <div>
-        <EditProfileForm />
-      </div>
-      <div className="mt-4 text-right">
-        <SubmitButton />
+      <div className="my-2">
+        <ProfileEditForm />
       </div>
     </main>
   );
