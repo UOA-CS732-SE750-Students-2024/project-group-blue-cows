@@ -3,14 +3,14 @@ import Image from 'next/image';
 import { Socials } from '@/schemas/socialsSchema';
 
 // Helper object to map social media types to their icons
-export const socialIcons = {
+export const socialIcons: { [key: string]: string } = {
     facebook: '/public/socials/facebook.png',
-    instagram: '/public/socials/facebook.png',
-    discord: '/public/socials/facebook.png',
-    web: '/public/socials/web.png'
-  };
+    instagram: '/public/socials/instagram.png',
+    discord: '/public/socials/discord.png',
+    web: '/public/socials/web.png',
+};
 
-  const SocialLinks = ({ socials }: { socials: Socials[] }) => (
+const SocialLinks = ({ socials }: { socials: Socials[] }) => (
     <div className="flex flex-col space-y-4">
       {socials.map((social: Socials) => (
         <a key={social.id} href={social.link} className="flex items-center space-x-2">
@@ -26,4 +26,4 @@ export const socialIcons = {
     </div>
   );
   
-  export default SocialLinks;
+export default SocialLinks;
