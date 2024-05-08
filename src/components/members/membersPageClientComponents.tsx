@@ -1,14 +1,14 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { BackButton, YellowButton } from "../misc/buttons";
 import { Club } from "@/schemas/clubSchema";
 import { getAllMembers, importClubMembers } from "@/services/clubServices";
 import { downloadAsCsv, importFile } from "@/util/csvClientUtils";
-import { showToastDemo, toastError, toastLoading, toastSuccess } from "@/util/toastUtils";
-import { useRef, useState } from "react";
-import { useMemberPage } from "./MemberPageContext";
 import { importCsvFile } from "@/util/csvUtils";
+import { toastError, toastLoading, toastSuccess } from "@/util/toastUtils";
+import { useRouter } from "next/navigation";
+import { BackButton, YellowButton } from "../misc/buttons";
+import { useMemberPage } from "./MemberPageContext";
 
+// TODO: delete and replace in each page with the generic PageHeader component at src\components\misc\PageHeader.tsx
 export function MembersPageBack({
   clubId,
   className,
@@ -41,7 +41,7 @@ export function ImportButton({
         if (!club.id) throw new Error("Club ID not found");
         const membersData = await importCsvFile(formData);
         await importClubMembers(club.id, membersData);
-        console.log(membersData)
+        console.log(membersData);
         setMembers(membersData);
         toastSuccess("Members imported successfully");
       } catch (error) {
