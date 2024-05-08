@@ -7,10 +7,6 @@ import {
   YellowButton,
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
-import { openModal } from "@/util/modalUtils";
-import { showToastDemo } from "@/util/toastUtils";
-import { getAllUsers } from "@/services/userServices";
-import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -22,12 +18,11 @@ import {
 } from "@/components/ui/table";
 import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
-import { getAllMembers, postClub } from "@/services/clubServices";
-import { User } from "next-auth";
 import {
-  updateForm,
   getAllExtendedFields,
+  updateForm,
 } from "@/services/clubFormFieldServices";
+import { getAllMembers, postClub } from "@/services/clubServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -39,7 +34,17 @@ import {
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
-import { addFormInputs } from "@/services/formFieldInputServices";
+import {
+  addFormInputs,
+  getAllFieldInputsForClub,
+  getAllFieldInputsForUser,
+  getFieldInputForUser,
+} from "@/services/formFieldInputServices";
+import { getAllUsers } from "@/services/userServices";
+import { alert, confirm } from "@/util/modalUtils";
+import { showToastDemo } from "@/util/toastUtils";
+import { User } from "next-auth";
+import { useEffect, useState } from "react";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -187,6 +192,34 @@ export default function TestPage() {
       >
         adds Form Field Inputs
       </YellowButton>
+      <YellowButton
+        onClick={async () =>
+          console.log(
+            await getFieldInputForUser(
+              "favourite-colour",
+              "a6574eb8-7764-4198-b2b4-280cf0190669"
+            )
+          )
+        }
+      >
+        get field input by name for user
+      </YellowButton>
+      <YellowButton
+        onClick={async () =>
+          console.log(
+            await getAllFieldInputsForUser(
+              "a6574eb8-7764-4198-b2b4-280cf0190669"
+            )
+          )
+        }
+      >
+        get all field inputs for user
+      </YellowButton>
+      <YellowButton
+        onClick={async () => console.log(await getAllFieldInputsForClub(1))}
+      >
+        get all field inputs for club
+      </YellowButton>
       <Table>
         <TableCaption>All users in the database.</TableCaption>
         <TableHeader>
@@ -221,17 +254,32 @@ export default function TestPage() {
       </BlueButton>
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
 
+      <p>Fully Customisable Modals!</p>
       <BlueButton
-        onClick={() =>
-          openModal({
+        onClick={async () => {
+          const response = await confirm({
             content: <YellowButton>Wow</YellowButton>,
             title: "Test",
             className: "hover:bg-red-100",
-          })
-        }
+          });
+          console.log(response);
+        }}
       >
-        Open Modal
+        src/util/modalUtils/confirm()
       </BlueButton>
+      <YellowButton
+        onClick={async () => {
+          const response = await alert({
+            content: <h1>Alert!</h1>,
+            title: "Test",
+            className: "hover:bg-red-100 w-[20em] h-[12em]",
+          });
+          console.log(response);
+        }}
+      >
+        src/util/modalUtils/alert()
+      </YellowButton>
+
       <MiniIconButton
         className="saturation-0"
         icon="/delete.svg"
