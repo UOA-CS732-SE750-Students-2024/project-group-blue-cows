@@ -132,9 +132,6 @@ export default function ClubRegistrationForm({
   }, [user]);
 
   if (!club) return notFound();
-  // if (loading || !user) {
-  //   return <LoadingSpinner />;
-  // }
 
   // TODO - Add a submit handler to post the user to the club membership endpoint HERE
 
@@ -298,6 +295,10 @@ export default function ClubRegistrationForm({
     </Form>
   );
 }
+
+// const addMember(user){
+//   const member = await addMember(user);
+// }
 
 interface AdditionalFormFieldsProps {
   clubFormFields: GetClubFormFieldDto[];
