@@ -23,7 +23,7 @@ export default async function MembersPage({
   const club = await getClubById(+clubId);
   if (!club) {
     return notFound();
-  }
+  } 
 
   return (
     <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">

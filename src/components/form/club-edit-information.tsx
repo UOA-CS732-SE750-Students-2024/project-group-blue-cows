@@ -6,6 +6,7 @@ import SocialLinks from "../misc/social-links";
 import { Card } from "@/components/ui/card";
 import { useSession } from "next-auth/react";
 import { Socials } from "@/schemas/socialsSchema";
+import SocialMediaEditor from "../misc/social-media-editor";
 
 export default function ClubEditForm({ clubId }) {
   const { data: sessionData } = useSession(); // Get the session data
@@ -34,7 +35,7 @@ export default function ClubEditForm({ clubId }) {
       <div className="flex">
         <div className="w-1/3 p-4">
           <Card className="p-2">
-            <SocialLinks socials={socials} />
+            <SocialMediaEditor socials={socials} />
           </Card>
         </div>
         <div className="w-2/3 p-4">

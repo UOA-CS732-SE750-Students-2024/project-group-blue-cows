@@ -2,14 +2,14 @@ import { createContext, useContext, useState, ReactNode } from "react";
 import { Club } from "@/schemas/clubSchema";
 
 interface AdminContextType {
-  club: Club | null;
-  setClub: (club: Club | null) => void;
+  club: Club;
+  setClub: (club: Club) => void;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
-export const ClubProvider = ({ children, initialClub }: { children: ReactNode, initialClub: Club | null }) => {
-  const [club, setClub] = useState<Club | null>(initialClub);
+export const AdminProvider = ({ children, initialClub }: { children: ReactNode, initialClub: Club}) => {
+  const [club, setClub] = useState<Club>(initialClub);
 
   return (
     <AdminContext.Provider value={{ club, setClub }}>
@@ -18,7 +18,7 @@ export const ClubProvider = ({ children, initialClub }: { children: ReactNode, i
   );
 };
 
-export const useClub = () => {
+export const useAdmin = () => {
   const context = useContext(AdminContext);
   if (context === undefined) {
     throw new Error('useClub must be used within a ClubProvider');
