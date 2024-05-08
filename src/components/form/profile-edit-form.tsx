@@ -102,9 +102,9 @@ export default function ProfileEditForm() {
         {/* disabled and uncontrolled as we're not pushing these fields to the DB*/}
 
         <div className="flex">
-          <div className="w-3/12 bg-gray-200 p-5">
+          <div className="w-3/12 p-5">
             <img
-              className="mb-2"
+              className="mb-2 rounded-lg"
               src={user.image ? user.image : ""}
               alt="User Image"
             />
@@ -116,9 +116,9 @@ export default function ProfileEditForm() {
               <FormLabel className="font-bold">Email Address</FormLabel>
               <Input disabled defaultValue={user?.email || ""} />
             </FormItem>
-            <Card className="w-full bg-[#FFD166] pt-4 mb-4">
+            <Card className="w-full bg-[#FFD166] pt-4 mt-4">
               <CardContent>
-                <p>
+                <p className="text-sm">
                   Your name, email and profile picture are managed by your
                   Google Account. If you need to change these details, please do
                   so in your Google Account settings.
@@ -126,7 +126,7 @@ export default function ProfileEditForm() {
               </CardContent>
             </Card>
           </div>
-          <div className="w-9/12 bg-gray-400 p-5">
+          <div className="w-9/12 p-5">
             <FormField
               control={form.control}
               name="studentId"
@@ -177,7 +177,7 @@ export default function ProfileEditForm() {
               ></FormField>
               <Button
                 type="submit"
-                className="w-full bg-[#087DF1] color-white uppercase"
+                className="w-full mt-4 bg-[#087DF1] color-white uppercase"
               >
                 Save Profile
               </Button>
