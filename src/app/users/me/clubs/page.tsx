@@ -1,54 +1,22 @@
 import ClubsList from "@/components/ui/clubs-list";
 import UserNavCard from "@/components/ui/user-nav-card";
+import {
+  getListOfClubsForAdmin,
+  getListOfClubsForUser,
+} from "@/services/clubServices";
+import { getUserAuthentication } from "@/util/auth";
+import { notFound } from "next/navigation";
 
-const dummyAdminClubs = [
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-];
-const dummyClubs = [
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-];
+export default async function UserClubsPage() {
+  const user = await getUserAuthentication();
+  const userName = user.name ?? "guest";
+  let userId = user.id;
+  if (!userId) return notFound();
+  const adminClubs = await getListOfClubsForAdmin(userId);
+  const clubs = await getListOfClubsForUser(userId);
 
-export default function UserClubsPage() {
   return (
-    <div className="h-[calc(100vh-4rem)] w-full mt-12 bg-customGrass">
+    <div className="w-full mt-12 bg-customGrass">
       <div className="flex flex-col h-screen">
         <div
           className="flex flex-col sm:flex-row h-2/5 bg-cover bg-center"
@@ -68,7 +36,7 @@ export default function UserClubsPage() {
               <h1 className="text-xl">
                 Welcome back,
                 <br />
-                name here!
+                {userName}!
               </h1>
             </div>
           </div>
@@ -86,7 +54,7 @@ export default function UserClubsPage() {
           <div className="w-full sm:w-1/4 flex justify-center items-center mr-10">
             <div className="w-5/6 h-3/4 flex justify-center items-center">
               <UserNavCard
-                navigationLink="/create-club"
+                navigationLink="/clubs/new"
                 imageUrl="/register-clubs.png"
                 imageAlt="Register Clubs Image"
                 textContent="Can’t find the right club for you? Register your own!"
@@ -95,13 +63,13 @@ export default function UserClubsPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row h-auto pt-6 bg-customGrass pb-10">
+        <div className="flex flex-col sm:flex-row h-auto pt-6 pb-10">
           <div className="w-full sm:w-1/2 flex justify-center items-center overflow-hidden">
             <div className="w-5/6 h-auto flex justify-center items-center overflow-hidden">
               <ClubsList
                 listType={"View Clubs"}
-                clubs={dummyClubs}
-                numberOfClubs={dummyClubs.length}
+                clubs={clubs}
+                numberOfClubs={clubs.length}
               />
             </div>
           </div>
@@ -109,8 +77,8 @@ export default function UserClubsPage() {
             <div className="w-5/6 h-auto flex justify-center items-start overflow-hidden">
               <ClubsList
                 listType={"Manage Clubs"}
-                clubs={dummyAdminClubs}
-                numberOfClubs={dummyAdminClubs.length}
+                clubs={adminClubs}
+                numberOfClubs={adminClubs.length}
               />
             </div>
           </div>

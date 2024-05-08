@@ -1,41 +1,39 @@
 "use client"; // to get react to know it's a client compponent
 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { postClub } from "@/services/clubServices";
 import {
   Card,
   CardContent,
-  CardHeader,
   CardFooter,
-  CardDescription,
+  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { postClub } from "@/services/clubServices";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from "@/components/ui/select";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormControl,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
+import { AppUser } from "@/schemas/authSchema";
 import { UploadButton } from "@/util/uploadThingUtils";
-import { AppUser, users } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
 
+import { useRouter } from "next/navigation";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -46,7 +44,7 @@ const formSchema = z.object({
     .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
   logo: z.string().min(1, "Logo is required"),
   category: z.enum([
-    "Academic and specialist",
+    "Academic and Specialist",
     "Sport",
     "Special Interest",
     "Religious and Spiritual",
@@ -58,6 +56,7 @@ const formSchema = z.object({
 export default function ClubRegistrationForm() {
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -73,7 +72,7 @@ export default function ClubRegistrationForm() {
     console.log(values);
     postClub(values, user)
       .then(() => {
-        form.reset(); // Reset form fields after successful submission
+        router.push("/users/me/clubs");
       })
       .catch((error) => {
         console.error("Submission error:", error);
@@ -172,15 +171,15 @@ export default function ClubRegistrationForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Academic and specialist">
-                      Academic and specialist
+                    <SelectItem value="Academic and Specialist">
+                      Academic and Specialist
                     </SelectItem>
                     <SelectItem value="Sport">Sport</SelectItem>
                     <SelectItem value="Special Interest">
                       Special Interest
                     </SelectItem>
-                    <SelectItem value="Religious and spiritual">
-                      Religious and spiritual
+                    <SelectItem value="Religious and Spiritual">
+                      Religious and Spiritual
                     </SelectItem>
                     <SelectItem value="Cultural">Cultural</SelectItem>
                     <SelectItem value="Causes">Causes</SelectItem>
