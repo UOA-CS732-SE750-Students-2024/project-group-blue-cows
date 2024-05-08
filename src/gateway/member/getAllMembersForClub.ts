@@ -6,6 +6,16 @@ import "server-only";
 import { db } from "../../config/db";
 
 export type studentData = {
+  name: string | null;
+  email: string;
+  upi: string | null;
+  year_of_study: number | null;
+  student_id: string | null;
+  paid: boolean;
+  isAdmin: boolean;
+};
+
+export type studentDataWithId = {
   id: string;
   name: string | null;
   email: string;
@@ -42,7 +52,7 @@ export async function getAllMembersForClub(clubId: number) {
     .leftJoin(users, eq(membershipSchema.user, users.id))
     .leftJoin(clubSchema, eq(membershipSchema.club, clubSchema.id))
     .where(eq(clubSchema.id, clubId))
-    .orderBy(asc(users.name))) as studentData[];
+    .orderBy(asc(users.name))) as studentDataWithId[];
 
   return { headers, membersData };
 }
