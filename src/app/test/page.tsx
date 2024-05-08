@@ -110,7 +110,7 @@ export default function TestPage() {
       >
         Post Club
       </Button>
-      <Button
+      {/* <Button
         onClick={() =>
           addMember({
             club: 1,
@@ -163,7 +163,7 @@ export default function TestPage() {
       </Button>
       <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
         get forms for club
-      </Button>
+      </Button> */}
       <Button
         onClick={() =>
           addImageToGallery({
