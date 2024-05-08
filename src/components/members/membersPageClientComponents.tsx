@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
 
+// TODO: delete and replace in each page with the generic PageHeader component at src\components\misc\PageHeader.tsx
 export function MembersPageBack({
   clubId,
   className,
