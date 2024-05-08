@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "npx playwright test",
+    "test": "next build && yarn playwright test",
     "db:generate": "drizzle-kit generate:pg --schema ./src/schemas --out=./scripts/migrations",
     "db:migrate": "node -r esbuild-register ./scripts/migrate.ts",
     "db": "yarn db:generate && yarn db:migrate",
