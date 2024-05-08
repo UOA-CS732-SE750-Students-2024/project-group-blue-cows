@@ -1,9 +1,9 @@
-import NextAuth, { User } from "next-auth";
-import Google from "next-auth/providers/google";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/config/db";
 import { AppUser, users } from "@/schemas/authSchema";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { eq } from "drizzle-orm";
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db),
@@ -31,3 +31,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+export async function getUserAuthentication() {
+  const session = await auth();
+  const currentUser = session?.user;
+  if (!currentUser) throw new Error("notSignedIn");
+  return currentUser;
+}

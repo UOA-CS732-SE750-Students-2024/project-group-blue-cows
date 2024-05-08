@@ -1,8 +1,9 @@
-import { asc, eq } from "drizzle-orm";
-import { db } from "../../config/db";
 import { users } from "@/schemas/authSchema";
-import membershipSchema from "@/schemas/membershipSchema";
 import clubSchema from "@/schemas/clubSchema";
+import membershipSchema from "@/schemas/membershipSchema";
+import { asc, eq } from "drizzle-orm";
+import "server-only";
+import { db } from "../../config/db";
 
 export type studentData = {
   name: string | null;

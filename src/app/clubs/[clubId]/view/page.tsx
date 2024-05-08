@@ -11,7 +11,7 @@ import { getAllImagesForClub } from "@/services/imageServices";
 import SocialLinks from "@/components/misc/social-links";
 import { Socials } from "@/schemas/socialsSchema";
 import { getAllSocialsForClub } from "@/services/socialsServices";
-import router, { useRouter } from "next/navigation";
+import router, { notFound, useRouter } from "next/navigation";
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({
@@ -35,9 +35,11 @@ export default function ClubViewPage({
         getAllImagesForClub(clubId),
         getAllSocialsForClub(clubId),
       ]);
-  
-      const filteredImages = images.filter((image) => image.title !== null) as Image[];
-        
+
+      const filteredImages = images.filter(
+        (image) => image.title !== null
+      ) as Image[];
+
       setClubData(data);
       setImages(filteredImages);
       setSocials(socialLinks);
@@ -46,32 +48,12 @@ export default function ClubViewPage({
     fetchClubData();
   }, [params.clubId]);
 
-
-  // useEffect(() => {
-  //   const fetchClubData = async () => {
-  //     const clubId = Number(params.clubId);
-  //     const [data, images, socialLinks] = await Promise.all([
-  //       getClubById(clubId),
-  //       getAllImagesForClub(clubId),
-  //       getAllSocialsForClub(clubId),
-  //     ]);
-  
-  //     const filteredImages = images.filter((image) => image.title !== null) as Image[];
-  
-  //     setClubData(data);
-  //     setImages(filteredImages);
-  //     setSocials(socialLinks);
-  //     setLoading(false);
-  //   };
-  //   fetchClubData();
-  // }, [params.clubId]);
-
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
-    return <NotFoundPage />;
+    return notFound();
   }
-  const navigateToSignup = () => {
-    router.push(`/clubs/${params.clubId}/signup`);
+  const navigateToRegister = () => {
+    router.push(`/clubs/${params.clubId}/register`);
   };
   return (
     // top most div (below) is equivalent to body
@@ -94,7 +76,7 @@ export default function ClubViewPage({
               />
               {/* Button below the logo */}
               <button
-                onClick={navigateToSignup}
+                onClick={navigateToRegister}
                 className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
               >
                 Sign Up

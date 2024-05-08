@@ -1,18 +1,12 @@
-import { PutMemberDto } from "@/Dtos/member/PutMemberDto";
 import membershipSchema from "@/schemas/membershipSchema";
 import { and, eq } from "drizzle-orm";
 import "server-only";
 import { db } from "../../config/db";
 
-export async function putMember(
-  clubId: number,
-  userId: string,
-  membership: PutMemberDto
-) {
+export async function deleteMember(clubId: number, userId: string) {
   try {
     await db
-      .update(membershipSchema)
-      .set(membership)
+      .delete(membershipSchema)
       .where(
         and(
           eq(membershipSchema.club, clubId),
@@ -20,6 +14,6 @@ export async function putMember(
         )
       );
   } catch (error) {
-    return "Failed to update membership in database";
+    return "Failed to delete membership in database";
   }
 }
