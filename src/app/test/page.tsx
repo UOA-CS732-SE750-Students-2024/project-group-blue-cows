@@ -23,7 +23,6 @@ import {
   updateForm,
 } from "@/services/clubFormFieldServices";
 import { getAllMembers, postClub } from "@/services/clubServices";
-import { addFormInputs } from "@/services/formFieldInputServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -35,6 +34,12 @@ import {
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
+import {
+  addFormInputs,
+  getAllFieldInputsForClub,
+  getAllFieldInputsForUser,
+  getFieldInputForUser,
+} from "@/services/formFieldInputServices";
 import { getAllUsers } from "@/services/userServices";
 import { alert, confirm } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
@@ -186,6 +191,34 @@ export default function TestPage() {
         }
       >
         adds Form Field Inputs
+      </YellowButton>
+      <YellowButton
+        onClick={async () =>
+          console.log(
+            await getFieldInputForUser(
+              "favourite-colour",
+              "a6574eb8-7764-4198-b2b4-280cf0190669"
+            )
+          )
+        }
+      >
+        get field input by name for user
+      </YellowButton>
+      <YellowButton
+        onClick={async () =>
+          console.log(
+            await getAllFieldInputsForUser(
+              "a6574eb8-7764-4198-b2b4-280cf0190669"
+            )
+          )
+        }
+      >
+        get all field inputs for user
+      </YellowButton>
+      <YellowButton
+        onClick={async () => console.log(await getAllFieldInputsForClub(1))}
+      >
+        get all field inputs for club
       </YellowButton>
       <Table>
         <TableCaption>All users in the database.</TableCaption>
