@@ -2,11 +2,24 @@
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
 import { Club } from "@/schemas/clubSchema";
 import { updateForm } from "@/services/clubFormFieldServices";
-import { getAllMembers, importClubMembers } from "@/services/clubServices";
-import { downloadAsCsv, importFile, validateExtendedFieldInputs } from "@/util/csvClientUtils";
+import {
+  getAllMembers,
+  importClubMembers,
+  removeAllMembers,
+} from "@/services/clubServices";
+import {
+  downloadAsCsv,
+  importFile,
+  validateExtendedFieldInputs,
+} from "@/util/csvClientUtils";
 import { importCsvFile } from "@/util/csvUtils";
 import { confirm } from "@/util/modalUtils";
-import { toastError, toastLoading, toastSuccess, tryOrToast } from "@/util/toastUtils";
+import {
+  toastError,
+  toastLoading,
+  toastSuccess,
+  tryOrToast,
+} from "@/util/toastUtils";
 import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
@@ -182,7 +195,7 @@ export function DeleteButton({
       try {
         const { headers, membersData } = await getAllMembers(club.id);
         downloadAsCsv(headers, membersData, `${club.name}_membership.csv`);
-        // await deleteClubMembers(club.id); // Needs to be implemented @MRlolface249
+        await removeAllMembers(club.id);
         setMembers([]);
         toastSuccess("All members deleted. Automatically exported backup.");
       } catch (error) {
