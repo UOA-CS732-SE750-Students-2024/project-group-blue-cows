@@ -26,6 +26,7 @@ import {
 import { UploadButton } from "@/util/uploadThingUtils";
 import { AppUser, users } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 import * as z from "zod";
 import { Club } from "@/schemas/clubSchema";
@@ -142,6 +143,10 @@ export default function ClubRegistrationForm({
         addFormInputs(formInputs, Number(clubId), user?.id || "")
           .then(() => {
             form.reset(); // Reset form fields after successful submission
+            alert("Membership added successfully");
+          })
+          .then(() => {
+            window.location.href = `/clubs/${clubId}/view`;
           })
           .catch((error) => {
             console.error("Error posting form inputs: ", error);
@@ -185,12 +190,7 @@ export default function ClubRegistrationForm({
               <FormItem>
                 <FormLabel className="font-bold">Full Name</FormLabel>
                 <FormControl>
-                  <Input
-                    defaultValue={user?.name || "Name"}
-                    placeholder="Enter name"
-                    type="name"
-                    {...field}
-                  />
+                  <Input placeholder="Enter name" type="name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -210,7 +210,6 @@ export default function ClubRegistrationForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-                      defaultValue={user?.email || "Email"}
                       placeholder="Enter email"
                       type="description"
                       {...field}
@@ -233,7 +232,6 @@ export default function ClubRegistrationForm({
                   <FormControl>
                     <Input
                       placeholder="Enter UPI"
-                      defaultValue={user?.upi || "UPI"}
                       type="description"
                       {...field}
                     />
@@ -255,7 +253,6 @@ export default function ClubRegistrationForm({
                   <FormControl>
                     <Input
                       placeholder="Enter your Student ID"
-                      defaultValue={user?.student_id || 0}
                       type="description"
                       {...field}
                     />
@@ -275,7 +272,6 @@ export default function ClubRegistrationForm({
                   <FormControl>
                     <Input
                       placeholder="Enter your year level"
-                      defaultValue={user?.year_of_study || 1}
                       type="description"
                       {...field}
                     />
@@ -299,10 +295,6 @@ export default function ClubRegistrationForm({
     </Form>
   );
 }
-
-// const addMember(user){
-//   const member = await addMember(user);
-// }
 
 interface AdditionalFormFieldsProps {
   clubFormFields: GetClubFormFieldDto[];
