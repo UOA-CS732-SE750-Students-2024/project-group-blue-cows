@@ -11,7 +11,7 @@ import { getAllImagesForClub } from "@/services/imageServices";
 import SocialLinks from "@/components/misc/social-links";
 import { Socials } from "@/schemas/socialsSchema";
 import { getAllSocialsForClub } from "@/services/socialsServices";
-import router, { useRouter } from "next/navigation";
+import router, { notFound, useRouter } from "next/navigation";
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({
@@ -69,7 +69,7 @@ export default function ClubViewPage({
 
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
-    return <NotFoundPage />;
+    return notFound();
   }
   const navigateToRegister = () => {
     router.push(`/clubs/${params.clubId}/register`);
