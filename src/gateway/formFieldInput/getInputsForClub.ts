@@ -1,12 +1,11 @@
-import { db } from "../../config/db";
-import { and, eq } from "drizzle-orm";
-import { GetInputsForClubDto } from "@/Dtos/formFieldInput/GetInputsForClubDto";
-import membershipSchema from "@/schemas/membershipSchema";
-import { getFormFieldInputs } from "./getFormFieldInputs";
-import formFieldInputSchema from "@/schemas/formFieldInputSchema";
-import userDataAuthorisedSchema from "@/schemas/userDataAuthorisedSchema";
-import FormFieldSchema from "@/schemas/FormFieldSchema";
 import { GetFormFieldInputDto } from "@/Dtos/formFieldInput/GetFormFieldInputDto";
+import { GetInputsForClubDto } from "@/Dtos/formFieldInput/GetInputsForClubDto";
+import FormFieldSchema from "@/schemas/FormFieldSchema";
+import formFieldInputSchema from "@/schemas/formFieldInputSchema";
+import membershipSchema from "@/schemas/membershipSchema";
+import userDataAuthorisedSchema from "@/schemas/userDataAuthorisedSchema";
+import { and, eq } from "drizzle-orm";
+import { db } from "../../config/db";
 
 export async function getInputsForClub(
   clubId: number

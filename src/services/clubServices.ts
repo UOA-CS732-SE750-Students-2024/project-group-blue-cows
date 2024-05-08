@@ -5,6 +5,8 @@ import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
 import { PutMemberDto } from "@/Dtos/member/PutMemberDto";
 import { getClub } from "@/gateway/club/getClub";
 import { getClubs } from "@/gateway/club/getClubs";
+import { getClubsForAdmin } from "@/gateway/club/getClubsForAdmin";
+import { getClubsForUser } from "@/gateway/club/getClubsForUser";
 import { postClubEntity } from "@/gateway/club/postClub";
 import { putClub } from "@/gateway/club/putClub";
 import { deleteAllMembers } from "@/gateway/member/deleteAllMembers";
@@ -71,4 +73,12 @@ export async function importClubMembers(
 
 export async function fetchMemberForClub(userId: string, clubId: number) {
   return await getMemberForClub(userId, clubId);
+}
+
+export async function getListOfClubsForUser(userId: string) {
+  return getClubsForUser(userId);
+}
+
+export async function getListOfClubsForAdmin(userId: string) {
+  return getClubsForAdmin(userId);
 }
