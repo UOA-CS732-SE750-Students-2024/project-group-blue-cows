@@ -48,25 +48,6 @@ export default function ClubViewPage({
     fetchClubData();
   }, [params.clubId]);
 
-  // useEffect(() => {
-  //   const fetchClubData = async () => {
-  //     const clubId = Number(params.clubId);
-  //     const [data, images, socialLinks] = await Promise.all([
-  //       getClubById(clubId),
-  //       getAllImagesForClub(clubId),
-  //       getAllSocialsForClub(clubId),
-  //     ]);
-
-  //     const filteredImages = images.filter((image) => image.title !== null) as Image[];
-
-  //     setClubData(data);
-  //     setImages(filteredImages);
-  //     setSocials(socialLinks);
-  //     setLoading(false);
-  //   };
-  //   fetchClubData();
-  // }, [params.clubId]);
-
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
     return notFound();

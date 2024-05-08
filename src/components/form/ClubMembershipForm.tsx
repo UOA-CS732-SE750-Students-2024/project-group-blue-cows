@@ -320,7 +320,7 @@ const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
             <FormItem>
               <FormLabel className="font-bold">{field.name}</FormLabel>
               <FormControl>
-                <div className="grid grid-cols-2 gap-4">
+                <div>
                   {(() => {
                     switch (field.type) {
                       case "string":
@@ -338,7 +338,11 @@ const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
                             placeholder={`Enter ${field.name}`}
                             {...formField}
                             defaultValue={formField.value}
-                            className={"resize-none col-span-2"}
+                            className={
+                              field.type === "long"
+                                ? "resize-none col-span-2"
+                                : "resize-none"
+                            }
                           />
                         );
                       case "short":
