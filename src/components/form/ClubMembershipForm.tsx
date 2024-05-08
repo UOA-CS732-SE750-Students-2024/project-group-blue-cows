@@ -36,6 +36,9 @@ import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import { notFound } from "next/navigation";
 import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
 import { addFormInputs } from "@/services/formFieldInputServices";
+import { updateUser } from "@/services/userServices";
+import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
+import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
 
 const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
@@ -121,7 +124,7 @@ export default function ClubRegistrationForm({
   }, [user]);
 
   if (!club) return notFound();
-
+  // call updateUser for mandatory fields, addFormInputs for optional fields
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const member: PostMemberDto = {
       club: Number(clubId),
@@ -136,21 +139,38 @@ export default function ClubRegistrationForm({
     }
     addMember(member)
       .then(() => {
-        const formInputs = Object.entries(values).map(([fieldName, value]) => ({
-          fieldName,
-          value: String(value),
-        }));
-
-        addFormInputs(formInputs, Number(clubId), user?.id || "")
+        // Split the values into mandatory and optional fields
+        const mandatoryFields: UpdateUserDto = {
+          student_id: values.id,
+          upi: values.upi,
+          year_of_study: values.yearLevel,
+        };
+        let optionalFields: { [key: string]: any } = Object.fromEntries(
+          Object.entries(values).filter(
+            ([key]) => !Object.keys(mandatoryFields).includes(key)
+          )
+        );
+        let optionalFieldsArray: PostFormFieldInputDto[] = Object.entries(
+          optionalFields
+        ).map(([fieldName, value]) => ({ fieldName, value }));
+        // Call updateUser for mandatory fields
+        updateUser(mandatoryFields)
           .then(() => {
-            form.reset(); // Reset form fields after successful submission
-            alert("Membership added successfully");
-          })
-          .then(() => {
-            router.back();
+            // Call addFormInputs for optional fields
+            addFormInputs(optionalFieldsArray, Number(clubId), user?.id || "")
+              .then(() => {
+                form.reset(); // Reset form fields after successful submission
+                alert("Membership added successfully");
+              })
+              .then(() => {
+                router.back();
+              })
+              .catch((error) => {
+                console.error("Error posting form inputs: ", error);
+              });
           })
           .catch((error) => {
-            console.error("Error posting form inputs: ", error);
+            console.error("Error updating user: ", error);
           });
       })
       .catch((error) => {
