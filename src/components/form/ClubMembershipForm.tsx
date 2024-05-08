@@ -133,254 +133,255 @@ export default function ClubRegistrationForm({
       isAdmin: false,
     };
     addMember(member)
-    .then(() => {
+      .then(() => {
+        const formInputs = Object.entries(values).map(([fieldName, value]) => ({
+          fieldName,
+          value: String(value),
+        }));
 
-      const formInputs = Object.entries(values).map(([fieldName, value]) => ({
-        fieldName,
-        value: String(value),
-      }));
+        addFormInputs(formInputs, Number(clubId), user?.id || "")
+          .then(() => {
+            form.reset(); // Reset form fields after successful submission
+          })
+          .catch((error) => {
+            console.error("Error posting form inputs: ", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Submission error: ", error);
+      });
 
-      addFormInputs(formInputs, Number(clubId), user?.id || "")
-        .then(() => {
-          form.reset(); // Reset form fields after successful submission
-        })
-        .catch((error) => {
-          console.error("Error posting form inputs: ", error);
-        });
-    })
-    .catch((error) => {
-      console.error("Submission error: ", error);
-    });
+    return (
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="w-full flex flex-col gap-4"
+        >
+          <Card className="w-full bg-[#FFD166]">
+            <CardHeader>
+              <CardTitle>Membership Benefits</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {/* TODO - Allow signup description content to be passed as a prop here - ADD MEMBERSHIP DESCRIPTION TO SCHEMA? */}
+              <ul className="list-disc list-inside">
+                <li>
+                  Stay up to date with upcoming events, projects, and
+                  competitions.
+                </li>
+                <li>
+                  Become eligible to participate in our projects and
+                  competitions.
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+          <h1 className="-mb-2">PRE-POPULATED DETAILS</h1>
+          <sub className=" italic mb-2">Click on the boxes to edit.</sub>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel className="font-bold">Full Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      defaultValue={user?.name || "Name"}
+                      placeholder="Enter name"
+                      type="name"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
 
-  return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleSubmit)}
-        className="w-full flex flex-col gap-4"
-      >
-        <Card className="w-full bg-[#FFD166]">
-          <CardHeader>
-            <CardTitle>Membership Benefits</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* TODO - Allow signup description content to be passed as a prop here - ADD MEMBERSHIP DESCRIPTION TO SCHEMA? */}
-            <ul className="list-disc list-inside">
-              <li>
-                Stay up to date with upcoming events, projects, and
-                competitions.
-              </li>
-              <li>
-                Become eligible to participate in our projects and competitions.
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-        <h1 className="-mb-2">PRE-POPULATED DETAILS</h1>
-        <sub className=" italic mb-2">Click on the boxes to edit.</sub>
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => {
-            return (
+          <div className="grid grid-rows-3 grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="font-bold">
+                      Preferred Email Address
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        defaultValue={user?.email || "Email"}
+                        placeholder="Enter email"
+                        type="description"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="upi"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="font-bold">
+                      UPI (e.g. abcd123)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter UPI"
+                        defaultValue={user?.upi || "UPI"}
+                        type="description"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="upi"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="font-bold">
+                      Student ID (e.g. 123456789)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your Student ID"
+                        defaultValue={user?.student_id || 0}
+                        type="description"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="yearLevel"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="font-bold">Year Level</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your year level"
+                        defaultValue={user?.year_of_study || 1}
+                        type="description"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <AdditionalFormFields clubFormFields={clubFormFields} form={form} />
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full bg-[#087DF1] color-white uppercase"
+          >
+            SUBMIT
+          </Button>
+        </form>
+      </Form>
+    );
+  };
+
+  // const addMember(user){
+  //   const member = await addMember(user);
+  // }
+
+  interface AdditionalFormFieldsProps {
+    clubFormFields: GetClubFormFieldDto[];
+    form: UseFormReturn<any, any, undefined>; // replace with the correct type
+  }
+
+  const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
+    clubFormFields,
+    form,
+  }) => {
+    return (
+      <>
+        {clubFormFields.map((field) => (
+          <FormField
+            key={field.name}
+            control={form.control}
+            name={field.name}
+            rules={{ required: `${field.name} is required` }}
+            render={({ field: formField }) => (
               <FormItem>
-                <FormLabel className="font-bold">Full Name</FormLabel>
+                <FormLabel className="font-bold">{field.name}</FormLabel>
                 <FormControl>
-                  <Input
-                    defaultValue={user?.name || "Name"}
-                    placeholder="Enter name"
-                    type="name"
-                    {...field}
-                  />
+                  <div>
+                    {(() => {
+                      switch (field.type) {
+                        case "string":
+                          return (
+                            <Input
+                              placeholder={`Enter ${field.name}`}
+                              {...formField}
+                              defaultValue={formField.value}
+                            />
+                          );
+                        case "long":
+                          return (
+                            <Textarea
+                              maxLength={500}
+                              placeholder={`Enter ${field.name}`}
+                              {...formField}
+                              defaultValue={formField.value}
+                            />
+                          );
+                        case "short":
+                          return (
+                            <Input
+                              maxLength={50}
+                              placeholder={`Enter ${field.name}`}
+                              {...formField}
+                              defaultValue={formField.value}
+                            />
+                          );
+                        case "number":
+                          return (
+                            <Input
+                              type="number"
+                              placeholder={`Enter ${field.name}`}
+                              {...formField}
+                              defaultValue={formField.value}
+                            />
+                          );
+                        default:
+                          return (
+                            <Input
+                              placeholder={`Enter ${field.name}`}
+                              {...formField}
+                              defaultValue={formField.value}
+                            />
+                          );
+                      }
+                    })()}
+                  </div>
                 </FormControl>
+                {field.description && <p>{field.description}</p>}
                 <FormMessage />
               </FormItem>
-            );
-          }}
-        />
-
-        <div className="grid grid-rows-3 grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">
-                    Preferred Email Address
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      defaultValue={user?.email || "Email"}
-                      placeholder="Enter email"
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
+            )}
           />
-          <FormField
-            control={form.control}
-            name="upi"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">
-                    UPI (e.g. abcd123)
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter UPI"
-                      defaultValue={user?.upi || "UPI"}
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="upi"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">
-                    Student ID (e.g. 123456789)
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your Student ID"
-                      defaultValue={user?.student_id || 0}
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="yearLevel"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel className="font-bold">Year Level</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your year level"
-                      defaultValue={user?.year_of_study || 1}
-                      type="description"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-
-          <AdditionalFormFields clubFormFields={clubFormFields} form={form} />
-        </div>
-
-        <Button
-          type="submit"
-          className="w-full bg-[#087DF1] color-white uppercase"
-        >
-          SUBMIT
-        </Button>
-      </form>
-    </Form>
-  );
+        ))}
+      </>
+    );
+  };
 }
-
-// const addMember(user){
-//   const member = await addMember(user);
-// }
-
-interface AdditionalFormFieldsProps {
-  clubFormFields: GetClubFormFieldDto[];
-  form: UseFormReturn<any, any, undefined>; // replace with the correct type
-}
-
-const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
-  clubFormFields,
-  form,
-}) => {
-  return (
-    <>
-      {clubFormFields.map((field) => (
-        <FormField
-          key={field.name}
-          control={form.control}
-          name={field.name}
-          rules={{ required: `${field.name} is required` }}
-          render={({ field: formField }) => (
-            <FormItem>
-              <FormLabel className="font-bold">{field.name}</FormLabel>
-              <FormControl>
-                <div>
-                  {(() => {
-                    switch (field.type) {
-                      case "string":
-                        return (
-                          <Input
-                            placeholder={`Enter ${field.name}`}
-                            {...formField}
-                            defaultValue={formField.value}
-                          />
-                        );
-                      case "long":
-                        return (
-                          <Textarea
-                            maxLength={500}
-                            placeholder={`Enter ${field.name}`}
-                            {...formField}
-                            defaultValue={formField.value}
-                          />
-                        );
-                      case "short":
-                        return (
-                          <Input
-                            maxLength={50}
-                            placeholder={`Enter ${field.name}`}
-                            {...formField}
-                            defaultValue={formField.value}
-                          />
-                        );
-                      case "number":
-                        return (
-                          <Input
-                            type="number"
-                            placeholder={`Enter ${field.name}`}
-                            {...formField}
-                            defaultValue={formField.value}
-                          />
-                        );
-                      default:
-                        return (
-                          <Input
-                            placeholder={`Enter ${field.name}`}
-                            {...formField}
-                            defaultValue={formField.value}
-                          />
-                        );
-                    }
-                  })()}
-                </div>
-              </FormControl>
-              {field.description && <p>{field.description}</p>}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      ))}
-    </>
-  );
-};
