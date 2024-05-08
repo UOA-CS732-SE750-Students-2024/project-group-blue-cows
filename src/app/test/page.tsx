@@ -7,10 +7,6 @@ import {
   YellowButton,
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
-import { openModal } from "@/util/modalUtils";
-import { showToastDemo } from "@/util/toastUtils";
-import { getAllUsers } from "@/services/userServices";
-import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -31,9 +27,11 @@ import {
 } from "@/services/clubServices";
 import { User } from "next-auth";
 import {
-  updateForm,
   getAllExtendedFields,
+  updateForm,
 } from "@/services/clubFormFieldServices";
+import { getAllMembers, postClub } from "@/services/clubServices";
+import { addFormInputs } from "@/services/formFieldInputServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -45,7 +43,11 @@ import {
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
-import { addFormInputs } from "@/services/formFieldInputServices";
+import { getAllUsers } from "@/services/userServices";
+import { alert, confirm } from "@/util/modalUtils";
+import { showToastDemo } from "@/util/toastUtils";
+import { User } from "next-auth";
+import { useEffect, useState } from "react";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -247,17 +249,32 @@ export default function TestPage() {
       </BlueButton>
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
 
+      <p>Fully Customisable Modals!</p>
       <BlueButton
-        onClick={() =>
-          openModal({
+        onClick={async () => {
+          const response = await confirm({
             content: <YellowButton>Wow</YellowButton>,
             title: "Test",
             className: "hover:bg-red-100",
-          })
-        }
+          });
+          console.log(response);
+        }}
       >
-        Open Modal
+        src/util/modalUtils/confirm()
       </BlueButton>
+      <YellowButton
+        onClick={async () => {
+          const response = await alert({
+            content: <h1>Alert!</h1>,
+            title: "Test",
+            className: "hover:bg-red-100 w-[20em] h-[12em]",
+          });
+          console.log(response);
+        }}
+      >
+        src/util/modalUtils/alert()
+      </YellowButton>
+
       <MiniIconButton
         className="saturation-0"
         icon="/delete.svg"
