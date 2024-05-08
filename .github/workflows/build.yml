@@ -22,11 +22,11 @@ jobs:
       - name: Create env file
         run: echo ${{ secrets.BACKEND_ENVFILE }} | base64 --decode > .env
 
-      - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
-    
       - run: yarn
 
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+        
       - run: yarn test
 
       - run: yarn build
