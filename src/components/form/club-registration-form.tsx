@@ -33,6 +33,7 @@ import { AppUser } from "@/schemas/authSchema";
 import { UploadButton } from "@/util/uploadThingUtils";
 import { useSession } from "next-auth/react";
 
+import { useRouter } from "next/navigation";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -55,6 +56,7 @@ const formSchema = z.object({
 export default function ClubRegistrationForm() {
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,7 +72,7 @@ export default function ClubRegistrationForm() {
     console.log(values);
     postClub(values, user)
       .then(() => {
-        form.reset(); // Reset form fields after successful submission
+        router.push("/users/me/clubs");
       })
       .catch((error) => {
         console.error("Submission error:", error);
@@ -170,14 +172,14 @@ export default function ClubRegistrationForm() {
                   </FormControl>
                   <SelectContent>
                     <SelectItem value="Academic and Specialist">
-                      Academic and specialist
+                      Academic and Specialist
                     </SelectItem>
                     <SelectItem value="Sport">Sport</SelectItem>
                     <SelectItem value="Special Interest">
                       Special Interest
                     </SelectItem>
                     <SelectItem value="Religious and Spiritual">
-                      Religious and spiritual
+                      Religious and Spiritual
                     </SelectItem>
                     <SelectItem value="Cultural">Cultural</SelectItem>
                     <SelectItem value="Causes">Causes</SelectItem>
