@@ -1,16 +1,23 @@
 "use client";
+import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
+import { Club } from "@/schemas/clubSchema";
+import { updateForm } from "@/services/clubFormFieldServices";
+import { getAllMembers, importClubMembers } from "@/services/clubServices";
+import {
+  downloadAsCsv,
+  importFile,
+  validateExtendedFieldInputs,
+} from "@/util/csvClientUtils";
+import { importCsvFile } from "@/util/csvUtils";
+import {
+  toastError,
+  toastLoading,
+  toastSuccess,
+  tryOrToast,
+} from "@/util/toastUtils";
 import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
-import { Club } from "@/schemas/clubSchema";
-import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
-import { getAllMembers, importClubMembers } from "@/services/clubServices";
-import { toastError, toastLoading, toastSuccess } from "@/util/toastUtils";
-import { useSession } from "next-auth/react";
-import { AppUser } from "@/schemas/authSchema";
 import { useMemberPage } from "./MemberPageContext";
-import { downloadAsCsv, importFile } from "@/util/csvClientUtils";
-import { importCsvFile } from "@/util/csvUtils";
-import { updateForm } from "@/services/clubFormFieldServices";
 
 export function MembersPageBack({
   clubId,
@@ -29,10 +36,16 @@ export function MembersPageBack({
 }
 
 export function PreviewFormButton({ className }: { className?: string }) {
-  const { showPreview, setShowPreview } = useRegistrationEditContext();
+  const { showPreview, setShowPreview, extendedFields } =
+    useRegistrationEditContext();
 
-  function togglePreview() {
-    setShowPreview(!showPreview);
+  async function togglePreview() {
+    tryOrToast(() => {
+      if (!showPreview) {
+        validateExtendedFieldInputs(extendedFields);
+      }
+      setShowPreview(!showPreview);
+    });
   }
 
   return (
@@ -52,12 +65,11 @@ export function SaveFormButton({
   const { extendedFields } = useRegistrationEditContext();
 
   async function save() {
-    try {
+    toastLoading();
+    tryOrToast(async () => {
       await updateForm(extendedFields, clubId);
       toastSuccess("Form saved successfully");
-    } catch (error) {
-      toastError("Error saving. Are you logged in?");
-    }
+    });
   }
 
   return (
