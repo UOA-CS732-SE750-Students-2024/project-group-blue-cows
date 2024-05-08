@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import "@testing-library/jest-dom";
 import MembersTable from "@/components/members/MembersTable";
 import { MemberPageContextProvider } from "@/components/members/MemberPageContext";
@@ -35,18 +36,27 @@ beforeEach(() => {
 test("it renders input fields and typed values", () => {
   const nameInputField = screen.getByPlaceholderText("Filter by name...");
   expect(nameInputField).toBeInTheDocument();
-  fireEvent.change(nameInputField, { target: { value: "Alex" } });
+  act(() => {
+    fireEvent.change(nameInputField, { target: { value: "Alex" } });
+  });
+
   expect(nameInputField).toHaveValue("Alex");
 
   const upiInputField = screen.getByPlaceholderText("Filter by UPI...");
   expect(upiInputField).toBeInTheDocument();
-  fireEvent.change(upiInputField, { target: { value: "tmon261" } });
+  act(() => {
+    fireEvent.change(upiInputField, { target: { value: "tmon261" } });
+  });
+
   expect(upiInputField).toHaveValue("tmon261");
 });
 
 test("data table shows correct value when searched by name", () => {
   const nameInputField = screen.getByPlaceholderText("Filter by name...");
-  fireEvent.change(nameInputField, { target: { value: "Alex" } });
+
+  act(() => {
+    fireEvent.change(nameInputField, { target: { value: "Alex" } });
+  });
 
   const name = screen.getByText("Alex Hope");
   expect(name).toBeInTheDocument();
@@ -57,7 +67,9 @@ test("data table shows correct value when searched by name", () => {
 
 test("data table shows correct value when searched by upi", () => {
   const nameInputField = screen.getByPlaceholderText("Filter by UPI...");
-  fireEvent.change(nameInputField, { target: { value: "tmon261" } });
+  act(() => {
+    fireEvent.change(nameInputField, { target: { value: "tmon261" } });
+  });
 
   const name = screen.getByText("Tristan Mona");
   expect(name).toBeInTheDocument();

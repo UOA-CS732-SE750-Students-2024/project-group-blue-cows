@@ -3,7 +3,7 @@ import { studentData } from "@/gateway/member/getAllMembersForClub";
 export async function downloadAsCsv(
   headers: string[],
   objArray: any[],
-  csvFileName: string,
+  csvFileName: string
 ) {
   const csvData = objArrayToCsv(headers, objArray);
   const blob = new Blob([csvData], { type: "text/csv" });
@@ -17,7 +17,7 @@ export async function downloadAsCsv(
   window.URL.revokeObjectURL(url);
 }
 
-const objArrayToCsv = (headers: string[], data: studentData[]) => {
+export const objArrayToCsv = (headers: string[], data: studentData[]) => {
   const csv = [
     headers.join(","),
     ...data.map((row) => Object.values(row).join(",")),
