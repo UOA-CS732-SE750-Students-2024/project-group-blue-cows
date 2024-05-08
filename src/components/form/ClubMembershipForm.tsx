@@ -333,7 +333,7 @@ const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
                         );
                       case "long":
                         return (
-                          <Input
+                          <Textarea
                             maxLength={500}
                             placeholder={`Enter ${field.name}`}
                             {...formField}
