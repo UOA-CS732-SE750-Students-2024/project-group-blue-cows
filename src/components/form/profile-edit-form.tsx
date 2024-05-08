@@ -82,18 +82,24 @@ export default function ProfileEditForm() {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="grid-item">
-            <h2 className="text-sm font-bold">Name</h2>
-            <Input disabled defaultValue={user?.name || ""} />
+            <FormItem>
+              <FormLabel className="font-bold">Name</FormLabel>
+              <Input disabled defaultValue={user?.name || ""} />
+            </FormItem>
           </div>
 
           <div className="grid-item">
-            <h2 className="text-sm font-bold">Email Address</h2>
-            <Input disabled defaultValue={user?.email || ""} />
+            <FormItem>
+              <FormLabel className="font-bold">Email Address</FormLabel>
+              <Input disabled defaultValue={user?.email || ""} />
+            </FormItem>
           </div>
 
           <div className="grid-item">
-            <h2 className="text-sm font-bold">Profile Picture</h2>
-            <Input disabled type="file" />
+            <FormItem>
+              <FormLabel className="font-bold">Profile Picture</FormLabel>
+              <Input disabled type="file" />
+            </FormItem>
           </div>
 
           <div className="grid-item">
