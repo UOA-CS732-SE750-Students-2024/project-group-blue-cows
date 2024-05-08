@@ -1,13 +1,12 @@
-name: Build DEV
+name: Test and Build DEV
 
 on:
   push:
     branches:
       - '**'
-      - '!main'
 
 jobs:
-  BuildApp:
+  TestAndBuildApp:
     runs-on: ubuntu-latest
     environment: DEV
     defaults:
