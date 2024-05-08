@@ -1,6 +1,6 @@
 "use client"; // to get react to know it's a client compponent
 
-import React from "react";
+import {React, useState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postClub } from "@/services/clubServices";
@@ -8,6 +8,9 @@ import { Card } from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { getAllSocialsForClub } from "@/services/socialsServices";
+import SocialLinks from "../misc/social-links";
+
 import {
   SelectValue,
   SelectTrigger,
@@ -29,6 +32,8 @@ import { AppUser, users } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
 
 import * as z from "zod";
+import { Socials } from "@/schemas/socialsSchema";
+import SocialMediaEditor from "../misc/social-media-editor";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").toUpperCase(),
@@ -47,9 +52,20 @@ const formSchema = z.object({
   ]),
 });
 
-export default function ClubEditForm( {clubId} ) {
+
+export default function ClubEditForm({ clubId }) {
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
+
+  const [socials, setSocials] = useState<Socials[]>([]);  // State to hold socials data
+
+  useEffect(() => {
+    getAllSocialsForClub(clubId).then(fetchedSocials => {
+      setSocials(fetchedSocials);
+    });
+  }, [clubId, setSocials]); // Adding clubId to the dependency array to ensure re-fetching if clubId changes
+  
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -223,7 +239,12 @@ export default function ClubEditForm( {clubId} ) {
         <div className="flex">
           <div className="w-1/3 p-4">
             <Card className="p-2">
-              <p>SOCIAL MEDIA LINKS</p>
+
+
+              <SocialMediaEditor socials = {socials}/>
+
+              {/* <p>SOCIAL MEDIA LINKS</p>
+              <SocialLinks socials={socials} />
               <div className="flex items-center p-1 rounded-md">
                 <div className="w-10%">
                   <img
@@ -259,7 +280,7 @@ export default function ClubEditForm( {clubId} ) {
                 <div className="w-90% ">
                   <p className="text-xs">Social Media Link 3</p>
                 </div>
-              </div>
+              </div> */}
             </Card>
           </div>
           <div className="w-2/3 p-4">
