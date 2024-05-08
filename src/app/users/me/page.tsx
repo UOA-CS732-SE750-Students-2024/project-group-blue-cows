@@ -6,7 +6,7 @@ export default async function ProfilePage() {
   return (
     <main className="h-[calc(100vh-4rem)] px-16 py-8">
       <PageHeader
-        title="Edit Profile"
+        title="My Profile"
         subtitle="Which clubs can see this data?"
         href="/users/me/clubs"
       />
