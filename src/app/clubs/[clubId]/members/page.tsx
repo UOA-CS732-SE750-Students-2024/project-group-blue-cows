@@ -20,8 +20,6 @@ export default async function MembersPage({
     return notFound();
   }
   const { finalHeaders, membersFullData } = await getAllMembers(+clubId);
-  console.log(finalHeaders);
-  console.log(membersFullData);
   const club = await getClubById(+clubId);
   if (!club) {
     return notFound();
@@ -40,7 +38,7 @@ export default async function MembersPage({
           <ExportButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
           <DeleteButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
         </div>
-        <MembersTable />
+        <MembersTable headers={finalHeaders} />
       </MemberPageContextProvider>
     </div>
   );
