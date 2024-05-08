@@ -23,6 +23,7 @@ import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
+import { EditClubInformation } from "@/components/admin/adminPageClientComponents";
 
 export default async function AdminEditPage({
   params,
@@ -143,12 +144,7 @@ export default async function AdminEditPage({
             </p>
           </div>
           <div className="flex items-start">
-          <YellowButton
-        className="mt-3"  // Add any additional specific classes, if needed
-        onClick={scrollToEditForm}
-      >
-        Edit Club Information
-      </YellowButton>
+            <EditClubInformation clubData={clubData as Club} className="mt-3" />
     </div>
           </div>
         </div>

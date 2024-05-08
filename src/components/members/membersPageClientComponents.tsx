@@ -114,7 +114,7 @@ export function ImportButton({
         }
       }
     });
-  };
+  }; 
 
   return (
     <YellowButton
