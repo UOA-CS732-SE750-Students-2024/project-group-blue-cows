@@ -18,7 +18,7 @@ export async function downloadAsCsv(
   window.URL.revokeObjectURL(url);
 }
 
-const objArrayToCsv = (headers: string[], data: studentData[]) => {
+export const objArrayToCsv = (headers: string[], data: studentData[]) => {
   const csv = [
     headers.join(","),
     ...data.map((row) => Object.values(row).join(",")),
