@@ -16,7 +16,9 @@ export default function PaymentResultPage() {
   if (status === "success") {
     return (
       <div className="flex flex-col items-center justify-center h-full w-full">
-        <h1 className="text-4xl text-primary font-bold">Payment successful!</h1>
+        <h1 className="text-4xl text-primary font-bold">
+          Registration successful!
+        </h1>
         <p className="text-lg">You're now a member of {clubName}! 🎉</p>
         <Link href="/users/me/clubs">
           <Button className="text-white text-lg">View your memberships</Button>
