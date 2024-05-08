@@ -1,7 +1,4 @@
 "use client";
-import * as z from "zod";
-import { ControllerRenderProps, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -11,12 +8,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
-  SelectValue,
-  SelectTrigger,
+  Select,
   SelectContent,
   SelectItem,
-  Select,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ControllerRenderProps, useForm } from "react-hook-form";
+import * as z from "zod";
 
 const formSchema = z.object({
   category: z.enum([
@@ -43,22 +43,17 @@ export function FilterForm({
 
   form.watch("category");
 
-  const handleRegister = async (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
-  };
-
   const handleChange = (
     field: ControllerRenderProps<z.infer<typeof formSchema>>,
     value: string
   ) => {
-    console.log(value);
     field.onChange(value);
     setFilter(value !== "All" ? value : null);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleRegister)}>
+      <form onSubmit={form.handleSubmit(() => console.log(filter))}>
         <FormField
           control={form.control}
           name="category"
