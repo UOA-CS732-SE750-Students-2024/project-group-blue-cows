@@ -1,5 +1,5 @@
 import { db } from "../../config/db";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { GetInputsForClubDto } from "@/Dtos/formFieldInput/GetInputsForClubDto";
 import membershipSchema from "@/schemas/membershipSchema";
 import { getFormFieldInputs } from "./getFormFieldInputs";
@@ -35,7 +35,12 @@ export async function getInputsForClub(
         membershipSchema,
         eq(userDataAuthorisedSchema.memberId, membershipSchema.id)
       )
-      .where(eq(membershipSchema.club, clubId));
+      .where(
+        and(
+          eq(membershipSchema.club, clubId),
+          eq(membershipSchema.user, user.userId)
+        )
+      );
     const formFieldInputDtos = formFieldInputs.map(
       (formFieldInput): GetFormFieldInputDto => {
         if (!formFieldInput.fieldName) throw new Error("name failed to return");
