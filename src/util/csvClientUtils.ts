@@ -1,9 +1,10 @@
+import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { studentData } from "@/gateway/member/getAllMembersForClub";
 
 export async function downloadAsCsv(
   headers: string[],
   objArray: any[],
-  csvFileName: string,
+  csvFileName: string
 ) {
   const csvData = objArrayToCsv(headers, objArray);
   const blob = new Blob([csvData], { type: "text/csv" });
@@ -17,7 +18,7 @@ export async function downloadAsCsv(
   window.URL.revokeObjectURL(url);
 }
 
-const objArrayToCsv = (headers: string[], data: studentData[]) => {
+export const objArrayToCsv = (headers: string[], data: studentData[]) => {
   const csv = [
     headers.join(","),
     ...data.map((row) => Object.values(row).join(",")),
@@ -38,4 +39,28 @@ export async function importFile(callback: (formData: FormData) => void) {
     callback(formData);
   };
   input.click();
+}
+
+// This function should be called whenever an admin attempts to change the club's extended fields
+export function validateExtendedFieldInputs(
+  fields: GetExtendedFormFieldDto[]
+) {
+  fields.forEach((field) => {
+    // Name required, description nonnull, type required enum
+    if (!field.name) throw new Error("Field name is required");
+    field.name = field.name.trim();
+    field.description ??= "";
+    field.type = field.type.trim().toLowerCase();
+    if (!["short", "long"].includes(field.type)) {
+      throw new Error("Type must be either 'short' or 'long'");
+    }
+  });
+
+  // Check no duplicate field names
+  const uniqueFieldNames = new Set(fields.map((field) => field.name));
+  if (uniqueFieldNames.size !== fields.length) {
+    console.log("here");
+    throw new Error("Field names must be unique");
+  }
+  console.log("No issues :)");
 }

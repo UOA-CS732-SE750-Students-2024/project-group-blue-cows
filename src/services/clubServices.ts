@@ -27,7 +27,6 @@ export async function updateClub(clubId: number, club: UpdateClubDto) {
 }
 
 export async function getAllMembers(clubId: number) {
-  revalidatePath(`clubs/${clubId}/members`);
   return await getAllMembersForClub(clubId);
 }
 
@@ -55,6 +54,7 @@ export async function importClubMembers(
   clubId: number,
   memberData: studentAllData[],
 ) {
+  revalidatePath(`clubs/${clubId}/members`);
   return await postMembersData(clubId, memberData);
 }
 

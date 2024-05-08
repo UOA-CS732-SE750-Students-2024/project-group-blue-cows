@@ -1,14 +1,17 @@
 "use client";
+import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
 import { Club } from "@/schemas/clubSchema";
+import { updateForm } from "@/services/clubFormFieldServices";
 import { getAllMembers, importClubMembers } from "@/services/clubServices";
-import { downloadAsCsv, importFile } from "@/util/csvClientUtils";
+import { downloadAsCsv, importFile, validateExtendedFieldInputs } from "@/util/csvClientUtils";
 import { importCsvFile } from "@/util/csvUtils";
 import { confirm } from "@/util/modalUtils";
-import { toastError, toastLoading, toastSuccess } from "@/util/toastUtils";
+import { toastError, toastLoading, toastSuccess, tryOrToast } from "@/util/toastUtils";
 import { useRouter } from "next/navigation";
-import { BackButton, YellowButton } from "../misc/buttons";
+import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
 
+// TODO: delete and replace in each page with the generic PageHeader component at src\components\misc\PageHeader.tsx
 export function MembersPageBack({
   clubId,
   className,
@@ -22,6 +25,50 @@ export function MembersPageBack({
       className={`hidden lg:block ${className}`}
       onClick={() => router.push(`/clubs/${clubId}`)}
     />
+  );
+}
+
+export function PreviewFormButton({ className }: { className?: string }) {
+  const { showPreview, setShowPreview, extendedFields } =
+    useRegistrationEditContext();
+
+  async function togglePreview() {
+    tryOrToast(() => {
+      if (!showPreview) {
+        validateExtendedFieldInputs(extendedFields);
+      }
+      setShowPreview(!showPreview);
+    });
+  }
+
+  return (
+    <YellowButton onClick={togglePreview} className={`w-[24rem] ${className}`}>
+      {showPreview ? "Edit" : "Preview"}
+    </YellowButton>
+  );
+}
+
+export function SaveFormButton({
+  clubId,
+  className,
+}: {
+  clubId: number;
+  className?: string;
+}) {
+  const { extendedFields } = useRegistrationEditContext();
+
+  async function save() {
+    toastLoading();
+    tryOrToast(async () => {
+      await updateForm(extendedFields, clubId);
+      toastSuccess("Form saved successfully");
+    });
+  }
+
+  return (
+    <BlueButton onClick={save} className={`w-[24rem] ${className}`}>
+      Save
+    </BlueButton>
   );
 }
 
