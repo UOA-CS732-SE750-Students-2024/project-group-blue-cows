@@ -256,7 +256,7 @@ export default function AdminEditPage({
 
       {/* form */}
       <div className="p-10" id="edit-form">
-        <ClubEditForm />
+        <ClubEditForm clubId = {params.clubId}/>
       </div>
     </div>
   );

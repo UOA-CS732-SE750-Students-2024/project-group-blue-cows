@@ -47,7 +47,7 @@ const formSchema = z.object({
   ]),
 });
 
-export default function ClubEditForm() {
+export default function ClubEditForm( {clubId} ) {
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
 
