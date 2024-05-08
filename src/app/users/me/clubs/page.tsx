@@ -1,5 +1,6 @@
 import ClubsList from "@/components/ui/clubs-list";
 import UserNavCard from "@/components/ui/user-nav-card";
+import { getUserAuthentication } from "@/util/auth";
 
 const dummyAdminClubs = [
   {
@@ -46,7 +47,9 @@ const dummyClubs = [
   },
 ];
 
-export default function UserClubsPage() {
+export default async function UserClubsPage() {
+  const userName = (await getUserAuthentication()).name ?? "guest";
+
   return (
     <div className="h-[calc(100vh-4rem)] w-full mt-12 bg-customGrass">
       <div className="flex flex-col h-screen">
@@ -68,7 +71,7 @@ export default function UserClubsPage() {
               <h1 className="text-xl">
                 Welcome back,
                 <br />
-                name here!
+                {userName}!
               </h1>
             </div>
           </div>
