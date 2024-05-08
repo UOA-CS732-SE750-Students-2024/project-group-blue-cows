@@ -65,8 +65,23 @@ const createFormSchema = (
       case "string":
         field = z.string().min(1, `${formExtension.name} is required`);
         break;
+      case "long":
+        field = z
+          .string()
+          .min(1, `${formExtension.name} is required`)
+          .max(500, `${formExtension.name} is too long`);
+        break;
+      case "short":
+        field = z
+          .string()
+          .min(1, `${formExtension.name} is required`)
+          .max(50, `${formExtension.name} is too short`);
+        break;
       case "number":
-        field = z.number().min(1, `${formExtension.name} is required`);
+        field = z
+          .number()
+          .min(1, `${formExtension.name} is required`)
+          .max(100, `${formExtension.name} is too large`);
         break;
       default:
         field = z.string().min(1, `${formExtension.name} is required`);
@@ -90,7 +105,7 @@ export default function ClubRegistrationForm({
   clubFormFields: GetClubFormFieldDto[];
 }) {
   //const [loading, setLoading] = useState(true);
-  
+
   const session = useSession(); // Get the session data
   const user = session.data?.user as AppUser;
 
@@ -306,21 +321,53 @@ const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
               <FormLabel className="font-bold">{field.name}</FormLabel>
               <FormControl>
                 <div>
-                  {field.type === "string" && (
-                    <Input
-                      placeholder={`Enter ${field.name}`}
-                      {...formField}
-                      defaultValue={formField.value}
-                    />
-                  )}
-                  {field.type === "number" && (
-                    <Input
-                      type="number"
-                      placeholder={`Enter ${field.name}`}
-                      {...formField}
-                      defaultValue={formField.value}
-                    />
-                  )}
+                  {(() => {
+                    switch (field.type) {
+                      case "string":
+                        return (
+                          <Input
+                            placeholder={`Enter ${field.name}`}
+                            {...formField}
+                            defaultValue={formField.value}
+                          />
+                        );
+                      case "long":
+                        return (
+                          <Input
+                            maxLength={500}
+                            placeholder={`Enter ${field.name}`}
+                            {...formField}
+                            defaultValue={formField.value}
+                          />
+                        );
+                      case "short":
+                        return (
+                          <Input
+                            maxLength={50}
+                            placeholder={`Enter ${field.name}`}
+                            {...formField}
+                            defaultValue={formField.value}
+                          />
+                        );
+                      case "number":
+                        return (
+                          <Input
+                            type="number"
+                            placeholder={`Enter ${field.name}`}
+                            {...formField}
+                            defaultValue={formField.value}
+                          />
+                        );
+                      default:
+                        return (
+                          <Input
+                            placeholder={`Enter ${field.name}`}
+                            {...formField}
+                            defaultValue={formField.value}
+                          />
+                        );
+                    }
+                  })()}
                 </div>
               </FormControl>
               {field.description && <p>{field.description}</p>}
