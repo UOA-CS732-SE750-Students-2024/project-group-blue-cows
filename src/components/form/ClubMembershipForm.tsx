@@ -96,20 +96,7 @@ export default function ClubRegistrationForm({
   const session = useSession(); // Get the session data
   const user = session.data?.user as AppUser;
 
-  if (!club) return notFound();
-
-  console.log("clubFormFields:", clubFormFields);
-  useEffect(() => {
-    if (user) {
-      form.setValue("name", user.name || "");
-      form.setValue("id", user.student_id || "");
-      form.setValue("email", user.email || "");
-      form.setValue("upi", user.upi || "");
-      form.setValue("yearLevel", user.year_of_study || 0);
-    }
-  }, [user]);
   const formSchema = createFormSchema(clubFormFields);
-  console.log("formSchema:", formSchema);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -120,7 +107,18 @@ export default function ClubRegistrationForm({
       yearLevel: 0,
     },
   });
-  console.log("form:", form);
+
+  useEffect(() => {
+    if (user) {
+      form.setValue("name", user.name || "");
+      form.setValue("id", user.student_id || "");
+      form.setValue("email", user.email || "");
+      form.setValue("upi", user.upi || "");
+      form.setValue("yearLevel", user.year_of_study || 0);
+    }
+  }, [user]);
+
+  if (!club) return notFound();
   // if (loading || !user) {
   //   return <LoadingSpinner />;
   // }
