@@ -48,6 +48,7 @@ export default function AdminEditPage({
   // Effect to fetch club data using the provided clubId
 
   useEffect(() => {
+    console.log("in useffcte");
     const fetchClubData = async () => {
       const clubId = Number(params.clubId);
       const [data, images, socialLinks] = await Promise.all([
@@ -60,6 +61,8 @@ export default function AdminEditPage({
         (image) => image.title !== null
       ) as Image[];
 
+      console.log("TRYING TO GET DATA");
+
       setClubData(data);
       setImages(filteredImages);
       setSocials(socialLinks);
@@ -68,7 +71,10 @@ export default function AdminEditPage({
     fetchClubData();
   }, [params.clubId]);
 
+  console.log("we shoudl have data");
   console.log(clubData);
+  console.log(images);
+  console.log(socials);
 
   const membershipData = {
     degree: 150,
@@ -143,7 +149,7 @@ export default function AdminEditPage({
             </div>
             <div className="flex items-start">
               <p>
-                Also known as: WDCC, WDCC UoA, Admin Editing Club ID:{" "}
+                Also known as: WDCC, WDCC UoA, Admin Editing Club ID:
                 {params.clubId}
               </p>
             </div>
