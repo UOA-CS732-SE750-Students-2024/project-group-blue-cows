@@ -1,5 +1,5 @@
 "use client";
-import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
+import { GetExtendedFormFieldDto } from "@/Dtos/extendedFormField/GetExtendedFormFieldDto";
 import "client-only";
 import { ReactNode, createContext, useContext, useState } from "react";
 
