@@ -22,6 +22,16 @@ import ClubEditForm from "@/components/form/club-edit-information";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+import LoadingSpinner from "@/components/ui/loading-spinner";
+import NotFoundPage from "@/app/not-found";
+import Gallery from "@/components/misc/gallery";
+import { Image, Image as ImageSchema } from "@/schemas/imagesSchema";
+import { getAllImagesForClub } from "@/services/imageServices";
+import SocialLinks from "@/components/misc/social-links";
+import { Socials } from "@/schemas/socialsSchema";
+import { getAllSocialsForClub } from "@/services/socialsServices";
+import router, { useRouter } from "next/navigation";
+
 export default function AdminEditPage({
   params,
 }: {
@@ -30,15 +40,33 @@ export default function AdminEditPage({
   console.log(params);
 
   const [clubData, setClubData] = useState<Club | null>(null);
+  const [images, setImages] = useState<ImageSchema[]>([]);
+  const [socials, setSocials] = useState<Socials[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  // TODO: not working
+  // Effect to fetch club data using the provided clubId
+
   useEffect(() => {
-    const getData = async () => {
-      const clubData = await getClubById(Number(params.clubId));
-      setClubData(clubData);
+    const fetchClubData = async () => {
+      const clubId = Number(params.clubId);
+      const [data, images, socialLinks] = await Promise.all([
+        getClubById(clubId),
+        getAllImagesForClub(clubId),
+        getAllSocialsForClub(clubId),
+      ]);
+
+      const filteredImages = images.filter(
+        (image) => image.title !== null
+      ) as Image[];
+
+      setClubData(data);
+      setImages(filteredImages);
+      setSocials(socialLinks);
+      setLoading(false);
     };
-    getData();
-  }, []);
+    fetchClubData();
+  }, [params.clubId]);
 
   console.log(clubData);
 
