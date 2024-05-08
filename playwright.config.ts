@@ -69,6 +69,7 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
+  /* Please note you need to run yarn run build first! */
   webServer: {
     command: "yarn run start",
     url: "http://localhost:3000",
