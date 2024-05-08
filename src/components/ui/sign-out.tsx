@@ -1,8 +1,6 @@
 "use client";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { Button } from "./button";
 
 export function SignOut() {
   return (
@@ -12,7 +10,7 @@ export function SignOut() {
           onClick={() => {
             signOut({ redirect: false });
           }}
-          className="text-red-400 hover:text-white-700 underline text-xs whitespace-nowrap"
+          className="text-white hover:text-red-400 transition-colors underline text-xs whitespace-nowrap"
         >
           Sign Out
         </p>
