@@ -18,7 +18,7 @@ export default async function ProfilePage() {
       className="flex justify-center bg-cover"
       style={{ backgroundImage: "url('/cow-pattern-background.svg')" }}
     >
-      <main className="h-[calc(100vh-4rem)] px-16 py-8">
+      <main className="h-[calc(100vh-4rem)] pt-8">
         <PageHeader
           title="My Profile"
           subtitle="Which clubs can see this data?"

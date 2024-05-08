@@ -8,14 +8,14 @@ export function SignOut() {
   return (
     <div className="flex items-center">
       <Link href="/">
-        <Button
+        <p
           onClick={() => {
             signOut({ redirect: false });
           }}
-          className="text-white hover:text-white-700 underline text-xs whitespace-nowrap"
+          className="text-red-400 hover:text-white-700 underline text-xs whitespace-nowrap"
         >
           Sign Out
-        </Button>
+        </p>
       </Link>
     </div>
   );

@@ -61,10 +61,6 @@ export default function AdminEditPage({
     { name: "Alice Johnson", position: "UI/UX Designer" },
     { name: "John Doe", position: "Software Engineer" },
     { name: "Jane Smith", position: "Product Manager" },
-    { name: "Alice Johnson", position: "UI/UX Designer" },
-    { name: "John Doe", position: "Software Engineer" },
-    { name: "Jane Smith", position: "Product Manager" },
-    { name: "Alice Johnson", position: "UI/UX Designer" },
   ];
 
   // Copies the registration link to the clipboard

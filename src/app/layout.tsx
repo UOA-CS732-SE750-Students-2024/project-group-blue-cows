@@ -25,10 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex flex-col h-screen">
+      <body className="flex flex-col h-screen overflow-hidden">
         <SessionProvider>
           <NavTop className="h-[4rem]" />
-          <div className="flex flex-auto overflow-hidden">
+          <div className="flex flex-auto">
             <NavSide />
             <div className="flex-auto overflow-auto">{children}</div>
           </div>
