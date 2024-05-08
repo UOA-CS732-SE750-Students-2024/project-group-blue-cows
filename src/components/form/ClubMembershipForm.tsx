@@ -244,7 +244,7 @@ export default function ClubRegistrationForm({
           />
           <FormField
             control={form.control}
-            name="upi"
+            name="id"
             render={({ field }) => {
               return (
                 <FormItem>
