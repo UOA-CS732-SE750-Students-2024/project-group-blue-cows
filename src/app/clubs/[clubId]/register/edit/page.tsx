@@ -7,11 +7,11 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
 import { getClubById } from "@/services/clubServices";
-import { getAllExtendedFields } from "@/services/optionsFormServices";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { RegistrationEditProvider } from "../../../../../components/form/RegistratonEditContext";
+import { RegistrationEditProvider } from "@/components/form/RegistratonEditContext";
 import Preview from "@/components/form/Preview";
+import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 
 export default async function RegistrationEditPage({
   params: { clubId },
@@ -32,7 +32,7 @@ export default async function RegistrationEditPage({
             className="flex-auto mx-2 lg:mx-8 shrink-0 mt-2"
           />
           <PreviewFormButton className="ml-6 lg:ml-0" />
-          <SaveFormButton className="ml-2 md:ml-6 xl:ml-12" />
+          <SaveFormButton clubId={+clubId} className="ml-2 md:ml-6 xl:ml-12" />
         </div>
         <Preview
           previewComponent={
@@ -42,10 +42,7 @@ export default async function RegistrationEditPage({
           }
         >
           <PageInfo />
-          <EditClubRegistrationForm
-            clubId={+clubId}
-            initialExtendedFields={extendedFields}
-          />
+          <EditClubRegistrationForm />
         </Preview>
       </RegistrationEditProvider>
     </div>

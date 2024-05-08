@@ -8,4 +8,4 @@ export async function getGalleryImagesForClub(clubId: number) {
     .select()
     .from(imagesSchema)
     .where(eq(imagesSchema.clubId, clubId));
-}
+} 

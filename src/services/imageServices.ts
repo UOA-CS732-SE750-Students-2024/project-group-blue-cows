@@ -15,4 +15,4 @@ export async function removeImageFromGallery(imageId: number){
 
 export async function getAllImagesForClub(clubId: number){
     return getGalleryImagesForClub(clubId);
-}
+} 

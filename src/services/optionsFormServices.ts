@@ -16,7 +16,7 @@ import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 
 // AlexHope I only used this function - you can delete the others and replace with the API in the SaveFormButton component :)
 export async function getAllExtendedFields(
-  clubId: number,
+  clubId: number
 ): Promise<GetExtendedFormFieldDto[]> {
   const extendedFields = await getExtendedFormForClub(clubId);
   return extendedFields.toSorted((a, b) => a.order - b.order);

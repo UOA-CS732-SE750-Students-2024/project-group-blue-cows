@@ -9,3 +9,4 @@ export async function getSocialsForClub(clubId: number) {
     .from(socialsSchema)
     .where(eq(socialsSchema.clubId, clubId));
 }
+ 

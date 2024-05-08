@@ -1,6 +1,6 @@
 import "client-only";
 
-import { toast, Bounce, ToastPosition } from "react-toastify";
+import { Bounce, ToastPosition, toast } from "react-toastify";
 
 const baseOptions = {
   position: "bottom-right" as ToastPosition,
@@ -16,7 +16,7 @@ const baseOptions = {
 
 export const showToastDemo = (message: string) => {
   console.log(message);
-  toast(message, baseOptions);
+  toast(message, { ...baseOptions });
 };
 
 export const toastLoading = () => {
@@ -34,3 +34,12 @@ export const toastError = (message: string) => {
 export const toastSuccess = (message: string) => {
   toast.success(message, { ...baseOptions });
 };
+
+export async function tryOrToast(fn: () => Promise<void> | void) {
+  try {
+    await fn();
+  } catch (error) {
+    const errMsg = error instanceof Error ? error.message : String(error);
+    toastError(errMsg);
+  }
+}
