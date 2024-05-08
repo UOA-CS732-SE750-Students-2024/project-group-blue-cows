@@ -19,8 +19,8 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import ClubEditForm from "@/components/form/club-edit-information";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function AdminEditPage({
   params,
@@ -91,9 +91,9 @@ export default function AdminEditPage({
     <div className="h-[calc(100vh-4rem)] w-full">
       <div className="flex px-10 pt-4 pb-2">
         <div className="w-1/10">
-          <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+          <Button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
             Back
-          </button>
+          </Button>
         </div>
         <div className="w-9/10"></div>
       </div>
@@ -217,44 +217,6 @@ export default function AdminEditPage({
         </div>
       </div>
 
-      {/* Please leave this chunk alone for now */}
-      {/* <div className="flex">
-        <div className="w-1/3 p-4">
-          <Card>
-            <div className="m-5">
-              <p className="text-lg">Membership Count</p>
-              <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
-                <div className="text-center">
-                  <h1 className="text-lg md:text-xl lg:text-2xl">
-                    800
-                    <br />
-                    Registered Members
-                  </h1>
-                </div>
-              </div>
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold p-2 px-4 rounded">
-                View Members
-              </button>
-            </div>
-          </Card>
-        </div>
-        <div className="w-2/3 p-4">
-          <Card>
-            <CardHeader>
-              <p className="text-lg">Membership Statistics</p>
-              <CardDescription>
-                View and/or update the the club registration form, including
-                information and custom fields.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <MembershipDashboard data={membershipData} />
-            </CardContent>
-          </Card>
-        </div>
-      </div> */}
-
-      {/* form */}
       <div className="p-10" id="edit-form">
         <ClubEditForm />
       </div>
