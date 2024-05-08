@@ -8,7 +8,7 @@ export interface Socials {
   tag: string;
   type: string;
 }
-
+ 
 export default pgTable("socials", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
