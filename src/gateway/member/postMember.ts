@@ -1,11 +1,19 @@
 import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../../config/db";
 import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
+import { getMemberForClub } from "./getMemberForClub";
 
 export async function postMember(member: PostMemberDto) {
   try {
-    await db.insert(membershipSchema).values([member]);
+    if (await getMemberForClub(member.user, member.club))
+      throw new Error("membership already exists");
+    return (
+      await db
+        .insert(membershipSchema)
+        .values([member])
+        .returning({ id: membershipSchema.id })
+    ).at(0)?.id;
   } catch (error) {
-    return "Failed to insert membership into database";
+    throw new Error("Failed to insert membership into database");
   }
 }

@@ -6,7 +6,7 @@ import { postExtendedFormField } from "../extendedFormField/postExtendedFormFiel
 import { error } from "console";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 
-// extends the feilds for the club sign up form
+// extends the fields for the club sign up form
 export async function PostClubFormFields(
   formInputs: GetClubFormFieldDto[],
   clubId: number

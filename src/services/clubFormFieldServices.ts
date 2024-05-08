@@ -16,5 +16,5 @@ export async function updateForm(
 }
 
 export async function getAllExtendedFields(clubId: number) {
-  return getClubFormFields(clubId)
+  return getClubFormFields(clubId);
 }
