@@ -31,7 +31,7 @@ import { redirect, useRouter } from "next/navigation";
 import * as z from "zod";
 import { Club } from "@/schemas/clubSchema";
 import { getUser } from "@/services/authServices";
-import { addMember } from "@/services/clubServices";
+import { addMember, fetchMemberForClub } from "@/services/clubServices";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import { notFound } from "next/navigation";
 import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
@@ -94,7 +94,7 @@ export default function ClubRegistrationForm({
   clubFormFields: GetClubFormFieldDto[];
 }) {
   //const [loading, setLoading] = useState(true);
-
+  const [alreadyMember, setAlreadyMember] = useState(false);
   const session = useSession(); // Get the session data
   const user = session.data?.user as AppUser;
   const router = useRouter();
@@ -122,17 +122,18 @@ export default function ClubRegistrationForm({
 
   if (!club) return notFound();
 
-  // TODO - Add a submit handler to post the user to the club membership endpoint HERE
-
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const member: PostMemberDto = {
       club: Number(clubId),
       user: user?.id || "",
       paid: false, // TODO - SEE LUCA FOR PAYMENT INTEGRATION/VALIDATION
       isAdmin: false,
     };
+    const memberData = await fetchMemberForClub(user?.id, Number(clubId));
+    if (memberData) {
+      setAlreadyMember(true);
+      alert("You are already a member of this club.");
+    }
     addMember(member)
       .then(() => {
         const formInputs = Object.entries(values).map(([fieldName, value]) => ({
