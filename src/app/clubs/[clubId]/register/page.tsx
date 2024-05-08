@@ -7,6 +7,7 @@ import { Club } from "@/schemas/clubSchema";
 import { getClubById } from "@/services/clubServices";
 import router, { useRouter } from "next/navigation";
 import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
+import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 
 export default async function Page({
   params: { clubId },
@@ -14,7 +15,7 @@ export default async function Page({
   params: { clubId: string };
 }) {
   const club = await getClubById(+clubId);
-  const clubFormFields = await getClubFormFields(+clubId);
+  const extendedFields = await getAllExtendedFields(+clubId);
 
   if (!club) return null;
 
@@ -41,7 +42,7 @@ export default async function Page({
           <ClubMembershipForm
             clubId={clubId}
             club={club}
-            clubFormFields={clubFormFields}
+            clubFormFields={extendedFields}
           />
         </FormWrapper>
       </div>

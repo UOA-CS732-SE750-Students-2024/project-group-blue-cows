@@ -90,7 +90,7 @@ export default function ClubRegistrationForm({
   clubFormFields: GetClubFormFieldDto[];
 }) {
   //const [loading, setLoading] = useState(true);
-
+  
   const session = useSession(); // Get the session data
   const user = session.data?.user as AppUser;
 
