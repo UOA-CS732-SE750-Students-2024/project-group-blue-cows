@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -18,6 +17,8 @@ import { Button } from "../ui/button";
 import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
 import { updateUser } from "@/services/userServices";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "../ui/loading-spinner";
+import { useEffect } from "react";
 
 // All fields are optional, they are just used to help the user fill in forms
 // the regex allows for blank values, so the user can clear the field if they want
@@ -41,8 +42,8 @@ const formSchema = z.object({
 // Each field will be wrapped with FormField
 export default function ProfileEditForm() {
   const router = useRouter();
-  const { data: sessionData } = useSession(); // Get the session data
-  const user = sessionData?.user as AppUser; // Type assertion for the user
+  const { data, update, status } = useSession(); // Get the session data
+  const user = data?.user as AppUser; // Type assertion for the user
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,6 +64,9 @@ export default function ProfileEditForm() {
 
     // Try to persist the changes to the user profile
     updateUser(updateUserDto)
+      .then(async () => {
+        await update(); // Update the session data
+      })
       .then(() => {
         alert("Profile updated successfully");
         // Redirect to / using the next router
@@ -73,6 +77,22 @@ export default function ProfileEditForm() {
         alert("Failed to update profile");
       });
   };
+
+  // This ensures that the form is reset when the user data is available
+  useEffect(() => {
+    if (status === "authenticated" && user) {
+      // Set form default values once session is authenticated and user data is available
+      form.reset({
+        studentId: user.student_id || "",
+        upi: user.upi || "",
+        yearOfStudy: user.year_of_study ? String(user.year_of_study) : "",
+      });
+    }
+  }, [status, user]);
+
+  if (status === "loading") {
+    return <LoadingSpinner />;
+  }
 
   // Doesn't use the form wrapper so we can maximize page width
   return (
