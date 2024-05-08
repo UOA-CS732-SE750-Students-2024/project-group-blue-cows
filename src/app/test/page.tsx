@@ -29,7 +29,12 @@ import {
   removeAllMembers,
   removeMember,
 } from "@/services/clubServices";
-import { addFormInputs } from "@/services/formFieldInputServices";
+import {
+  addFormInputs,
+  getAllFieldInputsForClub,
+  getAllFieldInputsForUser,
+  getFieldInputForUser,
+} from "@/services/formFieldInputServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -41,12 +46,6 @@ import {
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
-import {
-  addFormInputs,
-  getAllFieldInputsForClub,
-  getAllFieldInputsForUser,
-  getFieldInputForUser,
-} from "@/services/formFieldInputServices";
 import { getAllUsers } from "@/services/userServices";
 import { alert, confirm } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
