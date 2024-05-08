@@ -19,15 +19,19 @@ jobs:
         with:
           node-version: 20
           
-      - name: Create env file
+      - name: Create env File
         run: echo ${{ secrets.BACKEND_ENVFILE }} | base64 --decode > .env
 
       - run: yarn
 
+      - name: Run Unit Tests
+        run: yarn test
+
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
-        
-      - run: yarn build
       
-      - name: Build and Run Playwright tests
+      - name: Build
+        run: yarn build
+      
+      - name: Run Playwright tests
         run: yarn playwright:test
