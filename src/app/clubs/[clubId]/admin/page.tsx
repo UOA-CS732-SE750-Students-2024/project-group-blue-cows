@@ -108,7 +108,6 @@ export default async function AdminEditPage({
     <AdminProvider initialClub = {clubData as Club} >
 
       <div>
-        <p>club.name</p>
       </div>
 
 
