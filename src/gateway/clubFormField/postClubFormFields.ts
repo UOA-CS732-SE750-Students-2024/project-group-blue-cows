@@ -7,28 +7,28 @@ import { postExtendedFormField } from "../extendedFormField/postExtendedFormFiel
 import { error } from "console";
 
 // extends the feilds for the club sign up form
-export async function PostClubFormFields( 
-  formInputs: PostClubFormFieldDto[]
-) {
+export async function postClubFormFields(formInputs: PostClubFormFieldDto[]) {
   try {
-    const clubId = formInputs.at(0)?.clubId
-    if (!clubId) return "ClubId not defined"
-    await deleteClubFormFields(clubId)
+    const clubId = formInputs.at(0)?.clubId;
+    if (!clubId) return "ClubId not defined";
+    await deleteClubFormFields(clubId);
 
-    const formInsert = await Promise.all(formInputs.map(async formInput => { 
-      let fieldId = await getExtendedFormByName(formInput.name)
-      if (!fieldId){
-        fieldId = await postExtendedFormField({name: formInput.name})
-      }
-      if (!fieldId) throw error
-       return {
-        clubId: formInput.clubId, 
-        formFieldId: fieldId.id,
-        order: formInput.order,
-        type: formInput.type,
-        description: formInput.description
-      }
-    }));
+    const formInsert = await Promise.all(
+      formInputs.map(async (formInput) => {
+        let fieldId = await getExtendedFormByName(formInput.name);
+        if (!fieldId) {
+          fieldId = await postExtendedFormField({ name: formInput.name });
+        }
+        if (!fieldId) throw error;
+        return {
+          clubId: formInput.clubId,
+          formFieldId: fieldId.id,
+          order: formInput.order,
+          type: formInput.type,
+          description: formInput.description,
+        };
+      })
+    );
     await db.insert(clubFormFieldSchema).values(formInsert);
   } catch (error) {
     return "Failed to insert clubFormFields into database";
