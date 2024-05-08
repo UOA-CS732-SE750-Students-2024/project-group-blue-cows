@@ -11,8 +11,8 @@ export default async function UserClubsPage() {
   const userName = user.name ?? "guest";
   let userId = user.id;
   if (!userId) userId = "";
-  const dummyAdminClubs = await getListOfClubsForAdmin(userId);
-  const dummyClubs = await getListOfClubsForUser(userId);
+  const adminClubs = await getListOfClubsForAdmin(userId);
+  const clubs = await getListOfClubsForUser(userId);
 
   return (
     <div className="h-[calc(100vh-4rem)] w-full mt-12 bg-customGrass">
@@ -62,13 +62,13 @@ export default async function UserClubsPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row h-auto pt-6 bg-customGrass pb-10">
+        <div className="flex flex-col sm:flex-row h-auto pt-6 pb-10">
           <div className="w-full sm:w-1/2 flex justify-center items-center overflow-hidden">
             <div className="w-5/6 h-auto flex justify-center items-center overflow-hidden">
               <ClubsList
                 listType={"View Clubs"}
-                clubs={dummyClubs}
-                numberOfClubs={dummyClubs.length}
+                clubs={clubs}
+                numberOfClubs={clubs.length}
               />
             </div>
           </div>
@@ -76,8 +76,8 @@ export default async function UserClubsPage() {
             <div className="w-5/6 h-auto flex justify-center items-start overflow-hidden">
               <ClubsList
                 listType={"Manage Clubs"}
-                clubs={dummyAdminClubs}
-                numberOfClubs={dummyAdminClubs.length}
+                clubs={adminClubs}
+                numberOfClubs={adminClubs.length}
               />
             </div>
           </div>

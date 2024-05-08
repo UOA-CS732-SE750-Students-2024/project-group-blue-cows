@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex flex-col h-screen">
+      <body className="flex flex-col h-auto">
         <SessionProvider>
           <NavTop className="h-[4rem]" />
           <div className="flex flex-auto overflow-hidden">
