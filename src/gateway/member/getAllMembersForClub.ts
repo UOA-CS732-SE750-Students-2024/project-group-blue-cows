@@ -6,6 +6,7 @@ import "server-only";
 import { db } from "../../config/db";
 
 export type studentData = {
+  id: string;
   name: string | null;
   email: string;
   upi: string | null;
@@ -28,6 +29,7 @@ export async function getAllMembersForClub(clubId: number) {
   ];
   const membersData = (await db
     .select({
+      id: users.id,
       name: users.name,
       email: users.email,
       upi: users.upi,
