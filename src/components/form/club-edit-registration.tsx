@@ -14,12 +14,17 @@ import {
 
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
-import { SelectContent } from "@radix-ui/react-select";
 import * as z from "zod";
 import { BlueButton, MiniArrowButton, MiniIconButton } from "../misc/buttons";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
-import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+} from "../ui/select";
 
 const formSchema = z.object({});
 
@@ -132,7 +137,7 @@ function Field({
   const { changeField } = editFieldFunctions;
 
   return (
-    <Card className="w-full bg-customLight relative">
+    <Card className="w-full bg-customLight">
       <CardContent className="pt-4">
         <FormField
           control={form.control}
@@ -146,7 +151,7 @@ function Field({
                 <div className="flex gap-2">
                   <FormControl>
                     <Input
-                      className="inline w-1/6"
+                      className="w-1/6"
                       placeholder="New field"
                       type="name"
                       value={field.name}
@@ -188,6 +193,7 @@ function Field({
                       <SelectItem value="long">Long Answer</SelectItem>
                     </SelectContent>
                   </Select>
+
                   <EditButtons
                     index={index}
                     editFieldFunctions={editFieldFunctions}
