@@ -3,18 +3,16 @@ import { PostDataAuthorisationDto } from "@/Dtos/dataAuthorisation/PostDataAutho
 import userDataAuthorisedSchema from "@/schemas/userDataAuthorisedSchema";
 import { getMemberForClub } from "../member/getMemberForClub";
 import { postMember } from "../member/postMember";
+import { getDataAuthorisation } from "./getDataAuthorisation";
 
 export async function postDataAuthorisation(
   dataAuthorisation: PostDataAuthorisationDto
 ) {
   try {
-    console.log("get", dataAuthorisation);
     let membershipId = (
       await getMemberForClub(dataAuthorisation.user, dataAuthorisation.club)
     )?.id;
-    console.log("checkId", membershipId);
     if (!membershipId) {
-      console.log("post", dataAuthorisation);
       membershipId = await postMember({
         club: dataAuthorisation.club,
         user: dataAuthorisation.user,
@@ -23,7 +21,8 @@ export async function postDataAuthorisation(
       });
     }
     if (!membershipId) throw new Error("failed to Post");
-    console.log("insert", membershipId);
+    if (await getDataAuthorisation(membershipId, dataAuthorisation.inputId))
+      throw new Error("data authorisation already exists");
     await db.insert(userDataAuthorisedSchema).values({
       memberId: membershipId,
       formFieldInputId: dataAuthorisation.inputId,

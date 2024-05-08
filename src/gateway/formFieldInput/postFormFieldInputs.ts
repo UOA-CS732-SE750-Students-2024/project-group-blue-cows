@@ -41,8 +41,6 @@ export async function postFormFieldInputs(
         ).at(0);
 
         if (!inputId) throw new Error("failed to create new input data");
-
-        console.log("test" + inputId.id);
         postDataAuthorisation({
           club: clubId,
           user: userId,
