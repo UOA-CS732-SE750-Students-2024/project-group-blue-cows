@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,23 +6,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import React from "react";
 
 interface Club {
+  clubId: number;
   imageUrl: string;
   name: string;
-  memberSince: number;
+  category: string;
 }
 
 interface ClubListItemProps {
   imageUrl: string;
   clubName: string;
-  memberSince: number;
+  category: string;
 }
 
 const ClubListItem: React.FC<ClubListItemProps> = ({
   imageUrl,
   clubName,
-  memberSince,
+  category,
 }) => {
   return (
     <Link href="/">
@@ -37,7 +38,7 @@ const ClubListItem: React.FC<ClubListItemProps> = ({
         </div>
         <div className="w-4/5 pl-4">
           <p className="text-md font-semibold mb-2">{clubName}</p>
-          <p className="text-gray-700 mb-2">Member since {memberSince}</p>
+          <p className="text-gray-700 mb-2">Category: {category}</p>
         </div>
       </div>
     </Link>
@@ -72,7 +73,7 @@ const ClubsList: React.FC<ClubsListProps> = ({
             <ClubListItem
               imageUrl={club.imageUrl}
               clubName={club.name}
-              memberSince={club.memberSince}
+              category={club.category}
             />
           </Card>
         ))}

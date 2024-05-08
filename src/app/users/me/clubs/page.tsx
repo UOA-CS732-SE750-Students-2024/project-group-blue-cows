@@ -1,54 +1,18 @@
 import ClubsList from "@/components/ui/clubs-list";
 import UserNavCard from "@/components/ui/user-nav-card";
+import {
+  getListOfClubsForAdmin,
+  getListOfClubsForUser,
+} from "@/services/clubServices";
 import { getUserAuthentication } from "@/util/auth";
 
-const dummyAdminClubs = [
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-];
-const dummyClubs = [
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
-];
-
 export default async function UserClubsPage() {
-  const userName = (await getUserAuthentication()).name ?? "guest";
+  const user = await getUserAuthentication();
+  const userName = user.name ?? "guest";
+  let userId = user.id;
+  if (!userId) userId = "";
+  const dummyAdminClubs = await getListOfClubsForAdmin(userId);
+  const dummyClubs = await getListOfClubsForUser(userId);
 
   return (
     <div className="h-[calc(100vh-4rem)] w-full mt-12 bg-customGrass">
