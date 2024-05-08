@@ -101,87 +101,90 @@ export default function ProfileEditForm() {
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         {/* disabled and uncontrolled as we're not pushing these fields to the DB*/}
 
-        <div className="flex">
-          <div className="w-3/12 p-5">
-            <img
-              className="mb-2 rounded-lg"
-              src={user.image ? user.image : ""}
-              alt="User Image"
-            />
-            <FormItem>
-              <FormLabel className="font-bold">Name</FormLabel>
-              <Input disabled defaultValue={user?.name || ""} />
-            </FormItem>
-            <FormItem>
-              <FormLabel className="font-bold">Email Address</FormLabel>
-              <Input disabled defaultValue={user?.email || ""} />
-            </FormItem>
-            <Card className="w-full bg-[#FFD166] pt-4 mt-4">
-              <CardContent>
+        <div className="w-full flex">
+          <div className="w-4/12 p-5">
+            <Card className="h-auto w-full p-5">
+              <img
+                className="mb-2 rounded-lg"
+                src={user.image ? user.image : ""}
+                alt="User Image"
+              />
+              <FormItem>
+                <FormLabel className="font-bold">Name</FormLabel>
+                <Input disabled defaultValue={user?.name || ""} />
+              </FormItem>
+              <FormItem>
+                <FormLabel className="font-bold">Email Address</FormLabel>
+                <Input disabled defaultValue={user?.email || ""} />
+              </FormItem>
+              <Card className="w-full bg-[#FFD166] p-4 mt-4">
                 <p className="text-sm">
                   Your name, email and profile picture are managed by your
-                  Google Account. If you need to change these details, please do
-                  so in your Google Account settings.
+                  Google Account.
                 </p>
-              </CardContent>
+              </Card>
             </Card>
           </div>
-          <div className="w-9/12 p-5">
-            <FormField
-              control={form.control}
-              name="studentId"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className="font-bold">Student ID</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. 123456789" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            ></FormField>
-
-            <FormField
-              control={form.control}
-              name="upi"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className="font-bold">UPI</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. jdoe123" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            ></FormField>
-
-            <div className="">
+          <div className="w-8/12 p-5">
+            <Card className="h-auto w-full p-5">
               <FormField
                 control={form.control}
-                name="yearOfStudy"
+                name="studentId"
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="font-bold">Year of Study</FormLabel>
+                      <FormLabel className="font-bold">Student ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. 1" {...field} />
+                        <Input placeholder="e.g. 123456789" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   );
                 }}
               ></FormField>
-              <Button
-                type="submit"
-                className="w-full mt-4 bg-[#087DF1] color-white uppercase"
-              >
-                Save Profile
-              </Button>
-            </div>
+
+              <FormField
+                control={form.control}
+                name="upi"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="font-bold">UPI</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. jdoe123" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              ></FormField>
+
+              <div className="">
+                <FormField
+                  control={form.control}
+                  name="yearOfStudy"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className="font-bold">
+                          Year of Study
+                        </FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g. 1" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                ></FormField>
+                <Button
+                  type="submit"
+                  className="w-full mt-4 bg-[#087DF1] color-white uppercase"
+                >
+                  Save Profile
+                </Button>
+              </div>
+            </Card>
           </div>
         </div>
       </form>
