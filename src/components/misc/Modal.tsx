@@ -20,6 +20,10 @@ export function Modal() {
   setState = setStateTemp;
   const setOpen = (open: boolean) => {
     setState({ open, title, content });
+    if (!open) {
+      resolve(null);
+      resolve = defaultResolve;
+    }
   };
 
   return (
@@ -46,6 +50,17 @@ interface OpenModalProps {
   className?: string;
 }
 
-export const openModal = ({ title, content, className }: OpenModalProps) => {
+const defaultResolve: (value: unknown) => void = () => {
+  throw new Error("Modal not initialized");
+};
+
+let resolve: (value: unknown) => void = defaultResolve;
+
+export const openModal = async ({
+  title,
+  content,
+  className,
+}: OpenModalProps) => {
   setState({ open: true, title, content, className });
+  return new Promise((res) => (resolve = res));
 };
