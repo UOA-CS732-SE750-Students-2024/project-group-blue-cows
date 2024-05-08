@@ -42,7 +42,6 @@ import { getUser } from "@/services/authServices";
 import LoadingSpinner from "../ui/loading-spinner";
 import { Session } from "next-auth";
 import { getExtendedFormForClub } from "@/gateway/extendedFormField/getExtendedFormForClub";
-import { FormExtension } from "@/schemas/extendedFormFieldSchema";
 import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedFormFieldDto";
 import { getAllExtendedFields } from "@/services/optionsFormServices";
 import { get } from "http";
