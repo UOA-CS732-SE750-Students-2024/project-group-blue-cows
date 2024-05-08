@@ -5,12 +5,13 @@ import {
   getListOfClubsForUser,
 } from "@/services/clubServices";
 import { getUserAuthentication } from "@/util/auth";
+import { notFound } from "next/navigation";
 
 export default async function UserClubsPage() {
   const user = await getUserAuthentication();
   const userName = user.name ?? "guest";
   let userId = user.id;
-  if (!userId) userId = "";
+  if (!userId) return notFound();
   const dummyAdminClubs = await getListOfClubsForAdmin(userId);
   const dummyClubs = await getListOfClubsForUser(userId);
 
