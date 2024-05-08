@@ -14,12 +14,17 @@ import {
 
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
-import { SelectContent } from "@radix-ui/react-select";
 import * as z from "zod";
 import { BlueButton, MiniArrowButton, MiniIconButton } from "../misc/buttons";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
-import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const formSchema = z.object({});
 
