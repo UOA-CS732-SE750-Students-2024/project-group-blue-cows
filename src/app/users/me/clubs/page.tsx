@@ -89,7 +89,7 @@ export default async function UserClubsPage() {
           <div className="w-full sm:w-1/4 flex justify-center items-center mr-10">
             <div className="w-5/6 h-3/4 flex justify-center items-center">
               <UserNavCard
-                navigationLink="/create-club"
+                navigationLink="/clubs/new"
                 imageUrl="/register-clubs.png"
                 imageAlt="Register Clubs Image"
                 textContent="Can’t find the right club for you? Register your own!"
