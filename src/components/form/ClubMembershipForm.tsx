@@ -1,7 +1,6 @@
-"use client"; // to get react to know it's a client compponent
-
+"use client";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getClubById, postClub } from "@/services/clubServices";
 import {
@@ -50,6 +49,7 @@ import { get } from "http";
 import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
+import { notFound } from "next/navigation";
 
 const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
@@ -83,43 +83,23 @@ const createFormSchema = (
   return z.object(schema);
 };
 
-async function fetchFields(
-  clubId: number,
-  setClubFormFields: (fields: GetClubFormFieldDto[]) => void,
-  setLoading: (loading: boolean) => void
-) {
-  console.log("fetchFields start");
-  try {
-    console.log("fetching fields");
-    const fields = await getClubFormFields(clubId);
-    setClubFormFields(fields);
-    console.log("fields:", fields);
-    setLoading(false);
-  } catch (error) {
-    console.error("Error fetching club form fields:", error);
-  }
-}
 export default function ClubRegistrationForm({
-  params,
+  clubId,
+  club,
+  clubFormFields,
 }: {
-  params: { clubId: string };
+  clubId: string;
+  club: Club;
+  clubFormFields: GetClubFormFieldDto[];
 }) {
-  const [loading, setLoading] = useState(true);
-  console.log("params:", params);
+  //const [loading, setLoading] = useState(true);
+
   const session = useSession(); // Get the session data
   const user = session.data?.user as AppUser;
-  const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
-  const [clubFormFields, setClubFormFields] = useState<GetClubFormFieldDto[]>(
-    []
-  );
+
+  if (!club) return notFound();
+
   console.log("clubFormFields:", clubFormFields);
-  console.log("params.clubId:", Number(params.clubId));
-
-  useEffect(() => {
-    console.log("fetch fields");
-    fetchFields(Number(params.clubId), setClubFormFields, setLoading);
-  }, [params.clubId, setClubFormFields, setLoading]);
-
   useEffect(() => {
     if (user) {
       form.setValue("name", user.name || "");
@@ -130,7 +110,7 @@ export default function ClubRegistrationForm({
     }
   }, [user]);
   const formSchema = createFormSchema(clubFormFields);
-
+  console.log("formSchema:", formSchema);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -141,10 +121,10 @@ export default function ClubRegistrationForm({
       yearLevel: 0,
     },
   });
-
-  if (loading || !user) {
-    return <LoadingSpinner />;
-  }
+  console.log("form:", form);
+  // if (loading || !user) {
+  //   return <LoadingSpinner />;
+  // }
 
   // TODO - Add a submit handler to post the user to the club membership endpoint HERE
 
@@ -295,7 +275,7 @@ export default function ClubRegistrationForm({
             }}
           />
 
-          <DynamicFields extendedForm={clubFormFields} form={form} />
+          <AdditionalFormFields clubFormFields={clubFormFields} form={form} />
         </div>
 
         <Button
@@ -309,43 +289,46 @@ export default function ClubRegistrationForm({
   );
 }
 
-type DynamicFieldsProps = {
-  extendedForm: GetClubFormFieldDto[];
-  form: ReturnType<typeof useForm>;
-};
+interface AdditionalFormFieldsProps {
+  clubFormFields: GetClubFormFieldDto[];
+  form: UseFormReturn<any, any, undefined>; // replace with the correct type
+}
 
-const DynamicFields: React.FC<DynamicFieldsProps> = ({
-  extendedForm,
+const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
+  clubFormFields,
   form,
 }) => {
   return (
     <>
-      {extendedForm.map((formExtension) => (
+      {clubFormFields.map((field) => (
         <FormField
-          key={formExtension.name}
+          key={field.name}
           control={form.control}
-          name={formExtension.name}
-          rules={{ required: `${formExtension.name} is required` }}
-          render={({ field }) => (
+          name={field.name}
+          rules={{ required: `${field.name} is required` }}
+          render={({ field: formField }) => (
             <FormItem>
-              <FormLabel className="font-bold">{formExtension.name}</FormLabel>
+              <FormLabel className="font-bold">{field.name}</FormLabel>
               <FormControl>
-                {formExtension.type === "string" && (
-                  <Input
-                    placeholder={`Enter ${formExtension.name}`}
-                    {...field}
-                  />
-                )}
-                {formExtension.type === "number" && (
-                  <Input
-                    type="number"
-                    placeholder={`Enter ${formExtension.name}`}
-                    {...field}
-                  />
-                )}
-                {/* Add more conditions here for other types of fields */}
+                <div>
+                  {field.type === "string" && (
+                    <Input
+                      placeholder={`Enter ${field.name}`}
+                      {...formField}
+                      defaultValue={formField.value}
+                    />
+                  )}
+                  {field.type === "number" && (
+                    <Input
+                      type="number"
+                      placeholder={`Enter ${field.name}`}
+                      {...formField}
+                      defaultValue={formField.value}
+                    />
+                  )}
+                </div>
               </FormControl>
-              {formExtension.description && <p>{formExtension.description}</p>}
+              {field.description && <p>{field.description}</p>}
               <FormMessage />
             </FormItem>
           )}
