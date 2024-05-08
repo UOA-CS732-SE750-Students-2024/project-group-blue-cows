@@ -38,3 +38,17 @@ export function combineMembersData(
 
   return combinedData;
 }
+
+export function extractFieldNames(inputsList: GetInputsForClubDto[]): string[] {
+  const fieldNames: string[] = [];
+
+  inputsList.forEach((inputs) => {
+    inputs.formFieldInputs.forEach((input) => {
+      if (!fieldNames.includes(input.fieldName)) {
+        fieldNames.push(input.fieldName);
+      }
+    });
+  });
+
+  return fieldNames;
+}
