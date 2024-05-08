@@ -43,3 +43,30 @@ export function extractFieldNames(inputsList: GetInputsForClubDto[]): string[] {
 
   return fieldNames;
 }
+
+export const mapToObject = (data: studentFullData): any => {
+  const {
+    name,
+    email,
+    upi,
+    year_of_study,
+    student_id,
+    paid,
+    isAdmin,
+    formFieldInputs,
+  } = data;
+  const result: any = {
+    name,
+    email,
+    upi,
+    year_of_study,
+    student_id,
+    paid,
+    isAdmin,
+  };
+
+  for (const input of formFieldInputs) {
+    result[input.fieldName] = input.value;
+  }
+  return [result];
+};
