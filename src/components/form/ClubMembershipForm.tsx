@@ -43,7 +43,6 @@ import LoadingSpinner from "../ui/loading-spinner";
 import { Session } from "next-auth";
 import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedFormFieldDto";
 import { get } from "http";
-import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
 import { notFound } from "next/navigation";
