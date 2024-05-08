@@ -7,3 +7,4 @@ test("signing in redirects you properly", async ({ page }) => {
     "To continue, Google will share your name, email address, language preference, and profile picture with SOFTENG 750 Blue Cows."
   );
 });
+
