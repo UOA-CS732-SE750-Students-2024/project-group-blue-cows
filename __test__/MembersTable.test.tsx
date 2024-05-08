@@ -7,7 +7,7 @@ const membersData = [
   {
     name: "Tristan Mona",
     email: "tmon261@aucklanduni.ac.nz",
-    upi: "ghi",
+    upi: "tmon261",
     year_of_study: 4,
     student_id: "ghi",
     paid: false,
@@ -25,7 +25,6 @@ const membersData = [
 ];
 
 beforeEach(() => {
-  jest.clearAllMocks();
   render(
     <MemberPageContextProvider initialMembers={membersData}>
       <MembersTable />
@@ -33,10 +32,36 @@ beforeEach(() => {
   );
 });
 
-test("it renders input fields", () => {
-  const nameInputFields = screen.getByPlaceholderText("Filter by name...");
-  expect(nameInputFields).toBeInTheDocument();
+test("it renders input fields and typed values", () => {
+  const nameInputField = screen.getByPlaceholderText("Filter by name...");
+  expect(nameInputField).toBeInTheDocument();
+  fireEvent.change(nameInputField, { target: { value: "Alex" } });
+  expect(nameInputField).toHaveValue("Alex");
 
-  const upiInputFields = screen.getByPlaceholderText("Filter by UPI...");
-  expect(upiInputFields).toBeInTheDocument();
+  const upiInputField = screen.getByPlaceholderText("Filter by UPI...");
+  expect(upiInputField).toBeInTheDocument();
+  fireEvent.change(upiInputField, { target: { value: "tmon261" } });
+  expect(upiInputField).toHaveValue("tmon261");
+});
+
+test("data table shows correct value when searched by name", () => {
+  const nameInputField = screen.getByPlaceholderText("Filter by name...");
+  fireEvent.change(nameInputField, { target: { value: "Alex" } });
+
+  const name = screen.getByText("Alex Hope");
+  expect(name).toBeInTheDocument();
+
+  const notName = screen.queryByText("Tristan Mona");
+  expect(notName).toBeNull();
+});
+
+test("data table shows correct value when searched by upi", () => {
+  const nameInputField = screen.getByPlaceholderText("Filter by UPI...");
+  fireEvent.change(nameInputField, { target: { value: "tmon261" } });
+
+  const name = screen.getByText("Tristan Mona");
+  expect(name).toBeInTheDocument();
+
+  const notName = screen.queryByText("Alex Hope");
+  expect(notName).toBeNull();
 });
