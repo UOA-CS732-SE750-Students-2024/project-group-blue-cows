@@ -26,7 +26,7 @@ import {
 import { UploadButton } from "@/util/uploadThingUtils";
 import { AppUser, users } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import * as z from "zod";
 import { Club } from "@/schemas/clubSchema";
@@ -97,7 +97,7 @@ export default function ClubRegistrationForm({
 
   const session = useSession(); // Get the session data
   const user = session.data?.user as AppUser;
-
+  const router = useRouter();
   const formSchema = createFormSchema(clubFormFields);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -146,7 +146,7 @@ export default function ClubRegistrationForm({
             alert("Membership added successfully");
           })
           .then(() => {
-            window.location.href = `/clubs/${clubId}/view`;
+            router.back();
           })
           .catch((error) => {
             console.error("Error posting form inputs: ", error);
