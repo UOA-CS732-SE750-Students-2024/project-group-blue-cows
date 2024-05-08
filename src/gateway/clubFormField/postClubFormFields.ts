@@ -1,10 +1,11 @@
-import { db } from "../../config/db";
+import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import clubFormFieldSchema from "@/schemas/clubFormFieldSchema";
-import { deleteClubFormFields } from "./deleteClubFormFields";
+import { error } from "console";
+import "server-only";
+import { db } from "../../config/db";
 import { getExtendedFormByName } from "../extendedFormField/getExtendedFormByName";
 import { postExtendedFormField } from "../extendedFormField/postExtendedFormField";
-import { error } from "console";
-import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
+import { deleteClubFormFields } from "./deleteClubFormFields";
 
 // extends the fields for the club sign up form
 export async function PostClubFormFields(

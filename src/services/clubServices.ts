@@ -1,21 +1,23 @@
 "use server";
-import "server-only";
-import { postClubEntity } from "@/gateway/club/postClub";
-import { getAllMembersForClub } from "@/gateway/member/getAllMembersForClub";
-import { postMember } from "@/gateway/member/postMember";
-import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
-import { putMember } from "@/gateway/member/putMember";
-import { getClubs } from "@/gateway/club/getClubs";
 import { CreateClubDto } from "@/Dtos/club/CreateClubDto";
 import { UpdateClubDto } from "@/Dtos/club/UpdateClubDto";
-import { AppUser } from "@/schemas/authSchema";
+import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
 import { PutMemberDto } from "@/Dtos/member/PutMemberDto";
 import { getClub } from "@/gateway/club/getClub";
+import { getClubs } from "@/gateway/club/getClubs";
+import { postClubEntity } from "@/gateway/club/postClub";
 import { putClub } from "@/gateway/club/putClub";
+import { deleteAllMembers } from "@/gateway/member/deleteAllMembers";
+import { deleteMember } from "@/gateway/member/deleteMember";
+import { getAllMembersForClub } from "@/gateway/member/getAllMembersForClub";
 import { getMemberForClub } from "@/gateway/member/getMemberForClub";
-import { revalidatePath } from "next/cache";
+import { postMember } from "@/gateway/member/postMember";
+import { postMembersData } from "@/gateway/member/postMembersData";
+import { putMember } from "@/gateway/member/putMember";
+import { AppUser } from "@/schemas/authSchema";
 import { studentAllData } from "@/util/csvUtils";
-import { postMembersData } from "@/gateway/postMembersData";
+import { revalidatePath } from "next/cache";
+import "server-only";
 
 export async function postClub(club: CreateClubDto, user: AppUser) {
   // All this does is proxy the gateway request, a real service may do the same or more advanced logic
@@ -41,9 +43,17 @@ export async function addMember(member: PostMemberDto) {
 export async function updateMember(
   clubId: number,
   userId: string,
-  membership: PutMemberDto,
+  membership: PutMemberDto
 ) {
   return await putMember(clubId, userId, membership);
+}
+
+export async function removeMember(clubId: number, userId: string) {
+  return await deleteMember(clubId, userId);
+}
+
+export async function removeAllMembers(clubId: number) {
+  return await deleteAllMembers(clubId);
 }
 
 export async function getClubById(clubID: number) {
@@ -52,7 +62,7 @@ export async function getClubById(clubID: number) {
 
 export async function importClubMembers(
   clubId: number,
-  memberData: studentAllData[],
+  memberData: studentAllData[]
 ) {
   revalidatePath(`clubs/${clubId}/members`);
   return await postMembersData(clubId, memberData);

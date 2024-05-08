@@ -22,7 +22,19 @@ import {
   getAllExtendedFields,
   updateForm,
 } from "@/services/clubFormFieldServices";
-import { getAllMembers, postClub } from "@/services/clubServices";
+import {
+  addMember,
+  getAllMembers,
+  postClub,
+  removeAllMembers,
+  removeMember,
+} from "@/services/clubServices";
+import {
+  addFormInputs,
+  getAllFieldInputsForClub,
+  getAllFieldInputsForUser,
+  getFieldInputForUser,
+} from "@/services/formFieldInputServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -34,12 +46,6 @@ import {
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
-import {
-  addFormInputs,
-  getAllFieldInputsForClub,
-  getAllFieldInputsForUser,
-  getFieldInputForUser,
-} from "@/services/formFieldInputServices";
 import { getAllUsers } from "@/services/userServices";
 import { alert, confirm } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
@@ -105,6 +111,26 @@ export default function TestPage() {
         Post Club
       </Button>
       {/* <Button
+        onClick={() =>
+          addMember({
+            club: 1,
+            user: "a6574eb8-7764-4198-b2b4-280cf0190669",
+            paid: false,
+            isAdmin: false,
+          })
+        }
+      >
+        leave Club
+      </Button>
+      <Button
+        onClick={() => removeMember(1, "a6574eb8-7764-4198-b2b4-280cf0190669")}
+      >
+        leave Club
+      </Button>
+      <Button onClick={() => removeAllMembers(1)}>
+        remove all users from club
+      </Button>
+      <Button
         onClick={() =>
           updateForm(
             [
