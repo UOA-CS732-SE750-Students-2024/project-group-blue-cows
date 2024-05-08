@@ -1,23 +1,19 @@
 import { db } from "@/config/db";
+import { STRIPE_SECRET_KEY } from "@/config/env";
 import { AppUser } from "@/schemas/authSchema";
 import clubSchema, { Club } from "@/schemas/clubSchema";
 import membershipSchema, { Membership } from "@/schemas/membershipSchema";
 import { auth } from "@/util/auth";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
-
-// Import the Stripe library
 import Stripe from "stripe";
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("Stripe secret key not found in environment variables.");
-}
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 // We don't want to cache this route
 export const dynamic = "force-dynamic";
 
-// GET /api/payment/[membershipId]/checkout
+// GET /payment/[membershipId]/checkout
 // Get the Stripe checkout URL for a membership
 export async function GET(
   request: Request,
@@ -103,7 +99,7 @@ export async function GET(
     customer_email: user.email,
     line_items: [
       {
-        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+        // each item represents a product in the cart
         price_data: {
           currency: "NZD",
           product_data: {
