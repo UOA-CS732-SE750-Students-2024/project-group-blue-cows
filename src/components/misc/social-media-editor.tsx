@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import { Socials } from '@/schemas/socialsSchema';
 import { updateSocialLink, addSocialLink, removeSocialLink } from '@/services/socialsServices';
+import { useAdmin } from '../admin/AdminPageContext';
 
 interface SocialMediaEditorProps {
   socials: Socials[];
@@ -11,14 +12,19 @@ interface SocialMediaEditorProps {
 
 const defaultSocialTypes = ['facebook', 'instagram', 'discord', 'web'];
 
-const SocialMediaEditor: React.FC<SocialMediaEditorProps> = ({ socials }) => {
+const SocialMediaEditor: React.FC<SocialMediaEditorProps> = () => {
+
+    const state = useAdmin();
+    
   // Initialize state with existing socials
-  const [socialLinks, setSocialLinks] = useState<{ [type: string]: Socials }>(
-    defaultSocialTypes.reduce((acc, type) => {
-      acc[type] = socials.find(s => s.type === type) || { id: -1, clubId: -1, link: '', tag: '', type: type };
-      return acc;
-    }, {} as { [type: string]: Socials })
-  );
+//   const [socialLinks, setSocialLinks] = useState<{ [type: string]: Socials }>(
+//     defaultSocialTypes.reduce((acc, type) => {
+//       acc[type] = socials.find(s => s.type === type) || { id: -1, clubId: -1, link: '', tag: '', type: type };
+//       return acc;
+//     }, {} as { [type: string]: Socials })
+//   );
+
+
 
   const handleLinkChange = (type: string, value: string) => {
     setSocialLinks({
