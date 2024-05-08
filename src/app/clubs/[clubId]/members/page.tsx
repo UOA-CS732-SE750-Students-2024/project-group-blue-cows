@@ -1,14 +1,15 @@
 import MembersTable from "@/components/members/MembersTable";
-import { getAllMembers, getClubById } from "@/services/clubServices";
-import { notFound } from "next/navigation";
-import { MemberPageContextProvider } from "../../../../components/members/MemberPageContext";
-import Link from "next/link";
 import {
+  DeleteButton,
   ExportButton,
   ImportButton,
   MembersPageBack,
 } from "@/components/members/membersPageClientComponents";
 import { Club } from "@/schemas/clubSchema";
+import { getAllMembers, getClubById } from "@/services/clubServices";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { MemberPageContextProvider } from "../../../../components/members/MemberPageContext";
 
 export default async function MembersPage({
   params: { clubId },
@@ -35,6 +36,7 @@ export default async function MembersPage({
           />
           <ImportButton club={club} className="ml-6 lg:ml-0" />
           <ExportButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
+          <DeleteButton club={club} className="ml-2 md:ml-6 xl:ml-12" />
         </div>
         <MembersTable />
       </MemberPageContextProvider>
