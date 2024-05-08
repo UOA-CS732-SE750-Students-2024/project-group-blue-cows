@@ -22,15 +22,17 @@ function getRedirectUrl(
   membershipId?: string
 ): string {
   const baseUrl = new URL(absoluteUrl(request).origin);
+  baseUrl.pathname = "/payment/result";
   switch (status) {
     case PaymentOutcome.SUCCESS:
       baseUrl.searchParams.set("status", "success");
+      break;
     case PaymentOutcome.ERROR:
       baseUrl.searchParams.set("status", "error");
   }
 
   if (clubName) {
-    baseUrl.searchParams.set("club", clubName);
+    baseUrl.searchParams.set("clubName", clubName);
   }
   if (membershipId) {
     baseUrl.searchParams.set("membershipId", membershipId);

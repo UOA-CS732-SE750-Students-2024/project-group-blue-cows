@@ -1,14 +1,17 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function PaymentResultPage() {
   // Styled payment result page
   // Grab the query params from the URL - should contain the payment status, message and optionally the club name and membership ID
-  const urlParams = new URLSearchParams(window.location.search);
-  const status = urlParams.get("status");
-  const message = urlParams.get("message");
-  const clubName = urlParams.get("club");
-  const membershipId = urlParams.get("membershipId");
+
+  const searchParams = useSearchParams();
+  const status = searchParams.get("status");
+  const message = searchParams.get("message");
+  const clubName = searchParams.get("clubName");
+  const membershipId = searchParams.get("membershipId");
 
   if (status === "success") {
     return (
