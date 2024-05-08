@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getClubById, postClub } from "@/services/clubServices";
 import {
   Card,
   CardContent,
@@ -15,13 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from "@/components/ui/select";
 import {
   Form,
   FormField,
@@ -36,17 +28,13 @@ import { AppUser, users } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
 
 import * as z from "zod";
-import { postMember } from "@/gateway/member/postMember";
 import { Club } from "@/schemas/clubSchema";
 import { getUser } from "@/services/authServices";
-import LoadingSpinner from "../ui/loading-spinner";
-import { Session } from "next-auth";
-import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedFormFieldDto";
-import { get } from "http";
-import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
+import { addMember } from "@/services/clubServices";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
-import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
 import { notFound } from "next/navigation";
+import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
+import { addFormInputs } from "@/services/formFieldInputServices";
 
 const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
@@ -135,23 +123,39 @@ export default function ClubRegistrationForm({
 
   // TODO - Add a submit handler to post the user to the club membership endpoint HERE
 
-  // const handleSubmit = (values: z.infer<typeof formSchema>) => {
-  //   console.log(values);
-  //   postMember(user)
-  //     .then(() => {
-  //       form.reset(); // Reset form fields after successful submission
-  //     })
-  //     .catch((error) => {
-  //       console.error("Submission error:", error);
-  //     });
-  // };
+  const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
 
-  // form.watch("category");
+    const member: PostMemberDto = {
+      club: Number(clubId),
+      user: user?.id || "",
+      paid: false, // TODO - SEE LUCA FOR PAYMENT INTEGRATION/VALIDATION
+      isAdmin: false,
+    };
+    addMember(member)
+    .then(() => {
+
+      const formInputs = Object.entries(values).map(([fieldName, value]) => ({
+        fieldName,
+        value: String(value),
+      }));
+
+      addFormInputs(formInputs, Number(clubId), user?.id || "")
+        .then(() => {
+          form.reset(); // Reset form fields after successful submission
+        })
+        .catch((error) => {
+          console.error("Error posting form inputs: ", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Submission error: ", error);
+    });
 
   return (
     <Form {...form}>
       <form
-        // onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(handleSubmit)}
         className="w-full flex flex-col gap-4"
       >
         <Card className="w-full bg-[#FFD166]">
