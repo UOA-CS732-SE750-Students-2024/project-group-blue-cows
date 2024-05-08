@@ -19,18 +19,16 @@ import {
 import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import {
+  getAllExtendedFields,
+  updateForm,
+} from "@/services/clubFormFieldServices";
+import {
   addMember,
   getAllMembers,
   postClub,
   removeAllMembers,
   removeMember,
 } from "@/services/clubServices";
-import { User } from "next-auth";
-import {
-  getAllExtendedFields,
-  updateForm,
-} from "@/services/clubFormFieldServices";
-import { getAllMembers, postClub } from "@/services/clubServices";
 import { addFormInputs } from "@/services/formFieldInputServices";
 import {
   addImageToGallery,
