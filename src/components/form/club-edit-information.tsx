@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { getAllSocialsForClub } from "@/services/socialsServices";
+import SocialLinks from "../misc/social-links";
 
 import {
   SelectValue,
@@ -235,7 +236,8 @@ export default function ClubEditForm({ clubId }) {
           <div className="w-1/3 p-4">
             <Card className="p-2">
               <p>SOCIAL MEDIA LINKS</p>
-              <div className="flex items-center p-1 rounded-md">
+              <SocialLinks socials={socials} />
+              {/* <div className="flex items-center p-1 rounded-md">
                 <div className="w-10%">
                   <img
                     src="/copy-icon.svg"
@@ -270,7 +272,7 @@ export default function ClubEditForm({ clubId }) {
                 <div className="w-90% ">
                   <p className="text-xs">Social Media Link 3</p>
                 </div>
-              </div>
+              </div> */}
             </Card>
           </div>
           <div className="w-2/3 p-4">
