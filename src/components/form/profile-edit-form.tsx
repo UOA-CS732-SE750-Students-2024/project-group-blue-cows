@@ -19,6 +19,8 @@ import { updateUser } from "@/services/userServices";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "../ui/loading-spinner";
 import { useEffect } from "react";
+import ProfileHeader from "../profile/ProfileHeader";
+import { Card, CardContent } from "../ui/card";
 
 // All fields are optional, they are just used to help the user fill in forms
 // the regex allows for blank values, so the user can clear the field if they want
@@ -94,35 +96,37 @@ export default function ProfileEditForm() {
     return <LoadingSpinner />;
   }
 
-  // Doesn't use the form wrapper so we can maximize page width
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         {/* disabled and uncontrolled as we're not pushing these fields to the DB*/}
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid-item">
+        <div className="flex">
+          <div className="w-3/12 bg-gray-200 p-5">
+            <img
+              className="mb-2"
+              src={user.image ? user.image : ""}
+              alt="User Image"
+            />
             <FormItem>
               <FormLabel className="font-bold">Name</FormLabel>
               <Input disabled defaultValue={user?.name || ""} />
             </FormItem>
-          </div>
-
-          <div className="grid-item">
             <FormItem>
               <FormLabel className="font-bold">Email Address</FormLabel>
               <Input disabled defaultValue={user?.email || ""} />
             </FormItem>
+            <Card className="w-full bg-[#FFD166] pt-4 mb-4">
+              <CardContent>
+                <p>
+                  Your name, email and profile picture are managed by your
+                  Google Account. If you need to change these details, please do
+                  so in your Google Account settings.
+                </p>
+              </CardContent>
+            </Card>
           </div>
-
-          <div className="grid-item">
-            <FormItem>
-              <FormLabel className="font-bold">Profile Picture</FormLabel>
-              <Input disabled type="file" />
-            </FormItem>
-          </div>
-
-          <div className="grid-item">
+          <div className="w-9/12 bg-gray-400 p-5">
             <FormField
               control={form.control}
               name="studentId"
@@ -138,9 +142,7 @@ export default function ProfileEditForm() {
                 );
               }}
             ></FormField>
-          </div>
 
-          <div className="grid-item">
             <FormField
               control={form.control}
               name="upi"
@@ -156,34 +158,31 @@ export default function ProfileEditForm() {
                 );
               }}
             ></FormField>
-          </div>
 
-          <div className="grid-item">
-            <FormField
-              control={form.control}
-              name="yearOfStudy"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className="font-bold">Year of Study</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. 1" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            ></FormField>
+            <div className="">
+              <FormField
+                control={form.control}
+                name="yearOfStudy"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="font-bold">Year of Study</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. 1" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              ></FormField>
+              <Button
+                type="submit"
+                className="w-full bg-[#087DF1] color-white uppercase"
+              >
+                Save Profile
+              </Button>
+            </div>
           </div>
-        </div>
-
-        <div className="mt-4 text-right">
-          <Button
-            type="submit"
-            className="w-full bg-[#087DF1] color-white uppercase"
-          >
-            Save Profile
-          </Button>
         </div>
       </form>
     </Form>

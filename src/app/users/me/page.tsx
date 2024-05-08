@@ -20,12 +20,8 @@ export default async function ProfilePage() {
         subtitle="Which clubs can see this data?"
         href="/users/me/clubs"
       />
-      <div className="mt-2">
-        <ProfileHeader />
-      </div>
-      <div className="my-2 pb-8">
-        <ProfileEditForm />
-      </div>
+
+      <ProfileEditForm />
     </main>
   );
 }
