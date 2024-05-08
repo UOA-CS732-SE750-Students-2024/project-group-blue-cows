@@ -1,7 +1,7 @@
 "use server";
-import "server-only";
-import { postFormFieldInputs } from "@/gateway/formFieldInput/postFormFieldInputs";
 import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
+import { postFormFieldInputs } from "@/gateway/formFieldInput/postFormFieldInputs";
+import "server-only";
 
 export async function addFormInputs(
   formInputs: PostFormFieldInputDto[],

@@ -1,6 +1,7 @@
 import membershipSchema from "@/schemas/membershipSchema";
-import { db } from "../../config/db";
 import { and, eq } from "drizzle-orm";
+import "server-only";
+import { db } from "../../config/db";
 
 export async function deleteMember(clubId: number, userId: string) {
   try {

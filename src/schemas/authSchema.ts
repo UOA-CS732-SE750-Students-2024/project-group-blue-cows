@@ -1,14 +1,14 @@
 // This file is based off Auth.js's recommended schemas (they can be found at https://authjs.dev/getting-started/adapters/drizzle)
+import { randomUUID } from "crypto";
 import {
-  timestamp,
-  pgTable,
-  text,
-  primaryKey,
   index,
   integer,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
-import { randomUUID } from "crypto";
 
 // This is the user type, it is important to keep it in sync with the user schema in the authentication adapter
 // It is called AppUser to differentiate it from the User type define in Auth.js

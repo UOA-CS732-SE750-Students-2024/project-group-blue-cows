@@ -1,7 +1,8 @@
 import membershipSchema from "@/schemas/membershipSchema";
-import { db } from "../../config/db";
+import { getUserAuthentication } from "@/util/auth";
 import { and, eq, ne } from "drizzle-orm";
-import { auth, getUserAuthentication } from "@/util/auth";
+import "server-only";
+import { db } from "../../config/db";
 import { getMemberForClub } from "./getMemberForClub";
 
 export async function deleteAllMembers(clubId: number) {
