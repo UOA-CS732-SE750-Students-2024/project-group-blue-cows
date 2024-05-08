@@ -1,6 +1,4 @@
-import membershipSchema from "@/schemas/membershipSchema";
 import { db } from "../../config/db";
-import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
 import { PostDataAuthorisationDto } from "@/Dtos/dataAuthorisation/PostDataAuthorisationDto";
 import userDataAuthorisedSchema from "@/schemas/userDataAuthorisedSchema";
 import { getMemberForClub } from "../member/getMemberForClub";
@@ -10,20 +8,24 @@ export async function postDataAuthorisation(
   dataAuthorisation: PostDataAuthorisationDto
 ) {
   try {
-    let membership = (
+    console.log("get", dataAuthorisation);
+    let membershipId = (
       await getMemberForClub(dataAuthorisation.user, dataAuthorisation.club)
     )?.id;
-    if (!membership) {
-      membership = await postMember({
+    console.log("checkId", membershipId);
+    if (!membershipId) {
+      console.log("post", dataAuthorisation);
+      membershipId = await postMember({
         club: dataAuthorisation.club,
         user: dataAuthorisation.user,
         paid: false,
         isAdmin: false,
       });
     }
-    if (!membership) throw new Error("failed to Post");
+    if (!membershipId) throw new Error("failed to Post");
+    console.log("insert", membershipId);
     await db.insert(userDataAuthorisedSchema).values({
-      memberId: membership,
+      memberId: membershipId,
       formFieldInputId: dataAuthorisation.inputId,
     });
   } catch (error) {

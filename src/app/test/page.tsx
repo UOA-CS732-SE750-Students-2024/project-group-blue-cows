@@ -181,7 +181,7 @@ export default function TestPage() {
         onClick={() =>
           addFormInputs(
             [
-              { fieldName: "favourite-colour", value: "green" },
+              { fieldName: "favourite-colour", value: "red" },
               { fieldName: "favourite-animal", value: "bear" },
               { fieldName: "favourite-drink", value: "fanta" },
             ],
