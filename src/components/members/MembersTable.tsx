@@ -20,10 +20,16 @@ export interface MemberTableProps {
   headers: string[];
 }
 
+const prettifyString = (inputString: string): string => {
+  return inputString
+    .replace(/_/g, " ")
+    .replace(/(?:^|\s)\S/g, (match) => match.toUpperCase());
+};
+
 export default function MembersTable({ headers }: MemberTableProps) {
-  const columns: ColumnDef<any>[] = headers.map((header: string) => ({
-    accessorKey: header,
-    header: header.toLowerCase().replace(/ /g, "_"),
+  const columns: ColumnDef<any>[] = headers.map((str: string) => ({
+    accessorKey: str,
+    header: prettifyString(str),
   }));
   const { members } = useMemberPage();
   const [sorting, setSorting] = useState<SortingState>([]);
