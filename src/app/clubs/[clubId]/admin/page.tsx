@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect } from "react";
 import { getClubById } from "@/services/clubServices";
 import { Club } from "@/schemas/clubSchema";
@@ -21,23 +20,24 @@ import {
 import ClubEditForm from "@/components/form/club-edit-information";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { AdminProvider } from "@/components/admin/AdminPageContext";
+import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 
-export default function AdminEditPage({
+export default async function AdminEditPage({
   params,
 }: {
   params: { clubId: string };
 }) {
   console.log(params);
 
-  const clubDataPromise = getClubById(Number(params.clubId));
-  const clubData = await clubDataPromise;
+  const clubData = await getClubById(Number(params.clubId));
   if (clubData) {
     console.log(clubData.name);
   } else {
     console.log("No club data found");
   }
+
+  const {club, setClub} = useAdmin();
   
 
 
@@ -105,7 +105,14 @@ export default function AdminEditPage({
   return (
 
 
-    <AdminProvider initialClub = {getClubById(Number(params.clubId))} >
+    <AdminProvider initialClub = {clubData as Club} >
+
+      <div>
+        <p>club.name</p>
+      </div>
+
+
+
 
       
 
@@ -294,5 +301,5 @@ export default function AdminEditPage({
   //       <ClubEditForm clubId = {params.clubId}/>
   //     </div>
   //   </div>
-  // );
+);
 }
