@@ -1,14 +1,62 @@
 import { db } from "@/config/db";
-import { STRIPE_SECRET_KEY } from "@/config/env";
 import { AppUser } from "@/schemas/authSchema";
 import clubSchema, { Club } from "@/schemas/clubSchema";
 import membershipSchema, { Membership } from "@/schemas/membershipSchema";
 import { auth } from "@/util/auth";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import Stripe from "stripe";
+import { stripe } from "@/config/stripe";
+import absoluteUrl from "next-absolute-url";
+import { NextApiRequest } from "next";
 
-const stripe = new Stripe(STRIPE_SECRET_KEY);
+enum PaymentOutcome {
+  SUCCESS,
+  ERROR,
+}
+
+function getRedirectUrl(
+  request: NextApiRequest,
+  status: PaymentOutcome,
+  message: string,
+  clubName?: string,
+  membershipId?: string
+): string {
+  const baseUrl = new URL(absoluteUrl(request).origin);
+  switch (status) {
+    case PaymentOutcome.SUCCESS:
+      baseUrl.searchParams.set("status", "success");
+    case PaymentOutcome.ERROR:
+      baseUrl.searchParams.set("status", "error");
+  }
+
+  if (clubName) {
+    baseUrl.searchParams.set("club", clubName);
+  }
+  if (membershipId) {
+    baseUrl.searchParams.set("membershipId", membershipId);
+  }
+  baseUrl.searchParams.set("message", message);
+
+  return baseUrl.toString();
+}
+
+function redirectOutcome(
+  request: NextApiRequest,
+  status: PaymentOutcome,
+  message: string,
+  clubName?: string,
+  membershipId?: string
+) {
+  const redirectUrl = getRedirectUrl(
+    request,
+    status,
+    message,
+    clubName,
+    membershipId
+  );
+
+  redirect(redirectUrl);
+}
 
 // We don't want to cache this route
 export const dynamic = "force-dynamic";
@@ -16,7 +64,7 @@ export const dynamic = "force-dynamic";
 // GET /payment/[membershipId]/checkout
 // Get the Stripe checkout URL for a membership
 export async function GET(
-  request: Request,
+  request: NextApiRequest,
   { params }: { params: { membershipId: string } }
 ) {
   // Check if the user is authenticated
@@ -24,9 +72,12 @@ export async function GET(
   const user = session?.user as AppUser;
 
   if (!user) {
-    return new Response("Unauthorized. You must be authenticated.", {
-      status: 401,
-    });
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "You need to be logged in to pay for a membership."
+    );
+    return;
   }
 
   // Get the membership ID from the URL
@@ -34,7 +85,12 @@ export async function GET(
 
   // Check if the membership ID is valid
   if (!membershipId) {
-    return new Response("Membership ID must be supplied.", { status: 400 });
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "Failed to find the membership. Please try that one again."
+    );
+    return;
   }
 
   // Grab the membership from the database
@@ -45,31 +101,44 @@ export async function GET(
 
   // Sanity check - should never get more than one membership
   if (membershipResponse.length > 1) {
-    return new Response("More than one membership found. Bad DB state.", {
-      status: 500,
-    });
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "Failed to find the membership. Please try that one again."
+    );
+    return;
   }
 
   // Check if the membership exists
   if (membershipResponse.length === 0) {
-    return new Response("Membership not found.", { status: 404 });
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "Membership not found. Please try that one again."
+    );
+    return;
   }
 
   const membership: Membership = membershipResponse[0];
 
   // Check if the user is authorized to view this membership
   if (membership.user !== user.id) {
-    return new Response(
-      "Unauthorized. You do not have permission to modify this membership.",
-      { status: 403 }
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "You do not have permission to access this membership."
     );
+    return;
   }
 
   // Check if the membership has already been paid for
   if (membership.paid) {
-    return new Response("Membership has already been paid for.", {
-      status: 400,
-    });
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "Membership is already paid."
+    );
+    return;
   }
 
   // Get the membership fee from the DB
@@ -80,14 +149,23 @@ export async function GET(
 
   // Sanity check - should never get more than one club
   if (clubResponse.length > 1) {
-    return new Response("More than one club found. Bad DB state.", {
-      status: 500,
-    });
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "Failed to find club associated with the membership. Please try that one again."
+    );
+    return;
   }
 
   // Check if the club exists
   if (clubResponse.length === 0) {
-    return new Response("Club not found. Bad DB state.", { status: 404 });
+    // Although this returns the same error message, I have separated it in case we want to handle it differently in the future
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "Failed to find club associated with the membership. Please try that one again."
+    );
+    return;
   }
 
   const club = clubResponse[0];
@@ -111,12 +189,31 @@ export async function GET(
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:3000/payment?success=true`,
-    cancel_url: `http://localhost:3000/payment/?canceled=true`,
+    success_url: getRedirectUrl(
+      request,
+      PaymentOutcome.SUCCESS,
+      "Payment successful.",
+      club.name,
+      membershipId
+    ),
+    cancel_url: getRedirectUrl(
+      request,
+      PaymentOutcome.ERROR,
+      "It appears you cancelled the transaction. Please try that one again.",
+      club.name,
+      membershipId
+    ),
   });
 
   if (!checkoutSession.url) {
-    return new Response("Error creating Stripe session.", { status: 500 });
+    redirectOutcome(
+      request,
+      PaymentOutcome.ERROR,
+      "Error creating Stripe session.",
+      club.name,
+      membershipId
+    );
+    return;
   }
 
   redirect(checkoutSession.url);
