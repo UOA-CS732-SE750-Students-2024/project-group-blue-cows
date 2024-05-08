@@ -83,31 +83,53 @@ const createFormSchema = (
   return z.object(schema);
 };
 
+async function fetchFields(
+  clubId: number,
+  setClubFormFields: (fields: GetClubFormFieldDto[]) => void,
+  setLoading: (loading: boolean) => void
+) {
+  console.log("fetchFields start");
+  try {
+    console.log("fetching fields");
+    const fields = await getClubFormFields(clubId);
+    setClubFormFields(fields);
+    console.log("fields:", fields);
+    setLoading(false);
+  } catch (error) {
+    console.error("Error fetching club form fields:", error);
+  }
+}
 export default function ClubRegistrationForm({
   params,
 }: {
   params: { clubId: string };
 }) {
+  const [loading, setLoading] = useState(true);
+  console.log("params:", params);
   const session = useSession(); // Get the session data
-  // const extendedFormFields = getAllExtendedFields(Number(params.clubId)).then(
-  //   const formSchema = createFormSchema(extendedFormFields);
-  // );
+  const user = session.data?.user as AppUser;
+  const [clubData, setClubData] = useState<Club | null>(null); // retrieving which club the user is signing up for
   const [clubFormFields, setClubFormFields] = useState<GetClubFormFieldDto[]>(
     []
   );
+  console.log("clubFormFields:", clubFormFields);
+  console.log("params.clubId:", Number(params.clubId));
 
   useEffect(() => {
-    const fetchFields = async () => {
-      const fields = await getClubFormFields(Number(params.clubId));
-      setClubFormFields(fields);
-    };
+    console.log("fetch fields");
+    fetchFields(Number(params.clubId), setClubFormFields, setLoading);
+  }, [params.clubId, setClubFormFields, setLoading]);
 
-    fetchFields();
-  }, [params.clubId]);
-
+  useEffect(() => {
+    if (user) {
+      form.setValue("name", user.name || "");
+      form.setValue("id", user.student_id || "");
+      form.setValue("email", user.email || "");
+      form.setValue("upi", user.upi || "");
+      form.setValue("yearLevel", user.year_of_study || 0);
+    }
+  }, [user]);
   const formSchema = createFormSchema(clubFormFields);
-  const user = session.data?.user as AppUser;
-  const [loading, setLoading] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -119,16 +141,6 @@ export default function ClubRegistrationForm({
       yearLevel: 0,
     },
   });
-
-  useEffect(() => {
-    if (user) {
-      form.setValue("name", user.name || "");
-      form.setValue("id", user.student_id || "");
-      form.setValue("email", user.email || "");
-      form.setValue("upi", user.upi || "");
-      form.setValue("yearLevel", user.year_of_study || 0);
-    }
-  }, [user]);
 
   if (loading || !user) {
     return <LoadingSpinner />;

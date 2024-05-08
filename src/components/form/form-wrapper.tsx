@@ -26,7 +26,7 @@ const FormWrapper = ({
   params,
 }: FormWrapperProps) => {
   return (
-    <Card className="w-full max-w-5xl mx-auto shadow-md overflow-y-auto">
+    <Card className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-3/4 max-w-4xl mx-auto shadow-md overflow-y-auto">
       <CardHeader>
         <FormHeader
           label={label}

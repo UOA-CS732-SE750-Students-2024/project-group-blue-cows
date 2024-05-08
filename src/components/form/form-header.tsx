@@ -32,7 +32,7 @@ export const FormHeader = ({
   if (loading) {
     return <LoadingSpinner />;
   }
-
+  console.log("Rendered FormHeader: ", clubData?.name);
   return (
     <div className="w-full flex flex-col gap-y-4 items-center justify-center">
       {formType === "registration" ? (
