@@ -7,10 +7,6 @@ import {
   YellowButton,
 } from "@/components/misc/buttons";
 import { Button } from "@/components/ui/button";
-import { openModal } from "@/util/modalUtils";
-import { showToastDemo } from "@/util/toastUtils";
-import { getAllUsers } from "@/services/userServices";
-import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -22,12 +18,11 @@ import {
 } from "@/components/ui/table";
 import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
-import { getAllMembers, postClub } from "@/services/clubServices";
-import { User } from "next-auth";
 import {
-  updateForm,
   getAllExtendedFields,
+  updateForm,
 } from "@/services/clubFormFieldServices";
+import { getAllMembers, postClub } from "@/services/clubServices";
 import {
   addImageToGallery,
   getAllImagesForClub,
@@ -39,6 +34,11 @@ import {
   removeSocialLink,
   updateSocialLink,
 } from "@/services/socialsServices";
+import { getAllUsers } from "@/services/userServices";
+import { openModal } from "@/util/modalUtils";
+import { showToastDemo } from "@/util/toastUtils";
+import { User } from "next-auth";
+import { useEffect, useState } from "react";
 
 export default function TestPage() {
   // Next https://nextjs.org/docs
@@ -211,13 +211,14 @@ export default function TestPage() {
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
 
       <BlueButton
-        onClick={() =>
-          openModal({
+        onClick={async () => {
+          const response = await openModal({
             content: <YellowButton>Wow</YellowButton>,
             title: "Test",
             className: "hover:bg-red-100",
-          })
-        }
+          });
+          console.log(response);
+        }}
       >
         Open Modal
       </BlueButton>
