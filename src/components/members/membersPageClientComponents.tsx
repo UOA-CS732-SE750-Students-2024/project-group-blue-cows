@@ -145,8 +145,6 @@ export function ExportButton({
   async function exportMembers() {
     try {
       const { finalHeaders, membersFullData } = await getAllMembers(club.id);
-      console.log(finalHeaders);
-      console.log(membersFullData);
       downloadAsCsv(
         finalHeaders,
         membersFullData,
