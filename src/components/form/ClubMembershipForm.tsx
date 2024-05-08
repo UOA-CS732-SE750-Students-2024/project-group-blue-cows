@@ -184,12 +184,7 @@ export default function ClubRegistrationForm({
               <FormItem>
                 <FormLabel className="font-bold">Full Name</FormLabel>
                 <FormControl>
-                  <Input
-                    defaultValue={user?.name || "Name"}
-                    placeholder="Enter name"
-                    type="name"
-                    {...field}
-                  />
+                  <Input placeholder="Enter name" type="name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -209,7 +204,6 @@ export default function ClubRegistrationForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-                      defaultValue={user?.email || "Email"}
                       placeholder="Enter email"
                       type="description"
                       {...field}
@@ -232,7 +226,6 @@ export default function ClubRegistrationForm({
                   <FormControl>
                     <Input
                       placeholder="Enter UPI"
-                      defaultValue={user?.upi || "UPI"}
                       type="description"
                       {...field}
                     />
@@ -254,7 +247,6 @@ export default function ClubRegistrationForm({
                   <FormControl>
                     <Input
                       placeholder="Enter your Student ID"
-                      defaultValue={user?.student_id || 0}
                       type="description"
                       {...field}
                     />
@@ -274,7 +266,6 @@ export default function ClubRegistrationForm({
                   <FormControl>
                     <Input
                       placeholder="Enter your year level"
-                      defaultValue={user?.year_of_study || 1}
                       type="description"
                       {...field}
                     />
