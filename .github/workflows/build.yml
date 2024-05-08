@@ -1,13 +1,12 @@
-name: Build DEV
+name: Test and Build DEV
 
 on:
   push:
     branches:
       - '**'
-      - '!main'
 
 jobs:
-  BuildApp:
+  TestAndBuildApp:
     runs-on: ubuntu-latest
     environment: DEV
     defaults:
@@ -24,6 +23,8 @@ jobs:
         run: echo ${{ secrets.BACKEND_ENVFILE }} | base64 --decode > .env
     
       - run: yarn
+
+      - run: yarn test
 
       - run: yarn build
 
