@@ -1,29 +1,8 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import "@testing-library/jest-dom";
 import MembersTable from "@/components/members/MembersTable";
 import { MemberPageContextProvider } from "@/components/members/MemberPageContext";
-
-const membersData = [
-  {
-    name: "Tristan Mona",
-    email: "tmon261@aucklanduni.ac.nz",
-    upi: "tmon261",
-    year_of_study: 4,
-    student_id: "ghi",
-    paid: false,
-    isAdmin: true,
-  },
-  {
-    name: "Alex Hope",
-    email: "ahop089@aucklanduni.ac.nz",
-    upi: "ahop089",
-    year_of_study: 4,
-    student_id: "why",
-    paid: false,
-    isAdmin: true,
-  },
-];
+import { membersData } from "./mockData";
 
 beforeEach(() => {
   render(
