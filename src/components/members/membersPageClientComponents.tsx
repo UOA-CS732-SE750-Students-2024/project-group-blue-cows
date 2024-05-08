@@ -74,7 +74,7 @@ export function ImportButton({
       onClick={handleImportMembers}
       className={`w-[24rem] ${className}`}
     >
-      Import Data
+      Import<span className="hidden xl:inline whitespace-pre"> Data</span>
     </YellowButton>
   );
 }
@@ -97,7 +97,59 @@ export function ExportButton({
 
   return (
     <YellowButton onClick={exportMembers} className={`w-[24rem] ${className}`}>
-      Export Data
+      Export<span className="hidden xl:inline whitespace-pre"> Data</span>
+    </YellowButton>
+  );
+}
+
+export function DeleteButton({
+  club,
+  className,
+}: {
+  club: Club;
+  className?: string;
+}) {
+  const { members, setMembers } = useMemberPage();
+
+  async function confirmDelete() {
+    return confirm({
+      title: "Delete All Members?",
+      content: (
+        <div className="text-[1rem] leading-6 py-4 px-2">
+          <p className="mb-2">
+            All members and admins except yourself will be deleted.
+          </p>
+          <p>
+            This action is irreversible. Are you sure you want to delete
+            everyone?
+          </p>
+        </div>
+      ),
+      className: "w-[32rem] h-[18rem]",
+    });
+  }
+
+  async function handleDeleteMembers() {
+    if (await confirmDelete()) {
+      toastLoading();
+      try {
+        const { headers, membersData } = await getAllMembers(club.id);
+        downloadAsCsv(headers, membersData, `${club.name}_membership.csv`);
+        // await deleteClubMembers(club.id); // Needs to be implemented @MRlolface249
+        setMembers([]);
+        toastSuccess("All members deleted. Automatically exported backup.");
+      } catch (error) {
+        toastError("Error deleting members");
+      }
+    }
+  }
+
+  return (
+    <YellowButton
+      onClick={handleDeleteMembers}
+      className={`w-[24rem] bg-red-400 hover:bg-red-500 ${className}`}
+    >
+      Delete<span className="hidden xl:inline whitespace-pre"> Data</span>
     </YellowButton>
   );
 }
