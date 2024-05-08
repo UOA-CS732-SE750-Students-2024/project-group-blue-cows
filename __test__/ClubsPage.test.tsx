@@ -1,9 +1,15 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ClubsPage from "@/app/clubs/page";
+import { getAllClubs } from "@/services/clubServices";
+
+jest.mock("@/services/clubServices", () => ({
+  getAllClubs: jest.fn(),
+}));
 
 beforeEach(() => {
-  // Arrange
+  jest.resetAllMocks();
+  //Arrange
   render(<ClubsPage />);
 });
 
@@ -48,4 +54,26 @@ test("it renders all the filter buttons on search club screen", async () => {
     (button) => button.textContent === "Cultural"
   );
   expect(culturalButton).toBeInTheDocument();
+});
+
+test("it renders input field on search clubs screen and displays data from mock", async () => {
+  const mockData = [
+    {
+      id: "test",
+      name: "WDCC",
+      description: "A club for cows",
+      membership_fee: "0.00",
+      category: "Academic and specialist",
+      logo: "test",
+    },
+  ];
+
+  (getAllClubs as jest.Mock).mockResolvedValue(mockData);
+  const inputField = screen.getByPlaceholderText("Search");
+  fireEvent.change(inputField, { target: { value: "WDCC" } });
+
+  expect(inputField).toHaveValue("WDCC");
+
+  const displayedData = await screen.findByText("A club for cows");
+  expect(displayedData).toBeInTheDocument();
 });
