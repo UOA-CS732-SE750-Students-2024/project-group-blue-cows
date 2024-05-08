@@ -9,7 +9,7 @@ export const socialIcons: { [key: string]: string } = {
     discord: '/socials/discord.png',
     web: '/socials/web.png',
 };
-
+ 
 const SocialLinks = ({ socials }: { socials: Socials[] }) => (
     <div className="flex flex-col space-y-4">
       {socials.map((social: Socials) => (

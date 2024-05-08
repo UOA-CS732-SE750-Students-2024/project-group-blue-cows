@@ -1,6 +1,6 @@
 "use client"; // to get react to know it's a client compponent
 
-import React from "react";
+import {React, useState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postClub } from "@/services/clubServices";
@@ -8,6 +8,8 @@ import { Card } from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { getAllSocialsForClub } from "@/services/socialsServices";
+
 import {
   SelectValue,
   SelectTrigger,
@@ -47,9 +49,18 @@ const formSchema = z.object({
   ]),
 });
 
-export default function ClubEditForm() {
+
+export default function ClubEditForm({ clubId }) {
   const { data: sessionData } = useSession(); // Get the session data
   const user = sessionData?.user as AppUser; // Type assertion for the user
+
+  const [socials, setSocials] = useState([]); // State to hold socials data
+
+  useEffect(() => {
+    getAllSocialsForClub(clubId).then(setSocials);
+  }, [clubId]); // Adding clubId to the dependency array to ensure re-fetching if clubId changes
+  
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

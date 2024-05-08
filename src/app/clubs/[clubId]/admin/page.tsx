@@ -83,7 +83,7 @@ export default function AdminEditPage({
 
   interface TableData {
     name: string;
-    position: string;
+    position: string; 
   }
 
   const data: TableData[] = [
@@ -290,7 +290,7 @@ export default function AdminEditPage({
 
       {/* form */}
       <div className="p-10" id="edit-form">
-        <ClubEditForm />
+        <ClubEditForm clubId = {params.clubId}/>
       </div>
     </div>
   );
