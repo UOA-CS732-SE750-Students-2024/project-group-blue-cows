@@ -19,10 +19,10 @@ export function Modal() {
       content: "",
     });
   setState = setStateTemp;
-  const setOpen = (open: boolean) => {
+  const setOpen = (open: boolean, resolveValue?: string) => {
     setState({ open, title, content });
     if (!open) {
-      resolve(false);
+      resolve(resolveValue);
       resolve = defaultResolve;
     }
   };
@@ -38,7 +38,9 @@ export function Modal() {
               {title}
             </Dialogue.Title>
             {content}
-            <Buttons />
+            <Buttons
+              close={(resolveValue?: string) => setOpen(false, resolveValue)}
+            />
           </Dialogue.Content>
         </Dialogue.Overlay>
       </Dialogue.Portal>
@@ -46,11 +48,15 @@ export function Modal() {
   );
 }
 
-function Buttons() {
+function Buttons({ close }: { close: (resolveValue?: string) => void }) {
   return (
-    <div className="flex justify-center gap-4 mt-auto">
-      <YellowButton onClick={() => resolve(true)}>Confirm</YellowButton>
-      <BlueButton onClick={() => resolve(false)}>Cancel</BlueButton>
+    <div className="flex w-full justify-center gap-6 mt-auto">
+      <YellowButton className="w-1/2" onClick={() => close(undefined)}>
+        Cancel
+      </YellowButton>
+      <BlueButton className="w-1/2" onClick={() => close("confirm")}>
+        Confirm
+      </BlueButton>
     </div>
   );
 }
@@ -61,9 +67,9 @@ interface OpenModalProps {
   className?: string;
 }
 
-const defaultResolve: (value: unknown) => void = () => {};
+const defaultResolve: (value?: string) => void = () => {};
 
-let resolve: (value: unknown) => void = defaultResolve;
+let resolve: (value?: string) => void = defaultResolve;
 
 export const openModal = async ({
   title,

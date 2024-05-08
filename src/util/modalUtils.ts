@@ -1,1 +1,3 @@
-export { openModal } from "@/components/misc/Modal";
+import { openModal } from "@/components/misc/Modal";
+
+export const confirm = openModal;

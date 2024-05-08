@@ -35,7 +35,7 @@ import {
   updateSocialLink,
 } from "@/services/socialsServices";
 import { getAllUsers } from "@/services/userServices";
-import { openModal } from "@/util/modalUtils";
+import { confirm } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
 import { User } from "next-auth";
 import { useEffect, useState } from "react";
@@ -212,7 +212,7 @@ export default function TestPage() {
 
       <BlueButton
         onClick={async () => {
-          const response = await openModal({
+          const response = await confirm({
             content: <YellowButton>Wow</YellowButton>,
             title: "Test",
             className: "hover:bg-red-100",
