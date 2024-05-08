@@ -61,16 +61,11 @@ function NavItem({
   children: React.ReactNode;
 }) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link
-          href={href}
-          className="text-white hover:text-black flex p-2 h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors md:h-8 md:w-36 text-md md:text-lg hover:bg-customAccent"
-        >
-          {children}
-        </Link>
-      </TooltipTrigger>
-      {tooltip && <TooltipContent side="bottom">{tooltip}</TooltipContent>}
-    </Tooltip>
+    <Link
+      href={href}
+      className="text-white hover:text-black flex p-2 h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors md:h-8 md:w-36 text-md md:text-lg hover:bg-customAccent"
+    >
+      {children}
+    </Link>
   );
 }
