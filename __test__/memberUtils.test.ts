@@ -117,19 +117,17 @@ it("maps StudentFullData to the desired format", () => {
   };
 
   // Expected output
-  const expectedMappedObject = [
-    {
-      name: "John",
-      email: "john@example.com",
-      upi: null,
-      year_of_study: 2,
-      student_id: "12345",
-      paid: true,
-      isAdmin: false,
-      input1: "value1",
-      input2: "value2",
-    },
-  ];
+  const expectedMappedObject = {
+    name: "John",
+    email: "john@example.com",
+    upi: null,
+    year_of_study: 2,
+    student_id: "12345",
+    paid: true,
+    isAdmin: false,
+    input1: "value1",
+    input2: "value2",
+  };
 
   const result = mapToObject(studentData);
 

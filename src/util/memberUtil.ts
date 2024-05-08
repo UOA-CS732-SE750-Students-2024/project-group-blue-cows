@@ -68,5 +68,5 @@ export const mapToObject = (data: studentFullData): any => {
   for (const input of formFieldInputs) {
     result[input.fieldName] = input.value;
   }
-  return [result];
+  return result;
 };
