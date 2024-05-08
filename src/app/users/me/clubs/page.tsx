@@ -13,17 +13,8 @@ const dummyAdminClubs = [
     memberSince: 2020,
   },
 ];
+
 const dummyClubs = [
-  {
-    imageUrl: "/wdcc-logo.png",
-    name: "Web Development & Consulting Club",
-    memberSince: 2021,
-  },
-  {
-    imageUrl: "/sesa-logo.png",
-    name: "Software Engineering Students Association",
-    memberSince: 2020,
-  },
   {
     imageUrl: "/wdcc-logo.png",
     name: "Web Development & Consulting Club",
