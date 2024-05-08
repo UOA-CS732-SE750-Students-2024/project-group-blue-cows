@@ -1,139 +1,238 @@
-"use client"; // to get react to know it's a client compponent
+"use client";
 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { postClub } from "@/services/clubServices";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardFooter,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
+import { UseFormReturn, useForm } from "react-hook-form";
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from "@/components/ui/select";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormControl,
 } from "@/components/ui/form";
 
-import { UploadButton } from "@/util/uploadThingUtils";
-import { AppUser, users } from "@/schemas/authSchema";
-import { useSession } from "next-auth/react";
-
+import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
+import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
 import * as z from "zod";
+import { BlueButton, MiniArrowButton, MiniIconButton } from "../misc/buttons";
+import { Card, CardContent } from "../ui/card";
+import { Input } from "../ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required").toUpperCase(),
-  description: z.string().min(1, "Description is required"),
-  membership_fee: z
-    .string()
-    .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid fee amount"),
-  logo: z.string().min(1, "Logo is required"),
-  category: z.enum([
-    "Academic and specialist",
-    "Sport",
-    "Special Interest",
-    "Religious and spiritual",
-    "Cultural",
-    "Causes",
-  ]),
-});
+const formSchema = z.object({});
+
+interface EditFieldFunctions {
+  readonly addField: () => void;
+  readonly changeField: (index: number, field: GetExtendedFormFieldDto) => void;
+  readonly deleteField: (index: number) => void;
+  readonly moveFieldUp: (index: number) => void;
+  readonly moveFieldDown: (index: number) => void;
+}
 
 export default function EditClubRegistrationForm() {
-  const { data: sessionData } = useSession(); // Get the session data
-  const user = sessionData?.user as AppUser; // Type assertion for the user
+  const { extendedFields, setExtendedFields } = useRegistrationEditContext();
+
+  function addField() {
+    setExtendedFields([
+      ...extendedFields,
+      {
+        name: "",
+        description: "",
+        type: "short",
+      },
+    ]);
+  }
+
+  function changeField(index: number, field: GetExtendedFormFieldDto) {
+    setExtendedFields([
+      ...extendedFields.slice(0, index),
+      field,
+      ...extendedFields.slice(index + 1),
+    ]);
+  }
+
+  function deleteField(index: number) {
+    setExtendedFields([
+      ...extendedFields.slice(0, index),
+      ...extendedFields.slice(index + 1),
+    ]);
+  }
+
+  function moveFieldUp(index: number) {
+    if (index === 0) return;
+    const newFields = [...extendedFields];
+    [newFields[index], newFields[index - 1]] = [
+      newFields[index - 1],
+      newFields[index],
+    ];
+    setExtendedFields(newFields);
+  }
+
+  function moveFieldDown(index: number) {
+    if (index === extendedFields.length - 1) return;
+    const newFields = [...extendedFields];
+    [newFields[index], newFields[index + 1]] = [
+      newFields[index + 1],
+      newFields[index],
+    ];
+    setExtendedFields(newFields);
+  }
+
+  const editFieldFunctions = {
+    addField,
+    changeField,
+    deleteField,
+    moveFieldUp,
+    moveFieldDown,
+  } as const;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      membership_fee: "",
-      logo: "",
-    },
+    defaultValues: {},
   });
-
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    postClub(values, user)
-      .then(() => {
-        form.reset(); // Reset form fields after successful submission
-      })
-      .catch((error) => {
-        console.error("Submission error:", error);
-      });
-  };
-
-  form.watch("category");
 
   return (
     <div>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(handleSubmit)}
+          onSubmit={form.handleSubmit(addField)}
           className="w-full flex flex-col gap-4"
         >
-          <Card className="w-full bg-[#FFD166]">
-            <CardHeader>
-              <CardTitle>Club Registration</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>
-                By default, Cowlaboration will collect default information about
-                a member, including their full name, email, UPI, student ID,
-                University, year level, degree, and specialisation/majors. If
-                you would like to collect additional information about your club
-                members you may add custom fields to your club&apos;s
-                registration form.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Button>Add New Short-Answer Question</Button>
-
-          <Card className="w-full bg-customLight mb-5">
-            <CardHeader>
-              <CardTitle>New Short-Answer Question</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel className="font-bold">Question:</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter new question"
-                          type="name"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-            </CardContent>
-          </Card>
+          {extendedFields.map((field, index) => (
+            <Field
+              key={index}
+              index={index}
+              form={form}
+              field={extendedFields[index]}
+              editFieldFunctions={editFieldFunctions}
+            />
+          ))}
+          <BlueButton type="submit" className="w-full">
+            Add New Question
+          </BlueButton>
         </form>
       </Form>
+    </div>
+  );
+}
+
+function Field({
+  form,
+  index,
+  field,
+  editFieldFunctions,
+}: {
+  form: UseFormReturn<z.infer<typeof formSchema> | any>;
+  index: number;
+  field: GetExtendedFormFieldDto;
+  editFieldFunctions: EditFieldFunctions;
+}) {
+  const { changeField } = editFieldFunctions;
+
+  return (
+    <Card className="w-full bg-customLight relative">
+      <CardContent className="pt-4">
+        <FormField
+          control={form.control}
+          name="name"
+          render={() => {
+            return (
+              <FormItem>
+                <FormLabel className="font-bold">
+                  Question {index + 1}:
+                </FormLabel>
+                <div className="flex gap-2">
+                  <FormControl>
+                    <Input
+                      className="inline w-1/6"
+                      placeholder="New field"
+                      type="name"
+                      value={field.name}
+                      onChange={(event) =>
+                        changeField(index, {
+                          ...field,
+                          name: event.target.value,
+                        })
+                      }
+                    />
+                  </FormControl>
+                  <Input
+                    className="inline w-4/6"
+                    placeholder="Description"
+                    type="name"
+                    value={field.description}
+                    onChange={(event) =>
+                      changeField(index, {
+                        ...field,
+                        description: event.target.value,
+                      })
+                    }
+                  />
+                  <Select
+                    defaultValue={field.type}
+                    onValueChange={(value) => {
+                      changeField(index, {
+                        ...field,
+                        type: value,
+                      });
+                    }}
+                  >
+                    <SelectTrigger className="w-1/6">
+                      <SelectValue />
+                    </SelectTrigger>
+                    {/* @lukisoo This dropdown doesn't render properly! Any idea why? */}
+                    <SelectContent>
+                      <SelectItem value="short">Short Answer</SelectItem>
+                      <SelectItem value="long">Long Answer</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <EditButtons
+                    index={index}
+                    editFieldFunctions={editFieldFunctions}
+                  />
+                </div>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+      </CardContent>
+    </Card>
+  );
+}
+
+function EditButtons({
+  index,
+  editFieldFunctions,
+}: {
+  index: number;
+  editFieldFunctions: EditFieldFunctions;
+}) {
+  const { moveFieldUp, moveFieldDown, deleteField } = editFieldFunctions;
+
+  return (
+    <div className="absolute top-3 right-6 flex">
+      <MiniArrowButton
+        onClick={() => moveFieldUp(index)}
+        className="rotate-90"
+      />
+      <MiniArrowButton
+        onClick={() => moveFieldDown(index)}
+        className="-rotate-90"
+      />
+      <MiniIconButton
+        onClick={() => deleteField(index)}
+        icon="/delete.svg"
+        alt="delete"
+        className="hover:bg-red-200"
+      />
     </div>
   );
 }
