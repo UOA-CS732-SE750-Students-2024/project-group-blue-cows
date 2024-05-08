@@ -35,7 +35,7 @@ import {
   updateSocialLink,
 } from "@/services/socialsServices";
 import { getAllUsers } from "@/services/userServices";
-import { confirm } from "@/util/modalUtils";
+import { alert, confirm } from "@/util/modalUtils";
 import { showToastDemo } from "@/util/toastUtils";
 import { User } from "next-auth";
 import { useEffect, useState } from "react";
@@ -210,6 +210,7 @@ export default function TestPage() {
       </BlueButton>
       <BackButton onClick={() => showToastDemo("Back Button")}></BackButton>
 
+      <p>Fully Customisable Modals!</p>
       <BlueButton
         onClick={async () => {
           const response = await confirm({
@@ -220,8 +221,21 @@ export default function TestPage() {
           console.log(response);
         }}
       >
-        Open Modal
+        src/util/modalUtils/confirm()
       </BlueButton>
+      <YellowButton
+        onClick={async () => {
+          const response = await alert({
+            content: <h1>Alert!</h1>,
+            title: "Test",
+            className: "hover:bg-red-100 w-[20em] h-[12em]",
+          });
+          console.log(response);
+        }}
+      >
+        src/util/modalUtils/alert()
+      </YellowButton>
+      
       <MiniIconButton
         className="saturation-0"
         icon="/delete.svg"

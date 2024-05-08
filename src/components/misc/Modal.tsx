@@ -1,26 +1,28 @@
 "use client";
+import { ModalProps } from "@/util/modalUtils";
 import * as Dialogue from "@radix-ui/react-dialog";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { BlueButton, YellowButton } from "./buttons";
 
-interface ModalState {
-  open: boolean;
-  title?: string;
-  content: ReactNode;
-  className?: string;
-}
+type ModalTypes = "confirm" | "alert";
+
+type OpenModalProps = ModalProps & { type: ModalTypes };
+
+type ModalState = OpenModalProps & { open: boolean };
 
 let setState = ({ open, title, content, className }: ModalState) => {};
 
 export function Modal() {
-  const [{ open, title, content, className }, setStateTemp] =
+  const [{ open, title, content, type, className }, setStateTemp] =
     useState<ModalState>({
       open: false,
       content: "",
+      type: "alert",
     });
   setState = setStateTemp;
+
   const setOpen = (open: boolean, resolveValue?: string) => {
-    setState({ open, title, content });
+    setState({ open, title, type, content });
     if (!open) {
       resolve(resolveValue);
       resolve = defaultResolve;
@@ -39,6 +41,7 @@ export function Modal() {
             </Dialogue.Title>
             {content}
             <Buttons
+              type={type}
               close={(resolveValue?: string) => setOpen(false, resolveValue)}
             />
           </Dialogue.Content>
@@ -48,23 +51,25 @@ export function Modal() {
   );
 }
 
-function Buttons({ close }: { close: (resolveValue?: string) => void }) {
+function Buttons({
+  type,
+  close,
+}: {
+  type: ModalTypes;
+  close: (resolveValue?: string) => void;
+}) {
   return (
     <div className="flex w-full justify-center gap-6 mt-auto">
-      <YellowButton className="w-1/2" onClick={() => close(undefined)}>
-        Cancel
-      </YellowButton>
+      {type === "confirm" && (
+        <YellowButton className="w-1/2" onClick={() => close(undefined)}>
+          Cancel
+        </YellowButton>
+      )}
       <BlueButton className="w-1/2" onClick={() => close("confirm")}>
         Confirm
       </BlueButton>
     </div>
   );
-}
-
-interface OpenModalProps {
-  title?: string;
-  content: ReactNode;
-  className?: string;
 }
 
 const defaultResolve: (value?: string) => void = () => {};
@@ -75,7 +80,8 @@ export const openModal = async ({
   title,
   content,
   className,
+  type,
 }: OpenModalProps) => {
-  setState({ open: true, title, content, className });
+  setState({ open: true, title, content, type, className });
   return new Promise((res) => (resolve = res));
 };
