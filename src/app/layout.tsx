@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className="flex flex-col h-auto">
         <SessionProvider>
           <NavTop className="h-[4rem]" />
-          <div className="flex flex-auto overflow-hidden">
+          <div className="flex flex-auto overflow-hidden h-[calc(100vh-4rem)]">
             <NavSide />
             <div className="flex-auto overflow-auto">{children}</div>
           </div>
