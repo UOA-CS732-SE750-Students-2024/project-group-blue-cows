@@ -1,4 +1,4 @@
-import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
+import { GetExtendedFormFieldDto } from "@/Dtos/extendedFormField/GetExtendedFormFieldDto";
 import { studentData } from "@/gateway/member/getAllMembersForClub";
 
 export async function downloadAsCsv(
@@ -42,9 +42,7 @@ export async function importFile(callback: (formData: FormData) => void) {
 }
 
 // This function should be called whenever an admin attempts to change the club's extended fields
-export function validateExtendedFieldInputs(
-  fields: GetExtendedFormFieldDto[]
-) {
+export function validateExtendedFieldInputs(fields: GetExtendedFormFieldDto[]) {
   fields.forEach((field) => {
     // Name required, description nonnull, type required enum
     if (!field.name) throw new Error("Field name is required");

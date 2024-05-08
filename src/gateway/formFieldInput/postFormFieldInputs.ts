@@ -1,11 +1,12 @@
-import { db } from "../../config/db";
-import { getExtendedFormByName } from "../extendedFormField/getExtendedFormByName";
-import { postExtendedFormField } from "../extendedFormField/postExtendedFormField";
 import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
 import formFieldInputSchema from "@/schemas/formFieldInputSchema";
+import "server-only";
+import { db } from "../../config/db";
+import { postDataAuthorisation } from "../dataAuthorisation/postDataAuthorisation";
+import { getExtendedFormByName } from "../extendedFormField/getExtendedFormByName";
+import { postExtendedFormField } from "../extendedFormField/postExtendedFormField";
 import { getFormFieldInput } from "./getFormFieldInput";
 import { putFormFieldInput } from "./putFormFieldInput";
-import { postDataAuthorisation } from "../dataAuthorisation/postDataAuthorisation";
 
 // inputs data for a user for different form fields
 export async function postFormFieldInputs(
@@ -15,7 +16,7 @@ export async function postFormFieldInputs(
 ) {
   try {
     formInputs.forEach(async (formInput) => {
-      let inputId = await getFormFieldInput(formInput.fieldName, userId);
+      let inputId = (await getFormFieldInput(formInput.fieldName, userId))?.id;
       let fieldId = await getExtendedFormByName(formInput.fieldName);
       if (!fieldId) {
         fieldId = await postExtendedFormField({ name: formInput.fieldName });
@@ -25,7 +26,7 @@ export async function postFormFieldInputs(
         postDataAuthorisation({
           club: clubId,
           user: userId,
-          inputId: inputId.id,
+          inputId: inputId,
         });
         putFormFieldInput(fieldId.id, userId, { value: formInput.value });
       } else {
@@ -38,13 +39,13 @@ export async function postFormFieldInputs(
               value: formInput.value,
             })
             .returning({ id: formFieldInputSchema.id })
-        ).at(0);
+        ).at(0)?.id;
 
         if (!inputId) throw new Error("failed to create new input data");
         postDataAuthorisation({
           club: clubId,
           user: userId,
-          inputId: inputId.id,
+          inputId: inputId,
         });
       }
     });

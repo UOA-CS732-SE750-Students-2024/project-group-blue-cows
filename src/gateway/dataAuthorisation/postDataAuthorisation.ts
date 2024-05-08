@@ -1,6 +1,7 @@
-import { db } from "../../config/db";
 import { PostDataAuthorisationDto } from "@/Dtos/dataAuthorisation/PostDataAuthorisationDto";
 import userDataAuthorisedSchema from "@/schemas/userDataAuthorisedSchema";
+import "server-only";
+import { db } from "../../config/db";
 import { getMemberForClub } from "../member/getMemberForClub";
 import { postMember } from "../member/postMember";
 import { getDataAuthorisation } from "./getDataAuthorisation";

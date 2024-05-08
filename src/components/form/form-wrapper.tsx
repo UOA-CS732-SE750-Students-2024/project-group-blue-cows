@@ -15,7 +15,7 @@ interface FormWrapperProps {
   title: string;
   children: React.ReactNode;
   formType: "registration" | "membership";
-  params: { clubId: string };
+  params?: { clubId?: string };
 }
 
 const FormWrapper = ({
@@ -32,7 +32,7 @@ const FormWrapper = ({
           label={label}
           title={title}
           formType={formType}
-          params={params}
+          clubId={params?.clubId}
         />
       </CardHeader>
       <CardContent>{children}</CardContent>
