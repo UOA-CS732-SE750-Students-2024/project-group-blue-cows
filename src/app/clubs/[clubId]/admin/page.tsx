@@ -22,12 +22,6 @@ import ClubEditForm from "@/components/form/club-edit-information";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-// import Image from "next/image";
-// import { getAllImagesForClub } from "@/services/imageServices";
-// import socialsSchema from "@/schemas/socialsSchema";
-// import { getAllSocialsForClub } from "@/services/socialsServices";
-// import ClubRegistrationForm from "@/components/form/club-registration-form";
-
 export default function AdminEditPage({
   params,
 }: {
@@ -36,27 +30,6 @@ export default function AdminEditPage({
   console.log(params);
 
   const [clubData, setClubData] = useState<Club | null>(null);
-  // const [images, setImages] = useState<(typeof Image)[]>([]);
-  // const [socials, setSocials] = useState<(typeof socialsSchema)[]>([]);
-  // const [loading, setLoading] = useState(true);
-
-  // // Effect to fetch club data using the provided clubId
-  // useEffect(() => {
-  //   const fetchClubData = async () => {
-  //     const clubId = Number(params.clubId);
-  //     const [data, images, socialLinks] = await Promise.all([
-  //       getClubById(clubId),
-  //       getAllImagesForClub(clubId),
-  //       getAllSocialsForClub(clubId),
-  //     ]);
-
-  //     setClubData(data);
-  //     setImages(images);
-  //     setSocials(socialLinks);
-  //     setLoading(false);
-  //   };
-  //   fetchClubData();
-  // }, [params.clubId]);
 
   // TODO: not working
   useEffect(() => {
