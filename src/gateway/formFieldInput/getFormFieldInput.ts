@@ -13,7 +13,7 @@ export async function getFormFieldInput(fieldName: string, userId: string) {
   ).at(0);
   if (!response) return undefined;
   const results = await db
-    .select({ id: formFieldInputSchema.id })
+    .select({ id: formFieldInputSchema.id, value: formFieldInputSchema.value })
     .from(formFieldInputSchema)
     .where(
       and(
