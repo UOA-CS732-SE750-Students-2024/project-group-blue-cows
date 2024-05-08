@@ -1,5 +1,6 @@
 export const membersData = [
   {
+    id: "test",
     name: "Tristan Mona",
     email: "tmon261@aucklanduni.ac.nz",
     upi: "tmon261",
@@ -9,6 +10,7 @@ export const membersData = [
     isAdmin: true,
   },
   {
+    id: "test1",
     name: "Alex Hope",
     email: "ahop089@aucklanduni.ac.nz",
     upi: "ahop089",
