@@ -1,4 +1,4 @@
-import { pgTable, serial, integer, varchar, text } from "drizzle-orm/pg-core";
+import { integer, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
 import clubSchema from "./clubSchema";
 
 export interface Socials {
@@ -8,12 +8,12 @@ export interface Socials {
   tag: string;
   type: string;
 }
- 
+
 export default pgTable("socials", {
   id: serial("id").primaryKey(),
   clubId: integer("clubId")
-  .notNull()
-  .references(() => clubSchema.id,  { onDelete: "cascade" }),
+    .notNull()
+    .references(() => clubSchema.id, { onDelete: "cascade" }),
   link: varchar("link").notNull(),
   tag: text("tag").notNull(),
   type: text("type").notNull(),

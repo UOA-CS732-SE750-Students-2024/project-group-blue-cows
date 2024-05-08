@@ -1,7 +1,8 @@
-import { db } from "../../config/db";
-import { and, eq } from "drizzle-orm";
-import formFieldInputSchema from "@/schemas/formFieldInputSchema";
 import formFieldSchema from "@/schemas/FormFieldSchema";
+import formFieldInputSchema from "@/schemas/formFieldInputSchema";
+import { and, eq } from "drizzle-orm";
+import "server-only";
+import { db } from "../../config/db";
 
 export async function getFormFieldInput(fieldName: string, userId: string) {
   const response = (

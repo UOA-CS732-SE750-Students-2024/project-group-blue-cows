@@ -1,6 +1,6 @@
-import { pgTable, text, serial, integer, boolean } from "drizzle-orm/pg-core";
-import clubSchema from "./clubSchema";
+import { boolean, integer, pgTable, serial, text } from "drizzle-orm/pg-core";
 import { users } from "./authSchema";
+import clubSchema from "./clubSchema";
 
 export interface Membership {
   id: number;
@@ -15,7 +15,7 @@ export default pgTable("memberships", {
   id: serial("id").primaryKey(),
   club: integer("club")
     .notNull()
-    .references(() => clubSchema.id,  { onDelete: "cascade" }),
+    .references(() => clubSchema.id, { onDelete: "cascade" }),
   user: text("user")
     .notNull()
     .references(() => users.id),

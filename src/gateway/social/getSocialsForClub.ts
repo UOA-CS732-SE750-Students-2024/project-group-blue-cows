@@ -1,6 +1,7 @@
-import { db } from "../../config/db";
-import { asc, eq } from "drizzle-orm";
 import socialsSchema from "@/schemas/socialsSchema";
+import { eq } from "drizzle-orm";
+import "server-only";
+import { db } from "../../config/db";
 
 // gets all links for a club
 export async function getSocialsForClub(clubId: number) {
@@ -9,4 +10,3 @@ export async function getSocialsForClub(clubId: number) {
     .from(socialsSchema)
     .where(eq(socialsSchema.clubId, clubId));
 }
- 

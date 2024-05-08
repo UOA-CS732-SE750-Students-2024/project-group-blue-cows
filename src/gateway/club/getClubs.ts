@@ -1,7 +1,7 @@
+import clubSchema, { Club } from "@/schemas/clubSchema";
+import { and, eq, like } from "drizzle-orm";
 import "server-only";
 import { db } from "../../config/db";
-import clubSchema, { Club } from "@/schemas/clubSchema";
-import { and, like, eq } from "drizzle-orm";
 
 export async function getClubs(name: string, filter: string | null) {
   if (filter === "All") {
@@ -16,8 +16,8 @@ export async function getClubs(name: string, filter: string | null) {
       .where(
         and(
           like(clubSchema.name, `${name.toUpperCase()}%`),
-          eq(clubSchema.category, filter),
-        ),
+          eq(clubSchema.category, filter)
+        )
       )) as Club[];
   }
 

@@ -1,11 +1,12 @@
-import { db } from "../../config/db";
-import { getExtendedFormByName } from "../extendedFormField/getExtendedFormByName";
-import { postExtendedFormField } from "../extendedFormField/postExtendedFormField";
 import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
 import formFieldInputSchema from "@/schemas/formFieldInputSchema";
+import "server-only";
+import { db } from "../../config/db";
+import { postDataAuthorisation } from "../dataAuthorisation/postDataAuthorisation";
+import { getExtendedFormByName } from "../extendedFormField/getExtendedFormByName";
+import { postExtendedFormField } from "../extendedFormField/postExtendedFormField";
 import { getFormFieldInput } from "./getFormFieldInput";
 import { putFormFieldInput } from "./putFormFieldInput";
-import { postDataAuthorisation } from "../dataAuthorisation/postDataAuthorisation";
 
 // inputs data for a user for different form fields
 export async function postFormFieldInputs(

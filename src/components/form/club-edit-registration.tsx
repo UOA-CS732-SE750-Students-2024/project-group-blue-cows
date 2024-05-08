@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { GetExtendedFormFieldDto } from "@/Dtos/GetExtendedFormFieldDto";
+import { GetExtendedFormFieldDto } from "@/Dtos/extendedFormField/GetExtendedFormFieldDto";
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
 import * as z from "zod";
 import { BlueButton, MiniArrowButton, MiniIconButton } from "../misc/buttons";

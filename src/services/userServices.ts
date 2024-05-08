@@ -1,11 +1,11 @@
 "use server";
-import { getUsers } from "@/gateway/user/getUsers";
-import { getUserByEmail } from "@/gateway/user/getUserByEmail";
-import "server-only";
 import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto"; // Fix the import statement to match the correct file name
-import { auth } from "@/util/auth";
-import { AppUser } from "@/schemas/authSchema";
+import { getUserByEmail } from "@/gateway/user/getUserByEmail";
+import { getUsers } from "@/gateway/user/getUsers";
 import { updateUserWithId } from "@/gateway/user/updateUser";
+import { AppUser } from "@/schemas/authSchema";
+import { auth } from "@/util/auth";
+import "server-only";
 
 export async function getAllUsers() {
   // All this does is proxy the gateway request, a real service may do the same or more advanced logic
