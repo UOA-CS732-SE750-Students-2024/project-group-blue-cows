@@ -25,12 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex flex-col h-screen overflow-hidden">
+      <body className="flex flex-col h-screen">
         <SessionProvider>
           <NavTop className="h-[4rem]" />
           <div className="flex flex-auto">
             <NavSide />
-            <div className="flex-auto overflow-auto">{children}</div>
+            <div className="flex-auto overflow-scroll">{children}</div>
           </div>
           <ToastContainer />
           <Modal />
