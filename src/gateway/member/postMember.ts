@@ -1,6 +1,7 @@
-import membershipSchema from "@/schemas/membershipSchema";
-import { db } from "../../config/db";
 import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
+import membershipSchema from "@/schemas/membershipSchema";
+import "server-only";
+import { db } from "../../config/db";
 import { getMemberForClub } from "./getMemberForClub";
 
 export async function postMember(member: PostMemberDto) {

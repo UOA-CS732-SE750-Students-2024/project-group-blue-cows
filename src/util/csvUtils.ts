@@ -1,8 +1,8 @@
 "use server";
 import { ENVIRONMENT } from "@/config/env";
-import dotenv from "dotenv";
 import { studentData } from "@/gateway/member/getAllMembersForClub";
 import csvParser from "csv-parser";
+import dotenv from "dotenv";
 import * as originalFS from "fs";
 import { promises as fs } from "fs";
 import { revalidatePath } from "next/cache";

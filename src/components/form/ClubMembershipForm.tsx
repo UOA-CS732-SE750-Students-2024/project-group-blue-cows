@@ -336,6 +336,11 @@ const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
                             placeholder={`Enter ${field.name}`}
                             {...formField}
                             defaultValue={formField.value}
+                            className={
+                              field.type === "long"
+                                ? "resize-none col-span-2"
+                                : "resize-none"
+                            }
                           />
                         );
                       case "short":

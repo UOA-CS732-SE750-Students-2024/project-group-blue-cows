@@ -1,6 +1,7 @@
-import { db } from "../../config/db";
-import { and, eq } from "drizzle-orm";
 import userDataAuthorisedSchema from "@/schemas/userDataAuthorisedSchema";
+import { and, eq } from "drizzle-orm";
+import "server-only";
+import { db } from "../../config/db";
 
 export async function getDataAuthorisation(memberId: number, inputId: number) {
   const results = await db

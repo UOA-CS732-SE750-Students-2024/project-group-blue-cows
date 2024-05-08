@@ -1,6 +1,6 @@
-import { pgTable, serial, integer, text } from "drizzle-orm/pg-core";
-import clubSchema from "./clubSchema";
+import { integer, pgTable, serial, text } from "drizzle-orm/pg-core";
 import formFieldSchema from "./FormFieldSchema";
+import clubSchema from "./clubSchema";
 
 export interface ClubFormField {
   id: number;
