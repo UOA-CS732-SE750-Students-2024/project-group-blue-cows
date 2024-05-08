@@ -19,7 +19,9 @@ export default async function MembersPage({
   if (isNaN(+clubId)) {
     return notFound();
   }
-  const { membersData } = await getAllMembers(+clubId);
+  const { finalHeaders, membersFullData } = await getAllMembers(+clubId);
+  console.log(finalHeaders);
+  console.log(membersFullData);
   const club = await getClubById(+clubId);
   if (!club) {
     return notFound();
@@ -27,7 +29,7 @@ export default async function MembersPage({
 
   return (
     <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">
-      <MemberPageContextProvider initialMembers={membersData}>
+      <MemberPageContextProvider initialMembers={membersFullData}>
         <div className="flex justify-between mb-6">
           <MembersPageBack clubId={clubId} className="shrink-0" />
           <PageHeader

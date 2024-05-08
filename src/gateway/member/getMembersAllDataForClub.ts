@@ -13,12 +13,12 @@ export async function getMembersAllDataForClub(clubId: number) {
     membersData,
     additionalMembersData
   );
-  const result: any[] = [];
+  const membersFullData: any[] = [];
   studentFullDataArray.forEach((studentData) => {
     const mappedData = mapToObject(studentData);
-    result.push(mappedData);
+    membersFullData.push(mappedData);
   });
   const additionalHeaders = extractFieldNames(additionalMembersData);
   const finalHeaders = headers.concat(additionalHeaders);
-  return { finalHeaders, result };
+  return { finalHeaders, membersFullData };
 }

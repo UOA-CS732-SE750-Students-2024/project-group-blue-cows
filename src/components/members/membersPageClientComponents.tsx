@@ -3,10 +3,19 @@ import { useRegistrationEditContext } from "@/components/form/RegistratonEditCon
 import { Club } from "@/schemas/clubSchema";
 import { updateForm } from "@/services/clubFormFieldServices";
 import { getAllMembers, importClubMembers } from "@/services/clubServices";
-import { downloadAsCsv, importFile, validateExtendedFieldInputs } from "@/util/csvClientUtils";
+import {
+  downloadAsCsv,
+  importFile,
+  validateExtendedFieldInputs,
+} from "@/util/csvClientUtils";
 import { importCsvFile } from "@/util/csvUtils";
 import { confirm } from "@/util/modalUtils";
-import { toastError, toastLoading, toastSuccess, tryOrToast } from "@/util/toastUtils";
+import {
+  toastError,
+  toastLoading,
+  toastSuccess,
+  tryOrToast,
+} from "@/util/toastUtils";
 import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
@@ -135,8 +144,14 @@ export function ExportButton({
 }) {
   async function exportMembers() {
     try {
-      const { headers, membersData } = await getAllMembers(club.id);
-      downloadAsCsv(headers, membersData, `${club.name}_membership.csv`);
+      const { finalHeaders, membersFullData } = await getAllMembers(club.id);
+      console.log(finalHeaders);
+      console.log(membersFullData);
+      downloadAsCsv(
+        finalHeaders,
+        membersFullData,
+        `${club.name}_membership.csv`
+      );
     } catch (error) {
       toastError("Error exporting CSV");
     }
@@ -180,8 +195,12 @@ export function DeleteButton({
     if (await confirmDelete()) {
       toastLoading();
       try {
-        const { headers, membersData } = await getAllMembers(club.id);
-        downloadAsCsv(headers, membersData, `${club.name}_membership.csv`);
+        const { finalHeaders, membersFullData } = await getAllMembers(club.id);
+        downloadAsCsv(
+          finalHeaders,
+          membersFullData,
+          `${club.name}_membership.csv`
+        );
         // await deleteClubMembers(club.id); // Needs to be implemented @MRlolface249
         setMembers([]);
         toastSuccess("All members deleted. Automatically exported backup.");

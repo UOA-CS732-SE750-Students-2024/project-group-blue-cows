@@ -11,6 +11,7 @@ import { deleteAllMembers } from "@/gateway/member/deleteAllMembers";
 import { deleteMember } from "@/gateway/member/deleteMember";
 import { getAllMembersForClub } from "@/gateway/member/getAllMembersForClub";
 import { getMemberForClub } from "@/gateway/member/getMemberForClub";
+import { getMembersAllDataForClub } from "@/gateway/member/getMembersAllDataForClub";
 import { postMember } from "@/gateway/member/postMember";
 import { postMembersData } from "@/gateway/member/postMembersData";
 import { putMember } from "@/gateway/member/putMember";
@@ -29,7 +30,7 @@ export async function updateClub(clubId: number, club: UpdateClubDto) {
 }
 
 export async function getAllMembers(clubId: number) {
-  return await getAllMembersForClub(clubId);
+  return await getMembersAllDataForClub(clubId);
 }
 
 export async function getAllClubs(name: string, filter: string | null) {
