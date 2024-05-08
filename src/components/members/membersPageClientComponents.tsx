@@ -3,9 +3,9 @@ import { Club } from "@/schemas/clubSchema";
 import { getAllMembers, importClubMembers } from "@/services/clubServices";
 import { downloadAsCsv, importFile } from "@/util/csvClientUtils";
 import { importCsvFile } from "@/util/csvUtils";
+import { confirm } from "@/util/modalUtils";
 import { toastError, toastLoading, toastSuccess } from "@/util/toastUtils";
 import { useRouter } from "next/navigation";
-import { openModal } from "../misc/Modal";
 import { BackButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
 
@@ -34,20 +34,37 @@ export function ImportButton({
 }) {
   const { setMembers } = useMemberPage();
 
+  async function confirmImport() {
+    return confirm({
+      title: "Import Registration Data?",
+      content: (
+        <div className="text-[1rem] leading-6 py-4 px-2">
+          <p className="mb-2">
+            This will overwrite any members with matching email addresses
+            already in the system.
+          </p>
+          <p>
+            You cannot overwrite core member data, including name, email, UPI,
+            Year, and Student ID.
+          </p>
+        </div>
+      ),
+      className: "w-[32rem] h-[18rem]",
+    });
+  }
+
   const handleImportMembers = () => {
     importFile(async (formData: FormData) => {
-      await openModal({
-        title: "Import Registration Data",
-        content: <p>Wow</p>,
-      });
-      toastLoading();
-      try {
-        const membersData = await importCsvFile(formData);
-        await importClubMembers(club.id, membersData);
-        setMembers(membersData);
-        toastSuccess("Members imported successfully");
-      } catch (error) {
-        toastError("Error importing CSV");
+      if (await confirmImport()) {
+        toastLoading();
+        try {
+          const membersData = await importCsvFile(formData);
+          await importClubMembers(club.id, membersData);
+          setMembers(membersData);
+          toastSuccess("Members imported successfully");
+        } catch (error) {
+          toastError("Error importing CSV");
+        }
       }
     });
   };
