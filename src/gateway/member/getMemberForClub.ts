@@ -10,6 +10,7 @@ export async function getMemberForClub(userId: string, clubId: number) {
       and(eq(membershipSchema.club, clubId), eq(membershipSchema.user, userId))
     );
   if (results.length > 1) {
+    console.log("I GOT HERE");
     throw new Error("More than one membership with the same user ID found.");
   }
 
