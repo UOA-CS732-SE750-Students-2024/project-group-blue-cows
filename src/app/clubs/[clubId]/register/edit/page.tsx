@@ -12,6 +12,8 @@ import { notFound } from "next/navigation";
 import { RegistrationEditProvider } from "@/components/form/RegistratonEditContext";
 import Preview from "@/components/form/Preview";
 import { getAllExtendedFields } from "@/services/clubFormFieldServices";
+import { auth, isUserClubAdmin } from "@/util/auth";
+import UnauthorisedUserPage from "@/app/unauthorised";
 
 export default async function RegistrationEditPage({
   params: { clubId },
@@ -22,6 +24,13 @@ export default async function RegistrationEditPage({
   if (!club) return notFound();
   const extendedFields = await getAllExtendedFields(+clubId);
 
+  const session = await auth();
+  const user = session?.user;
+  const isAdmin = await isUserClubAdmin(user, clubId);
+
+  if (isAdmin === false) {
+    return <UnauthorisedUserPage />;
+  }
   return (
     <div className="h-[calc(100vh-4rem)] w-full p-10">
       <RegistrationEditProvider initialExtendedFields={extendedFields}>
