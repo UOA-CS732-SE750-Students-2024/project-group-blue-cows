@@ -62,7 +62,7 @@ To use Playwright you'll need to build first
 ```
 yarn build
 ```
-Then install Playright browsers
+Then install [Playright browsers](https://playwright.dev/docs/browsers)
 ```
 npx playwright install
 ```
