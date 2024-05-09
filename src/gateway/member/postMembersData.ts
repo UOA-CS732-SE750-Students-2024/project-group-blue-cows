@@ -47,7 +47,6 @@ export async function postMembersData(
         };
       }
     );
-    postFormFieldInputs(extendedfields, clubId, id);
 
     if (id) {
       const result = await getMemberForClub(id, clubId);
@@ -62,5 +61,6 @@ export async function postMembersData(
         });
       }
     }
+    postFormFieldInputs(extendedfields, clubId, id);
   }
 }
