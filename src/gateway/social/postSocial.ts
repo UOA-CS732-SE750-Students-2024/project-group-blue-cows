@@ -6,8 +6,13 @@ import { db } from "../../config/db";
 // adds a link to a clubs socials
 export async function postSocial(socialDto: PostSocialDto) {
   try {
-    await db.insert(socialsSchema).values([socialDto]);
+    return (
+      await db
+        .insert(socialsSchema)
+        .values([socialDto])
+        .returning({ id: socialsSchema.id })
+    ).at(0)?.id;
   } catch (error) {
-    return "Failed to insert link into database";
+    throw new Error("Failed to insert link into database");
   }
 }
