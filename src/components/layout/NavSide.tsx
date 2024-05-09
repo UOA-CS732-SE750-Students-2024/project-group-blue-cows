@@ -11,12 +11,10 @@ export default function NavSide({ className }: { className?: string }) {
       className={`w-1/6 lg:min-w-[16rem] min-w-[12rem] flex flex-col items-center lg:p-6 content-middle bg-blue-custom ${className}`}
     >
       <nav className="flex flex-col items-start lg:gap-4">
-        <TooltipProvider>
-          <NavProfile />
-          <NavBrowse />
-          <NavManage />
-          <NavShortcut />
-        </TooltipProvider>
+        <NavProfile />
+        <NavBrowse />
+        <NavManage />
+        <NavShortcut />
       </nav>
     </aside>
   );
