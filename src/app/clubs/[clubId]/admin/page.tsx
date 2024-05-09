@@ -17,7 +17,7 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import ClubEditForm from "@/components/form/club-edit-information";
+// import ClubEditForm from "@/components/form/club-edit-information";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
