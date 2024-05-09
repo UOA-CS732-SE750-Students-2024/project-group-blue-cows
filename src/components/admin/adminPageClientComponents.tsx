@@ -15,6 +15,7 @@ import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
 import { Card } from "../ui/card";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { toastError, toastSuccess } from "@/util/toastUtils";
 
 
 
@@ -308,10 +309,10 @@ export function MembersPageBack({
   }
 
 
-  interface editCategoryProps {
+  interface EditCategoryProps {
     className?: string;
   }
-
+  
   export function EditCategory({ className }: EditCategoryProps) {
     const { club, setClub } = useAdmin();
   
@@ -321,7 +322,14 @@ export function MembersPageBack({
         category: category,
       };
       setClub(updatedClub);
-      updateClub(club.id, updatedClub); // Triggering the update immediately
+      updateClub(club.id, updatedClub)
+        .then(() => {
+          toastSuccess("Category updated successfully!"); // Using predefined toast success function
+        })
+        .catch(error => {
+          const errMsg = error instanceof Error ? error.message : String(error);
+          toastError(errMsg); // Using predefined toast error function
+        });
     }
   
     return (
@@ -329,7 +337,7 @@ export function MembersPageBack({
         <p className="uppercase">Club Category</p>
         <Select
           value={club.category}
-          onValueChange={(value) => setCategory(value)}
+          onValueChange={setCategory}
         >
           <SelectTrigger>
             <SelectValue />
@@ -346,7 +354,6 @@ export function MembersPageBack({
       </Card>
     );
   }
-
 
 
 
