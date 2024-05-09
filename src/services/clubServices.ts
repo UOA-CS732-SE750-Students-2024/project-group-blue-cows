@@ -64,10 +64,7 @@ export async function getClubById(clubID: number) {
   return await getClub(clubID);
 }
 
-export async function importClubMembers(
-  clubId: number,
-  memberData: studentAllData[]
-) {
+export async function importClubMembers(clubId: number, memberData: any[]) {
   revalidatePath(`/clubs/${clubId}/members`);
   return await postMembersData(clubId, memberData);
 }
