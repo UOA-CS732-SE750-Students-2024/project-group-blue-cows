@@ -24,6 +24,7 @@ import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
 import { EditClubInformation, EditRegistrationFormButton } from "@/components/admin/adminPageClientComponents";
+import { getAllMembers } from "@/services/clubServices";
 
 export default async function AdminEditPage({
   params,
@@ -166,6 +167,22 @@ export default async function AdminEditPage({
           </Card>
         </div>
       </div>
+      <Card className="mt-5">
+            <div className="m-5">
+              <p className="text-lg">Membership Count</p>
+              <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
+                <div className="text-center">
+                  <h1 className="text-lg md:text-xl lg:text-2xl">{(await getAllMembers(clubData?.id as number)).membersData.length}</h1>
+                  <h2 className="text-sm md:text-md lg:text-lg">
+                    Registered Members
+                  </h2>
+                </div>
+              </div>
+              <Button className="mt-3 bg-customAccent text-black">
+                View Members
+              </Button>
+            </div>
+          </Card>
 
 
 
@@ -240,12 +257,6 @@ export default async function AdminEditPage({
     //       </div>
     //     </div>
     //   </div>
-
-
-    // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
-
-
-
     //   <div className="flex">
     //     <div className="w-1/3 px-10 py-4">
     //       <Card>
@@ -279,6 +290,13 @@ export default async function AdminEditPage({
     //           </Link>
     //         </CardContent>
     //       </Card>
+
+
+    // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
+
+
+
+
     //       <Card className="mt-5">
     //         <div className="m-5">
     //           <p className="text-lg">Membership Count</p>
