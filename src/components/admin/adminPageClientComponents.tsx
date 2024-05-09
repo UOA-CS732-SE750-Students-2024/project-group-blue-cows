@@ -9,6 +9,7 @@ import { UpdateClubDto } from "@/Dtos/club/UpdateClubDto";
 import { updateClub } from "@/services/clubServices";
 import { LegacyRef, useRef } from "react";
 import { UploadButton } from "@/util/uploadThingUtils";
+import { putClub } from "@/gateway/club/putClub";
 
 
 
@@ -166,8 +167,9 @@ export function MembersPageBack({
 
         //Convert url to string
         const logoUrl = res[0].url.toString();
-        
+
         // form.setValue("logo", logoUrl, { shouldValidate: true });
+        putClub(clubData.id, { logo: logoUrl });
       }}
       onUploadError={(error: Error) => {
         // Do something with the error.
