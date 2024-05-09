@@ -101,6 +101,9 @@ export const separateDataForImport = (
 
   for (const key in expectedMappedObject) {
     if (!mainDataFields.includes(key)) {
+      if (typeof expectedMappedObject[key] !== "string") {
+        throw Error("Extended field value must be a string");
+      }
       additionalData.push({ fieldName: key, value: expectedMappedObject[key] });
     } else {
       if (key in mainData) {
