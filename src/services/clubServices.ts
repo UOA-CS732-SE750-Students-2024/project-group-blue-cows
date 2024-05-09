@@ -56,7 +56,7 @@ export async function removeMember(clubId: number, userId: string) {
 }
 
 export async function removeAllMembers(clubId: number) {
-  revalidatePath(`clubs/${clubId}/members`);
+  revalidatePath(`/clubs/${clubId}/members`);
   return await deleteAllMembers(clubId);
 }
 
@@ -68,7 +68,7 @@ export async function importClubMembers(
   clubId: number,
   memberData: studentAllData[]
 ) {
-  revalidatePath(`clubs/${clubId}/members`);
+  revalidatePath(`/clubs/${clubId}/members`);
   return await postMembersData(clubId, memberData);
 }
 

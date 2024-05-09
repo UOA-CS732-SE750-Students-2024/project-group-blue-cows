@@ -25,6 +25,8 @@ export default async function MembersPage({
     return notFound();
   }
 
+  // console.log(finalHeaders)
+
   return (
     <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">
       <MemberPageContextProvider initialMembers={membersFullData}>

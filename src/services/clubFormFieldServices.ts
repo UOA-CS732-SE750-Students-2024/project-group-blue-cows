@@ -16,6 +16,6 @@ export async function updateForm(
 }
 
 export async function getAllExtendedFields(clubId: number) {
-  revalidatePath(`clubs/${clubId}/register`);
+  revalidatePath(`/clubs/${clubId}/register`);
   return getClubFormFields(clubId);
 }
