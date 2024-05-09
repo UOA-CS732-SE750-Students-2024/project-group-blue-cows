@@ -23,6 +23,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { AppUser } from "@/schemas/authSchema";
+import Unauthorised from "@/app/unauthorised";
+import UnauthorisedUserPage from "@/app/unauthorised";
 
 export default function AdminEditPage({
   params,
@@ -47,7 +49,7 @@ export default function AdminEditPage({
   }, []);
 
   if (isAdmin === false) {
-    return <div>Unauthorized</div>;
+    return <UnauthorisedUserPage />;
   }
   console.log(clubData);
 
