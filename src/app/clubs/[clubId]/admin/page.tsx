@@ -51,7 +51,7 @@ export default async function AdminEditPage({
   } else {
     console.log("No club data found");
   }
-  
+
   const session = await auth();
   const user = session?.user;
   const isAdmin = await isUserClubAdmin(user, params.clubId);
@@ -71,7 +71,6 @@ export default async function AdminEditPage({
   //   };
   //   getData();
   // }, []);
-
 
   // console.log(clubData);
 
@@ -112,7 +111,6 @@ export default async function AdminEditPage({
   };
 
   return (
-<<<<<<< HEAD
     <AdminProvider initialClub={clubData as Club}>
       <div className="h-auto w-full">
         <div className="flex px-10 pt-4 pb-2">
@@ -122,16 +120,6 @@ export default async function AdminEditPage({
                 Back to my clubs
               </button>
             </Link>
-=======
-
-    <AdminProvider initialClub={clubData as Club}>
-      <div className="h-[calc(100vh-4rem)] w-full">
-        <div className="flex px-10 pt-4 pb-2">
-          <div className="w-1/10">
-            <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-              {clubData?.name}
-            </button>
->>>>>>> main
           </div>
           <div className="w-9/10"></div>
         </div>
@@ -140,35 +128,19 @@ export default async function AdminEditPage({
           <div className="w-1/10">
             <img
               src={clubData?.logo}
-<<<<<<< HEAD
               alt="Club Logo"
               className="w-[30vh] h-auto rounded-lg"
-=======
-              alt="Square Image"
-              className="w-full h-auto rounded-lg"
->>>>>>> main
             />
           </div>
           <div className="w-9/10">
             <div className="ml-5 flex flex-col">
               <div className="flex items-start">
-<<<<<<< HEAD
                 <p className="text-2xl font-bold">
-=======
-                <p className="text-lg font-bold">
->>>>>>> main
                   {clubData?.name || "Loading Club Name..."}
                 </p>
               </div>
               <div className="flex items-start">
-<<<<<<< HEAD
                 <p>University of Auckland Student Club</p>
-=======
-                <p>
-                  Also known as: {clubData?.name || "WDCC"}, WDCC UoA, Admin
-                  Editing Club ID: {clubData?.id || "Loading ID"}
-                </p>
->>>>>>> main
               </div>
               <div className="flex items-start">
                 <EditClubInformation
@@ -198,7 +170,6 @@ export default async function AdminEditPage({
             </CardContent>
           </Card>
 
-<<<<<<< HEAD
           {/* --------------------- Show Membership Count */}
 
           <Card className="mt-5">
@@ -216,27 +187,8 @@ export default async function AdminEditPage({
                     Registered Members
                   </h2>
                 </div>
-=======
-        {/* --------------------- Show Membership Count */}
-
-        <Card className="mt-5">
-          <div className="m-5">
-            <p className="text-lg">Membership Count</p>
-            <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
-              <div className="text-center">
-                <h1 className="text-lg md:text-xl lg:text-2xl">
-                  {
-                    (await getAllMembers(clubData?.id as number))
-                      .membersFullData.length
-                  }
-                </h1>
-                <h2 className="text-sm md:text-md lg:text-lg">
-                  Registered Members
-                </h2>
->>>>>>> main
               </div>
             </div>
-<<<<<<< HEAD
           </Card>
         </div>
         {/* --------------------- View Executives Table */}
@@ -270,45 +222,6 @@ export default async function AdminEditPage({
             </CardContent>
           </Card>
         </div>
-=======
-            <ViewMembersButton clubData={clubData as Club} className="mt-2" />
-          </div>
-        </Card>
-      </div>
-
-      {/* --------------------- View Executives Table */}
-
-      <div className="w-2/3 p-4">
-
-        <Card>
-          <CardHeader>
-            <p className="text-lg">Executive Members (Admin)</p>
-            <CardDescription>
-              View and/or update the the club registration form, including
-              information and custom fields.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <AddNewExecButton clubData={clubData as Club} className="mt-2" />
-            <div className="overflow-scroll" style={{ height: "300px" }}>
-              <Table className="min-w-full">
-                <TableHeader>
-                  <TableRow>
-                    <TableCell className="font-bold">Name</TableCell>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {execs.map((exec, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{exec.name}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
->>>>>>> main
       </div>
 
       {/* ---------------- EDIT DESCRIPTION COMPONENT */}
@@ -446,19 +359,8 @@ export default async function AdminEditPage({
     //       </Card>
     //     </div>
 
-<<<<<<< HEAD
     // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
 
-=======
-
-
-    // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
-
-
-
-
-
->>>>>>> main
     //     <div className="w-2/3 p-4">
     //       <Card>
     //         <CardHeader>
