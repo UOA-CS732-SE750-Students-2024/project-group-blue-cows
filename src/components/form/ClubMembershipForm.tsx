@@ -1,47 +1,34 @@
 "use client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardFooter,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormControl,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
-import { UploadButton } from "@/util/uploadThingUtils";
-import { AppUser, users } from "@/schemas/authSchema";
+import { AppUser } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import * as z from "zod";
-import { Club } from "@/schemas/clubSchema";
-import { getUser } from "@/services/authServices";
-import { addMember, fetchMemberForClub } from "@/services/clubServices";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
-import { notFound } from "next/navigation";
-import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
-import {
-  addFormInputs,
-  getFieldInputForUser,
-} from "@/services/formFieldInputServices";
-import { updateUser } from "@/services/userServices";
-import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
 import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
+import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
+import { Club } from "@/schemas/clubSchema";
+import { fetchMemberForClub } from "@/services/clubServices";
+import { addFormInputs } from "@/services/formFieldInputServices";
+import { updateUser } from "@/services/userServices";
+import { notFound } from "next/navigation";
+import * as z from "zod";
 
 const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
@@ -94,17 +81,24 @@ export default function ClubRegistrationForm({
   clubId,
   club,
   clubFormFields,
+  user,
 }: {
   clubId: string;
   club: Club;
-  clubFormFields: GetClubFormFieldDto[];
+  clubFormFields: {
+    name: string;
+    type: string;
+    description: string;
+    value: string;
+  }[];
+  user: AppUser;
 }) {
   //const [loading, setLoading] = useState(true);
   const [alreadyMember, setAlreadyMember] = useState(false);
   const [fieldName, setFieldName] = useState("");
 
   const session = useSession(); // Get the session data
-  const user = session.data?.user as AppUser;
+  //const user = session.data?.user as AppUser;
   const router = useRouter();
   const formSchema = createFormSchema(clubFormFields);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -324,7 +318,12 @@ export default function ClubRegistrationForm({
 }
 
 interface AdditionalFormFieldsProps {
-  clubFormFields: GetClubFormFieldDto[];
+  clubFormFields: {
+    name: string;
+    type: string;
+    description: string;
+    value: string;
+  }[];
   form: UseFormReturn<any, any, undefined>; // replace with the correct type
 }
 
@@ -352,7 +351,7 @@ const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
                           <Input
                             placeholder={`Enter ${field.name}`}
                             {...formField}
-                            defaultValue={formField.value}
+                            defaultValue={field.value}
                           />
                         );
                       case "long":
