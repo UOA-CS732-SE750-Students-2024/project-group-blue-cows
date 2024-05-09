@@ -7,7 +7,7 @@ import { membersData } from "./mockData";
 beforeEach(() => {
   render(
     <MemberPageContextProvider initialMembers={membersData}>
-      <MembersTable />
+      <MembersTable headers={["name", "upi"]} />
     </MemberPageContextProvider>
   );
 });
