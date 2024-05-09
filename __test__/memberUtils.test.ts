@@ -1,11 +1,11 @@
 import { GetInputsForClubDto } from "@/Dtos/formFieldInput/GetInputsForClubDto";
-import { studentDataWithId } from "@/gateway/member/getAllMembersForClub";
+import { studentDataWithId } from "@/interfaces/studentDataWithId";
+import { studentFullData } from "@/interfaces/studentFullData";
 import {
   combineMembersData,
   extractFieldNames,
   mapToObject,
   separateDataForImport,
-  studentFullData,
 } from "@/util/memberUtil";
 
 it("combines student data with form field inputs correctly", () => {

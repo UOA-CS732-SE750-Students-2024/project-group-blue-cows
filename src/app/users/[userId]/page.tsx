@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
 export default function UserPage({ params }: { params: { userId: string } }) {
-  if (params.userId === 'authcontext.user.idOrSmth') {
-    redirect('/users/me');
+  if (params.userId === "authcontext.user.idOrSmth") {
+    redirect("/users/me");
   }
 
   return (

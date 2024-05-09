@@ -18,7 +18,6 @@ import { postMember } from "@/gateway/member/postMember";
 import { postMembersData } from "@/gateway/member/postMembersData";
 import { putMember } from "@/gateway/member/putMember";
 import { AppUser } from "@/schemas/authSchema";
-import { studentAllData } from "@/util/csvUtils";
 import { revalidatePath } from "next/cache";
 import "server-only";
 

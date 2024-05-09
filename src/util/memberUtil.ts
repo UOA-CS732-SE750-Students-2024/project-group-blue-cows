@@ -1,14 +1,8 @@
 import { GetInputsForClubDto } from "@/Dtos/formFieldInput/GetInputsForClubDto";
-import { GetFormFieldInputDto } from "@/Dtos/formFieldInput/GetFormFieldInputDto";
-import {
-  studentData,
-  studentDataWithId,
-} from "@/gateway/member/getAllMembersForClub";
 import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
-
-export interface studentFullData extends studentDataWithId {
-  formFieldInputs: GetFormFieldInputDto[];
-}
+import { studentData } from "@/interfaces/studentData";
+import { studentDataWithId } from "@/interfaces/studentDataWithId";
+import { studentFullData } from "@/interfaces/studentFullData";
 
 export function combineMembersData(
   studentDataList: studentDataWithId[],
