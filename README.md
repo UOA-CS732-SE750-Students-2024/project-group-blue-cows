@@ -30,49 +30,47 @@ Key features include:
 
 The app may be extended with other convenience features related to member administration (e.g. emailing announcements). Clubs can create their own branded portal.
 
-## How To Run
+## Getting Started
 
-First, run the development server:
+Firstly ensure you have a `.env` in the root directory containing all the required environment variables.
 
-```bash
-yarn
+Then install dependencies with 
 ```
-```bash
+yarn install
+```
+
+Then run the development server with
+```
 yarn dev
 ```
 
-## Testing
-
-**How To Run**
-
-For unit test using React Testing Library and Jest
-
-```bash
-yarn
+Or you can run a production build with
 ```
-
-```bash
-yarn test
+yarn build
+yarn start
 ```
-
-For End-To-End Testing using Playwright
-
-```bash
-yarn
-```
-```bash
-yarn playwright install --with-deps
-```
-```bash
-yarn build 
-```
-```bash
-yarn playwright:test 
-```
-
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Testing
+We're using Jest for unit testing and Playwright for end to end testing. 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can run Jest with
+```
+yarn test
+```
+
+To use Playwright you'll need to build first
+```
+yarn build
+```
+Then install Playright browsers
+```
+npx playwright install
+```
+Finally
+```
+yarn playwright:test
+```
+
+For further information see our [wiki](https://github.com/UOA-CS732-SE750-Students-2024/project-group-blue-cows/wiki).
