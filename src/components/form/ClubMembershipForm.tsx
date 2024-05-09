@@ -34,30 +34,30 @@ const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
 ): z.ZodObject<any, any, any, any, any> => {
   let schema: z.ZodRawShape = {
-    name: z.string().min(1, "Name is required").toUpperCase(),
-    student_id: z.string().min(1, "ID is required"),
-    email: z.string().min(1, "Email is required"),
-    upi: z.string().min(1, "UPI is required"),
-    year_of_study: z.coerce.number().min(1, "Year level is required"),
+    name: z.string(), //.min(1, "Name is required").toUpperCase(),
+    student_id: z.string(), //.min(1, "ID is required"),
+    email: z.string(), //.min(1, "Email is required"),
+    upi: z.string(), //.min(1, "UPI is required"),
+    year_of_study: z.string(), //.min(1, "Year level is required"),
   };
 
   formExtensions.forEach((formExtension) => {
     let field;
     switch (formExtension.type) {
       case "string":
-        field = z.string().min(1, `${formExtension.name} is required`);
+        field = z.string().optional(); //.min(1, `${formExtension.name} is required`);
         break;
       case "long":
-        field = z.string().max(500, `${formExtension.name} is too long`);
+        field = z.string().optional(); //max(500, `${formExtension.name} is too long`);
         break;
       case "short":
-        field = z.string().max(50, `${formExtension.name} is too short`);
+        field = z.string().optional(); //max(50, `${formExtension.name} is too short`);
         break;
       case "number":
-        field = z.number().max(100, `${formExtension.name} is too large`);
+        field = z.number().optional(); //.max(100, `${formExtension.name} is too large`);
         break;
       default:
-        field = z.string().min(1, `${formExtension.name} is required`);
+        field = z.string().optional(); //.min(1, `${formExtension.name} is required`);
     }
     schema = {
       ...schema,
@@ -157,7 +157,7 @@ export default function ClubRegistrationForm({
             alert("Membership added successfully");
           })
           .then(() => {
-            router.back();
+            //router.back();
           })
           .catch((error) => {
             console.error("Error posting form inputs: ", error);
@@ -167,6 +167,11 @@ export default function ClubRegistrationForm({
         console.error("Error updating user: ", error);
       });
   };
+
+  // function selfSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  //   event.preventDefault();
+  //   handleSubmit(form.getValues());
+  // }
 
   return (
     <Form {...form}>
