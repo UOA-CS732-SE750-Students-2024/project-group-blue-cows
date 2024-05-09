@@ -1,13 +1,12 @@
 import { db } from "@/config/db";
 import { AppUser } from "@/schemas/authSchema";
-import clubSchema, { Club } from "@/schemas/clubSchema";
+import clubSchema from "@/schemas/clubSchema";
 import membershipSchema, { Membership } from "@/schemas/membershipSchema";
 import { auth } from "@/util/auth";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { stripe } from "@/config/stripe";
-import absoluteUrl from "next-absolute-url";
-import { NextApiRequest } from "next";
+import { headers } from "next/headers";
 
 enum PaymentOutcome {
   SUCCESS,
@@ -15,14 +14,15 @@ enum PaymentOutcome {
 }
 
 function getRedirectUrl(
-  request: NextApiRequest,
+  request: Request,
   status: PaymentOutcome,
   message: string,
   clubName?: string,
   membershipId?: string
 ): string {
-  const baseUrl = new URL(absoluteUrl(request).origin);
-  baseUrl.pathname = "/payment/result";
+  const protocol = headers().get("x-forwarded-proto") || "http";
+  const host = request.headers.get("host");
+  const baseUrl = new URL(`${protocol}://${host}/payment/result`);
   switch (status) {
     case PaymentOutcome.SUCCESS:
       baseUrl.searchParams.set("status", "success");
@@ -43,7 +43,7 @@ function getRedirectUrl(
 }
 
 function redirectOutcome(
-  request: NextApiRequest,
+  request: Request,
   status: PaymentOutcome,
   message: string,
   clubName?: string,
@@ -66,7 +66,7 @@ export const dynamic = "force-dynamic";
 // GET /payment/[membershipId]/checkout
 // Get the Stripe checkout URL for a membership
 export async function GET(
-  request: NextApiRequest,
+  request: Request,
   { params }: { params: { membershipId: string } }
 ) {
   // Check if the user is authenticated
