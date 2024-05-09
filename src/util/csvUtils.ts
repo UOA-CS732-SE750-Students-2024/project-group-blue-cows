@@ -1,6 +1,5 @@
 "use server";
 import { ENVIRONMENT } from "@/config/env";
-import { studentData } from "@/gateway/member/getAllMembersForClub";
 import csvParser from "csv-parser";
 import dotenv from "dotenv";
 import * as originalFS from "fs";
@@ -10,14 +9,9 @@ import "server-only";
 
 dotenv.config();
 
-export interface studentAllData extends studentData {
-  paid: boolean;
-  isAdmin: boolean;
-}
-
 export const parseCsvFile = async (filename: string) => {
-  return new Promise<studentAllData[]>((resolve, reject) => {
-    const extractedValues: studentAllData[] = [];
+  return new Promise<any[]>((resolve, reject) => {
+    const extractedValues: any[] = [];
     originalFS
       .createReadStream(filename)
       .pipe(csvParser())

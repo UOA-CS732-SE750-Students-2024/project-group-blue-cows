@@ -1,14 +1,7 @@
 import { users } from "@/schemas/authSchema";
 import "server-only";
 import { db } from "../../config/db";
-
-export interface postUserDto {
-  name: string | null;
-  email: string;
-  upi: string | null;
-  year_of_study: number | null;
-  student_id: string | null;
-}
+import { postUserDto } from "@/Dtos/user/PostUserDto";
 
 export async function postUser(user: postUserDto) {
   try {

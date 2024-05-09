@@ -17,96 +17,93 @@ import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { toastError, toastSuccess } from "@/util/toastUtils";
 
-
-
-
 export function MembersPageBack({
-    clubId,
-    className,
-  }: {
-    clubId: string;
-    className?: string;
-  }) {
-    const router = useRouter();
-    return (
-      <BackButton
-        className={`hidden lg:block ${className}`}
-        onClick={() => router.push(`/clubs/${clubId}`)}
-      />
-    );
-  }
+  clubId,
+  className,
+}: {
+  clubId: string;
+  className?: string;
+}) {
+  const router = useRouter();
+  return (
+    <BackButton
+      className={`hidden lg:block ${className}`}
+      onClick={() => router.push(`/clubs/${clubId}`)}
+    />
+  );
+}
 
-  export function EditClubInformation({
-    clubData,
-    className,
-  }: {
-    clubData: Club;
-    className?: string;
-  }) {
-    const router = useRouter();
-    return (
-      <YellowButton
+export function EditClubInformation({
+  clubData,
+  className,
+}: {
+  clubData: Club;
+  className?: string;
+}) {
+  const router = useRouter();
+  return (
+    <YellowButton
       className={`${className}`}
       onClick={() => router.push(`/clubs/${clubData.id}/view`)}
     >
-        View Club Information
-        </YellowButton>
-    );
-  }
+      View Club Information
+    </YellowButton>
+  );
+}
 
-  export function EditRegistrationFormButton({
-    clubData,
-    className,
-  }: {
-    clubData: Club;
-    className?: string;
-  }) {
-    const router = useRouter();
-    return (
-      <YellowButton
+export function EditRegistrationFormButton({
+  clubData,
+  className,
+}: {
+  clubData: Club;
+  className?: string;
+}) {
+  const router = useRouter();
+  return (
+    <YellowButton
       className={`${className}`}
       onClick={() => router.push(`/clubs/${clubData.id}/register/edit`)}
     >
-        Edit Registration Form
-        </YellowButton>
-    );
-  }
+      Edit Registration Form
+    </YellowButton>
+  );
+}
 
-  export function ViewMembersButton({
-    clubData,
-    className,
-  }: {
-    clubData: Club;
-    className?: string;
-  }) {
-    const router = useRouter();
-    return (
-      <YellowButton
+export function ViewMembersButton({
+  clubData,
+  className,
+}: {
+  clubData: Club;
+  className?: string;
+}) {
+  const router = useRouter();
+  return (
+    <YellowButton
       className={`${className}`}
       onClick={() => router.push(`/clubs/${clubData.id}/members`)}
     >
-        View Members
-        </YellowButton>
-    );
-  }
+      View Members
+    </YellowButton>
+  );
+}
 
-  export function AddNewExecButton({
-    clubData,
-    className,
-  }: {
-    clubData: Club;
-    className?: string;
-  }) {
-    const router = useRouter();
-    return (
-      <YellowButton
+export function AddNewExecButton({
+  clubData,
+  className,
+}: {
+  clubData: Club;
+  className?: string;
+}) {
+  const router = useRouter();
+  return (
+    <YellowButton
       className={`${className}`}
       onClick={() => router.push(`/clubs/${clubData.id}/members`)}
     >
-        Add New Exec
-        </YellowButton>
-    );
-  }
+      Add New Exec
+    </YellowButton>
+  );
+}
 
   // export function EditDescriptionComponent({
   //   clubData,
@@ -354,7 +351,4 @@ export function MembersPageBack({
       </Card>
     );
   }
-
-
-
 

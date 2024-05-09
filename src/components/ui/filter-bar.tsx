@@ -20,12 +20,12 @@ export function FilterBar({
       <div className="flex flex-wrap justify-center gap-2 w-full">
         {[
           "All",
-          "Academic and specialist",
+          "Academic and Specialist",
           "Sport",
           "Special Interest",
-          "Religious and spiritual",
-          "Causes",
+          "Religious and Spiritual",
           "Cultural",
+          "Causes",
         ].map((option) => (
           <FilterBadge
             key={option}

@@ -1,89 +1,63 @@
 "use client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { getClubById, postClub } from "@/services/clubServices";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardFooter,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from "@/components/ui/select";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormControl,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
-import { UploadButton } from "@/util/uploadThingUtils";
-import { AppUser, users } from "@/schemas/authSchema";
+import { AppUser } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-import * as z from "zod";
-import { postMember } from "@/gateway/member/postMember";
-import { Club } from "@/schemas/clubSchema";
-import { getUser } from "@/services/authServices";
-import LoadingSpinner from "../ui/loading-spinner";
-import { Session } from "next-auth";
-import { PostExtendedFormFieldDto } from "@/Dtos/extendedFormField/PostExtendedFormFieldDto";
-import { get } from "http";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
-import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
+import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
+import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
+import { Club } from "@/schemas/clubSchema";
+import { fetchMemberForClub } from "@/services/clubServices";
+import { addFormInputs } from "@/services/formFieldInputServices";
+import { updateUser } from "@/services/userServices";
 import { notFound } from "next/navigation";
+import * as z from "zod";
 
 const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
 ): z.ZodObject<any, any, any, any, any> => {
   let schema: z.ZodRawShape = {
-    id: z.string().min(1, "ID is required"),
-    name: z.string().min(1, "Name is required").toUpperCase(),
-    email: z.string().min(1, "Email is required"),
-    upi: z.string().min(1, "UPI is required"),
-    yearLevel: z.number().min(1, "Year level is required"),
+    name: z.string(), //.min(1, "Name is required").toUpperCase(),
+    student_id: z.string(), //.min(1, "ID is required"),
+    email: z.string(), //.min(1, "Email is required"),
+    upi: z.string(), //.min(1, "UPI is required"),
+    year_of_study: z.coerce.number(), //.min(1, "Year level is required"),
   };
 
   formExtensions.forEach((formExtension) => {
     let field;
     switch (formExtension.type) {
       case "string":
-        field = z.string().min(1, `${formExtension.name} is required`);
+        field = z.string().optional(); //.min(1, `${formExtension.name} is required`);
         break;
       case "long":
-        field = z
-          .string()
-          .min(1, `${formExtension.name} is required`)
-          .max(500, `${formExtension.name} is too long`);
+        field = z.string().optional(); //max(500, `${formExtension.name} is too long`);
         break;
       case "short":
-        field = z
-          .string()
-          .min(1, `${formExtension.name} is required`)
-          .max(50, `${formExtension.name} is too short`);
+        field = z.string().optional(); //max(50, `${formExtension.name} is too short`);
         break;
       case "number":
-        field = z
-          .number()
-          .min(1, `${formExtension.name} is required`)
-          .max(100, `${formExtension.name} is too large`);
+        field = z.number().optional(); //.max(100, `${formExtension.name} is too large`);
         break;
       default:
-        field = z.string().min(1, `${formExtension.name} is required`);
+        field = z.string().optional(); //.min(1, `${formExtension.name} is required`);
     }
     schema = {
       ...schema,
@@ -98,65 +72,109 @@ export default function ClubRegistrationForm({
   clubId,
   club,
   clubFormFields,
+  user,
 }: {
   clubId: string;
   club: Club;
-  clubFormFields: GetClubFormFieldDto[];
+  clubFormFields: {
+    name: string;
+    type: string;
+    description: string;
+    value: string;
+  }[];
+  user: AppUser;
 }) {
-  //const [loading, setLoading] = useState(true);
+  const [alreadyMember, setAlreadyMember] = useState(false);
 
   const session = useSession(); // Get the session data
-  const user = session.data?.user as AppUser;
 
+  const router = useRouter();
   const formSchema = createFormSchema(clubFormFields);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      id: "",
-      email: "",
-      upi: "",
-      yearLevel: 0,
-    },
+    defaultValues: clubFormFields.reduce(
+      (values: { [key: string]: string | number }, field) => {
+        values[field.name] = field.value;
+        return values;
+      },
+      {
+        name: "",
+        id: "",
+        email: "",
+        upi: "",
+        year_of_study: 0,
+      }
+    ),
   });
 
   useEffect(() => {
     if (user) {
       form.setValue("name", user.name || "");
-      form.setValue("id", user.student_id || "");
       form.setValue("email", user.email || "");
+      form.setValue("student_id", user.student_id || "");
       form.setValue("upi", user.upi || "");
-      form.setValue("yearLevel", user.year_of_study || 0);
+      form.setValue("year_of_study", user.year_of_study || 0);
     }
   }, [user]);
 
   if (!club) return notFound();
-  // if (loading || !user) {
-  //   return <LoadingSpinner />;
-  // }
+  // call updateUser for mandatory fields, addFormInputs for optional fields
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("handleSubmit");
+    const memberData = await fetchMemberForClub(user?.id, Number(clubId));
+    if (memberData) {
+      setAlreadyMember(true);
+      alert("You are already a member of this club.");
+      return;
+    }
+    const { name, email, ...objWithFilteredOutFields } = values;
+    // Split the values into mandatory and optional fields
+    const mandatoryFields: UpdateUserDto = {
+      student_id: objWithFilteredOutFields.id,
+      upi: objWithFilteredOutFields.upi,
+      year_of_study: objWithFilteredOutFields.year_of_study,
+    };
 
-  // TODO - Add a submit handler to post the user to the club membership endpoint HERE
+    let optionalFields: { [key: string]: any } = Object.fromEntries(
+      Object.entries(objWithFilteredOutFields).filter(
+        ([key]) => !Object.keys(mandatoryFields).includes(key)
+      )
+    );
 
-  // const handleSubmit = (values: z.infer<typeof formSchema>) => {
-  //   console.log(values);
-  //   postMember(user)
-  //     .then(() => {
-  //       form.reset(); // Reset form fields after successful submission
-  //     })
-  //     .catch((error) => {
-  //       console.error("Submission error:", error);
-  //     });
-  // };
+    console.log("Mandatory fields: ", mandatoryFields);
+    console.log("Optional fields: ", optionalFields);
 
-  // form.watch("category");
+    let optionalFieldsArray: PostFormFieldInputDto[] = Object.entries(
+      optionalFields
+    ).map(([fieldName, value]) => ({ fieldName, value }));
+    // Call updateUser for mandatory fields
+    updateUser(mandatoryFields)
+      .then(() => {
+        // Call addFormInputs for optional fields
+        addFormInputs(optionalFieldsArray, Number(clubId), user?.id || "")
+          .then(() => {
+            form.reset(); // Reset form fields after successful submission
+            alert("Membership added successfully");
+          })
+          .then(() => {
+            router.back();
+          })
+          .catch((error) => {
+            console.error("Error posting form inputs: ", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error updating user: ", error);
+      });
+  };
 
   return (
     <Form {...form}>
       <form
-        // onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(handleSubmit)}
         className="w-full flex flex-col gap-4"
       >
-        <Card className="w-full bg-[#FFD166]">
+        <Card className="w-full bg-customAccent">
           <CardHeader>
             <CardTitle>Membership Benefits</CardTitle>
           </CardHeader>
@@ -183,7 +201,12 @@ export default function ClubRegistrationForm({
               <FormItem>
                 <FormLabel className="font-bold">Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter name" type="name" {...field} />
+                  <Input
+                    disabled
+                    placeholder="Enter name"
+                    type="name"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -203,6 +226,7 @@ export default function ClubRegistrationForm({
                   </FormLabel>
                   <FormControl>
                     <Input
+                      disabled
                       placeholder="Enter email"
                       type="description"
                       {...field}
@@ -236,7 +260,7 @@ export default function ClubRegistrationForm({
           />
           <FormField
             control={form.control}
-            name="upi"
+            name="id"
             render={({ field }) => {
               return (
                 <FormItem>
@@ -257,7 +281,7 @@ export default function ClubRegistrationForm({
           />
           <FormField
             control={form.control}
-            name="yearLevel"
+            name="year_of_study"
             render={({ field }) => {
               return (
                 <FormItem>
@@ -280,7 +304,7 @@ export default function ClubRegistrationForm({
 
         <Button
           type="submit"
-          className="w-full bg-[#087DF1] color-white uppercase"
+          className="w-full bg-customPrimary color-white uppercase"
         >
           SUBMIT
         </Button>
@@ -290,7 +314,12 @@ export default function ClubRegistrationForm({
 }
 
 interface AdditionalFormFieldsProps {
-  clubFormFields: GetClubFormFieldDto[];
+  clubFormFields: {
+    name: string;
+    type: string;
+    description: string;
+    value: string;
+  }[];
   form: UseFormReturn<any, any, undefined>; // replace with the correct type
 }
 
@@ -318,7 +347,7 @@ const AdditionalFormFields: React.FC<AdditionalFormFieldsProps> = ({
                           <Input
                             placeholder={`Enter ${field.name}`}
                             {...formField}
-                            defaultValue={formField.value}
+                            defaultValue={field.value}
                           />
                         );
                       case "long":
