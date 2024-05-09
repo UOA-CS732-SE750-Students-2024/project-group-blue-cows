@@ -74,14 +74,14 @@ export default function ClubViewPage({
             )}
             <img
               src={clubData?.coverImage || "https://picsum.photos/id/1018/3000"}
-              className={`max-h-[50vh] object-cover w-full h-full rounded-b ${
+              className={`h-[40vh] object-cover w-full rounded-b ${
                 imageLoading ? "hidden" : ""
               }`}
               alt="cover"
               onLoad={() => setImageLoading(false)}
               onError={() => setImageLoading(false)}
             />
-            <div className="absolute -bottom-10 left-20">
+            <div className="absolute -bottom-5 left-20">
               <img
                 src={clubData?.logo}
                 className="object-cover border-8 border-white w-40 h-40 rounded-md"
@@ -89,12 +89,16 @@ export default function ClubViewPage({
               />
             </div>
           </div>
-          <div className="grid grid-cols-5 gap-1 p-10">
+          <div className="grid grid-cols-5 gap-5 p-10">
             <div className="flex flex-col space-y-4 ml-10 col-span-1">
-              <div className=" bg-red-500">
+              <div>
                 {/* Membership Fee Section */}
                 <h2 className="text-md font-semibold pb-2">MEMBERSHIP FEE</h2>
-                <p>{clubData?.membership_fee}</p>
+                <p>
+                  {clubData?.membership_fee === "0.00"
+                    ? "Free to sign up"
+                    : `$${clubData?.membership_fee}`}
+                </p>
                 <Button
                   onClick={navigateToRegister}
                   className="mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
