@@ -27,7 +27,7 @@ export default async function UserClubsPage() {
               <img
                 src="/cute-cow.png"
                 alt="Cute Cowmunity Cow"
-                style={{ height: "auto" }}
+                className="h-auto"
               />
             </div>
           </div>
