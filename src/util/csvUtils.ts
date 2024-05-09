@@ -5,7 +5,6 @@ import csvParser from "csv-parser";
 import dotenv from "dotenv";
 import * as originalFS from "fs";
 import { promises as fs } from "fs";
-import { revalidatePath } from "next/cache";
 import path from "path";
 import "server-only";
 
@@ -26,8 +25,7 @@ export const parseCsvFile = async (filename: string) => {
         extractedValues.push(row);
       })
       .on("end", () => {
-        revalidatePath("/");
-        resolve(extractedValues as studentAllData[]);
+        resolve(extractedValues);
       })
       .on("error", (error) => {
         reject(error);
