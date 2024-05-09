@@ -14,6 +14,7 @@ import { addImageToGallery } from "@/services/imageServices";
 import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
 import { Card } from "../ui/card";
 import { Input } from "../ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 
 
@@ -305,6 +306,47 @@ export function MembersPageBack({
       </Card>
     );
   }
+
+
+  interface editCategoryProps {
+    className?: string;
+  }
+
+  export function EditCategory({ className }: EditCategoryProps) {
+    const { club, setClub } = useAdmin();
+  
+    function setCategory(category : string) {
+      const updatedClub = {
+        ...club,
+        category: category,
+      };
+      setClub(updatedClub);
+    }
+  
+    return (
+      <Card className={`w-1/2 p-6 ${className}`}>
+        <p className="uppercase">Club Category</p>
+        <Select
+          value={club.category}
+          onValueChange={(value) => setCategory(value)}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Academic and Specialist">Academic and Specialist</SelectItem>
+            <SelectItem value="Sport">Sport</SelectItem>
+            <SelectItem value="Special Interest">Special Interest</SelectItem>
+            <SelectItem value="Religious and Spiritual">Religious and Spiritual</SelectItem>
+            <SelectItem value="Cultural">Cultural</SelectItem>
+            <SelectItem value="Causes">Causes</SelectItem>
+          </SelectContent>
+        </Select>
+      </Card>
+    );
+  }
+
+
 
 
 
