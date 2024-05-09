@@ -2,7 +2,11 @@
 import { useRegistrationEditContext } from "@/components/form/RegistratonEditContext";
 import { Club } from "@/schemas/clubSchema";
 import { updateForm } from "@/services/clubFormFieldServices";
-import { getAllMembers, importClubMembers } from "@/services/clubServices";
+import {
+  getAllMembers,
+  importClubMembers,
+  removeAllMembers,
+} from "@/services/clubServices";
 import {
   downloadAsCsv,
   importFile,
@@ -194,12 +198,13 @@ export function DeleteButton({
       toastLoading();
       try {
         const { finalHeaders, membersFullData } = await getAllMembers(club.id);
+        // Automatic backup because scary
         downloadAsCsv(
           finalHeaders,
           membersFullData,
           `${club.name}_membership.csv`
         );
-        // await deleteClubMembers(club.id); // Needs to be implemented @MRlolface249
+        await removeAllMembers(club.id);
         setMembers([]);
         toastSuccess("All members deleted. Automatically exported backup.");
       } catch (error) {

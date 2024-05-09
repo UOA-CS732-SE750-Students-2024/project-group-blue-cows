@@ -56,6 +56,7 @@ export async function removeMember(clubId: number, userId: string) {
 }
 
 export async function removeAllMembers(clubId: number) {
+  revalidatePath(`clubs/${clubId}/members`);
   return await deleteAllMembers(clubId);
 }
 
