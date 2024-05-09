@@ -35,7 +35,10 @@ import { addMember, fetchMemberForClub } from "@/services/clubServices";
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import { notFound } from "next/navigation";
 import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
-import { addFormInputs } from "@/services/formFieldInputServices";
+import {
+  addFormInputs,
+  getFieldInputForUser,
+} from "@/services/formFieldInputServices";
 import { updateUser } from "@/services/userServices";
 import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
 import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
@@ -44,11 +47,11 @@ const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
 ): z.ZodObject<any, any, any, any, any> => {
   let schema: z.ZodRawShape = {
-    id: z.string().min(1, "ID is required"),
     name: z.string().min(1, "Name is required").toUpperCase(),
+    student_id: z.string().min(1, "ID is required"),
     email: z.string().min(1, "Email is required"),
     upi: z.string().min(1, "UPI is required"),
-    yearLevel: z.number().min(1, "Year level is required"),
+    year_of_study: z.number().min(1, "Year level is required"),
   };
 
   formExtensions.forEach((formExtension) => {
@@ -98,6 +101,8 @@ export default function ClubRegistrationForm({
 }) {
   //const [loading, setLoading] = useState(true);
   const [alreadyMember, setAlreadyMember] = useState(false);
+  const [fieldName, setFieldName] = useState("");
+
   const session = useSession(); // Get the session data
   const user = session.data?.user as AppUser;
   const router = useRouter();
@@ -109,72 +114,79 @@ export default function ClubRegistrationForm({
       id: "",
       email: "",
       upi: "",
-      yearLevel: 0,
+      year_of_study: 0,
     },
   });
+  // useEffect(() => {
+  //   async function autofillFields() {
+  //     const fieldNameInput = await getFieldInputForUser("fieldName", user.id);
+  //     setFieldName(fieldNameInput);
+  //   }
+
+  //   autofillFields();
+  // }, [user.id]);
 
   useEffect(() => {
     if (user) {
       form.setValue("name", user.name || "");
-      form.setValue("id", user.student_id || "");
+      form.setValue("student_id", user.student_id || "");
       form.setValue("email", user.email || "");
       form.setValue("upi", user.upi || "");
-      form.setValue("yearLevel", user.year_of_study || 0);
+      form.setValue("year_of_study", user.year_of_study || 0);
     }
   }, [user]);
 
   if (!club) return notFound();
   // call updateUser for mandatory fields, addFormInputs for optional fields
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    const member: PostMemberDto = {
-      club: Number(clubId),
-      user: user?.id || "",
-      paid: false, // TODO - SEE LUCA FOR PAYMENT INTEGRATION/VALIDATION
-      isAdmin: false,
-    };
+    // const member: PostMemberDto = {
+    //   club: Number(clubId),
+    //   user: user?.id || "",
+    //   paid: false, // TODO - SEE LUCA FOR PAYMENT INTEGRATION/VALIDATION
+    //   isAdmin: false,
+    // };
     const memberData = await fetchMemberForClub(user?.id, Number(clubId));
     if (memberData) {
       setAlreadyMember(true);
       alert("You are already a member of this club.");
+      return;
     }
-    addMember(member)
+
+    // Split the values into mandatory and optional fields
+    const mandatoryFields: UpdateUserDto = {
+      student_id: values.id,
+      upi: values.upi,
+      year_of_study: values.year_of_study,
+    };
+
+    let optionalFields: { [key: string]: any } = Object.fromEntries(
+      Object.entries(values).filter(
+        ([key]) => !Object.keys(mandatoryFields).includes(key)
+      )
+    );
+    console.log("Mandatory fields: ", mandatoryFields);
+    console.log("Optional fields: ", optionalFields);
+    let optionalFieldsArray: PostFormFieldInputDto[] = Object.entries(
+      optionalFields
+    ).map(([fieldName, value]) => ({ fieldName, value }));
+    // Call updateUser for mandatory fields
+    updateUser(mandatoryFields)
       .then(() => {
-        // Split the values into mandatory and optional fields
-        const mandatoryFields: UpdateUserDto = {
-          student_id: values.id,
-          upi: values.upi,
-          year_of_study: values.yearLevel,
-        };
-        let optionalFields: { [key: string]: any } = Object.fromEntries(
-          Object.entries(values).filter(
-            ([key]) => !Object.keys(mandatoryFields).includes(key)
-          )
-        );
-        let optionalFieldsArray: PostFormFieldInputDto[] = Object.entries(
-          optionalFields
-        ).map(([fieldName, value]) => ({ fieldName, value }));
-        // Call updateUser for mandatory fields
-        updateUser(mandatoryFields)
+        // Call addFormInputs for optional fields
+        addFormInputs(optionalFieldsArray, Number(clubId), user?.id || "")
           .then(() => {
-            // Call addFormInputs for optional fields
-            addFormInputs(optionalFieldsArray, Number(clubId), user?.id || "")
-              .then(() => {
-                form.reset(); // Reset form fields after successful submission
-                alert("Membership added successfully");
-              })
-              .then(() => {
-                router.back();
-              })
-              .catch((error) => {
-                console.error("Error posting form inputs: ", error);
-              });
+            form.reset(); // Reset form fields after successful submission
+            alert("Membership added successfully");
+          })
+          .then(() => {
+            router.back();
           })
           .catch((error) => {
-            console.error("Error updating user: ", error);
+            console.error("Error posting form inputs: ", error);
           });
       })
       .catch((error) => {
-        console.error("Submission error: ", error);
+        console.error("Error updating user: ", error);
       });
   };
 
@@ -285,7 +297,7 @@ export default function ClubRegistrationForm({
           />
           <FormField
             control={form.control}
-            name="yearLevel"
+            name="year_of_study"
             render={({ field }) => {
               return (
                 <FormItem>
