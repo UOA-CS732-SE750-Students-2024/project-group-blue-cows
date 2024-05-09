@@ -4,7 +4,7 @@ import * as Dialogue from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { BlueButton, YellowButton } from "./buttons";
 
-type ModalTypes = "confirm" | "alert";
+type ModalTypes = "confirm" | "alert" | "info";
 
 type OpenModalProps = ModalProps & { type: ModalTypes };
 
@@ -58,6 +58,9 @@ function Buttons({
   type: ModalTypes;
   close: (resolveValue?: string) => void;
 }) {
+  // If the modal is an info modal, don't show any buttons
+  if (type === "info") return null;
+
   return (
     <div className="flex w-full justify-center gap-6 mt-auto">
       {type === "confirm" && (
