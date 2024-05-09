@@ -23,7 +23,7 @@ import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
-import { EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
+import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
 import { getAllMembers } from "@/services/clubServices";
 
 export default async function AdminEditPage({
@@ -185,8 +185,40 @@ export default async function AdminEditPage({
           </Card>
           </div>
 
-      {/* --------------------- Show Membership Count */}
+      {/* --------------------- View Executives Table */}
 
+      <div className="w-2/3 p-4">
+          <Card>
+            <CardHeader>
+              <p className="text-lg">Executive Members (Admin)</p>
+              <CardDescription>
+                View and/or update the the club registration form, including
+                information and custom fields.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AddNewExecButton clubData={clubData as Club} className="mt-2" />
+              <div className="overflow-scroll" style={{ height: "300px" }}>
+                <Table className="min-w-full">
+                  <TableHeader>
+                    <TableRow>
+                      <TableCell className="font-bold">Name</TableCell>
+                      <TableCell className="font-bold">Position</TableCell>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell>{row.position}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
 
 
@@ -356,43 +388,6 @@ export default async function AdminEditPage({
     //       </Card>
     //     </div>
     //   </div>
-
-    //   {/* Please leave this chunk alone for now */}
-    //   {/* <div className="flex">
-    //     <div className="w-1/3 p-4">
-    //       <Card>
-    //         <div className="m-5">
-    //           <p className="text-lg">Membership Count</p>
-    //           <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
-    //             <div className="text-center">
-    //               <h1 className="text-lg md:text-xl lg:text-2xl">
-    //                 800
-    //                 <br />
-    //                 Registered Members
-    //               </h1>
-    //             </div>
-    //           </div>
-    //           <button className="bg-customAccent hover:bg-blue-700 text-black font-bold p-2 px-4 rounded">
-    //             View Members
-    //           </button>
-    //         </div>
-    //       </Card>
-    //     </div>
-    //     <div className="w-2/3 p-4">
-    //       <Card>
-    //         <CardHeader>
-    //           <p className="text-lg">Membership Statistics</p>
-    //           <CardDescription>
-    //             View and/or update the the club registration form, including
-    //             information and custom fields.
-    //           </CardDescription>
-    //         </CardHeader>
-    //         <CardContent>
-    //           <MembershipDashboard data={membershipData} />
-    //         </CardContent>
-    //       </Card>
-    //     </div>
-    //   </div> */}
 
     //   {/* form */}
     //   <div className="p-10" id="edit-form">

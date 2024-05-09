@@ -77,3 +77,22 @@ export function MembersPageBack({
         </YellowButton>
     );
   }
+
+  export function AddNewExecButton({
+    clubData,
+    className,
+  }: {
+    clubData: Club;
+    className?: string;
+  }) {
+    const router = useRouter();
+    return (
+      <YellowButton
+      className={`${className}`}
+      onClick={() => router.push(`/clubs/${clubData.id}/members`)}
+    >
+        Add New Exec
+        </YellowButton>
+    );
+  }
+
