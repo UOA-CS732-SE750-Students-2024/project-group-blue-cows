@@ -177,6 +177,8 @@ export async function GET(
   // Create a Stripe session
   const checkoutSession = await stripe.checkout.sessions.create({
     customer_email: user.email,
+    // pass the membership ID so the webhook can update the membership as paid
+    client_reference_id: membershipId,
     line_items: [
       {
         // each item represents a product in the cart
