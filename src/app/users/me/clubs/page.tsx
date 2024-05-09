@@ -16,8 +16,8 @@ export default async function UserClubsPage() {
   const clubs = await getListOfClubsForUser(userId);
 
   return (
-    <div className="w-full mt-12 bg-customGrass">
-      <div className="flex flex-col h-screen">
+    <div className="w-full h-auto mt-12 bg-customGrass">
+      <div className="flex flex-col h-auto">
         <div
           className="flex flex-col sm:flex-row h-2/5 bg-cover bg-center"
           style={{ backgroundImage: "url('/grass-background.svg')" }}

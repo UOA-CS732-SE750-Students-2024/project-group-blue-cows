@@ -263,7 +263,7 @@ export function EditName({ className }: NameProps) {
   }
 
   return (
-    <div className={`w-full p-6 ${className}`}>
+    <div className={`w-full p-4 ${className}`}>
       <p className="uppercase">Club Name</p>
       <Input
         value={club.name}
@@ -293,8 +293,9 @@ export function EditFee({ className }: FeeProps) {
   }
 
   return (
-    <div className={`w-full p-6 ${className}`}>
+    <div className={`w-full p-4 ${className}`}>
       <p className="uppercase">Membership Fee</p>
+      <p className="text-xs">The fee should be less than $100 (exclusive).</p>
       <Input
         value={club.membership_fee}
         onChange={(event) => setFee(event.target.value)}
@@ -331,7 +332,7 @@ export function EditCategory({ className }: EditCategoryProps) {
   }
 
   return (
-    <div className={`w-full p-6 ${className}`}>
+    <div className={`w-full p-4 ${className}`}>
       <p className="uppercase">Club Category</p>
       <Select value={club.category} onValueChange={setCategory}>
         <SelectTrigger>

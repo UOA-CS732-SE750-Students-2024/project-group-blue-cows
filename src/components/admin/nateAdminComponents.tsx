@@ -23,10 +23,10 @@ export function Description({ className }: DescriptionProps) {
     <Card className={`w-1/2 p-6 ${className}`}>
       <p className="uppercase">Description</p>
       <Textarea
+        className="h-full w-full"
         value={club.description}
         onChange={(event) => setDescription(event.target.value)}
         onBlur={() => {
-          console.log("blur");
           updateClub(club.id, club);
         }}
       />

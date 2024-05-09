@@ -31,7 +31,7 @@ import {
   GalleryImageUpload,
   LogoImageUpload,
 } from "@/components/admin/adminPageClientComponents";
-
+import { Button } from "@/components/ui/button";
 import { auth, isUserClubAdmin } from "@/util/auth";
 import UnauthorisedUserPage from "@/app/unauthorised";
 
@@ -60,10 +60,6 @@ export default async function AdminEditPage({
   const execs = await getListOfAdminsForClub(Number(params.clubId));
   console.log(execs);
 
-  const tableData = execs.map((exec) => ({
-    name: exec.name,
-  }));
-
   const scrollToEditForm = () => {
     const editFormDiv = document.getElementById("edit-form");
     if (editFormDiv) {
@@ -73,13 +69,13 @@ export default async function AdminEditPage({
 
   return (
     <AdminProvider initialClub={clubData as Club}>
-      <div className="h-auto w-full">
+      <div className="h-auto w-full bg-customGrass">
         <div className="flex px-10 pt-4 pb-2">
           <div className="w-1/10">
             <Link href={"/users/me/clubs"}>
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mt-3 mb-2">
+              <Button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mt-3 mb-2">
                 Back to my clubs
-              </button>
+              </Button>
             </Link>
           </div>
           <div className="w-9/10"></div>
@@ -113,7 +109,7 @@ export default async function AdminEditPage({
           </div>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex bg-customGrass pt-3">
         <div className="w-1/3 px-10 py-4">
           <Card>
             <CardHeader>
@@ -149,6 +145,11 @@ export default async function AdminEditPage({
                   </h2>
                 </div>
               </div>
+              <Link href={`/clubs/${clubData?.id}/members`}>
+                <Button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 w-full rounded mt-3 mb-2">
+                  View Membership Data
+                </Button>
+              </Link>
             </div>
           </Card>
         </div>
@@ -185,69 +186,77 @@ export default async function AdminEditPage({
         </div>
       </div>
 
-      {/* ---------------- EDIT DESCRIPTION COMPONENT */}
-      <div className="p-10" id="edit-form">
-        <div className="w-full flex flex-col gap-4">
-          <div className="flex">
-            <Description />
+      <div className="bg-customGrass">
+        {/* ---------------- EDIT DESCRIPTION COMPONENT */}
+        <div className="p-10" id="edit-form">
+          <div className="w-full flex flex-col gap-4">
+            <div className="flex">
+              <Description />
 
-            {/* ---------------- EDIT ADDITIONAL INFORMATION COMPONENT */}
+              {/* ---------------- EDIT ADDITIONAL INFORMATION COMPONENT */}
 
-            <div className="w-1/2 p-4">
-              <Card className="p-2">
-                <p>ADDITIONAL INFORMATION</p>
-                <EditName />
-                <EditFee />
-                <EditCategory />
-              </Card>
-            </div>
-          </div>
-
-          {/* ---------------- EDIT SOCIALS COMPONENT */}
-          <div className="flex">
-            <div className="w-1/3 p-4">
-              <Card className="p-2">
-                <p> SOCIAL MEDIA </p>
-                {/* <SocialMediaEditor socials={socials} /> */}
-              </Card>
+              <div className="w-1/2 p-4">
+                <Card className="p-2">
+                  <p>ADDITIONAL INFORMATION</p>
+                  <EditName />
+                  <EditFee />
+                  <EditCategory />
+                </Card>
+              </div>
             </div>
 
-            {/* ---------------- UPLOAD LOGO COMPONENT */}
-            <div className="w-2/3 p-4">
-              <Card className="p-2">
-                <p>UPLOAD LOGO</p>
-                <LogoImageUpload clubData={clubData as Club} className="mt-2" />
-              </Card>
-            </div>
-          </div>
-          <div className="flex">
-            {/* ---------------- UPLOAD TO GALLERY COMPONENT */}
-            <div className="w-2/3 p-4">
-              <Card className="p-2">
-                <p>UPLOAD TO GALLERY</p>
-                <p className="mb-2">
-                  Upload photos of your club and events to display.
-                </p>
+            {/* ---------------- EDIT SOCIALS COMPONENT */}
+            <div className="flex">
+              <div className="w-1/3 p-4">
+                <Card className="p-2">
+                  <p> SOCIAL MEDIA </p>
+                  {/* <SocialMediaEditor socials={socials} /> */}
+                </Card>
+              </div>
 
-                <GalleryImageUpload
-                  clubData={clubData as Club}
-                  className="mt-2"
-                />
-              </Card>
+              {/* ---------------- UPLOAD LOGO COMPONENT */}
+              <div className="w-2/3 p-4">
+                <Card className="p-2">
+                  <p>UPLOAD LOGO</p>
+                  <p className="text-xs">
+                    For an optimal display, please upload a square image.
+                  </p>
+                  <LogoImageUpload
+                    clubData={clubData as Club}
+                    className="mt-2"
+                  />
+                </Card>
+              </div>
             </div>
+            <div className="flex">
+              {/* ---------------- UPLOAD TO GALLERY COMPONENT */}
+              <div className="w-2/3 p-4">
+                <Card className="p-2">
+                  <p>UPLOAD TO GALLERY</p>
+                  <p className="text-xs mb-2">
+                    Upload photos of your club and events to display.
+                  </p>
 
-            {/* ---------------- UPLOAD COVER IMAGE COMPONENT */}
-            <div className="w-2/3 p-4">
-              <Card className="p-2">
-                <p>UPLOAD COVER IMAGE</p>
-                <p className="mb-2">
-                  For an optimal display, please upload a horizontal image.
-                </p>
-                <CoverImageUpload
-                  clubData={clubData as Club}
-                  className="mt-2"
-                />
-              </Card>
+                  <GalleryImageUpload
+                    clubData={clubData as Club}
+                    className="mt-2"
+                  />
+                </Card>
+              </div>
+
+              {/* ---------------- UPLOAD COVER IMAGE COMPONENT */}
+              <div className="w-2/3 p-4">
+                <Card className="p-2">
+                  <p>UPLOAD COVER IMAGE</p>
+                  <p className="mb-2 text-xs">
+                    For an optimal display, please upload a horizontal image.
+                  </p>
+                  <CoverImageUpload
+                    clubData={clubData as Club}
+                    className="mt-2"
+                  />
+                </Card>
+              </div>
             </div>
           </div>
         </div>

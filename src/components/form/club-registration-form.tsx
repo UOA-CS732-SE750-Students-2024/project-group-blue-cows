@@ -200,6 +200,10 @@ export default function ClubRegistrationForm() {
                   Membership Fee
                   <span className="text-red-500">*</span>
                 </FormLabel>
+                <p>
+                  If your club is free to join, please put 0. Please ensure your
+                  membership fee is below $100 (not inclusive).
+                </p>
                 <FormControl>
                   <Input
                     placeholder="Enter fee amount"
@@ -222,6 +226,10 @@ export default function ClubRegistrationForm() {
                 <FormLabel className="font-bold">
                   Club Logo <span className="text-red-500">*</span>
                 </FormLabel>
+                <p>
+                  Please upload a square image of your logo for an optimal
+                  display.
+                </p>
                 <UploadButton
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
