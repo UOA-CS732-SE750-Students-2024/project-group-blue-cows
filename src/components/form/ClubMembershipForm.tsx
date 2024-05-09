@@ -38,7 +38,7 @@ const createFormSchema = (
     student_id: z.string(), //.min(1, "ID is required"),
     email: z.string(), //.min(1, "Email is required"),
     upi: z.string(), //.min(1, "UPI is required"),
-    year_of_study: z.string(), //.min(1, "Year level is required"),
+    year_of_study: z.coerce.number(), //.min(1, "Year level is required"),
   };
 
   formExtensions.forEach((formExtension) => {
