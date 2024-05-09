@@ -16,7 +16,9 @@ export default function ErrorPage({
     <AltPage header="500 - Internal Server Error" subtitle={error.message}>
       <div className="flex gap-5">
         <Button onClick={reset}>Try Again</Button>
-        <Link href="/"><Button>Go Home</Button></Link>
+        <Link href="/">
+          <Button>Go Home</Button>
+        </Link>
       </div>
     </AltPage>
   );

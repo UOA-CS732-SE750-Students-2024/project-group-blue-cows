@@ -24,14 +24,9 @@ export default function NavSection({
   }
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <div className="flex flex-col items-start py-2 w-full">
-          <h1 className="text-white text-sm uppercase">{title}</h1>
-          {children}
-        </div>
-      </TooltipTrigger>
-      {tooltip && <TooltipContent side="right">{tooltip}</TooltipContent>}
-    </Tooltip>
+    <div className="flex flex-col items-start py-2 w-full">
+      <h1 className="text-white text-sm uppercase">{title}</h1>
+      {children}
+    </div>
   );
 }

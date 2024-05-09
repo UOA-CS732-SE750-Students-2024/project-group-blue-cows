@@ -69,11 +69,11 @@ function PageInfo() {
   return (
     <Card className="w-full bg-[#FFD166] mb-4">
       <CardContent className="py-6">
-        Cowlaboration will automatically collect default information about a
-        member, including their full name, email, UPI, student ID, University,
-        year level, degree, and specialisation/majors. If you would like to
-        collect additional information about your club members, you may add
-        custom fields to your club&apos;s registration form here.
+        Cowmunity will automatically collect default information about a member,
+        including their full name, email, UPI, student ID, University, year
+        level, degree, and specialisation/majors. If you would like to collect
+        additional information about your club members, you may add custom
+        fields to your club&apos;s registration form here.
       </CardContent>
     </Card>
   );

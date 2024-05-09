@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { debounce } from "lodash";
-import Image from "next/image";
-import { Input } from "@/components/ui/input";
-import { FilterBar } from "@/components/ui/filter-bar";
 import { Card, CardContent } from "@/components/ui/card";
+import { FilterBar } from "@/components/ui/filter-bar";
+import { Input } from "@/components/ui/input";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 import { Club } from "@/schemas/clubSchema";
 import { getAllClubs } from "@/services/clubServices";
-import LoadingSpinner from "@/components/ui/loading-spinner";
+import { debounce } from "lodash";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 
 export default function ClubsPage() {
   const [clubs, setClubs] = useState<Club[]>([]);
@@ -28,7 +29,7 @@ export default function ClubsPage() {
   }, [updateClubsDebounced, searchString, filter]);
 
   return (
-    <main className="h-full w-full">
+    <main className="h-full w-full bg-customGrass">
       <ClubsSearch
         searchString={searchString}
         setSearchString={setSearchString}
@@ -89,7 +90,7 @@ function ClubsSearch({
 
 function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <div className="w-5/6 lg:w-11/12 m-auto mb-10">
+    <div className="w-5/6 lg:w-11/12 m-auto mb-10 bg-">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results
@@ -101,28 +102,30 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
             className="min-w-96 h-[19rem] shadow-sm shadow-slate-500 border-none"
           >
             <CardContent className="px-8 py-5">
-              <div className="flex gap-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt={`${name} logo`}
-                  src={logo}
-                  className="w-24 h-24 rounded-2xl mt-6"
-                />
-                <div className="overflow-hidden">
-                  <div
-                    role="doc-subtitle"
-                    className="text-md mb-3 line-clamp-1 text-ellipsis"
-                  >
-                    {category}
+              <Link href={`/clubs/${id}/view`}>
+                <div className="flex gap-6">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    alt={`${name} logo`}
+                    src={logo}
+                    className="w-24 h-24 rounded-2xl mt-6"
+                  />
+                  <div className="overflow-hidden">
+                    <div
+                      role="doc-subtitle"
+                      className="text-md mb-3 line-clamp-1 text-ellipsis"
+                    >
+                      {category}
+                    </div>
+                    <h3 className="text-3xl font-semibold text-wrap break-word line-clamp-2">
+                      {name}
+                    </h3>
                   </div>
-                  <h3 className="text-3xl font-semibold text-wrap break-word line-clamp-2">
-                    {name}
-                  </h3>
                 </div>
-              </div>
-              <p className="mt-6 text-md text-wrap break-word line-clamp-4">
-                {description}
-              </p>
+                <p className="mt-6 text-md text-wrap break-word line-clamp-4">
+                  {description}
+                </p>
+              </Link>
             </CardContent>
           </Card>
         ))}

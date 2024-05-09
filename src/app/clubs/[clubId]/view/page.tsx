@@ -12,6 +12,7 @@ import SocialLinks from "@/components/misc/social-links";
 import { Socials } from "@/schemas/socialsSchema";
 import { getAllSocialsForClub } from "@/services/socialsServices";
 import router, { notFound, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({
@@ -48,6 +49,25 @@ export default function ClubViewPage({
     fetchClubData();
   }, [params.clubId]);
 
+  // useEffect(() => {
+  //   const fetchClubData = async () => {
+  //     const clubId = Number(params.clubId);
+  //     const [data, images, socialLinks] = await Promise.all([
+  //       getClubById(clubId),
+  //       getAllImagesForClub(clubId),
+  //       getAllSocialsForClub(clubId),
+  //     ]);
+
+  //     const filteredImages = images.filter((image) => image.title !== null) as Image[];
+
+  //     setClubData(data);
+  //     setImages(filteredImages);
+  //     setSocials(socialLinks);
+  //     setLoading(false);
+  //   };
+  //   fetchClubData();
+  // }, [params.clubId]);
+
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
     return notFound();
@@ -75,12 +95,12 @@ export default function ClubViewPage({
                 alt="club logo"
               />
               {/* Button below the logo */}
-              <button
+              <Button
                 onClick={navigateToRegister}
                 className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
               >
                 Sign Up
-              </button>
+              </Button>
             </div>
           </div>
           <div className="grid grid-cols-5 gap-1 p-5">

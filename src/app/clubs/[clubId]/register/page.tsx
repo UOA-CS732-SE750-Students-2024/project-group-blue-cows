@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import FormWrapper from "@/components/form/form-wrapper";
 import ClubMembershipForm from "@/components/form/ClubMembershipForm";
+import FormWrapper from "@/components/form/form-wrapper";
 import { Button } from "@/components/ui/button";
-import { Club } from "@/schemas/clubSchema";
-import { getClubById } from "@/services/clubServices";
-import router, { useRouter } from "next/navigation";
-import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
 import { getAllExtendedFields } from "@/services/clubFormFieldServices";
+import { getClubById } from "@/services/clubServices";
 
 export default async function Page({
   params: { clubId },

@@ -18,6 +18,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import ClubEditForm from "@/components/form/club-edit-information";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
@@ -79,10 +80,6 @@ export default async function AdminEditPage({
     { name: "Alice Johnson", position: "UI/UX Designer" },
     { name: "John Doe", position: "Software Engineer" },
     { name: "Jane Smith", position: "Product Manager" },
-    { name: "Alice Johnson", position: "UI/UX Designer" },
-    { name: "John Doe", position: "Software Engineer" },
-    { name: "Jane Smith", position: "Product Manager" },
-    { name: "Alice Johnson", position: "UI/UX Designer" },
   ];
 
   // Copies the registration link to the clipboard

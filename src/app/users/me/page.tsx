@@ -14,18 +14,19 @@ export default async function ProfilePage() {
     redirect("/"); // redirect back to home page if user is not authenticated
   }
   return (
-    <main className="h-[calc(100vh-4rem)] px-16 py-8">
-      <PageHeader
-        title="My Profile"
-        subtitle="Which clubs can see this data?"
-        href="/users/me/clubs"
-      />
-      <div className="mt-2">
-        <ProfileHeader />
-      </div>
-      <div className="my-2 pb-8">
+    <div
+      className="flex justify-center bg-cover"
+      style={{ backgroundImage: "url('/cow-pattern-background.svg')" }}
+    >
+      <main className="h-[calc(100vh-4rem)] pt-8">
+        <PageHeader
+          title="My Profile"
+          subtitle="Which clubs can see this data?"
+          href="/users/me/clubs"
+        />
+
         <ProfileEditForm />
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

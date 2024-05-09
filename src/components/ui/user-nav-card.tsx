@@ -21,11 +21,7 @@ const UserNavCard: React.FC<UserNavCardProps> = ({
   return (
     <Card className="">
       <CardHeader className="flex justify-center items-center">
-        <img
-          src={imageUrl}
-          alt={imageAlt}
-          style={{ height: "8vh", width: "auto" }}
-        />
+        <img src={imageUrl} alt={imageAlt} className="h-8vh w-auto" />
       </CardHeader>
       <CardContent className="flex flex-col items-center">
         <p className="text-base text-center sm:text-xs md:text-xs lg:text-sm">

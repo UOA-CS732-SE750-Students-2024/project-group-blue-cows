@@ -19,15 +19,9 @@ import {
 import { AppUser } from "@/schemas/authSchema";
 import { getUser } from "@/services/authServices";
 import {
-  getAllExtendedFields,
-  updateForm,
-} from "@/services/clubFormFieldServices";
-import {
-  addMember,
   getAllMembers,
+  getListOfAdminsForClub,
   postClub,
-  removeAllMembers,
-  removeMember,
 } from "@/services/clubServices";
 import {
   addFormInputs,
@@ -202,6 +196,11 @@ export default function TestPage() {
       </Button>
       <Button onClick={async () => console.log(await getAllSocialsForClub(1))}>
         get social links
+      </Button>
+      <Button
+        onClick={async () => console.log(await getListOfAdminsForClub(2))}
+      >
+        get admins for club
       </Button>
       <YellowButton
         onClick={() =>
