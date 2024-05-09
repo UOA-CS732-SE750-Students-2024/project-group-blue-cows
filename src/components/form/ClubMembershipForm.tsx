@@ -96,20 +96,25 @@ export default function ClubRegistrationForm({
   //const [loading, setLoading] = useState(true);
   const [alreadyMember, setAlreadyMember] = useState(false);
   const [fieldName, setFieldName] = useState("");
-
   const session = useSession(); // Get the session data
   //const user = session.data?.user as AppUser;
   const router = useRouter();
   const formSchema = createFormSchema(clubFormFields);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      id: "",
-      email: "",
-      upi: "",
-      year_of_study: 0,
-    },
+    defaultValues: clubFormFields.reduce(
+      (values: { [key: string]: string | number }, field) => {
+        values[field.name] = field.value;
+        return values;
+      },
+      {
+        name: "",
+        id: "",
+        email: "",
+        upi: "",
+        year_of_study: 0,
+      }
+    ),
   });
 
   useEffect(() => {
