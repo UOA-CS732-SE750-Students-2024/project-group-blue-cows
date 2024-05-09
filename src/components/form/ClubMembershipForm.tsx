@@ -96,6 +96,7 @@ export default function ClubRegistrationForm({
   //const [loading, setLoading] = useState(true);
   const [alreadyMember, setAlreadyMember] = useState(false);
   const [fieldName, setFieldName] = useState("");
+
   const session = useSession(); // Get the session data
   //const user = session.data?.user as AppUser;
   const router = useRouter();
