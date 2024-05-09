@@ -121,16 +121,6 @@ export function ImportButton({
         toastLoading();
         try {
           const membersData = await importCsvFile(formData);
-          const mainMembersData = [];
-          const additionalMembersData: PostFormFieldInputDto[][] = [];
-          membersData.forEach((data) => {
-            const { mainData, additionalData } = separateDataForImport(data);
-            console.log(mainData);
-            console.log(additionalData);
-            mainMembersData.push(mainData);
-            additionalMembersData.push(additionalData);
-          });
-
           await importClubMembers(club.id, membersData);
           setMembers(membersData);
           toastSuccess("Members imported successfully");

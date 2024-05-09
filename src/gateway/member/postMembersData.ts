@@ -1,17 +1,16 @@
-import { studentAllData } from "@/util/csvUtils";
 import "server-only";
 import { getUserByEmail } from "../user/getUserByEmail";
 import { postUser } from "../user/postUser";
 import { getMemberForClub } from "./getMemberForClub";
 import { postMember } from "./postMember";
 import { putMember } from "./putMember";
+import { separateDataForImport } from "@/util/memberUtil";
+import { postFormFieldInputs } from "../formFieldInput/postFormFieldInputs";
 
-export async function postMembersData(
-  clubId: number,
-  memberData: studentAllData[]
-) {
+export async function postMembersData(clubId: number, memberData: any[]) {
   for (const data of memberData) {
-    const user = await getUserByEmail(data.email);
+    const { mainData, additionalData } = separateDataForImport(data);
+    const user = await getUserByEmail(mainData.email);
     let id = user?.id;
     if (!user) {
       const newId = await postUser({
@@ -28,7 +27,6 @@ export async function postMembersData(
 
     if (id) {
       const result = await getMemberForClub(id, clubId);
-      console.log(result);
       if (result) {
         await putMember(clubId, id, { paid: data.paid, isAdmin: data.isAdmin });
       } else {
@@ -39,6 +37,8 @@ export async function postMembersData(
           isAdmin: data.isAdmin,
         });
       }
+
+      await postFormFieldInputs(additionalData, clubId, id);
     }
   }
 }
