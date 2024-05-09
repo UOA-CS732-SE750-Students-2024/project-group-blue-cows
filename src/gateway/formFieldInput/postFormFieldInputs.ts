@@ -15,8 +15,6 @@ export async function postFormFieldInputs(
   userId: string
 ) {
   try {
-    for (const formInput in formInputs) {
-    }
     formInputs.forEach(async (formInput) => {
       let inputId = (await getFormFieldInput(formInput.fieldName, userId))?.id;
       let fieldId = await getExtendedFormByName(formInput.fieldName);
