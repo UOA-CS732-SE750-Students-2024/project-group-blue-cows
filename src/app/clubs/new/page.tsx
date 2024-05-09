@@ -1,4 +1,3 @@
-import React from "react";
 import ClubRegistrationForm from "@/components/form/club-registration-form";
 import FormWrapper from "@/components/form/form-wrapper";
 

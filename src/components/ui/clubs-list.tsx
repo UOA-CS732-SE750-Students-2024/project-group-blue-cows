@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,26 +6,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import React from "react";
 
 interface Club {
+  clubId: number;
   imageUrl: string;
   name: string;
-  memberSince: number;
+  category: string;
 }
 
 interface ClubListItemProps {
+  clubId: number;
   imageUrl: string;
   clubName: string;
-  memberSince: number;
+  category: string;
 }
 
 const ClubListItem: React.FC<ClubListItemProps> = ({
+  clubId,
   imageUrl,
   clubName,
-  memberSince,
+  category,
 }) => {
   return (
-    <Link href="/">
+    <Link href={`/clubs/${clubId}/view`}>
       <div className="shadow-md bg-white rounded-lg p-2 flex items-center">
         <div className="w-1/5">
           <img
@@ -37,7 +40,7 @@ const ClubListItem: React.FC<ClubListItemProps> = ({
         </div>
         <div className="w-4/5 pl-4">
           <p className="text-md font-semibold mb-2">{clubName}</p>
-          <p className="text-gray-700 mb-2">Member since {memberSince}</p>
+          <p className="text-gray-700 mb-2">Category: {category}</p>
         </div>
       </div>
     </Link>
@@ -70,9 +73,10 @@ const ClubsList: React.FC<ClubsListProps> = ({
         {clubs.map((club, index) => (
           <Card key={index} className="h-auto w-ful mb-1">
             <ClubListItem
+              clubId={club.clubId}
               imageUrl={club.imageUrl}
               clubName={club.name}
-              memberSince={club.memberSince}
+              category={club.category}
             />
           </Card>
         ))}
