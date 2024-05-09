@@ -3,6 +3,7 @@ import { CreateClubDto } from "@/Dtos/club/CreateClubDto";
 import { UpdateClubDto } from "@/Dtos/club/UpdateClubDto";
 import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
 import { PutMemberDto } from "@/Dtos/member/PutMemberDto";
+import { getAdminsForClub } from "@/gateway/club/getAdminsForClub";
 import { getClub } from "@/gateway/club/getClub";
 import { getClubs } from "@/gateway/club/getClubs";
 import { getClubsForAdmin } from "@/gateway/club/getClubsForAdmin";
@@ -81,4 +82,8 @@ export async function getListOfClubsForUser(userId: string) {
 
 export async function getListOfClubsForAdmin(userId: string) {
   return getClubsForAdmin(userId);
+}
+
+export async function getListOfAdminsForClub(clubId: number) {
+  return getAdminsForClub(clubId);
 }
