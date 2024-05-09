@@ -1,4 +1,4 @@
-"use client";
+"use server";
 import { useState, useEffect } from "react";
 import { getClubById, getListOfAdminsForClub } from "@/services/clubServices";
 import { Club } from "@/schemas/clubSchema";
@@ -23,35 +23,22 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { AppUser } from "@/schemas/authSchema";
-import Unauthorised from "@/app/unauthorised";
+import { auth, isUserClubAdmin } from "@/util/auth";
 import UnauthorisedUserPage from "@/app/unauthorised";
 
-export default function AdminEditPage({
+export default async function AdminEditPage({
   params,
 }: {
   params: { clubId: string };
 }) {
-  const session = useSession();
-  const user = session.data?.user as AppUser;
-  const [clubData, setClubData] = useState<Club | null>(null);
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(false);
+  const session = await auth();
+  const user = session?.user;
 
-  useEffect(() => {
-    const getData = async () => {
-      const clubData = await getClubById(Number(params.clubId));
-      setClubData(clubData);
-      if (user) {
-        const admins = await getListOfAdminsForClub(Number(params.clubId));
-        setIsAdmin(admins.some((admin) => admin.id === user.id));
-      }
-    };
-    getData();
-  }, []);
+  const isAdmin = await isUserClubAdmin(user, params.clubId);
 
   if (isAdmin === false) {
     return <UnauthorisedUserPage />;
   }
-  console.log(clubData);
 
   const membershipData = {
     degree: 150,
