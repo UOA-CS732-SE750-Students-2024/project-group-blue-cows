@@ -34,6 +34,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { auth, isUserClubAdmin } from "@/util/auth";
 import UnauthorisedUserPage from "@/app/unauthorised";
+import { Input } from "@/components/ui/input";
 
 export default async function AdminEditPage({
   params,
@@ -213,6 +214,44 @@ export default async function AdminEditPage({
                   <p className="text-xs">
                     Add links to the social media that the club uses.
                   </p>
+                  <div className="grid grid-cols-1 md:grid-cols-1 gap-2 m-2">
+                    <div className="flex items-center">
+                      <img
+                        src="/socials/facebook.png"
+                        alt="Facebook Icon"
+                        className="h-[5vh] w-auto object-cover mr-1"
+                      />
+                      <Input placeholder="None"></Input>
+                    </div>
+
+                    <div className="flex items-center">
+                      <img
+                        src="/socials/instagram.png"
+                        alt="Instagram Icon"
+                        className="h-[5vh] w-auto object-cover mr-1"
+                      />
+                      <Input placeholder="None"></Input>
+                    </div>
+
+                    <div className="flex items-center">
+                      <img
+                        src="/socials/discord.png"
+                        alt="Discord Icon"
+                        className="h-[5vh] w-auto object-cover mr-1"
+                      />
+                      <Input placeholder="None"></Input>
+                    </div>
+
+                    <div className="flex items-center">
+                      <img
+                        src="/socials/web.png"
+                        alt="Web Icon"
+                        className="h-[5vh] w-auto object-cover mr-1"
+                      />
+                      <Input placeholder="None"></Input>
+                    </div>
+                  </div>
+
                   {/* <SocialMediaEditor socials={socials} /> */}
                 </Card>
               </div>
