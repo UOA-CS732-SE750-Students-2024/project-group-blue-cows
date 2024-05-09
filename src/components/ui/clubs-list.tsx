@@ -70,7 +70,6 @@ const ClubsList: React.FC<ClubsListProps> = ({
     <Card style={{ height: "auto", width: "100%", minHeight: "40vh" }}>
       <CardHeader>
         <CardTitle>{listType}</CardTitle>
-
         <CardDescription>
           {listType == "View Clubs"
             ? `You are a member of ${numberOfClubs} clubs.`

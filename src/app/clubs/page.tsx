@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import DisplayBadge from "@/components/ui/display-badge";
 import { FilterBar } from "@/components/ui/filter-bar";
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loading-spinner";
@@ -88,7 +89,7 @@ function ClubsSearch({
   );
 }
 
-function ClubsList({ clubs, logo }: { clubs: Club[]; logo: string }) {
+function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
     <div className="w-5/6 lg:w-11/12 m-auto mb-10 bg-">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
@@ -115,7 +116,7 @@ function ClubsList({ clubs, logo }: { clubs: Club[]; logo: string }) {
                       role="doc-subtitle"
                       className="text-md mb-3 line-clamp-1 text-ellipsis"
                     >
-                      {category}
+                      <DisplayBadge value={category} />
                     </div>
                     <h3 className="text-3xl font-semibold text-wrap break-word line-clamp-2">
                       {name}
