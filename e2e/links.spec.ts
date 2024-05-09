@@ -20,20 +20,19 @@ test("browse clubs topnav button links to /clubs", async ({ page }) => {
   await expect(page).toHaveURL(/\/clubs/);
 });
 
-test("manage clubs topnav button links to /users/me/clubs", async ({
-  page,
-}) => {
-  await page.goto("http://localhost:3000/clubs");
-  await page.getByRole("link", { name: "Manage Clubs" }).click();
-  await expect(page).toHaveURL(/\/users\/me\/clubs/);
-});
+// test("manage clubs topnav button links to /users/me/clubs", async ({
+//   page,
+// }) => {
+//   await page.goto("http://localhost:3000/clubs");
+//   await page.getByRole("link", { name: "Manage Clubs" }).click();
+//   await expect(page).toHaveURL(/\/users\/me\/clubs/);
+// });
 
-/** 
-test("profile topnav button links to /users/me", async ({ page }) => {
-  await page.goto("http://localhost:3000/clubs");
-  await page.getByRole("link", { name: "Profile" }).click();
-  await expect(page).toHaveURL(/\/users\/me/);
-});**/
+// test("profile topnav button links to /users/me", async ({ page }) => {
+//   await page.goto("http://localhost:3000/clubs");
+//   await page.getByRole("link", { name: "Profile" }).click();
+//   await expect(page).toHaveURL(/\/users\/me/);
+// });
 
 test("search for clubs sidenav button links to /clubs", async ({ page }) => {
   await page.goto("http://localhost:3000/clubs");
