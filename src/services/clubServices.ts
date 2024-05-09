@@ -10,6 +10,8 @@ import { getClubsForAdmin } from "@/gateway/club/getClubsForAdmin";
 import { getClubsForUser } from "@/gateway/club/getClubsForUser";
 import { postClubEntity } from "@/gateway/club/postClub";
 import { putClub } from "@/gateway/club/putClub";
+import { getUserAuthenticationAdmin } from "@/gateway/helper/getUserAuthenticationAdmin";
+import { getUserisUser } from "@/gateway/helper/getUserIsUser";
 import { deleteAllMembers } from "@/gateway/member/deleteAllMembers";
 import { deleteMember } from "@/gateway/member/deleteMember";
 import { getMemberForClub } from "@/gateway/member/getMemberForClub";
@@ -18,7 +20,6 @@ import { postMember } from "@/gateway/member/postMember";
 import { postMembersData } from "@/gateway/member/postMembersData";
 import { putMember } from "@/gateway/member/putMember";
 import { AppUser } from "@/schemas/authSchema";
-import { studentAllData } from "@/util/csvUtils";
 import { revalidatePath } from "next/cache";
 import "server-only";
 
@@ -28,10 +29,12 @@ export async function postClub(club: CreateClubDto, user: AppUser) {
 }
 
 export async function updateClub(clubId: number, club: UpdateClubDto) {
+  await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
   return putClub(clubId, club);
 }
 
 export async function getAllMembers(clubId: number) {
+  await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
   return await getMembersAllDataForClub(clubId);
 }
 
@@ -48,6 +51,7 @@ export async function updateMember(
   userId: string,
   membership: PutMemberDto
 ) {
+  await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
   return await putMember(clubId, userId, membership);
 }
 
@@ -57,6 +61,7 @@ export async function removeMember(clubId: number, userId: string) {
 
 export async function removeAllMembers(clubId: number) {
   revalidatePath(`/clubs/${clubId}/members`);
+  await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
   return await deleteAllMembers(clubId);
 }
 
@@ -66,6 +71,7 @@ export async function getClubById(clubID: number) {
 
 export async function importClubMembers(clubId: number, memberData: any[]) {
   revalidatePath(`/clubs/${clubId}/members`);
+  await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
   return await postMembersData(clubId, memberData);
 }
 
@@ -74,13 +80,16 @@ export async function fetchMemberForClub(userId: string, clubId: number) {
 }
 
 export async function getListOfClubsForUser(userId: string) {
+  await getUserisUser(userId); // checks if current user is inputted user
   return getClubsForUser(userId);
 }
 
 export async function getListOfClubsForAdmin(userId: string) {
+  await getUserisUser(userId); // checks if current user is inputted user
   return getClubsForAdmin(userId);
 }
 
 export async function getListOfAdminsForClub(clubId: number) {
+  await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
   return getAdminsForClub(clubId);
 }

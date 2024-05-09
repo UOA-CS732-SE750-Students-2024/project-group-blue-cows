@@ -4,7 +4,7 @@ import { error } from "console";
 import "server-only";
 import { db } from "../../config/db";
 
-// extends the feilds for the club sign up form
+// creates a form field type
 export async function postExtendedFormField(
   formInput: PostExtendedFormFieldDto
 ) {

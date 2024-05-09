@@ -17,8 +17,10 @@ export async function postFormFieldInputs(
   userId: string
 ) {
   try {
+    // return membership id for respective club and user
     let membershipId = (await getMemberForClub(userId, clubId))?.id;
 
+    // if user is not a member of the club yet, then it makes them a member
     if (!membershipId) {
       membershipId = await postMember({
         club: clubId,
@@ -28,21 +30,19 @@ export async function postFormFieldInputs(
       });
     }
 
+    // check if the post succedded
     if (!membershipId)
       throw new Error("failed to Retrieve or Create membership for User");
 
+    // goes through each individual formFieldInput in a members formFieldInputs
     formInputs.forEach(async (formInput) => {
       // returns the Id for the formField and formFieldInput tables
       let inputId = (await getFormFieldInput(formInput.fieldName, userId))?.id;
-      //console.log(formInput.fieldName + ": inputId" + inputId);
       let fieldId = await getExtendedFormByName(formInput.fieldName);
-      //console.log(formInput.fieldName + ": fieldId" + fieldId);
 
       // if formField does not exist create formField
       if (!fieldId) {
-        //console.log(formInput.fieldName + "postExtendedFormField");
         fieldId = await postExtendedFormField({ name: formInput.fieldName });
-        //console.log(formInput.fieldName + ": fieldId" + fieldId);
       }
 
       if (!fieldId) throw Error("failed to post form field");
@@ -50,7 +50,6 @@ export async function postFormFieldInputs(
       // if user already has input data for given formField then simply give club
       // access to the data, and update formFieldInput with inputted value
       if (inputId) {
-        console.log(formInput.fieldName + "postDataAuthorisation oldInput");
         postDataAuthorisation(
           {
             club: clubId,
@@ -59,13 +58,11 @@ export async function postFormFieldInputs(
           },
           membershipId
         );
-        //console.log(formInput.fieldName + "putFormFieldInput");
         putFormFieldInput(fieldId.id, userId, { value: formInput.value });
 
         // if user has not previously input data then create new entry in
         // formFieldInputs table, and grant the club access to the data
       } else {
-        //console.log(formInput.fieldName + "putFormFieldInput");
         inputId = (
           await db
             .insert(formFieldInputSchema)
@@ -79,7 +76,6 @@ export async function postFormFieldInputs(
 
         if (!inputId) throw new Error("failed to create new input data");
 
-        console.log(formInput.fieldName + "postDataAuthorisation newInput");
         postDataAuthorisation(
           {
             club: clubId,
