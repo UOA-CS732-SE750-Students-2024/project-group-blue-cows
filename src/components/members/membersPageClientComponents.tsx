@@ -25,7 +25,6 @@ import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
 
-// TODO: delete and replace in each page with the generic PageHeader component at src\components\misc\PageHeader.tsx
 export function MembersPageBack({
   clubId,
   className,
@@ -209,7 +208,7 @@ export function DeleteButton({
         if (!user) throw new Error("You are not logged in.");
         const you = members.find((m) => m.email === user.email);
         if (!you) throw new Error("You are not a member of this club.");
-        const membersRemaining = (await removeAllMembers(club.id));
+        const membersRemaining = await removeAllMembers(club.id);
         setMembers(membersRemaining); // Keep yourself
         toastSuccess("All members deleted. Automatically exported backup.");
       } catch (error) {

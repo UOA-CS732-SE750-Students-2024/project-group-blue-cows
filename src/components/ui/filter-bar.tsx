@@ -2,7 +2,6 @@ import { useState } from "react";
 import FilterBadge from "./filter-badge";
 
 export function FilterBar({
-  filter,
   setFilter,
 }: {
   filter: string | null;

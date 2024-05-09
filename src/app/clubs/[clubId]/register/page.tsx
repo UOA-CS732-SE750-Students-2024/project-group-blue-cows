@@ -1,7 +1,6 @@
 import ClubMembershipForm from "@/components/form/ClubMembershipForm";
 import FormWrapper from "@/components/form/form-wrapper";
 import { Button } from "@/components/ui/button";
-
 import { AppUser } from "@/schemas/authSchema";
 import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 import { getClubById } from "@/services/clubServices";

@@ -10,7 +10,6 @@ import {
 import { postClub } from "@/services/clubServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -28,11 +27,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { AppUser } from "@/schemas/authSchema";
 import { UploadButton } from "@/util/uploadThingUtils";
 import { useSession } from "next-auth/react";
-
 import { useRouter } from "next/navigation";
 import * as z from "zod";
 

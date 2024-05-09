@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,11 +14,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { AppUser } from "@/schemas/authSchema";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
 import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";

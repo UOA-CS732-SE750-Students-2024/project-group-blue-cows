@@ -4,16 +4,14 @@ import { useEffect, useState } from "react";
 import { getClubById } from "@/services/clubServices";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { Club } from "@/schemas/clubSchema";
-import NotFoundPage from "@/app/not-found";
 import Gallery from "@/components/misc/gallery";
 import { Image, Image as ImageSchema } from "@/schemas/imagesSchema";
 import { getAllImagesForClub } from "@/services/imageServices";
 import SocialLinks from "@/components/misc/social-links";
 import { Socials } from "@/schemas/socialsSchema";
 import { getAllSocialsForClub } from "@/services/socialsServices";
-import router, { notFound, useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({

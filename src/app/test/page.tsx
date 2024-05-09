@@ -104,71 +104,7 @@ export default function TestPage() {
       >
         Post Club
       </Button>
-      {/* <Button
-        onClick={() =>
-          addMember({
-            club: 1,
-            user: "a6574eb8-7764-4198-b2b4-280cf0190669",
-            paid: false,
-            isAdmin: false,
-          })
-        }
-      >
-        leave Club
-      </Button>
-      <Button
-        onClick={() => removeMember(1, "a6574eb8-7764-4198-b2b4-280cf0190669")}
-      >
-        leave Club
-      </Button>
-      <Button onClick={() => removeAllMembers(1)}>
-        remove all users from club
-      </Button>
-      <Button
-        onClick={() =>
-          updateForm(
-            [
-              {
-                name: "favourite-colour",
-                type: "string",
-                description: "string",
-              },
-              {
-                name: "favourite-animal",
-                type: "string",
-                description: "string",
-              },
-              {
-                name: "favourite-song",
-                type: "string",
-                description: "string",
-              },
-              {
-                name: "favourite-food",
-                type: "string",
-                description: "string",
-              },
-            ],
-            2
-          )
-        }
-      >
-        create form
-      </Button>
-      <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
-        get forms for club
-      </Button> */}
-      {/* <Button
-        onClick={() =>
-          addImageToGallery({
-            clubId: 1,
-            imageUrl: "https://i.ytimg.com/vi/koGaFHRGmLw/maxresdefault.jpg",
-            title: "ming",
-          })
-        }
-      >
-        add image
-      </Button> */}
+
       <Button onClick={() => removeImageFromGallery(1)}> remove image</Button>
       <Button onClick={async () => console.log(await getAllImagesForClub(1))}>
         {" "}

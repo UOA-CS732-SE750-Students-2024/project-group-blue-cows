@@ -19,7 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
+import { AdminProvider } from "@/components/admin/AdminPageContext";
 import {
   AddNewExecButton,
   CoverImageUpload,

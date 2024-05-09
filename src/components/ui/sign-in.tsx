@@ -1,15 +1,5 @@
 import { signIn } from "next-auth/react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "./button";
-import { toast } from "react-toastify";
 import Image from "next/image";
 import { toastLogin } from "@/util/toastUtils";
 
