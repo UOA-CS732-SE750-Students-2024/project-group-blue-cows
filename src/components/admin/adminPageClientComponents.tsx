@@ -62,7 +62,7 @@ export function EditRegistrationFormButton({
   const router = useRouter();
   return (
     <YellowButton
-      className={`${className}`}
+      className={`w-full ${className}`}
       onClick={() => router.push(`/clubs/${clubData.id}/register/edit`)}
     >
       Edit Registration Form
@@ -98,7 +98,7 @@ export function AddNewExecButton({
   const router = useRouter();
   return (
     <YellowButton
-      className={`${className}`}
+      className={`w-full ${className}`}
       onClick={() => router.push(`/clubs/${clubData.id}/members`)}
     >
       Add New Exec

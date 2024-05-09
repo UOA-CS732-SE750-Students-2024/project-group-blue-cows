@@ -210,6 +210,9 @@ export default async function AdminEditPage({
               <div className="w-1/3 p-4">
                 <Card className="p-2">
                   <p> SOCIAL MEDIA </p>
+                  <p className="text-xs">
+                    Add links to the social media that the club uses.
+                  </p>
                   {/* <SocialMediaEditor socials={socials} /> */}
                 </Card>
               </div>
@@ -218,7 +221,7 @@ export default async function AdminEditPage({
               <div className="w-2/3 p-4">
                 <Card className="p-2">
                   <p>UPLOAD LOGO</p>
-                  <p className="text-xs">
+                  <p className="text-xs mb-2">
                     For an optimal display, please upload a square image.
                   </p>
                   <LogoImageUpload
