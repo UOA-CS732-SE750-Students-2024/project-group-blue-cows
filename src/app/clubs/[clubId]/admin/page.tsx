@@ -11,19 +11,11 @@ import {
   getClubById,
   getListOfAdminsForClub,
 } from "@/services/clubServices";
-import { AdminProvider } from "@/components/admin/AdminPageContext";
-import {
-  AddNewExecButton,
-  EditClubInformation,
-  EditRegistrationFormButton,
-  ViewMembersButton,
-} from "@/components/admin/adminPageClientComponents";
 import {
   AdminSocials,
   Description,
 } from "@/components/admin/nateAdminComponents";
 
-import { Description } from "@/components/admin/nateAdminComponents";
 import {
   Table,
   TableBody,
@@ -39,8 +31,6 @@ import {
   getAllSocialsForClub,
 } from "@/services/socialsServices";
 
-import { Button } from "@/components/ui/button";
-
 import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import {
@@ -50,6 +40,7 @@ import {
   EditClubInformation,
   EditFee,
   EditName,
+  ViewMembersButton,
   EditRegistrationFormButton,
   GalleryImageUpload,
   LogoImageUpload,
