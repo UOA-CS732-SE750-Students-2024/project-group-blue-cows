@@ -66,38 +66,44 @@ export default function ClubViewPage({
         <LoadingSpinner />
       ) : (
         <div className="w-full">
-          <div className="relative h-96 rounded-b flex justify-start w-full">
+          <div className="relative rounded-b flex justify-start w-full">
             {imageLoading && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <LoadingSpinner />
               </div>
             )}
             <img
-              src="https://picsum.photos/id/1018/3000"
-              className={`object-cover w-full h-full rounded-b ${
+              src={clubData?.coverImage || "https://picsum.photos/id/1018/3000"}
+              className={`max-h-[50vh] object-cover w-full h-full rounded-b ${
                 imageLoading ? "hidden" : ""
               }`}
               alt="cover"
               onLoad={() => setImageLoading(false)}
               onError={() => setImageLoading(false)}
             />
-            <div className="absolute -bottom-20 left-20">
+            <div className="absolute -bottom-10 left-20">
               <img
                 src={clubData?.logo}
                 className="object-cover border-8 border-white w-40 h-40 rounded-md"
                 alt="club logo"
               />
-              <Button
-                onClick={navigateToRegister}
-                className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
-              >
-                Sign Up
-              </Button>
             </div>
           </div>
-          <div className="grid grid-cols-5 gap-1 p-5">
-            <div className="flex flex-col space-y-4 mt-20 ml-16 col-span-1">
+          <div className="grid grid-cols-5 gap-1 p-10">
+            <div className="flex flex-col space-y-4 ml-10 col-span-1">
+              <div className=" bg-red-500">
+                {/* Membership Fee Section */}
+                <h2 className="text-md font-semibold pb-2">MEMBERSHIP FEE</h2>
+                <p>{clubData?.membership_fee}</p>
+                <Button
+                  onClick={navigateToRegister}
+                  className="mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
+                >
+                  Sign Up
+                </Button>
+              </div>
               {/* Social Links Section */}
+              <h2 className="text-md font-semibold">SOCIAL MEDIA</h2>
               <SocialLinks socials={socials} />
             </div>
             <div className="col-span-4 mr-20">
@@ -109,7 +115,7 @@ export default function ClubViewPage({
               </div>
               {/* Gallery implemented in div below */}
               <div>
-                <h1 className="text-md font-semibold mt-3">GALLERY</h1>
+                <h1 className="text-md font-semibold mt-5">GALLERY</h1>
                 <Gallery images={images} />
               </div>
             </div>
