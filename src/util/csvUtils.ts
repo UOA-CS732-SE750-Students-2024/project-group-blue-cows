@@ -25,7 +25,7 @@ export const parseCsvFile = async (filename: string) => {
         extractedValues.push(row);
       })
       .on("end", () => {
-        resolve(extractedValues as studentAllData[]);
+        resolve(extractedValues);
       })
       .on("error", (error) => {
         reject(error);

@@ -1,9 +1,9 @@
 import { studentAllData } from "@/util/csvUtils";
 import "server-only";
+import { postFormFieldInputs } from "../formFieldInput/postFormFieldInputs";
 import { getUserByEmail } from "../user/getUserByEmail";
 import { postUser } from "../user/postUser";
 import { getMemberForClub } from "./getMemberForClub";
-import { postMember } from "./postMember";
 import { putMember } from "./putMember";
 
 export async function postMembersData(
@@ -21,24 +21,35 @@ export async function postMembersData(
         year_of_study: data.year_of_study,
         student_id: data.student_id,
       });
-      if (typeof newId === "string") {
-        id = newId;
-      }
+      if (!newId) throw new Error("Invalid user id");
+      id = newId;
     }
+
+    const {
+      name,
+      email,
+      upi,
+      year_of_study,
+      student_id,
+      paid,
+      isAdmin,
+      ...extended
+    } = data;
+    if (!id) throw new Error("Invalid user id");
+    const extendedfields = Object.entries(extended).map(([fieldName, value]) => {
+      if (typeof value !== "string") throw Error("Extended field value must be a string");
+      return ({
+      fieldName,
+      value,
+    });
+  });
+    postFormFieldInputs(extendedfields, clubId, id);
 
     if (id) {
       const result = await getMemberForClub(id, clubId);
-      console.log(result);
-      if (result) {
-        await putMember(clubId, id, { paid: data.paid, isAdmin: data.isAdmin });
-      } else {
-        await postMember({
-          club: clubId,
-          user: id,
-          paid: data.paid,
-          isAdmin: data.isAdmin,
-        });
-      }
+      if (!result)
+        throw new Error("postFormFieldInputs did not create a member");
+      await putMember(clubId, id, { paid: data.paid, isAdmin: data.isAdmin });
     }
   }
 }
