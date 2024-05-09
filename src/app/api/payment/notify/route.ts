@@ -55,7 +55,6 @@ export async function POST(request: Request) {
         .where(eq(membershipSchema.id, Number(membershipId)));
       return NextResponse.json({ message: "Webhook handled successfully" });
     }
-    console.log("event ignored");
     // For any other event return a 200 response as soon as possible
     return NextResponse.json({ message: "Event ignored" });
   } catch (error) {
