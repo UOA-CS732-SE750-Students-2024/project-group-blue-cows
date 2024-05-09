@@ -24,6 +24,7 @@ export default function ClubViewPage({
   const [images, setImages] = useState<ImageSchema[]>([]);
   const [socials, setSocials] = useState<Socials[]>([]);
   const [loading, setLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(true); // New state for image loading
   const router = useRouter();
 
   // Effect to fetch club data using the provided clubId
@@ -49,32 +50,15 @@ export default function ClubViewPage({
     fetchClubData();
   }, [params.clubId]);
 
-  // useEffect(() => {
-  //   const fetchClubData = async () => {
-  //     const clubId = Number(params.clubId);
-  //     const [data, images, socialLinks] = await Promise.all([
-  //       getClubById(clubId),
-  //       getAllImagesForClub(clubId),
-  //       getAllSocialsForClub(clubId),
-  //     ]);
-
-  //     const filteredImages = images.filter((image) => image.title !== null) as Image[];
-
-  //     setClubData(data);
-  //     setImages(filteredImages);
-  //     setSocials(socialLinks);
-  //     setLoading(false);
-  //   };
-  //   fetchClubData();
-  // }, [params.clubId]);
-
   // Rendering logic based on loading and data state
   if (!clubData && !loading) {
     return notFound();
   }
+
   const navigateToRegister = () => {
     router.push(`/clubs/${params.clubId}/register`);
   };
+
   return (
     // top most div (below) is equivalent to body
     <div className="w-full m-0 p-0 box-border min-h-screen">
@@ -83,10 +67,19 @@ export default function ClubViewPage({
       ) : (
         <div className="w-full">
           <div className="relative h-96 rounded-b flex justify-start w-full">
+            {imageLoading && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <LoadingSpinner />
+              </div>
+            )}
             <img
               src="https://picsum.photos/id/1018/3000"
-              className="object-cover w-full h-full rounded-b"
+              className={`object-cover w-full h-full rounded-b ${
+                imageLoading ? "hidden" : ""
+              }`}
               alt="cover"
+              onLoad={() => setImageLoading(false)}
+              onError={() => setImageLoading(false)}
             />
             <div className="absolute -bottom-20 left-20">
               <img
@@ -116,7 +109,7 @@ export default function ClubViewPage({
               </div>
               {/* Gallery implemented in div below */}
               <div>
-                <h1 className="text-lg font-bold">Gallery</h1>
+                <h1 className="text-md font-semibold mt-3">GALLERY</h1>
                 <Gallery images={images} />
               </div>
             </div>
