@@ -118,7 +118,11 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
                     >
                       <DisplayBadge value={category} />
                     </div>
-                    <h3 className="text-3xl font-semibold text-wrap break-word line-clamp-2">
+                    <h3
+                      className={`font-semibold text-wrap break-word line-clamp-2 ${
+                        name.length > 30 ? "text-md" : "text-2xl"
+                      }`}
+                    >
                       {name}
                     </h3>
                   </div>
