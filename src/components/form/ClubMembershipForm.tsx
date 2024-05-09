@@ -157,7 +157,7 @@ export default function ClubRegistrationForm({
             alert("Membership added successfully");
           })
           .then(() => {
-            //router.back();
+            router.back();
           })
           .catch((error) => {
             console.error("Error posting form inputs: ", error);
@@ -167,11 +167,6 @@ export default function ClubRegistrationForm({
         console.error("Error updating user: ", error);
       });
   };
-
-  // function selfSubmit(event: React.FormEvent<HTMLFormElement>): void {
-  //   event.preventDefault();
-  //   handleSubmit(form.getValues());
-  // }
 
   return (
     <Form {...form}>
