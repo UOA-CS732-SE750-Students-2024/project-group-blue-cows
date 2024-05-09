@@ -27,6 +27,8 @@ export async function postClub(club: CreateClubDto, user: AppUser) {
 }
 
 export async function updateClub(clubId: number, club: UpdateClubDto) {
+  revalidatePath(`/clubs/${clubId}/admin`);
+  revalidatePath(`/src`); // this could make the site extremely slow
   return putClub(clubId, club);
 }
 
