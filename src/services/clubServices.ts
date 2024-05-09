@@ -30,6 +30,8 @@ export async function postClub(club: CreateClubDto, user: AppUser) {
 
 export async function updateClub(clubId: number, club: UpdateClubDto) {
   await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
+  revalidatePath(`/clubs/${clubId}/admin`);
+  revalidatePath(`/src`); // this could make the site extremely slow
   return putClub(clubId, club);
 }
 

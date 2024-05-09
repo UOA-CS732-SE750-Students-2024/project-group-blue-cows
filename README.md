@@ -30,19 +30,46 @@ Key features include:
 
 The app may be extended with other convenience features related to member administration (e.g. emailing announcements). Clubs can create their own branded portal.
 
-## Getting Started
+## How To Run
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn
 ```
+```bash
+yarn dev
+```
+
+## Testing
+
+**How To Run**
+
+For unit test using React Testing Library and Jest
+
+```bash
+yarn
+```
+
+```bash
+yarn test
+```
+
+For End-To-End Testing using Playwright
+
+```bash
+yarn
+```
+```bash
+yarn playwright install --with-deps
+```
+```bash
+yarn build 
+```
+```bash
+yarn playwright:test 
+```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
