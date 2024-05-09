@@ -12,6 +12,8 @@ import { UploadButton } from "@/util/uploadThingUtils";
 import { putClub } from "@/gateway/club/putClub";
 import { addImageToGallery } from "@/services/imageServices";
 import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
+import { Card } from "../ui/card";
+import { Input } from "../ui/input";
 
 
 
@@ -243,4 +245,36 @@ export function MembersPageBack({
     />
     )
   }
+
+  interface NameProps {
+    className?: string;
+  }
+
+  export function EditName({ className }: NameProps) {
+    const { club, setClub } = useAdmin();
+  
+    function setName(name : string) {
+      const updatedClub = {
+        ...club,
+        name,
+      };
+      setClub(updatedClub);
+    }
+  
+    return (
+      <Card className={`w-1/2 p-6 ${className}`}>
+        <p className="uppercase">Club Name</p>
+        <Input
+          value={club.name}
+          onChange={(event) => setName(event.target.value)}
+          onBlur={() => {
+            console.log("blur");
+            updateClub(club.id, club);
+          }}
+        />
+      </Card>
+    );
+  }
+
+
 
