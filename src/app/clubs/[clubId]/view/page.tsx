@@ -13,6 +13,7 @@ import { Socials } from "@/schemas/socialsSchema";
 import { getAllSocialsForClub } from "@/services/socialsServices";
 import router, { notFound, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Component definition accepting clubId as a prop
 export default function ClubViewPage({
@@ -26,6 +27,7 @@ export default function ClubViewPage({
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true); // New state for image loading
   const router = useRouter();
+  const [logoAvailable, setLogoAvailable] = useState(true);
 
   // Effect to fetch club data using the provided clubId
 
@@ -82,11 +84,23 @@ export default function ClubViewPage({
               onError={() => setImageLoading(false)}
             />
             <div className="absolute -bottom-5 left-20">
-              <img
-                src={clubData?.logo}
-                className="object-cover border-8 border-white w-40 h-40 rounded-md"
-                alt="club logo"
-              />
+              {logoAvailable ? (
+                <img
+                  src={
+                    clubData?.logo ||
+                    "https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
+                  } // Use the provided logo or the default one
+                  onError={() => setLogoAvailable(false)} // Set logoAvailable to false if the image fails to load
+                  className="object-cover border-8 border-white w-40 h-40 rounded-md"
+                  alt="club logo"
+                />
+              ) : (
+                <img
+                  src="https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg" // Render the default logo if the provided logo is not available
+                  className="object-cover border-8 border-white w-40 h-40 rounded-md"
+                  alt="default club logo"
+                />
+              )}
             </div>
           </div>
           <div className="grid grid-cols-5 gap-5 p-10">

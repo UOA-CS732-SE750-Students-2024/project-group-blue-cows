@@ -88,7 +88,7 @@ function ClubsSearch({
   );
 }
 
-function ClubsList({ clubs }: { clubs: Club[] }) {
+function ClubsList({ clubs, logo }: { clubs: Club[]; logo: string }) {
   return (
     <div className="w-5/6 lg:w-11/12 m-auto mb-10 bg-">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
@@ -108,7 +108,7 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
                   <img
                     alt={`${name} logo`}
                     src={logo}
-                    className="w-24 h-24 rounded-2xl mt-6"
+                    className="w-24 h-24 rounded-2xl mt-1"
                   />
                   <div className="overflow-hidden">
                     <div
