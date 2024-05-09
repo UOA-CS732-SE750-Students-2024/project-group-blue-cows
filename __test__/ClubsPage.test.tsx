@@ -29,7 +29,7 @@ test("it renders all the filter buttons", async () => {
   expect(allButton).toBeInTheDocument();
 
   const academicButton = buttons.find(
-    (button) => button.textContent === "Academic and specialist"
+    (button) => button.textContent === "Academic and Specialist"
   );
   expect(academicButton).toBeInTheDocument();
 
@@ -42,7 +42,7 @@ test("it renders all the filter buttons", async () => {
   expect(specialButton).toBeInTheDocument();
 
   const religiousButton = buttons.find(
-    (button) => button.textContent === "Religious and spiritual"
+    (button) => button.textContent === "Religious and Spiritual"
   );
   expect(religiousButton).toBeInTheDocument();
 

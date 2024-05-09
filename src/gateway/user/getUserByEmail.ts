@@ -2,11 +2,7 @@ import { users } from "@/schemas/authSchema";
 import { eq } from "drizzle-orm";
 import "server-only";
 import { db } from "../../config/db";
-import { studentData } from "../member/getAllMembersForClub";
-
-export interface studentDataWithId extends studentData {
-  id: string;
-}
+import { studentDataWithId } from "@/interfaces/studentDataWithId";
 
 export async function getUserByEmail(email: string) {
   const user = await db

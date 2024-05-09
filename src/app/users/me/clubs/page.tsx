@@ -27,7 +27,7 @@ export default async function UserClubsPage() {
               <img
                 src="/cute-cow.png"
                 alt="Cute Cowmunity Cow"
-                style={{ height: "auto" }}
+                className="h-auto"
               />
             </div>
           </div>
@@ -57,7 +57,7 @@ export default async function UserClubsPage() {
                 navigationLink="/clubs/new"
                 imageUrl="/register-clubs.png"
                 imageAlt="Register Clubs Image"
-                textContent="Can’t find the right club for you? Register your own!"
+                textContent="Can't find the right club for you? Register your own!"
                 buttonText="Register a Club"
               />
             </div>
