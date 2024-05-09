@@ -18,11 +18,11 @@ export default async function Page({
 
   const logo = clubData?.logo || "";
   return (
-    <section className="w-full">
-      <div className="min-h-screen justify-center w-full pt-20 ">
-        <div className="flex flex-row space-x-4  justify-center py-2">
+    <section className="w-full bg-customGrass">
+      <div className="min-h-screen justify-center w-full py-10">
+        <div className="flex flex-row space-x-4 py-2 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-3/4 max-w-4xl mx-auto shadow-md overflow-y-auto">
           <a href={`/clubs/${clubId}/view`}>
-            <Button variant="destructive" className="min-w-max">
+            <Button className="min-w-max">
               <p> Return to Club Page </p>
             </Button>
           </a>
