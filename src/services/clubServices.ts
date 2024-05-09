@@ -11,7 +11,6 @@ import { postClubEntity } from "@/gateway/club/postClub";
 import { putClub } from "@/gateway/club/putClub";
 import { deleteAllMembers } from "@/gateway/member/deleteAllMembers";
 import { deleteMember } from "@/gateway/member/deleteMember";
-import { getAllMembersForClub } from "@/gateway/member/getAllMembersForClub";
 import { getMemberForClub } from "@/gateway/member/getMemberForClub";
 import { getMembersAllDataForClub } from "@/gateway/member/getMembersAllDataForClub";
 import { postMember } from "@/gateway/member/postMember";
@@ -56,7 +55,7 @@ export async function removeMember(clubId: number, userId: string) {
 }
 
 export async function removeAllMembers(clubId: number) {
-  revalidatePath(`clubs/${clubId}/members`);
+  revalidatePath(`/clubs/${clubId}/members`);
   return await deleteAllMembers(clubId);
 }
 
@@ -68,7 +67,7 @@ export async function importClubMembers(
   clubId: number,
   memberData: studentAllData[]
 ) {
-  revalidatePath(`clubs/${clubId}/members`);
+  revalidatePath(`/clubs/${clubId}/members`);
   return await postMembersData(clubId, memberData);
 }
 
