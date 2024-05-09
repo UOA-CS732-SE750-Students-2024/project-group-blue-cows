@@ -10,6 +10,8 @@ import { getAllMembers, getClubById } from "@/services/clubServices";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MemberPageContextProvider } from "../../../../components/members/MemberPageContext";
+import { auth, isUserClubAdmin } from "@/util/auth";
+import UnauthorisedUserPage from "@/app/unauthorised";
 
 export default async function MembersPage({
   params: { clubId },
@@ -24,8 +26,13 @@ export default async function MembersPage({
   if (!club) {
     return notFound();
   }
+  const session = await auth();
+  const user = session?.user;
+  const isAdmin = await isUserClubAdmin(user, clubId);
 
-  // console.log(finalHeaders)
+  if (isAdmin === false) {
+    return <UnauthorisedUserPage />;
+  }
 
   return (
     <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">
