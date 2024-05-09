@@ -220,6 +220,46 @@ export default async function AdminEditPage({
           </Card>
         </div>
 
+        {/* ---------------- EDIT DESCRIPTION COMPONENT */}
+      <div className="p-10" id="edit-form">
+      <div className="w-full flex flex-col gap-4">
+      <div className="flex">
+        <div className="w-1/2 p-4">
+          <Card className="p-2">
+            <p>DESCRIPTION</p>
+          </Card>
+        </div>
+
+         {/* ---------------- EDIT ADDITIONAL INFORMATION COMPONENT */}
+
+        
+        <div className="w-1/2 p-4">
+          <Card className="p-2">
+            <p>ADDITIONAL INFORMATION</p>
+          </Card>
+        </div>
+      </div>
+
+      {/* ---------------- EDIT SOCIALS COMPONENT */}
+      <div className="flex">
+        <div className="w-1/3 p-4">
+          <Card className="p-2">
+            <p> SOCIAL MEDIA </p>
+            {/* <SocialMediaEditor socials={socials} /> */}
+          </Card>
+        </div>
+
+      
+      {/* ---------------- UPLOAD TO GALLERY COMPONENT */}
+        <div className="w-2/3 p-4">
+          <Card className="p-2">
+            <p>UPLOAD TO GALLERY</p>
+          </Card>
+        </div>
+      </div>
+    </div>
+      </div>
+
 
 
 
