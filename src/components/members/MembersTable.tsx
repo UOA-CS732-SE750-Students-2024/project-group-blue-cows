@@ -13,42 +13,24 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { DataTable } from "../ui/data-table";
-import { studentData } from "@/gateway/member/getAllMembersForClub";
 import { useState } from "react";
 import { useMemberPage } from "./MemberPageContext";
 
-const columns: ColumnDef<studentData>[] = [
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "upi",
-    header: "Upi",
-  },
-  {
-    accessorKey: "year_of_study",
-    header: "Year",
-  },
-  {
-    accessorKey: "student_id",
-    header: "Student_Id",
-  },
-  {
-    accessorKey: "paid",
-    header: "Paid",
-  },
-  {
-    accessorKey: "isAdmin",
-    header: "Admin",
-  },
-];
+export interface MemberTableProps {
+  headers: string[];
+}
 
-export default function MembersTable() {
+const prettifyString = (inputString: string): string => {
+  return inputString
+    .replace(/_/g, " ")
+    .replace(/(?:^|\s)\S/g, (match) => match.toUpperCase());
+};
+
+export default function MembersTable({ headers }: MemberTableProps) {
+  const columns: ColumnDef<any>[] = headers.map((str: string) => ({
+    accessorKey: str,
+    header: prettifyString(str),
+  }));
   const { members } = useMemberPage();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
