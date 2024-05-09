@@ -20,6 +20,7 @@ interface ClubListItemProps {
   imageUrl: string;
   clubName: string;
   category: string;
+  listType: string;
 }
 
 const ClubListItem: React.FC<ClubListItemProps> = ({
@@ -27,9 +28,16 @@ const ClubListItem: React.FC<ClubListItemProps> = ({
   imageUrl,
   clubName,
   category,
+  listType,
 }) => {
   return (
-    <Link href={`/clubs/${clubId}/view`}>
+    <Link
+      href={
+        listType == "View Clubs"
+          ? `/clubs/${clubId}/view`
+          : `/clubs/${clubId}/admin`
+      }
+    >
       <div className="shadow-md bg-white rounded-lg p-2 flex items-center">
         <div className="w-1/5">
           <img
@@ -48,7 +56,7 @@ const ClubListItem: React.FC<ClubListItemProps> = ({
 };
 
 interface ClubsListProps {
-  listType: String;
+  listType: string;
   clubs: Club[];
   numberOfClubs: number;
 }
@@ -71,12 +79,13 @@ const ClubsList: React.FC<ClubsListProps> = ({
       </CardHeader>
       <CardContent>
         {clubs.map((club, index) => (
-          <Card key={index} className="h-auto w-ful mb-1">
+          <Card key={index} className="h-auto w-full mb-1">
             <ClubListItem
               clubId={club.clubId}
               imageUrl={club.imageUrl}
               clubName={club.name}
               category={club.category}
+              listType={listType}
             />
           </Card>
         ))}

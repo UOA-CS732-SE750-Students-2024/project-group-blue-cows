@@ -94,7 +94,6 @@ export default function ClubViewPage({
                 className="object-cover border-8 border-white w-40 h-40 rounded-md"
                 alt="club logo"
               />
-              {/* Button below the logo */}
               <Button
                 onClick={navigateToRegister}
                 className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
@@ -111,7 +110,7 @@ export default function ClubViewPage({
             <div className="col-span-4 mr-20">
               {/* Title, Description and Gallery Section */}
               <div>
-                <h1 className="text-lg font-bold pb-6">{clubData?.name}</h1>
+                <h1 className="text-2xl font-bold pb-6">{clubData?.name}</h1>
                 <h2 className="text-md font-semibold pb-2">DESCRIPTION</h2>
                 <p>{clubData?.description}</p>
               </div>
