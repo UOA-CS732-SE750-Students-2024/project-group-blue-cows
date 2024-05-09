@@ -240,7 +240,16 @@ export default async function AdminEditPage({
             <LogoImageUpload clubData={clubData as Club} className="mt-2" />
           </Card>
         </div>
-
+      </div>
+      <div className="flex">
+                      {/* ---------------- UPLOAD COVER IMAGE COMPONENT */}
+                      <div className="w-2/3 p-4">
+          <Card className="p-2">
+            <p>UPLOAD COVER IMAGE</p>
+            <p>note about file dimensions here</p>
+            <LogoImageUpload clubData={clubData as Club} className="mt-2" />
+          </Card>
+        </div>
 
       </div>
     </div>
