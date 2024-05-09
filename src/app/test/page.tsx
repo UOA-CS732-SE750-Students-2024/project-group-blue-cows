@@ -158,7 +158,7 @@ export default function TestPage() {
       <Button onClick={async () => console.log(await getAllExtendedFields(2))}>
         get forms for club
       </Button> */}
-      <Button
+      {/* <Button
         onClick={() =>
           addImageToGallery({
             clubId: 1,
@@ -168,7 +168,7 @@ export default function TestPage() {
         }
       >
         add image
-      </Button>
+      </Button> */}
       <Button onClick={() => removeImageFromGallery(1)}> remove image</Button>
       <Button onClick={async () => console.log(await getAllImagesForClub(1))}>
         {" "}

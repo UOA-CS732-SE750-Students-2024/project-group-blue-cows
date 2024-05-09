@@ -3,7 +3,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NavProfile from "@/components/layout/nav/NavProfile";
 import NavBrowse from "./nav/NavBrowse";
 import NavManage from "./nav/NavManage";
-import NavShortcut from "./nav/NavShortcut";
 
 export default function NavSide({ className }: { className?: string }) {
   return (
@@ -14,7 +13,6 @@ export default function NavSide({ className }: { className?: string }) {
         <NavProfile />
         <NavBrowse />
         <NavManage />
-        <NavShortcut />
       </nav>
     </aside>
   );
