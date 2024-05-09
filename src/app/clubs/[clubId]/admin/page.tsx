@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import { getClubById, getAllMembers, getListOfAdminsForClub } from "@/services/clubServices";
-import { Club } from "@/schemas/clubSchema";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  CardHeader
 } from "@/components/ui/card";
+import { Club } from "@/schemas/clubSchema";
+import { getAllMembers, getClubById, getListOfAdminsForClub } from "@/services/clubServices";
 // import MembershipDashboard from "@/components/ui/membership-dashboard";
+import { AdminProvider } from "@/components/admin/AdminPageContext";
+import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
+import { Description } from "@/components/admin/nateAdminComponents";
 import {
   Table,
-  TableHeader,
   TableBody,
-  TableRow,
   TableCell,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 // import ClubEditForm from "@/components/form/club-edit-information";
 import { Button } from "@/components/ui/button";
@@ -197,17 +197,12 @@ export default async function AdminEditPage({
 
       {/* ---------------- EDIT DESCRIPTION COMPONENT */}
       <div className="p-10" id="edit-form">
-        <div className="w-full flex flex-col gap-4">
-          <div className="flex">
-            <div className="w-1/2 p-4">
-              <Card className="p-2">
-                <p>DESCRIPTION</p>
-                {/* <Textarea
-                        value={clubData?.description}
-                        >
-            </Textarea> */}
-              </Card>
-            </div>
+      <div className="w-full flex flex-col gap-4">
+      <div className="flex">
+        
+
+        <Description />
+        
 
             {/* ---------------- EDIT ADDITIONAL INFORMATION COMPONENT */}
 
