@@ -23,7 +23,7 @@ import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
-import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
+import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, GalleryImageUpload, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 
@@ -229,39 +229,12 @@ export default async function AdminEditPage({
         <div className="w-2/3 p-4">
           <Card className="p-2">
             <p>UPLOAD TO GALLERY</p>
+            <GalleryImageUpload clubData={clubData as Club} className="mt-2" />
           </Card>
         </div>
       </div>
     </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-      
-
-      
-
-
-
 
     </AdminProvider>);
 }

@@ -10,6 +10,8 @@ import { updateClub } from "@/services/clubServices";
 import { LegacyRef, useRef } from "react";
 import { UploadButton } from "@/util/uploadThingUtils";
 import { putClub } from "@/gateway/club/putClub";
+import { addImageToGallery } from "@/services/imageServices";
+import { PostGalleryImageDto } from "@/Dtos/image/PostGalleryImageDto";
 
 
 
@@ -166,10 +168,18 @@ export function MembersPageBack({
         alert("Upload Completed");
 
         //Convert url to string
-        const logoUrl = res[0].url.toString();
+        const galleryUrl = res[0].url.toString();
+
+        //Construct gallery image dto
+        const galleryImage: PostGalleryImageDto = {
+          title: "",
+          imageUrl: galleryUrl,
+          clubId: clubData.id
+        };
 
         // form.setValue("logo", logoUrl, { shouldValidate: true });
-        putClub(clubData.id, { logo: logoUrl });
+        addImageToGallery(galleryImage);
+        // updateClub(clubData.id, { logo: logoUrl });
       }}
       onUploadError={(error: Error) => {
         // Do something with the error.
