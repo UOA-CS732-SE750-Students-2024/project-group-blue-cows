@@ -23,7 +23,7 @@ import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
-import { EditClubInformation, EditRegistrationFormButton } from "@/components/admin/adminPageClientComponents";
+import { EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
 import { getAllMembers } from "@/services/clubServices";
 
 export default async function AdminEditPage({
@@ -166,7 +166,9 @@ export default async function AdminEditPage({
             </CardContent>
           </Card>
         </div>
-      </div>
+
+      {/* --------------------- Show Membership Count */}
+
       <Card className="mt-5">
             <div className="m-5">
               <p className="text-lg">Membership Count</p>
@@ -178,11 +180,16 @@ export default async function AdminEditPage({
                   </h2>
                 </div>
               </div>
-              <Button className="mt-3 bg-customAccent text-black">
-                View Members
-              </Button>
+              <ViewMembersButton clubData={clubData as Club} className="mt-2" />
             </div>
           </Card>
+          </div>
+
+      {/* --------------------- Show Membership Count */}
+
+
+
+
 
 
 
@@ -290,13 +297,6 @@ export default async function AdminEditPage({
     //           </Link>
     //         </CardContent>
     //       </Card>
-
-
-    // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
-
-
-
-
     //       <Card className="mt-5">
     //         <div className="m-5">
     //           <p className="text-lg">Membership Count</p>
@@ -314,6 +314,13 @@ export default async function AdminEditPage({
     //         </div>
     //       </Card>
     //     </div>
+
+
+    // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
+
+
+
+
     //     <div className="w-2/3 p-4">
     //       <Card>
     //         <CardHeader>

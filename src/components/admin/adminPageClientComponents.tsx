@@ -59,3 +59,21 @@ export function MembersPageBack({
         </YellowButton>
     );
   }
+
+  export function ViewMembersButton({
+    clubData,
+    className,
+  }: {
+    clubData: Club;
+    className?: string;
+  }) {
+    const router = useRouter();
+    return (
+      <YellowButton
+      className={`${className}`}
+      onClick={() => router.push(`/clubs/${clubData.id}/members`)}
+    >
+        View Members
+        </YellowButton>
+    );
+  }
