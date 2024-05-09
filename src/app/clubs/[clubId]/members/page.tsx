@@ -6,7 +6,7 @@ import {
   MembersPageBack,
 } from "@/components/members/membersPageClientComponents";
 import { Club } from "@/schemas/clubSchema";
-import { getAllMembers, getClubById } from "@/services/clubServices"; ;
+import { getAllMembers, getClubById } from "@/services/clubServices";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MemberPageContextProvider } from "../../../../components/members/MemberPageContext";
@@ -23,7 +23,7 @@ export default async function MembersPage({
   const club = await getClubById(+clubId);
   if (!club) {
     return notFound();
-  } 
+  }
 
   return (
     <div className="flex flex-col h-full p-4 lg:py-12 lg:px-16">
