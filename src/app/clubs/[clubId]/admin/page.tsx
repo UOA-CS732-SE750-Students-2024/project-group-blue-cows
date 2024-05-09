@@ -35,7 +35,6 @@ import {
 } from "@/components/admin/adminPageClientComponents";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { PageBackButton } from "@/components/misc/PageBackButton";
 
 export default async function AdminEditPage({
   params,
@@ -107,11 +106,11 @@ export default async function AdminEditPage({
       <div className="h-auto w-full bg-purple-600">
         <div className="flex px-10 pt-4 pb-2">
           <div className="w-1/10">
-            <PageBackButton className="shrink-0" />
-
-            <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-              Back
-            </button>
+            <Link href={"/users/me/clubs"}>
+              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mb-2">
+                Back to my clubs
+              </button>
+            </Link>
           </div>
           <div className="w-9/10"></div>
         </div>
