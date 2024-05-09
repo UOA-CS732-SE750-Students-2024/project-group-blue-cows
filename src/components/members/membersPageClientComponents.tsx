@@ -20,6 +20,7 @@ import {
   toastSuccess,
   tryOrToast,
 } from "@/util/toastUtils";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
@@ -174,6 +175,7 @@ export function DeleteButton({
   className?: string;
 }) {
   const { members, setMembers } = useMemberPage();
+  const user = useSession().data?.user;
 
   async function confirmDelete() {
     return confirm({
@@ -204,8 +206,11 @@ export function DeleteButton({
           membersFullData,
           `${club.name}_membership.csv`
         );
+        if (!user) throw new Error("You are not logged in.");
+        const you = members.find((m) => m.email === user.email);
+        if (!you) throw new Error("You are not a member of this club.");
         await removeAllMembers(club.id);
-        setMembers([]);
+        setMembers([you]); // Keep yourself
         toastSuccess("All members deleted. Automatically exported backup.");
       } catch (error) {
         toastError("Error deleting members");
