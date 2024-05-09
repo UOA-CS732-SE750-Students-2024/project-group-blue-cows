@@ -321,6 +321,7 @@ export function MembersPageBack({
         category: category,
       };
       setClub(updatedClub);
+      updateClub(club.id, updatedClub); // Triggering the update immediately
     }
   
     return (
