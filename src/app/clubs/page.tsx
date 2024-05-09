@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import DisplayBadge from "@/components/ui/display-badge";
 import { FilterBar } from "@/components/ui/filter-bar";
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loading-spinner";
@@ -90,7 +91,7 @@ function ClubsSearch({
 
 function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <div className="w-5/6 lg:w-11/12 m-auto mb-10 bg-">
+    <div className="w-5/6 lg:w-11/12 m-auto mb-10">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results
@@ -99,7 +100,7 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
         {clubs.map(({ name, logo, description, category, id }) => (
           <Card
             key={id}
-            className="min-w-96 h-[19rem] shadow-sm shadow-slate-500 border-none"
+            className="min-w-96 h-[17rem] shadow-sm shadow-slate-500 border-none"
           >
             <CardContent className="px-8 py-5">
               <Link href={`/clubs/${id}/view`}>
@@ -108,16 +109,20 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
                   <img
                     alt={`${name} logo`}
                     src={logo}
-                    className="w-24 h-24 rounded-2xl mt-6"
+                    className="w-24 h-24 rounded-2xl mt-1"
                   />
                   <div className="overflow-hidden">
                     <div
                       role="doc-subtitle"
                       className="text-md mb-3 line-clamp-1 text-ellipsis"
                     >
-                      {category}
+                      <DisplayBadge value={category} />
                     </div>
-                    <h3 className="text-3xl font-semibold text-wrap break-word line-clamp-2">
+                    <h3
+                      className={`font-semibold text-wrap break-word line-clamp-2 ${
+                        name.length > 30 ? "text-md" : "text-2xl"
+                      }`}
+                    >
                       {name}
                     </h3>
                   </div>
