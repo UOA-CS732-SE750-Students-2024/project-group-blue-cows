@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getClubById, getAllMembers } from "@/services/clubServices";
+import { getClubById, getAllMembers, getListOfAdminsForClub } from "@/services/clubServices";
 import { Club } from "@/schemas/clubSchema";
 import {
   Card,
@@ -24,6 +24,8 @@ import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
 import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 
 export default async function AdminEditPage({
   params,
@@ -66,19 +68,25 @@ export default async function AdminEditPage({
 
   interface TableData {
     name: string;
-    position: string;
   }
 
-  const data: TableData[] = [
-    { name: "John Doe", position: "Software Engineer" },
-    { name: "Jane Smith", position: "Product Manager" },
-    { name: "Alice Johnson", position: "UI/UX Designer" },
-    { name: "John Doe", position: "Software Engineer" },
-    { name: "Jane Smith", position: "Product Manager" },
-    { name: "Alice Johnson", position: "UI/UX Designer" },
-    { name: "John Doe", position: "Software Engineer" },
-    { name: "Jane Smith", position: "Product Manager" },
-  ];
+  const execs = await getListOfAdminsForClub(Number(params.clubId));
+  console.log(execs);
+
+  const tableData = execs.map(exec => ({
+    name: exec.name
+  }));
+
+  // const data: TableData[] = [
+  //   { name: "John Doe", position: "Software Engineer" },
+  //   { name: "Jane Smith", position: "Product Manager" },
+  //   { name: "Alice Johnson", position: "UI/UX Designer" },
+  //   { name: "John Doe", position: "Software Engineer" },
+  //   { name: "Jane Smith", position: "Product Manager" },
+  //   { name: "Alice Johnson", position: "UI/UX Designer" },
+  //   { name: "John Doe", position: "Software Engineer" },
+  //   { name: "Jane Smith", position: "Product Manager" },
+  // ];
 
   // Copies the registration link to the clipboard
   //TODO: INSERT LINK
@@ -194,22 +202,21 @@ export default async function AdminEditPage({
             <CardContent>
               <AddNewExecButton clubData={clubData as Club} className="mt-2" />
               <div className="overflow-scroll" style={{ height: "300px" }}>
-                <Table className="min-w-full">
-                  <TableHeader>
-                    <TableRow>
-                      <TableCell className="font-bold">Name</TableCell>
-                      <TableCell className="font-bold">Position</TableCell>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {data.map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.position}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+
+              <Table className="min-w-full">
+      <TableHeader>
+        <TableRow>
+          <TableCell className="font-bold">Name</TableCell>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {execs.map((exec, index) => (
+          <TableRow key={index}>
+            <TableCell>{exec.name}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
               </div>
             </CardContent>
           </Card>
@@ -222,7 +229,10 @@ export default async function AdminEditPage({
         <div className="w-1/2 p-4">
           <Card className="p-2">
             <p>DESCRIPTION</p>
-            <p>{clubData?.description}</p>
+            <Textarea
+                        value={clubData?.description}
+                        >
+            </Textarea>
           </Card>
         </div>
 
