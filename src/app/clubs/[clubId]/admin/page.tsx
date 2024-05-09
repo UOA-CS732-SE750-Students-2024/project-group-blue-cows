@@ -229,10 +229,10 @@ export default async function AdminEditPage({
         <div className="w-1/2 p-4">
           <Card className="p-2">
             <p>DESCRIPTION</p>
-            <Textarea
+            {/* <Textarea
                         value={clubData?.description}
                         >
-            </Textarea>
+            </Textarea> */}
           </Card>
         </div>
 
