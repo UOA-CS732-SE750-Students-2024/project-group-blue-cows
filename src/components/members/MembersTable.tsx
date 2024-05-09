@@ -31,6 +31,7 @@ export default function MembersTable({ headers }: MemberTableProps) {
     accessorKey: str,
     header: prettifyString(str),
   }));
+
   const { members } = useMemberPage();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
