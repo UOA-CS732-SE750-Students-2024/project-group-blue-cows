@@ -19,7 +19,7 @@ export default function PaymentResultPage() {
         <h1 className="text-4xl text-primary font-bold">
           Registration successful!
         </h1>
-        <p className="text-lg">You're now a member of {clubName}! 🎉</p>
+        <p className="text-lg">You&apos;re now a member of {clubName}! 🎉</p>
         <Link href="/users/me/clubs">
           <Button className="text-white text-lg">View your memberships</Button>
         </Link>
