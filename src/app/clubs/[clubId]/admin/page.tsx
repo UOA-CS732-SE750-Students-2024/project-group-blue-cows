@@ -9,7 +9,7 @@ import { getAllMembers, getClubById, getListOfAdminsForClub } from "@/services/c
 // import MembershipDashboard from "@/components/ui/membership-dashboard";
 import { AdminProvider } from "@/components/admin/AdminPageContext";
 import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
-import { Description } from "@/components/admin/nateAdminComponents";
+import { AdminSocials, Description } from "@/components/admin/nateAdminComponents";
 import {
   Table,
   TableBody,
@@ -17,6 +17,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { notFound } from "next/navigation";
+import { GetSocialDto } from "@/Dtos/social/GetSocialDto";
+import { addSocialLink, getAllSocialsForClub } from "@/services/socialsServices";
 
 export default async function AdminEditPage({
   params,
@@ -31,11 +34,46 @@ export default async function AdminEditPage({
   } else {
     console.log("No club data found");
   }
+  if (!clubData) return notFound();
 
   // const {club} = useAdmin();
 
 
-  
+  async function getInitialSocials() {
+    if (!clubData) return notFound();
+    let initialSocials: GetSocialDto[] = await getAllSocialsForClub(
+      clubData.id
+    );
+
+    async function getSocial(type: string) {
+      if (!clubData) return notFound();
+      function toSentenceCase(str: string): string {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+      const social = initialSocials.find((s) => s.type === type);
+      if (!social)
+        await addSocialLink({
+          clubId: clubData.id,
+          link: "",
+          tag: toSentenceCase(type),
+          type,
+        });
+      return social;
+    }
+
+    return await Promise.all([
+      getSocial("web"),
+      getSocial("facebook"),
+      getSocial("instagram"),
+      getSocial("discord"),
+    ]);
+  }
+
+  await getInitialSocials(); // Hack: populate any null socials first
+  const initialSocials = (await getInitialSocials()).map((social) => {
+    if (!social) throw new Error("Socials not loaded");
+    return social;
+  });
 
 
 
@@ -104,7 +142,7 @@ export default async function AdminEditPage({
   return (
 
 
-    <AdminProvider initialClub = {clubData as Club} >
+    <AdminProvider initialClub = {clubData as Club} initialSocials={initialSocials} >
 
 
 <div className="h-[calc(100vh-4rem)] w-full">
@@ -241,6 +279,7 @@ export default async function AdminEditPage({
           </Card>
         </div>
 
+        <AdminSocials className="w-1/3 p-4" initialSocials={initialSocials} />
       
       {/* ---------------- UPLOAD TO GALLERY COMPONENT */}
         <div className="w-2/3 p-4">
