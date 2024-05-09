@@ -276,5 +276,35 @@ export function MembersPageBack({
     );
   }
 
+  interface FeeProps {
+    className?: string;
+  }
+
+  export function EditFee({ className }: NameProps) {
+    const { club, setClub } = useAdmin();
+  
+    function setFee(fee : string) {
+      const updatedClub = {
+        ...club,
+        fee,
+      };
+      setClub(updatedClub);
+    }
+  
+    return (
+      <Card className={`w-1/2 p-6 ${className}`}>
+        <p className="uppercase">Membership Fee</p>
+        <Input
+          value={club.name}
+          onChange={(event) => setFee(event.target.value)}
+          onBlur={() => {
+            console.log("blur");
+            updateClub(club.id, club);
+          }}
+        />
+      </Card>
+    );
+  }
+
 
 
