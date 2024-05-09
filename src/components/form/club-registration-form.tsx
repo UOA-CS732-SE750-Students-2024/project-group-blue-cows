@@ -212,7 +212,7 @@ export default function ClubRegistrationForm() {
             );
           }}
         />
-        
+
         <FormField
           control={form.control}
           name="logo"
@@ -241,35 +241,6 @@ export default function ClubRegistrationForm() {
             );
           }}
         />
-
-        {/* <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      /> */}
-
-        {/* <FormField
-          control={form.control}
-          name="logo"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>File</FormLabel>
-                <FormControl>
-                  <Input type="file" placeholder="shadcn" {...fileRef} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        /> */}
 
         <Button
           type="submit"
