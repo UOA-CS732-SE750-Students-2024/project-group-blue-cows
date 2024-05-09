@@ -174,7 +174,7 @@ export default function ClubRegistrationForm({
         onSubmit={form.handleSubmit(handleSubmit)}
         className="w-full flex flex-col gap-4"
       >
-        <Card className="w-full bg-[#FFD166]">
+        <Card className="w-full bg-customAccent">
           <CardHeader>
             <CardTitle>Membership Benefits</CardTitle>
           </CardHeader>
@@ -304,7 +304,7 @@ export default function ClubRegistrationForm({
 
         <Button
           type="submit"
-          className="w-full bg-[#087DF1] color-white uppercase"
+          className="w-full bg-customPrimary color-white uppercase"
         >
           SUBMIT
         </Button>

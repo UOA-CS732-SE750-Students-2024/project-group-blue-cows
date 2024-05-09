@@ -36,7 +36,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 export async function getUserAuthentication() {
   const session = await auth();
   const currentUser = session?.user;
-  if (!currentUser) throw new Error("notSignedIn");
+  if (!currentUser) throw new Error("Not Signed In");
   return currentUser;
 }
 
