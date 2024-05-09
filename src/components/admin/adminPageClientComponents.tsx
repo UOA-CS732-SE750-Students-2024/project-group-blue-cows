@@ -280,13 +280,13 @@ export function MembersPageBack({
     className?: string;
   }
 
-  export function EditFee({ className }: NameProps) {
+  export function EditFee({ className }: FeeProps) {
     const { club, setClub } = useAdmin();
   
     function setFee(fee : string) {
       const updatedClub = {
         ...club,
-        fee,
+        membership_fee: fee,
       };
       setClub(updatedClub);
     }
@@ -295,7 +295,7 @@ export function MembersPageBack({
       <Card className={`w-1/2 p-6 ${className}`}>
         <p className="uppercase">Membership Fee</p>
         <Input
-          value={club.name}
+          value={club.membership_fee}
           onChange={(event) => setFee(event.target.value)}
           onBlur={() => {
             console.log("blur");
