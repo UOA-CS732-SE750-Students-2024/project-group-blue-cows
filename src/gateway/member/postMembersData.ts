@@ -4,6 +4,7 @@ import { postFormFieldInputs } from "../formFieldInput/postFormFieldInputs";
 import { getUserByEmail } from "../user/getUserByEmail";
 import { postUser } from "../user/postUser";
 import { getMemberForClub } from "./getMemberForClub";
+import { postMember } from "./postMember";
 import { putMember } from "./putMember";
 
 export async function postMembersData(
@@ -36,20 +37,30 @@ export async function postMembersData(
       ...extended
     } = data;
     if (!id) throw new Error("Invalid user id");
-    const extendedfields = Object.entries(extended).map(([fieldName, value]) => {
-      if (typeof value !== "string") throw Error("Extended field value must be a string");
-      return ({
-      fieldName,
-      value,
-    });
-  });
+    const extendedfields = Object.entries(extended).map(
+      ([fieldName, value]) => {
+        if (typeof value !== "string")
+          throw Error("Extended field value must be a string");
+        return {
+          fieldName,
+          value,
+        };
+      }
+    );
     postFormFieldInputs(extendedfields, clubId, id);
 
     if (id) {
       const result = await getMemberForClub(id, clubId);
-      if (!result)
-        throw new Error("postFormFieldInputs did not create a member");
-      await putMember(clubId, id, { paid: data.paid, isAdmin: data.isAdmin });
+      if (result) {
+        await putMember(clubId, id, { paid: data.paid, isAdmin: data.isAdmin });
+      } else {
+        await postMember({
+          club: clubId,
+          user: id,
+          paid: data.paid,
+          isAdmin: data.isAdmin,
+        });
+      }
     }
   }
 }
