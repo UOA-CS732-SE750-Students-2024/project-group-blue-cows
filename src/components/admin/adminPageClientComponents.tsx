@@ -8,6 +8,7 @@ import { Textarea, TextareaProps } from "../ui/textarea";
 import { UpdateClubDto } from "@/Dtos/club/UpdateClubDto";
 import { updateClub } from "@/services/clubServices";
 import { LegacyRef, useRef } from "react";
+import { UploadButton } from "@/util/uploadThingUtils";
 
 
 
@@ -144,4 +145,34 @@ export function MembersPageBack({
         </BlueButton>
       </div>
     );
+  }
+
+
+  export function GalleryImageUpload ({
+    clubData,
+    className,
+  }: {
+    clubData: Club;
+    className?: string;
+  }) {
+    // do something
+
+    return (
+      <UploadButton
+      endpoint="imageUploader"
+      onClientUploadComplete={(res) => {
+        console.log("Files: ", res);
+        alert("Upload Completed");
+
+        //Convert url to string
+        const logoUrl = res[0].url.toString();
+        
+        // form.setValue("logo", logoUrl, { shouldValidate: true });
+      }}
+      onUploadError={(error: Error) => {
+        // Do something with the error.
+        alert(`ERROR! ${error.message}`);
+      }}
+    />
+    )
   }
