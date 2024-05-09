@@ -1,3 +1,4 @@
+
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Club } from "@/schemas/clubSchema";
@@ -9,7 +10,13 @@ interface AdminContextType {
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
-export const AdminProvider = ({ children, initialClub }: { children: ReactNode, initialClub: Club}) => {
+export const AdminProvider = ({
+  children,
+  initialClub,
+}: {
+  children: ReactNode;
+  initialClub: Club;
+}) => {
   const [club, setClub] = useState<Club>(initialClub);
 
   return (
@@ -22,7 +29,7 @@ export const AdminProvider = ({ children, initialClub }: { children: ReactNode, 
 export const useAdmin = () => {
   const context = useContext(AdminContext);
   if (context === undefined) {
-    throw new Error('useClub must be used within a ClubProvider');
+    throw new Error("useClub must be used within a ClubProvider");
   }
   return context;
 };

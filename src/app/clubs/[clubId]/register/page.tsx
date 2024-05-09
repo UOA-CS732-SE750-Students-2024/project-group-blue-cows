@@ -1,8 +1,12 @@
 import ClubMembershipForm from "@/components/form/ClubMembershipForm";
 import FormWrapper from "@/components/form/form-wrapper";
 import { Button } from "@/components/ui/button";
+
+import { AppUser } from "@/schemas/authSchema";
 import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 import { getClubById } from "@/services/clubServices";
+import { getFieldInputForUser } from "@/services/formFieldInputServices";
+import { getUserAuthentication } from "@/util/auth";
 
 export default async function Page({
   params: { clubId },
@@ -10,7 +14,20 @@ export default async function Page({
   params: { clubId: string };
 }) {
   const club = await getClubById(+clubId);
+  const user = (await getUserAuthentication()) as AppUser;
   const extendedFields = await getAllExtendedFields(+clubId);
+  const formFields = await Promise.all(
+    extendedFields.map(async (extendedField) => {
+      const input =
+        (await getFieldInputForUser(extendedField.name, user.id))?.value ?? "";
+      return {
+        name: extendedField.name,
+        type: extendedField.type,
+        description: extendedField.description,
+        value: input,
+      };
+    })
+  );
 
   if (!club) return null;
 
@@ -37,7 +54,8 @@ export default async function Page({
           <ClubMembershipForm
             clubId={clubId}
             club={club}
-            clubFormFields={extendedFields}
+            clubFormFields={formFields}
+            user={user}
           />
         </FormWrapper>
       </div>

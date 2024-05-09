@@ -15,7 +15,7 @@
 // const SocialMediaEditor: React.FC<SocialMediaEditorProps> = () => {
 
 //     const state = useAdmin();
-    
+
 //   // Initialize state with existing socials
 // //   const [socialLinks, setSocialLinks] = useState<{ [type: string]: Socials }>(
 // //     defaultSocialTypes.reduce((acc, type) => {
@@ -23,8 +23,6 @@
 // //       return acc;
 // //     }, {} as { [type: string]: Socials })
 // //   );
-
-
 
 //   const handleLinkChange = (type: string, value: string) => {
 //     setSocialLinks({
