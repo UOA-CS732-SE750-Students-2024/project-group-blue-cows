@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  getClubById,
-  getAllMembers,
-  getListOfAdminsForClub,
-} from "@/services/clubServices";
+import { getClubById, getAllMembers, getListOfAdminsForClub } from "@/services/clubServices";
 import { Club } from "@/schemas/clubSchema";
 import {
   Card,
@@ -51,6 +47,7 @@ export default async function AdminEditPage({
   } else {
     console.log("No club data found");
   }
+  
   const session = await auth();
   const user = session?.user;
   const isAdmin = await isUserClubAdmin(user, params.clubId);
@@ -70,6 +67,7 @@ export default async function AdminEditPage({
   //   };
   //   getData();
   // }, []);
+
 
   // console.log(clubData);
 
@@ -120,7 +118,10 @@ export default async function AdminEditPage({
     }
   };
 
+  
+
   return (
+
     <AdminProvider initialClub={clubData as Club}>
       <div className="h-[calc(100vh-4rem)] w-full">
         <div className="flex px-10 pt-4 pb-2">
@@ -208,6 +209,7 @@ export default async function AdminEditPage({
       {/* --------------------- View Executives Table */}
 
       <div className="w-2/3 p-4">
+
         <Card>
           <CardHeader>
             <p className="text-lg">Executive Members (Admin)</p>
@@ -373,7 +375,13 @@ export default async function AdminEditPage({
     //       </Card>
     //     </div>
 
+
+
     // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
+
+
+
+
 
     //     <div className="w-2/3 p-4">
     //       <Card>

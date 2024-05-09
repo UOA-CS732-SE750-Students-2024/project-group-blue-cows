@@ -5,7 +5,6 @@ import csvParser from "csv-parser";
 import dotenv from "dotenv";
 import * as originalFS from "fs";
 import { promises as fs } from "fs";
-import { revalidatePath } from "next/cache";
 import path from "path";
 import "server-only";
 
@@ -17,8 +16,8 @@ export interface studentAllData extends studentData {
 }
 
 export const parseCsvFile = async (filename: string) => {
-  return new Promise<studentAllData[]>((resolve, reject) => {
-    const extractedValues: studentAllData[] = [];
+  return new Promise<any[]>((resolve, reject) => {
+    const extractedValues: any[] = [];
     originalFS
       .createReadStream(filename)
       .pipe(csvParser())
@@ -26,8 +25,7 @@ export const parseCsvFile = async (filename: string) => {
         extractedValues.push(row);
       })
       .on("end", () => {
-        revalidatePath("/");
-        resolve(extractedValues as studentAllData[]);
+        resolve(extractedValues);
       })
       .on("error", (error) => {
         reject(error);

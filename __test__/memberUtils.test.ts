@@ -4,6 +4,7 @@ import {
   combineMembersData,
   extractFieldNames,
   mapToObject,
+  separateDataForImport,
   studentFullData,
 } from "@/util/memberUtil";
 
@@ -49,7 +50,6 @@ it("combines student data with form field inputs correctly", () => {
     },
   ];
 
-  // Call the function
   const combinedData = combineMembersData(studentDataList, inputsList);
 
   // Assertion
@@ -132,4 +132,52 @@ it("maps StudentFullData to the desired format", () => {
   const result = mapToObject(studentData);
 
   expect(result).toEqual(expectedMappedObject);
+});
+
+it("should separate main data and additional data correctly", () => {
+  const expectedMappedObject = {
+    name: "John",
+    email: "john@example.com",
+    upi: null,
+    year_of_study: 2,
+    student_id: "12345",
+    paid: true,
+    isAdmin: false,
+    input1: "value1",
+    input2: "value2",
+  };
+
+  const { mainData, additionalData } =
+    separateDataForImport(expectedMappedObject);
+
+  expect(mainData).toEqual({
+    name: "John",
+    email: "john@example.com",
+    upi: null,
+    year_of_study: 2,
+    student_id: "12345",
+    paid: true,
+    isAdmin: false,
+  });
+
+  expect(additionalData).toEqual([
+    { fieldName: "input1", value: "value1" },
+    { fieldName: "input2", value: "value2" },
+  ]);
+});
+
+it("should throw an error if input1 or input2 is not a string", () => {
+  const expectedMappedObject = {
+    name: "John",
+    email: "john@example.com",
+    upi: null,
+    year_of_study: 2,
+    student_id: "12345",
+    paid: true,
+    isAdmin: false,
+    input1: "1",
+    input2: 3, // Not a string
+  };
+
+  expect(() => separateDataForImport(expectedMappedObject)).toThrow();
 });
