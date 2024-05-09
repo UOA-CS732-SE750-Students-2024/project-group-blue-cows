@@ -158,7 +158,6 @@ export function MembersPageBack({
     clubData: Club;
     className?: string;
   }) {
-    // do something
 
     return (
       <UploadButton
@@ -188,3 +187,33 @@ export function MembersPageBack({
     />
     )
   }
+
+  export function LogoImageUpload ({
+    clubData,
+    className,
+  }: {
+    clubData: Club;
+    className?: string;
+  }) {
+
+    return (
+      <UploadButton
+      endpoint="imageUploader"
+      onClientUploadComplete={(res) => {
+        console.log("Files: ", res);
+        alert("Upload Completed");
+
+        //Convert url to string
+        const logoUrl = res[0].url.toString();
+        updateClub(clubData.id, { logo: logoUrl });
+
+        // form.setValue("logo", logoUrl, { shouldValidate: true });
+      }}
+      onUploadError={(error: Error) => {
+        // Do something with the error.
+        alert(`ERROR! ${error.message}`);
+      }}
+    />
+    )
+  }
+

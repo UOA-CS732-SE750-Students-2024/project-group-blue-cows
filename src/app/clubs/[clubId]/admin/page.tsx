@@ -232,6 +232,16 @@ export default async function AdminEditPage({
             <GalleryImageUpload clubData={clubData as Club} className="mt-2" />
           </Card>
         </div>
+
+              {/* ---------------- UPLOAD LOGO COMPONENT */}
+              <div className="w-2/3 p-4">
+          <Card className="p-2">
+            <p>UPLOAD LOGO</p>
+            <GalleryImageUpload clubData={clubData as Club} className="mt-2" />
+          </Card>
+        </div>
+
+
       </div>
     </div>
       </div>
