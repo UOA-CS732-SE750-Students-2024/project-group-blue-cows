@@ -23,7 +23,7 @@ import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
-import { EditClubInformation } from "@/components/admin/adminPageClientComponents";
+import { EditClubInformation, EditRegistrationFormButton } from "@/components/admin/adminPageClientComponents";
 
 export default async function AdminEditPage({
   params,
@@ -144,12 +144,28 @@ export default async function AdminEditPage({
             </p>
           </div>
           <div className="flex items-start">
-            <EditClubInformation clubData={clubData as Club} className="mt-3" />
+            <EditClubInformation clubData={clubData as Club} className="mt-2" />
     </div>
           </div>
         </div>
       </div>
     </div>
+    <div className="flex">
+        <div className="w-1/3 px-10 py-4">
+          <Card>
+            <CardHeader>
+              <div className="text-xl">Registration Form</div>
+              <CardDescription>
+                View and/or update the the club registration form, including
+                information and custom fields.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <EditRegistrationFormButton clubData={clubData as Club} className="mt-2" />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
 
 
 
@@ -192,7 +208,6 @@ export default async function AdminEditPage({
     //     </div>
     //     <div className="w-9/10"></div>
     //   </div>
-
     //   <div className="flex px-10">
     //     <div className="w-1/10">
     //       <img
@@ -225,6 +240,11 @@ export default async function AdminEditPage({
     //       </div>
     //     </div>
     //   </div>
+
+
+    // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
+
+
 
     //   <div className="flex">
     //     <div className="w-1/3 px-10 py-4">

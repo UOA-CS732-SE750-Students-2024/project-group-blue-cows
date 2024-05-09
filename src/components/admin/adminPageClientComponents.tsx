@@ -41,3 +41,21 @@ export function MembersPageBack({
         </YellowButton>
     );
   }
+
+  export function EditRegistrationFormButton({
+    clubData,
+    className,
+  }: {
+    clubData: Club;
+    className?: string;
+  }) {
+    const router = useRouter();
+    return (
+      <YellowButton
+      className={`${className}`}
+      onClick={() => router.push(`/clubs/${clubData.id}/register/edit`)}
+    >
+        Edit Registration Form
+        </YellowButton>
+    );
+  }
