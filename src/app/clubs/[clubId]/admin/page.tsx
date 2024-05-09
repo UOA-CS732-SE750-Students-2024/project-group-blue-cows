@@ -35,6 +35,8 @@ import {
 } from "@/components/admin/adminPageClientComponents";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { auth, isUserClubAdmin } from "@/util/auth";
+import UnauthorisedUserPage from "@/app/unauthorised";
 
 export default async function AdminEditPage({
   params,
@@ -49,7 +51,13 @@ export default async function AdminEditPage({
   } else {
     console.log("No club data found");
   }
+  const session = await auth();
+  const user = session?.user;
+  const isAdmin = await isUserClubAdmin(user, params.clubId);
 
+  if (isAdmin === false) {
+    return <UnauthorisedUserPage />;
+  }
   // const {club} = useAdmin();
 
   // const [clubData, setClubData] = useState<Club | null>(null);
