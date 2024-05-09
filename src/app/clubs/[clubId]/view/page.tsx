@@ -103,8 +103,8 @@ export default function ClubViewPage({
               )}
             </div>
           </div>
-          <div className="grid grid-cols-5 gap-5 p-10">
-            <div className="flex flex-col space-y-4 ml-10 col-span-1">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-5 p-10">
+            <div className="md:col-span-1 flex flex-col space-y-4 md:ml-10">
               <div>
                 {/* Membership Fee Section */}
                 <h2 className="text-md font-semibold pb-2">MEMBERSHIP FEE</h2>
@@ -124,7 +124,7 @@ export default function ClubViewPage({
               <h2 className="text-md font-semibold">SOCIAL MEDIA</h2>
               <SocialLinks socials={socials} />
             </div>
-            <div className="col-span-4 mr-20">
+            <div className="md:col-span-4 md:mr-20">
               {/* Title, Description and Gallery Section */}
               <div>
                 <h1 className="text-2xl font-bold pb-6">{clubData?.name}</h1>
