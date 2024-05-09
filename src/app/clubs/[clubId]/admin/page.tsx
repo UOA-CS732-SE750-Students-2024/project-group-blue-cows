@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getClubById } from "@/services/clubServices";
+import { getClubById, getAllMembers } from "@/services/clubServices";
 import { Club } from "@/schemas/clubSchema";
 import {
   Card,
@@ -18,14 +18,12 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import ClubEditForm from "@/components/form/club-edit-information";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
 import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
-import { getAllMembers } from "@/services/clubServices";
 
 export default async function AdminEditPage({
   params,
@@ -171,7 +169,7 @@ export default async function AdminEditPage({
               <p className="text-lg">Membership Count</p>
               <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
                 <div className="text-center">
-                  <h1 className="text-lg md:text-xl lg:text-2xl">{(await getAllMembers(clubData?.id as number)).membersData.length}</h1>
+                  <h1 className="text-lg md:text-xl lg:text-2xl">{(await getAllMembers(clubData?.id as number)).membersFullData.length}</h1>
                   <h2 className="text-sm md:text-md lg:text-lg">
                     Registered Members
                   </h2>

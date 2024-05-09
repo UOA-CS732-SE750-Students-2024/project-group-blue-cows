@@ -6,7 +6,7 @@ import {
   MembersPageBack,
 } from "@/components/members/membersPageClientComponents";
 import { Club } from "@/schemas/clubSchema";
-import { getAllMembers, getClubById } from "@/services/clubServices";
+import { getAllMembers, getClubById } from "@/services/clubServices"; ;
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MemberPageContextProvider } from "../../../../components/members/MemberPageContext";
