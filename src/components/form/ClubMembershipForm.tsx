@@ -125,6 +125,7 @@ export default function ClubRegistrationForm({
   if (!club) return notFound();
   // call updateUser for mandatory fields, addFormInputs for optional fields
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("handleSubmit");
     const memberData = await fetchMemberForClub(user?.id, Number(clubId));
     if (memberData) {
       setAlreadyMember(true);
