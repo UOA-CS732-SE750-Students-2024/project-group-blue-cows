@@ -39,7 +39,7 @@ const ClubListItem: React.FC<ClubListItemProps> = ({
       }
     >
       <div className="shadow-md bg-white rounded-lg p-2 flex items-center">
-        <div className="w-1/5">
+        <div className="w-1/5 bg-purple-600">
           <img
             src={imageUrl}
             alt="Image"

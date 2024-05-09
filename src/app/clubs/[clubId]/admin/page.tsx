@@ -103,11 +103,11 @@ export default async function AdminEditPage({
 
   return (
     <AdminProvider initialClub={clubData as Club}>
-      <div className="h-auto w-full bg-purple-600">
+      <div className="h-auto w-full">
         <div className="flex px-10 pt-4 pb-2">
           <div className="w-1/10">
             <Link href={"/users/me/clubs"}>
-              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mb-2">
+              <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mt-3 mb-2">
                 Back to my clubs
               </button>
             </Link>
@@ -126,7 +126,7 @@ export default async function AdminEditPage({
           <div className="w-9/10">
             <div className="ml-5 flex flex-col">
               <div className="flex items-start">
-                <p className="text-lg font-bold">
+                <p className="text-2xl font-bold">
                   {clubData?.name || "Loading Club Name..."}
                 </p>
               </div>
