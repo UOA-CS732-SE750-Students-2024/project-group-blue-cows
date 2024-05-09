@@ -212,23 +212,7 @@ export default function ClubRegistrationForm() {
             );
           }}
         />
-
-        {/* <FormField
-          control={form.control}
-          name="logo"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Dummy Input until File Upload Component</FormLabel>
-                <FormControl>
-                  <Input placeholder="Logo URL here" type="logo" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        /> */}
-
+        
         <FormField
           control={form.control}
           name="logo"
