@@ -29,13 +29,16 @@ export async function postMembersData(clubId: number, memberData: any[]) {
     if (id) {
       const result = await getMemberForClub(id, clubId);
       if (result) {
-        await putMember(clubId, id, { paid: data.paid, isAdmin: data.isAdmin });
+        await putMember(clubId, id, {
+          paid: mainData.paid,
+          isAdmin: mainData.isAdmin,
+        });
       } else {
         await postMember({
           club: clubId,
           user: id,
-          paid: data.paid,
-          isAdmin: data.isAdmin,
+          paid: mainData.paid,
+          isAdmin: mainData.isAdmin,
         });
       }
     }

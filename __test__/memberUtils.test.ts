@@ -165,3 +165,19 @@ it("should separate main data and additional data correctly", () => {
     { fieldName: "input2", value: "value2" },
   ]);
 });
+
+it("should throw an error if input1 or input2 is not a string", () => {
+  const expectedMappedObject = {
+    name: "John",
+    email: "john@example.com",
+    upi: null,
+    year_of_study: 2,
+    student_id: "12345",
+    paid: true,
+    isAdmin: false,
+    input1: "1",
+    input2: 3, // Not a string
+  };
+
+  expect(() => separateDataForImport(expectedMappedObject)).toThrow();
+});
