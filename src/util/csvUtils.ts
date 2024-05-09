@@ -17,8 +17,8 @@ export interface studentAllData extends studentData {
 }
 
 export const parseCsvFile = async (filename: string) => {
-  return new Promise<studentAllData[]>((resolve, reject) => {
-    const extractedValues: studentAllData[] = [];
+  return new Promise<any[]>((resolve, reject) => {
+    const extractedValues: any[] = [];
     originalFS
       .createReadStream(filename)
       .pipe(csvParser())
@@ -27,7 +27,7 @@ export const parseCsvFile = async (filename: string) => {
       })
       .on("end", () => {
         revalidatePath("/");
-        resolve(extractedValues as studentAllData[]);
+        resolve(extractedValues as any[]);
       })
       .on("error", (error) => {
         reject(error);

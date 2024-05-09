@@ -23,6 +23,8 @@ import {
 import { useRouter } from "next/navigation";
 import { BackButton, BlueButton, YellowButton } from "../misc/buttons";
 import { useMemberPage } from "./MemberPageContext";
+import { separateDataForImport } from "@/util/memberUtil";
+import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
 
 // TODO: delete and replace in each page with the generic PageHeader component at src\components\misc\PageHeader.tsx
 export function MembersPageBack({
@@ -119,6 +121,16 @@ export function ImportButton({
         toastLoading();
         try {
           const membersData = await importCsvFile(formData);
+          const mainMembersData = [];
+          const additionalMembersData: PostFormFieldInputDto[][] = [];
+          membersData.forEach((data) => {
+            const { mainData, additionalData } = separateDataForImport(data);
+            console.log(mainData);
+            console.log(additionalData);
+            mainMembersData.push(mainData);
+            additionalMembersData.push(additionalData);
+          });
+
           await importClubMembers(club.id, membersData);
           setMembers(membersData);
           toastSuccess("Members imported successfully");
