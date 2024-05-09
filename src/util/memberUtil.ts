@@ -1,6 +1,10 @@
 import { GetInputsForClubDto } from "@/Dtos/formFieldInput/GetInputsForClubDto";
 import { GetFormFieldInputDto } from "@/Dtos/formFieldInput/GetFormFieldInputDto";
-import { studentDataWithId } from "@/gateway/member/getAllMembersForClub";
+import {
+  studentData,
+  studentDataWithId,
+} from "@/gateway/member/getAllMembersForClub";
+import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
 
 export interface studentFullData extends studentDataWithId {
   formFieldInputs: GetFormFieldInputDto[];
@@ -69,4 +73,55 @@ export const mapToObject = (data: studentFullData): any => {
     result[input.fieldName] = input.value;
   }
   return result;
+};
+
+export const separateDataForImport = (
+  expectedMappedObject: any
+): { mainData: studentData; additionalData: PostFormFieldInputDto[] } => {
+  const mainData: studentData = {
+    name: null,
+    email: "",
+    upi: null,
+    year_of_study: null,
+    student_id: null,
+    paid: false,
+    isAdmin: false,
+  };
+  const additionalData: PostFormFieldInputDto[] = [];
+
+  const mainDataFields = [
+    "name",
+    "email",
+    "upi",
+    "year_of_study",
+    "student_id",
+    "paid",
+    "isAdmin",
+  ];
+
+  for (const key in expectedMappedObject) {
+    if (!mainDataFields.includes(key)) {
+      additionalData.push({ fieldName: key, value: expectedMappedObject[key] });
+    } else {
+      if (key in mainData) {
+        if (key === "name") {
+          mainData.name = expectedMappedObject[key];
+        } else if (key === "email") {
+          mainData.email = expectedMappedObject[key];
+        } else if (key === "upi") {
+          mainData.upi = expectedMappedObject[key];
+        } else if (key === "year_of_study") {
+          mainData.year_of_study = expectedMappedObject[key];
+        } else if (key === "student_id") {
+          mainData.student_id = expectedMappedObject[key];
+        } else if (key === "paid") {
+          mainData.paid = expectedMappedObject[key];
+        } else if (key === "isAdmin") {
+          mainData.isAdmin = expectedMappedObject[key];
+        }
+      }
+    }
+  }
+
+  return { mainData, additionalData };
 };

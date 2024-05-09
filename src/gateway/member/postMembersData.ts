@@ -7,10 +7,7 @@ import { getMemberForClub } from "./getMemberForClub";
 import { postMember } from "./postMember";
 import { putMember } from "./putMember";
 
-export async function postMembersData(
-  clubId: number,
-  memberData: studentAllData[]
-) {
+export async function postMembersData(clubId: number, memberData: any[]) {
   for (const data of memberData) {
     const user = await getUserByEmail(data.email);
     let id = user?.id;

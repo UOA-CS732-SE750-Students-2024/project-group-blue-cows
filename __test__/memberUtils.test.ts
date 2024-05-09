@@ -49,7 +49,6 @@ it("combines student data with form field inputs correctly", () => {
     },
   ];
 
-  // Call the function
   const combinedData = combineMembersData(studentDataList, inputsList);
 
   // Assertion
