@@ -1,19 +1,24 @@
+import UnauthorisedUserPage from "@/app/unauthorised";
+import ClubMembershipForm from "@/components/form/ClubMembershipForm";
+import Preview from "@/components/form/Preview";
+import { RegistrationEditProvider } from "@/components/form/RegistratonEditContext";
 import EditClubRegistrationForm from "@/components/form/club-edit-registration";
+import FormWrapper from "@/components/form/form-wrapper";
 import {
   MembersPageBack,
   PreviewFormButton,
   SaveFormButton,
 } from "@/components/members/membersPageClientComponents";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { AppUser } from "@/schemas/authSchema";
 import { Club } from "@/schemas/clubSchema";
+import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 import { getClubById } from "@/services/clubServices";
+import { getFieldInputForUser } from "@/services/formFieldInputServices";
+import { auth, isUserClubAdmin } from "@/util/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { RegistrationEditProvider } from "@/components/form/RegistratonEditContext";
-import Preview from "@/components/form/Preview";
-import { getAllExtendedFields } from "@/services/clubFormFieldServices";
-import { auth, isUserClubAdmin } from "@/util/auth";
-import UnauthorisedUserPage from "@/app/unauthorised";
 
 export default async function RegistrationEditPage({
   params: { clubId },
@@ -25,8 +30,20 @@ export default async function RegistrationEditPage({
   const extendedFields = await getAllExtendedFields(+clubId);
 
   const session = await auth();
-  const user = session?.user;
+  const user = session?.user as AppUser;
   const isAdmin = await isUserClubAdmin(user, clubId);
+  const formFields = await Promise.all(
+    extendedFields.map(async (extendedField) => {
+      const input =
+        (await getFieldInputForUser(extendedField.name, user.id))?.value ?? "";
+      return {
+        name: extendedField.name,
+        type: extendedField.type,
+        description: extendedField.description,
+        value: input,
+      };
+    })
+  );
 
   if (isAdmin === false) {
     return <UnauthorisedUserPage />;
@@ -45,9 +62,7 @@ export default async function RegistrationEditPage({
         </div>
         <Preview
           previewComponent={
-            <p>
-              Replace me with registration form page/component
-            </p> /* VishvaDave replace this when member registration form is done */
+            <PreviewContent club={club} clubId={clubId} user={user} formFields={formFields} />
           }
         >
           <PageInfo />
@@ -85,5 +100,37 @@ function PageInfo() {
         fields to your club&apos;s registration form here.
       </CardContent>
     </Card>
+  );
+}
+
+function PreviewContent({ club, clubId, user, formFields }: { club: Club; clubId: string, user: AppUser, formFields: any[] }) {
+  const { logo } = club;
+
+  return (
+    <section className="w-full bg-customGrass">
+      <div className="min-h-screen justify-center w-full py-10">
+        <div className="flex flex-row space-x-4 py-2 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-3/4 max-w-4xl mx-auto shadow-md overflow-y-auto">
+          <a href={`/clubs/${clubId}/view`}>
+            <Button className="min-w-max">
+              <p> Return to Club Page </p>
+            </Button>
+          </a>
+          <img src={logo} alt="club logo" className="w-10 h-10" />
+        </div>
+        <FormWrapper
+          label="Membership Form"
+          title=""
+          formType="membership"
+          params={{ clubId: clubId }}
+        >
+          <ClubMembershipForm
+            clubId={clubId}
+            club={club}
+            clubFormFields={formFields}
+            user={user}
+          />
+        </FormWrapper>
+      </div>
+    </section>
   );
 }
