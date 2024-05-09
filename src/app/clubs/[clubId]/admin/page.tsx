@@ -1,31 +1,22 @@
-import { useState, useEffect } from "react";
-import { getClubById, getAllMembers, getListOfAdminsForClub } from "@/services/clubServices";
-import { Club } from "@/schemas/clubSchema";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  CardHeader
 } from "@/components/ui/card";
+import { Club } from "@/schemas/clubSchema";
+import { getAllMembers, getClubById, getListOfAdminsForClub } from "@/services/clubServices";
 // import MembershipDashboard from "@/components/ui/membership-dashboard";
+import { AdminProvider } from "@/components/admin/AdminPageContext";
+import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
+import { Description } from "@/components/admin/nateAdminComponents";
 import {
   Table,
-  TableHeader,
   TableBody,
-  TableRow,
   TableCell,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
-// import ClubEditForm from "@/components/form/club-edit-information";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
-import { notFound } from "next/navigation";
-import { YellowButton } from "@/components/misc/buttons";
-import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 
 export default async function AdminEditPage({
   params,
@@ -226,15 +217,10 @@ export default async function AdminEditPage({
       <div className="p-10" id="edit-form">
       <div className="w-full flex flex-col gap-4">
       <div className="flex">
-        <div className="w-1/2 p-4">
-          <Card className="p-2">
-            <p>DESCRIPTION</p>
-            {/* <Textarea
-                        value={clubData?.description}
-                        >
-            </Textarea> */}
-          </Card>
-        </div>
+        
+
+        <Description />
+        
 
          {/* ---------------- EDIT ADDITIONAL INFORMATION COMPONENT */}
 

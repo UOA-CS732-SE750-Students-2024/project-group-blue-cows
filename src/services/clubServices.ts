@@ -28,6 +28,7 @@ export async function postClub(club: CreateClubDto, user: AppUser) {
 }
 
 export async function updateClub(clubId: number, club: UpdateClubDto) {
+  revalidatePath(`/clubs/${clubId}/admin`);
   return putClub(clubId, club);
 }
 
