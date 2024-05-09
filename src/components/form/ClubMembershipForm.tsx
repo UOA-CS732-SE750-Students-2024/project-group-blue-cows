@@ -29,6 +29,8 @@ import { addFormInputs } from "@/services/formFieldInputServices";
 import { updateUser } from "@/services/userServices";
 import { notFound } from "next/navigation";
 import * as z from "zod";
+import { openModal } from "../misc/Modal";
+import LoadingSpinner from "../ui/loading-spinner";
 
 const createFormSchema = (
   formExtensions: GetClubFormFieldDto[]
@@ -120,11 +122,16 @@ export default function ClubRegistrationForm({
   if (!club) return notFound();
   // call updateUser for mandatory fields, addFormInputs for optional fields
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("handleSubmit");
+    openModal({
+      title: "Saving...",
+      content: <LoadingSpinner></LoadingSpinner>,
+      className: "",
+      type: "info",
+    });
     const memberData = await fetchMemberForClub(user?.id, Number(clubId));
     if (memberData) {
       setAlreadyMember(true);
-      alert("You are already a member of this club.");
+      window.location.href = `/payment/result?status=error&message=You+are+already+a+member.`;
       return;
     }
     const { name, email, ...objWithFilteredOutFields } = values;
@@ -152,19 +159,30 @@ export default function ClubRegistrationForm({
       .then(() => {
         // Call addFormInputs for optional fields
         addFormInputs(optionalFieldsArray, Number(clubId), user?.id || "")
-          .then(() => {
-            form.reset(); // Reset form fields after successful submission
-            alert("Membership added successfully");
-          })
-          .then(() => {
-            router.back();
+          .then(async () => {
+            if (Number(club.membership_fee) > 0) {
+              // Payment required
+              const membership = await fetchMemberForClub(
+                user.id,
+                Number(clubId)
+              );
+              if (!membership) {
+                window.location.href = `/payment/result?status=error&message=Failed+to+add+as+member.`;
+                return;
+              }
+              window.location.href = `/payment/${membership.id}/checkout`;
+            } else {
+              // No payment required
+              // Redirect the user to the success page straight away
+              window.location.href = `/payment/result?status=success&clubName=${encodeURIComponent(club.name)}&membershipId=&message=Registration+success.`;
+            }
           })
           .catch((error) => {
-            console.error("Error posting form inputs: ", error);
+            window.location.href = `/payment/result?status=error&message=Failed+to+save+your+data.`;
           });
       })
       .catch((error) => {
-        console.error("Error updating user: ", error);
+        window.location.href = `/payment/result?status=error&message=Failed+to+update+your+data.`;
       });
   };
 
