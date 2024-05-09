@@ -131,9 +131,7 @@ export default function ClubRegistrationForm({
     const memberData = await fetchMemberForClub(user?.id, Number(clubId));
     if (memberData) {
       setAlreadyMember(true);
-      router.push(
-        `/payment/result?status=error&message=You+are+already+a+member.`
-      );
+      window.location.href = `/payment/result?status=error&message=You+are+already+a+member.`;
       return;
     }
     const { name, email, ...objWithFilteredOutFields } = values;
@@ -169,30 +167,22 @@ export default function ClubRegistrationForm({
                 Number(clubId)
               );
               if (!membership) {
-                router.push(
-                  `/payment/result?status=error&message=Failed+to+add+as+member.`
-                );
+                window.location.href = `/payment/result?status=error&message=Failed+to+add+as+member.`;
                 return;
               }
-              router.push(`/payment/${membership.id}/checkout`);
+              window.location.href = `/payment/${membership.id}/checkout`;
             } else {
               // No payment required
               // Redirect the user to the success page straight away
-              router.push(
-                `/payment/result?status=success&clubName=${encodeURIComponent(club.name)}&membershipId=&message=Registration+success.`
-              );
+              window.location.href = `/payment/result?status=success&clubName=${encodeURIComponent(club.name)}&membershipId=&message=Registration+success.`;
             }
           })
           .catch((error) => {
-            router.push(
-              `/payment/result?status=error&message=Failed+to+save+your+data.`
-            );
+            window.location.href = `/payment/result?status=error&message=Failed+to+save+your+data.`;
           });
       })
       .catch((error) => {
-        router.push(
-          `/payment/result?status=error&message=Failed+to+update+your+data.`
-        );
+        window.location.href = `/payment/result?status=error&message=Failed+to+update+your+data.`;
       });
   };
 
