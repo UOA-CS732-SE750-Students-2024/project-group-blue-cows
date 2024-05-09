@@ -48,22 +48,13 @@ const createFormSchema = (
         field = z.string().min(1, `${formExtension.name} is required`);
         break;
       case "long":
-        field = z
-          .string()
-          .min(1, `${formExtension.name} is required`)
-          .max(500, `${formExtension.name} is too long`);
+        field = z.string().max(500, `${formExtension.name} is too long`);
         break;
       case "short":
-        field = z
-          .string()
-          .min(1, `${formExtension.name} is required`)
-          .max(50, `${formExtension.name} is too short`);
+        field = z.string().max(50, `${formExtension.name} is too short`);
         break;
       case "number":
-        field = z
-          .number()
-          .min(1, `${formExtension.name} is required`)
-          .max(100, `${formExtension.name} is too large`);
+        field = z.number().max(100, `${formExtension.name} is too large`);
         break;
       default:
         field = z.string().min(1, `${formExtension.name} is required`);
