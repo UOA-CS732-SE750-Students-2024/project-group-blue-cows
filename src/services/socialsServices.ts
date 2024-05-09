@@ -1,6 +1,7 @@
 "use server";
 import { PostSocialDto } from "@/Dtos/social/PostSocialDto";
 import { PutSocialDto } from "@/Dtos/social/PutSocialDto";
+import { getUserAuthenticationAdmin } from "@/gateway/helper/getUserAuthenticationAdmin";
 import { deleteSocial } from "@/gateway/social/deleteSocial";
 import { getSocialsForClub } from "@/gateway/social/getSocialsForClub";
 import { postSocial } from "@/gateway/social/postSocial";
@@ -8,6 +9,7 @@ import { putSocial } from "@/gateway/social/putSocial";
 import "server-only";
 
 export async function addSocialLink(socialDto: PostSocialDto) {
+  await getUserAuthenticationAdmin(socialDto.clubId); // checks that current user is admin for given club
   return postSocial(socialDto);
 }
 

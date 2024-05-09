@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import "server-only";
 import { db } from "../../config/db";
 
-// gets all the extende fields of a form for a specified club
+// retrieve an extended form field by name
 export async function getExtendedFormByName(name: string) {
   const results = await db
     .select({ id: extendedFormFieldSchema.id })

@@ -2,6 +2,7 @@
 import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
 import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
 import { PostClubFormFields } from "@/gateway/clubFormField/postClubFormFields";
+import { getUserAuthenticationAdmin } from "@/gateway/helper/getUserAuthenticationAdmin";
 import { validateExtendedFieldInputs } from "@/util/csvClientUtils";
 import { revalidatePath } from "next/cache";
 import "server-only";
@@ -11,7 +12,8 @@ export async function updateForm(
   clubId: number
 ) {
   revalidatePath(`/clubs/${clubId}/register/edit`);
-  await validateExtendedFieldInputs(formInput);
+  validateExtendedFieldInputs(formInput);
+  await getUserAuthenticationAdmin(clubId); // checks that current user is admin for given club
   return PostClubFormFields(formInput, clubId);
 }
 

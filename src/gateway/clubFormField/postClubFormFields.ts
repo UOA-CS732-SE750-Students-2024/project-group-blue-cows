@@ -14,7 +14,6 @@ export async function PostClubFormFields(
 ) {
   try {
     await deleteClubFormFields(clubId);
-
     const formInsert = await Promise.all(
       formInputs.map(async (formInput, index) => {
         let fieldId = await getExtendedFormByName(formInput.name);

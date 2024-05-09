@@ -4,7 +4,7 @@ import { getUserAuthentication } from "@/util/auth";
 import { and, eq, ne } from "drizzle-orm";
 import "server-only";
 import { db } from "../../config/db";
-import { getMemberForClub } from "./getMemberForClub";
+import { getUserAuthenticationAdmin } from "../helper/getUserAuthenticationAdmin";
 
 export type studentData = {
   name: string | null;
@@ -18,17 +18,15 @@ export type studentData = {
 
 export async function deleteAllMembers(clubId: number): Promise<studentData[]> {
   try {
-    const currentUser = await getUserAuthentication();
-    if (!currentUser.id) throw new Error("user has no Id");
-    const memberStatus = (await getMemberForClub(currentUser.id, clubId))
-      ?.isAdmin;
-    if (!memberStatus) throw new Error("member not admin");
+    const currentUserId = (await getUserAuthentication()).id;
+    if (!currentUserId) throw new Error("unable to find user id");
+    await getUserAuthenticationAdmin(clubId);
     await db
       .delete(membershipSchema)
       .where(
         and(
           eq(membershipSchema.club, clubId),
-          ne(membershipSchema.user, currentUser.id)
+          ne(membershipSchema.user, currentUserId)
         )
       );
     return await db
