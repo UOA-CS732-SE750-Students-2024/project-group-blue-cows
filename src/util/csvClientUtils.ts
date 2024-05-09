@@ -1,5 +1,4 @@
 import { GetExtendedFormFieldDto } from "@/Dtos/extendedFormField/GetExtendedFormFieldDto";
-import { studentData } from "@/gateway/member/getAllMembersForClub";
 
 export async function downloadAsCsv(
   headers: string[],
