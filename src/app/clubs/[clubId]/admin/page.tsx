@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { getClubById, getAllMembers, getListOfAdminsForClub } from "@/services/clubServices";
+import {
+  getClubById,
+  getAllMembers,
+  getListOfAdminsForClub,
+} from "@/services/clubServices";
 import { Club } from "@/schemas/clubSchema";
 import {
   Card,
@@ -23,9 +27,15 @@ import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
 import { notFound } from "next/navigation";
 import { YellowButton } from "@/components/misc/buttons";
-import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
+import {
+  AddNewExecButton,
+  EditClubInformation,
+  EditRegistrationFormButton,
+  ViewMembersButton,
+} from "@/components/admin/adminPageClientComponents";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { PageBackButton } from "@/components/misc/PageBackButton";
 
 export default async function AdminEditPage({
   params,
@@ -42,11 +52,6 @@ export default async function AdminEditPage({
   }
 
   // const {club} = useAdmin();
-
-
-  
-
-
 
   // const [clubData, setClubData] = useState<Club | null>(null);
 
@@ -73,20 +78,9 @@ export default async function AdminEditPage({
   const execs = await getListOfAdminsForClub(Number(params.clubId));
   console.log(execs);
 
-  const tableData = execs.map(exec => ({
-    name: exec.name
+  const tableData = execs.map((exec) => ({
+    name: exec.name,
   }));
-
-  // const data: TableData[] = [
-  //   { name: "John Doe", position: "Software Engineer" },
-  //   { name: "Jane Smith", position: "Product Manager" },
-  //   { name: "Alice Johnson", position: "UI/UX Designer" },
-  //   { name: "John Doe", position: "Software Engineer" },
-  //   { name: "Jane Smith", position: "Product Manager" },
-  //   { name: "Alice Johnson", position: "UI/UX Designer" },
-  //   { name: "John Doe", position: "Software Engineer" },
-  //   { name: "Jane Smith", position: "Product Manager" },
-  // ];
 
   // Copies the registration link to the clipboard
   //TODO: INSERT LINK
@@ -108,53 +102,49 @@ export default async function AdminEditPage({
     }
   };
 
-  
-
   return (
+    <AdminProvider initialClub={clubData as Club}>
+      <div className="h-auto w-full bg-purple-600">
+        <div className="flex px-10 pt-4 pb-2">
+          <div className="w-1/10">
+            <PageBackButton className="shrink-0" />
 
-
-    <AdminProvider initialClub = {clubData as Club} >
-
-
-<div className="h-[calc(100vh-4rem)] w-full">
-      <div className="flex px-10 pt-4 pb-2">
-        <div className="w-1/10">
-          <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-            {clubData?.name}
-          </button>
+            <button className="bg-customAccent hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+              Back
+            </button>
+          </div>
+          <div className="w-9/10"></div>
         </div>
-        <div className="w-9/10"></div>
-      </div>
-      
-      <div className="flex px-10">
-      <div className="w-1/10">
-        <img
-          src={clubData?.logo}
-          alt="Square Image"
-          className="w-full h-auto rounded-lg"
-        />
-      </div>
-      <div className="w-9/10">
-        <div className="ml-5 flex flex-col">
-          <div className="flex items-start">
-            <p className="text-lg font-bold">
-              {clubData?.name || "Loading Club Name..."}
-            </p>
+
+        <div className="flex px-10">
+          <div className="w-1/10">
+            <img
+              src={clubData?.logo}
+              alt="Club Logo"
+              className="w-[30vh] h-auto rounded-lg"
+            />
           </div>
-          <div className="flex items-start">
-            <p>
-              Also known as: {clubData?.name || "WDCC"}, WDCC UoA, Admin Editing Club ID:{" "}
-              {clubData?.id || "Loading ID"}
-            </p>
-          </div>
-          <div className="flex items-start">
-            <EditClubInformation clubData={clubData as Club} className="mt-2" />
-    </div>
+          <div className="w-9/10">
+            <div className="ml-5 flex flex-col">
+              <div className="flex items-start">
+                <p className="text-lg font-bold">
+                  {clubData?.name || "Loading Club Name..."}
+                </p>
+              </div>
+              <div className="flex items-start">
+                <p>University of Auckland Student Club</p>
+              </div>
+              <div className="flex items-start">
+                <EditClubInformation
+                  clubData={clubData as Club}
+                  className="mt-2"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div className="flex">
+      <div className="flex">
         <div className="w-1/3 px-10 py-4">
           <Card>
             <CardHeader>
@@ -165,19 +155,26 @@ export default async function AdminEditPage({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <EditRegistrationFormButton clubData={clubData as Club} className="mt-2" />
+              <EditRegistrationFormButton
+                clubData={clubData as Club}
+                className="mt-2"
+              />
             </CardContent>
           </Card>
-        </div>
 
-      {/* --------------------- Show Membership Count */}
+          {/* --------------------- Show Membership Count */}
 
-      <Card className="mt-5">
+          <Card className="mt-5">
             <div className="m-5">
               <p className="text-lg">Membership Count</p>
               <div className="flex justify-center items-center h-auto my-2 p-2 bg-customLight rounded-lg">
                 <div className="text-center">
-                  <h1 className="text-lg md:text-xl lg:text-2xl">{(await getAllMembers(clubData?.id as number)).membersFullData.length}</h1>
+                  <h1 className="text-lg md:text-xl lg:text-2xl">
+                    {
+                      (await getAllMembers(clubData?.id as number))
+                        .membersFullData.length
+                    }
+                  </h1>
                   <h2 className="text-sm md:text-md lg:text-lg">
                     Registered Members
                   </h2>
@@ -186,11 +183,9 @@ export default async function AdminEditPage({
               <ViewMembersButton clubData={clubData as Club} className="mt-2" />
             </div>
           </Card>
-          </div>
-
-      {/* --------------------- View Executives Table */}
-
-      <div className="w-2/3 p-4">
+        </div>
+        {/* --------------------- View Executives Table */}
+        <div className="w-2/3 p-4">
           <Card>
             <CardHeader>
               <p className="text-lg">Executive Members (Admin)</p>
@@ -202,104 +197,68 @@ export default async function AdminEditPage({
             <CardContent>
               <AddNewExecButton clubData={clubData as Club} className="mt-2" />
               <div className="overflow-scroll" style={{ height: "300px" }}>
-
-              <Table className="min-w-full">
-      <TableHeader>
-        <TableRow>
-          <TableCell className="font-bold">Name</TableCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {execs.map((exec, index) => (
-          <TableRow key={index}>
-            <TableCell>{exec.name}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+                <Table className="min-w-full">
+                  <TableHeader>
+                    <TableRow>
+                      <TableCell className="font-bold">Name</TableCell>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {execs.map((exec, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{exec.name}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
             </CardContent>
           </Card>
         </div>
+      </div>
 
-        {/* ---------------- EDIT DESCRIPTION COMPONENT */}
+      {/* ---------------- EDIT DESCRIPTION COMPONENT */}
       <div className="p-10" id="edit-form">
-      <div className="w-full flex flex-col gap-4">
-      <div className="flex">
-        <div className="w-1/2 p-4">
-          <Card className="p-2">
-            <p>DESCRIPTION</p>
-            {/* <Textarea
+        <div className="w-full flex flex-col gap-4">
+          <div className="flex">
+            <div className="w-1/2 p-4">
+              <Card className="p-2">
+                <p>DESCRIPTION</p>
+                {/* <Textarea
                         value={clubData?.description}
                         >
             </Textarea> */}
-          </Card>
-        </div>
+              </Card>
+            </div>
 
-         {/* ---------------- EDIT ADDITIONAL INFORMATION COMPONENT */}
+            {/* ---------------- EDIT ADDITIONAL INFORMATION COMPONENT */}
 
-        
-        <div className="w-1/2 p-4">
-          <Card className="p-2">
-            <p>ADDITIONAL INFORMATION</p>
-          </Card>
+            <div className="w-1/2 p-4">
+              <Card className="p-2">
+                <p>ADDITIONAL INFORMATION</p>
+              </Card>
+            </div>
+          </div>
+
+          {/* ---------------- EDIT SOCIALS COMPONENT */}
+          <div className="flex">
+            <div className="w-1/3 p-4">
+              <Card className="p-2">
+                <p> SOCIAL MEDIA </p>
+                {/* <SocialMediaEditor socials={socials} /> */}
+              </Card>
+            </div>
+
+            {/* ---------------- UPLOAD TO GALLERY COMPONENT */}
+            <div className="w-2/3 p-4">
+              <Card className="p-2">
+                <p>UPLOAD TO GALLERY</p>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* ---------------- EDIT SOCIALS COMPONENT */}
-      <div className="flex">
-        <div className="w-1/3 p-4">
-          <Card className="p-2">
-            <p> SOCIAL MEDIA </p>
-            {/* <SocialMediaEditor socials={socials} /> */}
-          </Card>
-        </div>
-
-      
-      {/* ---------------- UPLOAD TO GALLERY COMPONENT */}
-        <div className="w-2/3 p-4">
-          <Card className="p-2">
-            <p>UPLOAD TO GALLERY</p>
-          </Card>
-        </div>
-      </div>
-    </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-      
-
-      
-
-
-
-
     </AdminProvider>
-
-
-
-
-
 
     // <div className="h-[calc(100vh-4rem)] w-full">
     //   <div className="flex px-10 pt-4 pb-2">
@@ -393,11 +352,7 @@ export default async function AdminEditPage({
     //       </Card>
     //     </div>
 
-
     // This gap is the chasm between components which have been replaced by AdminProvider and those which have not been
-
-
-
 
     //     <div className="w-2/3 p-4">
     //       <Card>
@@ -440,5 +395,5 @@ export default async function AdminEditPage({
     //     <ClubEditForm clubId = {params.clubId}/>
     //   </div>
     // </div>
-);
+  );
 }
