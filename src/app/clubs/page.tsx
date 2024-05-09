@@ -91,7 +91,7 @@ function ClubsSearch({
 
 function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <div className="w-5/6 lg:w-11/12 m-auto mb-10 bg-">
+    <div className="w-5/6 lg:w-11/12 m-auto mb-10">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results
@@ -100,7 +100,7 @@ function ClubsList({ clubs }: { clubs: Club[] }) {
         {clubs.map(({ name, logo, description, category, id }) => (
           <Card
             key={id}
-            className="min-w-96 h-[19rem] shadow-sm shadow-slate-500 border-none"
+            className="min-w-96 h-[17rem] shadow-sm shadow-slate-500 border-none"
           >
             <CardContent className="px-8 py-5">
               <Link href={`/clubs/${id}/view`}>
