@@ -217,3 +217,30 @@ export function MembersPageBack({
     )
   }
 
+  export function CoverImageUpload ({
+    clubData,
+    className,
+  }: {
+    clubData: Club;
+    className?: string;
+  }) {
+
+    return (
+      <UploadButton
+      endpoint="imageUploader"
+      onClientUploadComplete={(res) => {
+        console.log("Files: ", res);
+        alert("Upload Completed");
+
+        //Convert url to string
+        const coverImageUrl = res[0].url.toString();
+        updateClub(clubData.id, { coverImage: coverImageUrl });
+      }}
+      onUploadError={(error: Error) => {
+        // Do something with the error.
+        alert(`ERROR! ${error.message}`);
+      }}
+    />
+    )
+  }
+
