@@ -16,6 +16,6 @@ export async function postMember(member: PostMemberDto) {
         .returning({ id: membershipSchema.id })
     ).at(0)?.id;
   } catch (error) {
-    throw new Error("Failed to insert membership into database" + error);
+    console.log("Failed to insert membership into database" + error);
   }
 }
