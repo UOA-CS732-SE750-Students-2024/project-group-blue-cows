@@ -95,8 +95,8 @@ export default function ClubRegistrationForm() {
             <p>
               The <span className="text-red-500">*</span>
               &nbsp;indicates that a field is required. To register a club on
-              Cowlaboration, your club must already be approved and registered
-              at the University of Auckland.
+              Cowmunity, your club must already be approved and registered at
+              the University of Auckland.
             </p>
           </CardContent>
           <CardFooter>

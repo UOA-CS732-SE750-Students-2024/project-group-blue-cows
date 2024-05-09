@@ -29,7 +29,7 @@ export default function ClubsPage() {
   }, [updateClubsDebounced, searchString, filter]);
 
   return (
-    <main className="h-full w-full">
+    <main className="h-full w-full bg-customGrass">
       <ClubsSearch
         searchString={searchString}
         setSearchString={setSearchString}
@@ -90,7 +90,7 @@ function ClubsSearch({
 
 function ClubsList({ clubs }: { clubs: Club[] }) {
   return (
-    <div className="w-5/6 lg:w-11/12 m-auto mb-10">
+    <div className="w-5/6 lg:w-11/12 m-auto mb-10 bg-">
       <h2 className="text-4xl font-semibold mt-10">Results</h2>
       <div role="doc-subtitle" className="text-md">
         Displaying {clubs.length} results

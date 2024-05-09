@@ -15,6 +15,17 @@ export type studentData = {
   isAdmin: boolean;
 };
 
+export type studentDataWithId = {
+  id: string;
+  name: string | null;
+  email: string;
+  upi: string | null;
+  year_of_study: number | null;
+  student_id: string | null;
+  paid: boolean;
+  isAdmin: boolean;
+};
+
 export async function getAllMembersForClub(clubId: number) {
   //This is a predefined template for headers based on what is shown on the table
   let headers = [
@@ -28,6 +39,7 @@ export async function getAllMembersForClub(clubId: number) {
   ];
   const membersData = (await db
     .select({
+      id: users.id,
       name: users.name,
       email: users.email,
       upi: users.upi,
@@ -40,7 +52,7 @@ export async function getAllMembersForClub(clubId: number) {
     .leftJoin(users, eq(membershipSchema.user, users.id))
     .leftJoin(clubSchema, eq(membershipSchema.club, clubSchema.id))
     .where(eq(clubSchema.id, clubId))
-    .orderBy(asc(users.name))) as studentData[];
+    .orderBy(asc(users.name))) as studentDataWithId[];
 
   return { headers, membersData };
 }

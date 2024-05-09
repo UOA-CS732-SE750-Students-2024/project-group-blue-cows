@@ -19,6 +19,8 @@ import { updateUser } from "@/services/userServices";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "../ui/loading-spinner";
 import { useEffect } from "react";
+import ProfileHeader from "../profile/ProfileHeader";
+import { Card, CardContent } from "../ui/card";
 
 // All fields are optional, they are just used to help the user fill in forms
 // the regex allows for blank values, so the user can clear the field if they want
@@ -94,96 +96,96 @@ export default function ProfileEditForm() {
     return <LoadingSpinner />;
   }
 
-  // Doesn't use the form wrapper so we can maximize page width
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         {/* disabled and uncontrolled as we're not pushing these fields to the DB*/}
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid-item">
-            <FormItem>
-              <FormLabel className="font-bold">Name</FormLabel>
-              <Input disabled defaultValue={user?.name || ""} />
-            </FormItem>
+        <div className="w-full flex">
+          <div className="w-4/12 p-5">
+            <Card className="h-auto w-full p-5">
+              <img
+                className="mb-2 rounded-lg"
+                src={user.image ? user.image : ""}
+                alt="User Image"
+              />
+              <FormItem>
+                <FormLabel className="font-bold">Name</FormLabel>
+                <Input disabled defaultValue={user?.name || ""} />
+              </FormItem>
+              <FormItem>
+                <FormLabel className="font-bold">Email Address</FormLabel>
+                <Input disabled defaultValue={user?.email || ""} />
+              </FormItem>
+              <Card className="w-full bg-[#FFD166] p-4 mt-4">
+                <p className="text-sm">
+                  Your name, email and profile picture are managed by your
+                  Google Account.
+                </p>
+              </Card>
+            </Card>
           </div>
+          <div className="w-8/12 p-5">
+            <Card className="h-auto w-full p-5">
+              <FormField
+                control={form.control}
+                name="studentId"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="font-bold">Student ID</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. 123456789" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              ></FormField>
 
-          <div className="grid-item">
-            <FormItem>
-              <FormLabel className="font-bold">Email Address</FormLabel>
-              <Input disabled defaultValue={user?.email || ""} />
-            </FormItem>
+              <FormField
+                control={form.control}
+                name="upi"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="font-bold">UPI</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. jdoe123" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              ></FormField>
+
+              <div className="">
+                <FormField
+                  control={form.control}
+                  name="yearOfStudy"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className="font-bold">
+                          Year of Study
+                        </FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g. 1" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                ></FormField>
+                <Button
+                  type="submit"
+                  className="w-full mt-4 bg-[#087DF1] color-white uppercase"
+                >
+                  Save Profile
+                </Button>
+              </div>
+            </Card>
           </div>
-
-          <div className="grid-item">
-            <FormItem>
-              <FormLabel className="font-bold">Profile Picture</FormLabel>
-              <Input disabled type="file" />
-            </FormItem>
-          </div>
-
-          <div className="grid-item">
-            <FormField
-              control={form.control}
-              name="studentId"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className="font-bold">Student ID</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. 123456789" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            ></FormField>
-          </div>
-
-          <div className="grid-item">
-            <FormField
-              control={form.control}
-              name="upi"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className="font-bold">UPI</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. jdoe123" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            ></FormField>
-          </div>
-
-          <div className="grid-item">
-            <FormField
-              control={form.control}
-              name="yearOfStudy"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className="font-bold">Year of Study</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. 1" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            ></FormField>
-          </div>
-        </div>
-
-        <div className="mt-4 text-right">
-          <Button
-            type="submit"
-            className="w-full bg-[#087DF1] color-white uppercase"
-          >
-            Save Profile
-          </Button>
         </div>
       </form>
     </Form>

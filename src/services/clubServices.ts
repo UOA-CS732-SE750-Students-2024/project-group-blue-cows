@@ -3,6 +3,7 @@ import { CreateClubDto } from "@/Dtos/club/CreateClubDto";
 import { UpdateClubDto } from "@/Dtos/club/UpdateClubDto";
 import { PostMemberDto } from "@/Dtos/member/PostMemberDto";
 import { PutMemberDto } from "@/Dtos/member/PutMemberDto";
+import { getAdminsForClub } from "@/gateway/club/getAdminsForClub";
 import { getClub } from "@/gateway/club/getClub";
 import { getClubs } from "@/gateway/club/getClubs";
 import { getClubsForAdmin } from "@/gateway/club/getClubsForAdmin";
@@ -11,8 +12,8 @@ import { postClubEntity } from "@/gateway/club/postClub";
 import { putClub } from "@/gateway/club/putClub";
 import { deleteAllMembers } from "@/gateway/member/deleteAllMembers";
 import { deleteMember } from "@/gateway/member/deleteMember";
-import { getAllMembersForClub } from "@/gateway/member/getAllMembersForClub";
 import { getMemberForClub } from "@/gateway/member/getMemberForClub";
+import { getMembersAllDataForClub } from "@/gateway/member/getMembersAllDataForClub";
 import { postMember } from "@/gateway/member/postMember";
 import { postMembersData } from "@/gateway/member/postMembersData";
 import { putMember } from "@/gateway/member/putMember";
@@ -31,7 +32,7 @@ export async function updateClub(clubId: number, club: UpdateClubDto) {
 }
 
 export async function getAllMembers(clubId: number) {
-  return await getAllMembersForClub(clubId);
+  return await getMembersAllDataForClub(clubId);
 }
 
 export async function getAllClubs(name: string, filter: string | null) {
@@ -55,6 +56,7 @@ export async function removeMember(clubId: number, userId: string) {
 }
 
 export async function removeAllMembers(clubId: number) {
+  revalidatePath(`clubs/${clubId}/members`);
   return await deleteAllMembers(clubId);
 }
 
@@ -80,4 +82,8 @@ export async function getListOfClubsForUser(userId: string) {
 
 export async function getListOfClubsForAdmin(userId: string) {
   return getClubsForAdmin(userId);
+}
+
+export async function getListOfAdminsForClub(clubId: number) {
+  return getAdminsForClub(clubId);
 }
