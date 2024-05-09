@@ -117,20 +117,12 @@ export default function ClubRegistrationForm({
       year_of_study: 0,
     },
   });
-  // useEffect(() => {
-  //   async function autofillFields() {
-  //     const fieldNameInput = await getFieldInputForUser("fieldName", user.id);
-  //     setFieldName(fieldNameInput);
-  //   }
-
-  //   autofillFields();
-  // }, [user.id]);
 
   useEffect(() => {
     if (user) {
       form.setValue("name", user.name || "");
-      form.setValue("student_id", user.student_id || "");
       form.setValue("email", user.email || "");
+      form.setValue("student_id", user.student_id || "");
       form.setValue("upi", user.upi || "");
       form.setValue("year_of_study", user.year_of_study || 0);
     }
@@ -139,33 +131,29 @@ export default function ClubRegistrationForm({
   if (!club) return notFound();
   // call updateUser for mandatory fields, addFormInputs for optional fields
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    // const member: PostMemberDto = {
-    //   club: Number(clubId),
-    //   user: user?.id || "",
-    //   paid: false, // TODO - SEE LUCA FOR PAYMENT INTEGRATION/VALIDATION
-    //   isAdmin: false,
-    // };
     const memberData = await fetchMemberForClub(user?.id, Number(clubId));
     if (memberData) {
       setAlreadyMember(true);
       alert("You are already a member of this club.");
       return;
     }
-
+    const { name, email, ...objWithFilteredOutFields } = values;
     // Split the values into mandatory and optional fields
     const mandatoryFields: UpdateUserDto = {
-      student_id: values.id,
-      upi: values.upi,
-      year_of_study: values.year_of_study,
+      student_id: objWithFilteredOutFields.id,
+      upi: objWithFilteredOutFields.upi,
+      year_of_study: objWithFilteredOutFields.year_of_study,
     };
 
     let optionalFields: { [key: string]: any } = Object.fromEntries(
-      Object.entries(values).filter(
+      Object.entries(objWithFilteredOutFields).filter(
         ([key]) => !Object.keys(mandatoryFields).includes(key)
       )
     );
+
     console.log("Mandatory fields: ", mandatoryFields);
     console.log("Optional fields: ", optionalFields);
+
     let optionalFieldsArray: PostFormFieldInputDto[] = Object.entries(
       optionalFields
     ).map(([fieldName, value]) => ({ fieldName, value }));
@@ -223,7 +211,12 @@ export default function ClubRegistrationForm({
               <FormItem>
                 <FormLabel className="font-bold">Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter name" type="name" {...field} />
+                  <Input
+                    disabled
+                    placeholder="Enter name"
+                    type="name"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -243,6 +236,7 @@ export default function ClubRegistrationForm({
                   </FormLabel>
                   <FormControl>
                     <Input
+                      disabled
                       placeholder="Enter email"
                       type="description"
                       {...field}

@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Club } from "@/schemas/clubSchema";
 import { getClubById } from "@/services/clubServices";
 import router, { useRouter } from "next/navigation";
-import { getClubFormFields } from "@/gateway/clubFormField/getClubFormFields";
 import { getAllExtendedFields } from "@/services/clubFormFieldServices";
 
 export default async function Page({
