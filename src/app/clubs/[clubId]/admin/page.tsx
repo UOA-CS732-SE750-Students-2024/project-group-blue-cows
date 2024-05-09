@@ -1,13 +1,11 @@
-
-import { useState, useEffect } from "react";
-
 import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader
+  CardHeader,
 } from "@/components/ui/card";
 import { Club } from "@/schemas/clubSchema";
+
 import { getAllMembers, getClubById, getListOfAdminsForClub } from "@/services/clubServices";
 import { AdminProvider } from "@/components/admin/AdminPageContext";
 import { AddNewExecButton, EditClubInformation, EditRegistrationFormButton, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
@@ -27,14 +25,21 @@ import { GetSocialDto } from "@/Dtos/social/GetSocialDto";
 import { addSocialLink, getAllSocialsForClub } from "@/services/socialsServices";
 
 import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminPageContext";
-import { notFound } from "next/navigation";
-import { YellowButton } from "@/components/misc/buttons";
-import { AddNewExecButton, CoverImageUpload, EditCategory, EditClubInformation, EditFee, EditName, EditRegistrationFormButton, GalleryImageUpload, LogoImageUpload, ViewMembersButton } from "@/components/admin/adminPageClientComponents";
+import {
+  AddNewExecButton,
+  CoverImageUpload,
+  EditCategory,
+  EditClubInformation,
+  EditFee,
+  EditName,
+  EditRegistrationFormButton,
+  GalleryImageUpload,
+  LogoImageUpload,
+} from "@/components/admin/adminPageClientComponents";
 
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import { auth, isUserClubAdmin } from "@/util/auth";
 import UnauthorisedUserPage from "@/app/unauthorised";
 
@@ -99,34 +104,12 @@ export default async function AdminEditPage({
     return <UnauthorisedUserPage />;
   }
 
-  const membershipData = {
-    degree: 150,
-    yearLevel: 200,
-  };
-
-  interface TableData {
-    name: string;
-  }
-
   const execs = await getListOfAdminsForClub(Number(params.clubId));
   console.log(execs);
 
   const tableData = execs.map((exec) => ({
     name: exec.name,
   }));
-
-  // Copies the registration link to the clipboard
-  //TODO: INSERT LINK
-  const handleCopyClick = () => {
-    navigator.clipboard
-      .writeText("insert the form link here")
-      .then(() => {
-        console.log("Text copied to clipboard");
-      })
-      .catch((error) => {
-        console.error("Failed to copy text: ", error);
-      });
-  };
 
   const scrollToEditForm = () => {
     const editFormDiv = document.getElementById("edit-form");
@@ -299,7 +282,6 @@ export default async function AdminEditPage({
                 <EditName />
                 <EditFee />
                 <EditCategory />
-
               </Card>
             </div>
           </div>
@@ -313,7 +295,6 @@ export default async function AdminEditPage({
               </Card>
             </div>
 
-
             {/* ---------------- UPLOAD LOGO COMPONENT */}
             <div className="w-2/3 p-4">
               <Card className="p-2">
@@ -323,11 +304,13 @@ export default async function AdminEditPage({
             </div>
           </div>
           <div className="flex">
-
             {/* ---------------- UPLOAD TO GALLERY COMPONENT */}
             <div className="w-2/3 p-4">
               <Card className="p-2">
                 <p>UPLOAD TO GALLERY</p>
+                <p className="mb-2">
+                  Upload photos of your club and events to display.
+                </p>
 
                 <GalleryImageUpload
                   clubData={clubData as Club}
@@ -340,12 +323,13 @@ export default async function AdminEditPage({
             <div className="w-2/3 p-4">
               <Card className="p-2">
                 <p>UPLOAD COVER IMAGE</p>
-                <p>note about file dimensions here</p>
+                <p className="mb-2">
+                  For an optimal display, please upload a horizontal image.
+                </p>
                 <CoverImageUpload
                   clubData={clubData as Club}
                   className="mt-2"
                 />
-
               </Card>
             </div>
           </div>
