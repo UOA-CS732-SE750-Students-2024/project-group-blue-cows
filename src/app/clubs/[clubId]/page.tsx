@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+// Route changed, redirect
 export default function ClubPage({ params }: { params: { clubId: string } }) {
   redirect(`/clubs/${params.clubId}/admin`);
 
