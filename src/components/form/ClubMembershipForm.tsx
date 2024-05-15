@@ -1,9 +1,9 @@
 "use client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
-import { UseFormReturn, useForm } from "react-hook-form";
+import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
+import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
+import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -15,16 +15,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { AppUser } from "@/schemas/authSchema";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { GetClubFormFieldDto } from "@/Dtos/clubFormField/GetClubFormFieldDto";
-import { PostFormFieldInputDto } from "@/Dtos/formFieldInput/PostFormFieldInputDto";
-import { UpdateUserDto } from "@/Dtos/user/UpdateUserDto";
 import { Club } from "@/schemas/clubSchema";
 import { fetchMemberForClub } from "@/services/clubServices";
 import { addFormInputs } from "@/services/formFieldInputServices";
 import { updateUser } from "@/services/userServices";
-import { notFound } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
+import { notFound, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { UseFormReturn, useForm } from "react-hook-form";
 import * as z from "zod";
 import { openModal } from "../misc/Modal";
 import LoadingSpinner from "../ui/loading-spinner";
@@ -98,7 +97,7 @@ export default function ClubRegistrationForm({
       },
       {
         name: "",
-        id: "",
+        student_id: "",
         email: "",
         upi: "",
         year_of_study: 0,
@@ -134,7 +133,7 @@ export default function ClubRegistrationForm({
     const { name, email, ...objWithFilteredOutFields } = values;
     // Split the values into mandatory and optional fields
     const mandatoryFields: UpdateUserDto = {
-      student_id: objWithFilteredOutFields.id,
+      student_id: objWithFilteredOutFields.student_id,
       upi: objWithFilteredOutFields.upi,
       year_of_study: objWithFilteredOutFields.year_of_study,
     };
@@ -275,7 +274,7 @@ export default function ClubRegistrationForm({
           />
           <FormField
             control={form.control}
-            name="id"
+            name="student_id"
             render={({ field }) => {
               return (
                 <FormItem>
