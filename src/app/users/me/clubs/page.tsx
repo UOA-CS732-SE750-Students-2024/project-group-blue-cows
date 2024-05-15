@@ -1,5 +1,7 @@
+import NotSignedIn from "@/app/not-signed-in";
 import ClubsList from "@/components/ui/clubs-list";
 import UserNavCard from "@/components/ui/user-nav-card";
+import { AppUser } from "@/schemas/authSchema";
 import {
   getListOfClubsForAdmin,
   getListOfClubsForUser,
@@ -8,7 +10,12 @@ import { getUserAuthentication } from "@/util/auth";
 import { notFound } from "next/navigation";
 
 export default async function UserClubsPage() {
-  const user = await getUserAuthentication();
+  let user: AppUser | null = null; // Define user here
+  try {
+    user = (await getUserAuthentication()) as AppUser;
+  } catch (e) {
+    return <NotSignedIn />;
+  }
   const userName = user.name ?? "guest";
   let userId = user.id;
   if (!userId) return notFound();

@@ -1,3 +1,4 @@
+import NotSignedIn from "@/app/not-signed-in";
 import ClubMembershipForm from "@/components/form/ClubMembershipForm";
 import FormWrapper from "@/components/form/form-wrapper";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,13 @@ export default async function Page({
   params: { clubId: string };
 }) {
   const club = await getClubById(+clubId);
-  const user = (await getUserAuthentication()) as AppUser;
+  let user: AppUser | null = null; // Define user here
+  try {
+    user = (await getUserAuthentication()) as AppUser;
+  } catch (e) {
+    return <NotSignedIn />;
+  }
+
   const extendedFields = await getAllExtendedFields(+clubId);
   const formFields = await Promise.all(
     extendedFields.map(async (extendedField) => {
